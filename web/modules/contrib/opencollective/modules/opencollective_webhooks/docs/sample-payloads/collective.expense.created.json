@@ -1,0 +1,58 @@
+{
+  "createdAt": "2023-04-18T02:03:00.863Z",
+  "id": 5719075,
+  "type": "collective.transaction.created",
+  "CollectiveId": 636547,
+  "data": {
+    "transaction": {
+      "id": 4439399,
+      "kind": "CONTRIBUTION",
+      "type": "CREDIT",
+      "uuid": "some-uuid",
+      "group": "some-group-uuid",
+      "amount": 100,
+      "isDebt": false,
+      "OrderId": 647059,
+      "currency": "USD",
+      "isRefund": false,
+      "ExpenseId": null,
+      "createdAt": "2023-04-18T02:03:00.829Z",
+      "taxAmount": null,
+      "description": "Registration to Test Event (Early Bird)",
+      "CollectiveId": 636547,
+      "hostCurrency": "USD",
+      "CreatedByUserId": 557871,
+      "FromCollectiveId": 637317,
+      "amountInHostCurrency": 100,
+      "hostFeeInHostCurrency": 0,
+      "netAmountInHostCurrency": 67,
+      "platformFeeInHostCurrency": 0,
+      "UsingGiftCardFromCollectiveId": null,
+      "netAmountInCollectiveCurrency": 67,
+      "amountSentToHostInHostCurrency": 67,
+      "paymentProcessorFeeInHostCurrency": -33,
+      "formattedAmount": "$1.00",
+      "formattedAmountWithInterval": "$1.00"
+    },
+    "fromCollective": {
+      "id": 4469,
+      "type": "USER",
+      "slug": "betree",
+      "name": "Benjamin",
+      "twitterHandle": "Betree83",
+      "githubHandle": "Betree",
+      "repositoryUrl": "https://github.com/Betree",
+      "image": "https://opencollective-staging.s3.us-west-1.amazonaws.com/550ac070-e0f8-11e9-9d4c-e9c71c24ba70.jpg"
+    },
+    "collective": {
+      "id": 16658,
+      "type": "COLLECTIVE",
+      "slug": "captainfact_io",
+      "name": "CaptainFact",
+      "twitterHandle": null,
+      "githubHandle": "test",
+      "repositoryUrl": "https://github.com/CaptainFact",
+      "image": "https://opencollective-staging.s3.us-west-1.amazonaws.com/10dd8f00-54c8-11eb-bfdc-17c9ddbead53.png"
+    }
+  }
+}

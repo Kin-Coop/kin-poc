@@ -1,0 +1,346 @@
+// Sub theme styling.
+@import 'variables_drupal';
+
+// Bootstrap overridden variables.
+// @see https://getbootstrap.com/docs/5.2/customize/sass/#variable-defaults.
+@import 'variables_bootstrap';
+
+// Include bootstrap.
+@import '../../../../themes/contrib/bootstrap5/scss/style';
+
+body {
+  background: $secondary;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.btn-primary {
+  background-color: $yellow;
+  color: #000;
+  border: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+h2 {
+  font-size: 3.2rem;
+  line-height: 1.5;
+}
+
+p {
+  color: #000;
+  font-size: 1.2rem;
+}
+
+li {
+  font-size: 1.2rem;
+  line-height: 1.4;
+  color: #000;
+}
+
+a {
+  color: $primary;
+  text-decoration: none;
+
+  &:hover {
+    color: $yellow;
+  }
+}
+
+nav.navbar {
+  a {
+    color: #fff;
+
+    &:hover {
+      color: $yellow;
+    }
+  }
+
+  .navbar-brand {
+    a {
+      &.site-title {
+        color: #fff;
+      }
+    }
+  }
+
+  button.navbar-toggler {
+    border-color: #fff;
+    .navbar-toggler-icon {
+      filter: invert(1);
+    }
+  }
+}
+
+label {
+  font-weight: 500;
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: .5rem;
+}
+
+form {
+
+  max-width: 700px;
+
+  fieldset, fieldset.form-item {
+    margin-top: 2rem;
+
+    label {
+      color: #000;
+    }
+
+    &.border {
+      padding: 8px 14px;
+      border-radius: 6px;
+    }
+
+    > legend > span {
+      margin: -8px -14px 1rem;
+      padding: 8px 14px;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      background: #ddd;
+      border-color: #ddd;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: #000;
+      display: block;
+
+    }
+  }
+
+  .description {
+    font-size: 1.1rem !important;
+    margin-bottom: .5rem;
+    margin-top: -.5rem;
+    color: #fff;
+  }
+
+  .fieldset-wrapper > fieldset {
+    margin-top: 0;
+  }
+}
+
+footer {
+  margin-top: 40px;
+
+  a {
+    color: #fff;
+
+    &.nav-link {
+      color: #fff;
+    }
+  }
+}
+
+#block-kin-page-title {
+  h1 {
+    margin:2rem 0;
+  }
+}
+
+#details {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 2rem 0;
+
+  summary.bg-light {
+    background-color: transparent !important;
+    margin: 0;
+    padding: 0;
+    border: none;
+
+    &::marker {
+      display: none;
+      content: '';
+    }
+
+    h3 {
+      display: inline-block;
+      background-color: $yellow !important;
+      padding: 5px 10px 9px;
+      border-radius: 6px;
+    }
+  }
+}
+
+.js details:not([open]) .details-wrapper {
+  display: block;
+  transition: all 1s ease;
+  visibility: hidden;
+  opacity: 0;
+  //height: 0;
+}
+
+details > .details-wrapper {
+  transition: visibility 0s, opacity 1s linear, height 1.5s linear;
+  visibility: visible;
+  opacity: 1;
+  //height: auto;
+}
+
+body .crm-container .big {
+  color: black;
+}
+
+legend {
+  float: none;
+}
+
+.no-caps {
+  text-transform: lowercase;
+}
+
+.block {
+  .member-block {
+    padding: .8rem;
+    border: 1px solid $yellow;
+    border-radius: 8px;
+    margin-bottom: 1.4rem;
+    margin-top: 1.4rem;
+
+    a {
+      color: $primary;
+
+      &.btn-primary {
+        color: #000;
+
+        &:hover {
+          color: #fff;
+        }
+      }
+
+      &:hover {
+        color: #fff;
+      }
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      margin: -.8rem -.8rem .8rem -.81rem;
+      padding: .8rem;
+      background: $yellow;
+      color: #000;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+  }
+}
+
+.vertical-space {
+  margin: 1.4rem 0;
+}
+
+.alert {
+  margin-top: 1.5rem;
+}
+
+.alert-success {
+  background-color: $yellow;
+  color: #000;
+}
+
+#civicrm-footer {
+  display: none;
+}
+
+#crm-container.crm-public {
+
+  .header-dark {
+    background-color: $yellow;
+    color: #000;
+  }
+
+  button {
+    background-color: $yellow;
+    color: #000;
+    font-size: 1.1rem;
+    border: none;
+    padding: 8px 12px;
+    text-shadow: none;
+
+    &:hover {
+      background-color: $primary;
+      color: #fff;
+    }
+  }
+
+  .content {
+    font-size: inherit;
+  }
+
+  .crm-section {
+    margin: 0.6rem 0 0 0;
+  }
+
+  .crm-group {
+    margin: 0;
+
+    .crm-section {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  label {
+    color: #fff;
+  }
+
+  #onBehalfOfOrg {
+    display: none;
+  }
+
+  .crm-contribution-page-id-1 {
+    .premium_block-section {
+      margin: 0;
+      padding: 0;
+    }
+
+    .cms_user-section {
+      display: none;
+    }
+  }
+
+  fieldset {
+    border: none;
+
+    &.crm-profile-name-Household_Contributions {
+      margin: 0;
+      padding: 0;
+
+      legend {
+        display: none;
+      }
+    }
+
+    &.pay_later-group {
+      border: 1px solid $yellow;
+      padding: 20px 14px 8px 0;
+      border-radius: 6px;
+
+      legend {
+        position: relative;
+        box-sizing: content-box;
+        top: 20px;
+        width: 100%;
+        margin: 0;
+        padding: 8px 8px;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        background: $yellow;
+        border-color: #ddd;
+        font-weight: 500;
+        font-size: 1.1rem;
+        color: #000;
+        display: block;
+      }
+    }
+
+
+  }
+  input {
+    color: #000;
+  }
+}

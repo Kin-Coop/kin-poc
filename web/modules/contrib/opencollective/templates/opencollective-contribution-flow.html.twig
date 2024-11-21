@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display an open collective contribution flow.
+ *
+ * Available variables:
+ * - collective: Collective slug.
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'opencollective-embed-iframe',
+    'opencollective-embed-contribution-flow',
+  ]
+%}
+<iframe {{ attributes.addClass(classes) }}></iframe>

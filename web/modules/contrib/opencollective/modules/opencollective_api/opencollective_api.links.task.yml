@@ -1,0 +1,9 @@
+opencollective_api.settings_form:
+  route_name: opencollective_api.settings_form
+  title: Client Settings
+  base_route: opencollective_api.settings_form
+
+opencollective_api.test_form:
+  route_name: opencollective_api.test_form
+  title: Client Test Form
+  base_route: opencollective_api.settings_form

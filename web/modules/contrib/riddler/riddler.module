@@ -1,0 +1,104 @@
+<?php
+
+/**
+ * @file
+ * This module provides a new captcha challenge type.
+ *
+ * This module provides a new captcha challenge type, which consists of
+ * answering a simple question to verify the user.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\captcha\Constants\CaptchaConstants;
+
+/**
+ * Implements hook_help().
+ */
+function riddler_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.riddler':
+      $output = '<p>' . t('This module provides a new captcha challenge type, which consists of answering a simple question to verify the user. This is mainly used to counter spam.') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_captcha().
+ */
+function riddler_captcha($op, $captcha_type = '', $captcha_sid = NULL) {
+  $riddles = \Drupal::service('entity_type.manager')->getStorage('riddle')->loadByProperties(['status' => TRUE]);
+
+  switch ($op) {
+    case 'list':
+      return ['Riddler'];
+
+    case 'generate':
+      if ($captcha_type == 'Riddler') {
+        // Generate a CAPTCHA code.
+        $key = array_rand($riddles);
+        $riddleEntity = $riddles[$key];
+
+        // Build the result to return.
+        $result = [];
+
+        $result['solution'] = $riddleEntity->getSolution();
+
+        $result['form']['captcha_response'] = [
+          '#type' => 'textfield',
+          '#title' => $riddleEntity->getQuestion(),
+          '#description' => $riddleEntity->getHint(),
+          '#weight' => 0,
+          '#required' => TRUE,
+          '#size' => 15,
+          '#attributes' => ['autocomplete' => 'off'],
+        ];
+        // If there are several random questions, we cannot cache.
+        if (count($riddles) > 1) {
+          $result['form']['captcha_response']['#cache'] = ['max-age' => 0];
+          \Drupal::service('page_cache_kill_switch')->trigger();
+        }
+        else {
+          // Indicate the riddler is cacheable, see captcha.api.php:
+          $result['cacheable'] = TRUE;
+        }
+
+        // Use custom validation so multiple answers can be tested.
+        $result['captcha_validate'] = 'riddler_captcha_validate';
+
+        return $result;
+      }
+      break;
+  }
+}
+
+/**
+ * Custom validation for Riddler.
+ */
+function riddler_captcha_validate($solution, $captcha_response, $element, $form_state) {
+  // If the solution is === FALSE, this is a cacheable captcha (=1 riddle)
+  // and we can not use the given "$solution",
+  // see captcha.module $captcha_validate in captcha_validate for details:
+  if ($solution === FALSE) {
+    // In this special case, there can only be one riddle. Get its answers:
+    $riddles = \Drupal::service('entity_type.manager')->getStorage('riddle')->loadByProperties(['status' => TRUE]);
+    if (!empty($riddles)) {
+      $solution = reset($riddles)->getSolution();
+    }
+  }
+  $solutions = explode(',', $solution);
+
+  // Remove any stray spaces.
+  $solutions = array_map('trim', $solutions);
+  $isolutions = array_map('strtolower', $solutions);
+
+  switch (\Drupal::config('captcha.settings')->get('default_validation')) {
+    case CaptchaConstants::CAPTCHA_DEFAULT_VALIDATION_CASE_SENSITIVE:
+      return in_array($captcha_response, $solutions);
+
+    case CaptchaConstants::CAPTCHA_DEFAULT_VALIDATION_CASE_INSENSITIVE:
+      return in_array(strtolower($captcha_response), $isolutions);
+  }
+
+  // Just in case.
+  return FALSE;
+}

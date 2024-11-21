@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall and update hooks for the riddler module.
+ */
+
+use Drupal\Core\Utility\UpdateException;
+
+/**
+ * Map old riddler "label" types to "text" types.
+ */
+function riddler_update_8201() {
+  $oldRiddles = \Drupal::configFactory()->getEditable('riddler.settings')->get('riddles');
+  $riddleStorage = \Drupal::service('entity_type.manager')->getStorage('riddle');
+  foreach ($oldRiddles as $oldRiddle) {
+    $riddleStorage->create([
+      // Convert question to id:
+      // (regex: Replace all chars but 'a-z', '0-9' and '_')
+      'id' => preg_replace('/[^a-z0-9_]/', '', mb_strtolower($oldRiddle['question'])),
+      'question' => $oldRiddle['question'],
+      'solution' => $oldRiddle['response'],
+      'status' => TRUE,
+    ])->save();
+  }
+}
+
+/**
+ * Remove orphaned riddler.settings config.
+ */
+function riddler_update_8202() {
+  \Drupal::configFactory()->getEditable('riddler.settings')->delete();
+}
+
+/**
+ * Install riddler 2.x entity type, if not yet installed.
+ */
+function riddler_update_8203() {
+  $changeList = \Drupal::entityDefinitionUpdateManager()->getChangeList();
+  if (!array_key_exists('riddle', $changeList)) {
+    return 'Skipped. The new config entity type riddle is already installed.';
+  }
+  try {
+    $riddleEntityTypeDefinition = \Drupal::service('entity_type.manager')->getDefinition('riddle');
+    \Drupal::entityDefinitionUpdateManager()->installEntityType($riddleEntityTypeDefinition);
+  }
+  catch (\Exception $exception) {
+    throw new UpdateException($exception->getMessage());
+  }
+  return 'Installed the new config entity type riddle.';
+}

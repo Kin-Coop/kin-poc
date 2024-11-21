@@ -1,0 +1,56 @@
+{
+    "createdAt": "2053-04-18T02:03:00.863Z",
+    "id": 9719075,
+    "type": "collective.transaction.created",
+    "CollectiveId": 636547,
+    "data": {
+        "transaction": {
+            "id": 4439399,
+            "kind": "CONTRIBUTION",
+            "type": "CREDIT",
+            "uuid": "133754c8-d52e-44d4-a446-ba8ab914302f",
+            "group": "1337d4999-112e-4fb9-bfdc-ca30158e9bd6",
+            "amount": 100,
+            "isDebt": false,
+            "OrderId": 647059,
+            "currency": "USD",
+            "isRefund": false,
+            "ExpenseId": null,
+            "createdAt": "2053-04-18T02:03:00.829Z",
+            "taxAmount": null,
+            "description": "Registration to Test Event (Early Bird)",
+            "CollectiveId": 636547,
+            "hostCurrency": "USD",
+            "CreatedByUserId": 557871,
+            "FromCollectiveId": 637317,
+            "amountInHostCurrency": 100,
+            "hostFeeInHostCurrency": 0,
+            "netAmountInHostCurrency": 67,
+            "platformFeeInHostCurrency": 0,
+            "UsingGiftCardFromCollectiveId": null,
+            "netAmountInCollectiveCurrency": 67,
+            "amountSentToHostInHostCurrency": 67,
+            "paymentProcessorFeeInHostCurrency": -33,
+            "formattedAmount": "$1.00",
+            "formattedAmountWithInterval": "$1.00"
+        },
+        "fromCollective": {
+            "id": 637317,
+            "type": "USER",
+            "slug": "guest-d2d5f71e",
+            "name": "Jonathan Guest",
+            "twitterHandle": "daggerhart",
+            "githubHandle": "daggerhart",
+            "repositoryUrl": null
+        },
+        "collective": {
+            "id": 636547,
+            "type": "EVENT",
+            "slug": "test-event-cbc83ea7",
+            "name": "Test Event",
+            "twitterHandle": "daggerhart",
+            "githubHandle": "daggerhart",
+            "repositoryUrl": null
+        }
+    }
+}

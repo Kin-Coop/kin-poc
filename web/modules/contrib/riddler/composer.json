@@ -1,0 +1,17 @@
+{
+  "name": "drupal/riddler",
+  "type": "drupal-module",
+  "description": "Provides a question and answer CAPTCHA.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://www.drupal.org/project/riddler",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/riddler",
+    "source": "http://cgit.drupalcode.org/riddler"
+  },
+  "require": {
+      "drupal/captcha": "^2"
+  }
+}
+

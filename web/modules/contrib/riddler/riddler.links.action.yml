@@ -1,0 +1,5 @@
+entity.riddle.add_form:
+  route_name: 'entity.riddle.add_form'
+  title: 'Add riddle'
+  appears_on:
+    - entity.riddle.collection

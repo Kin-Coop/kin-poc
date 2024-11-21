@@ -1,0 +1,19 @@
+name: OpenCollective - Commerce
+type: module
+description: Open Collective integration with Drupal Commerce.
+package: Open Collective (Experimental)
+core_version_requirement: ^9 || ^10
+lifecycle: experimental
+dependencies:
+  - opencollective:opencollective
+  - opencollective:opencollective_api
+  - opencollective:opencollective_fields
+  - commerce:commerce
+  - commerce:commerce_payment
+  - commerce:commerce_checkout
+  - commerce:commerce_order
+
+# Information added by Drupal.org packaging script on 2023-05-02
+version: '1.0.0-alpha1'
+project: 'opencollective'
+datestamp: 1683060159

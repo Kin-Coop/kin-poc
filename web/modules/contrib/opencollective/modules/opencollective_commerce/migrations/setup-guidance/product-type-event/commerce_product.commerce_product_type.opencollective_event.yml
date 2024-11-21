@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+id: opencollective_event
+label: 'OpenCollective Event'
+traits: {  }
+locked: false
+description: 'Represents an Event your Store''s collective is hosting.'
+variationType: null
+variationTypes:
+  - opencollective_event_ticket
+multipleVariations: true
+injectVariationFields: true

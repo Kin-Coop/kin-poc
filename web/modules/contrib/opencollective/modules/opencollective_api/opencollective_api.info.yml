@@ -1,0 +1,13 @@
+name: Open Collective - Api Client
+type: module
+description: Provides a developer service for access OpenCollective data through their GraphQL Api.
+package: Open Collective
+core_version_requirement: ^9 || ^10
+configure: opencollective_api.settings_form
+dependencies:
+  - opencollective:opencollective
+
+# Information added by Drupal.org packaging script on 2023-05-02
+version: '1.0.0-alpha1'
+project: 'opencollective'
+datestamp: 1683060159

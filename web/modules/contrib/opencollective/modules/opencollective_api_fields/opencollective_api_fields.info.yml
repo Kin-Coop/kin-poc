@@ -1,0 +1,14 @@
+name: Open Collective - Api Fields
+type: module
+description: Adds Open Collective integrations for Drupal fields.
+package: Open Collective
+core_version_requirement: ^9 || ^10
+dependencies:
+  - opencollective:opencollective
+  - opencollective:opencollective_api
+  - opencollective:opencollective_fields
+
+# Information added by Drupal.org packaging script on 2023-05-02
+version: '1.0.0-alpha1'
+project: 'opencollective'
+datestamp: 1683060159

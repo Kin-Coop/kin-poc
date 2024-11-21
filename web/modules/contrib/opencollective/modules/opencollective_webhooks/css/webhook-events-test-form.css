@@ -1,0 +1,56 @@
+@media (min-width: 800px) {
+  .webhooks-events-test-form--wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+  .webhooks-events-test-form--wrapper > div {
+    width: 49%;
+  }
+}
+
+.opencollective-webhooks-sample-payload--wrapper {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+details.response {
+  margin-bottom: 10px;
+}
+
+details.response summary {
+  border: 1px solid #bbb;
+}
+
+pre.opencollective-test-form {
+  font-size: 13px;
+  padding: 6px;
+  background: #eee;
+  max-width: 100%;
+  white-space: pre;
+}
+
+.polling-output-indicator {
+  width: 50px;
+  height: 50px;
+  float: right;
+  z-index: 1;
+}
+
+.polling-output-indicator img {
+  display: block;
+  height: 100%;
+  width: auto;
+  margin: 0 auto;
+}
+
+.polling-output-indicator img.spinning {
+  animation: spinning 2s linear infinite;
+}
+@keyframes spinning {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

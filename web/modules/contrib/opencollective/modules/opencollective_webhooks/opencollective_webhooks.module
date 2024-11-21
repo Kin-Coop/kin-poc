@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Open Collective webhooks module.
+ */
+
+use Drupal\views\ViewExecutable;
+
+require_once __DIR__ . '/opencollective_webhooks.theme.inc';
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function opencollective_webhooks_views_pre_render(ViewExecutable $view) {
+  if ($view->storage->id() == 'webhook_events') {
+    $view->element['#attached']['library'][] = 'opencollective_webhooks/view-webhook-events';
+  }
+}

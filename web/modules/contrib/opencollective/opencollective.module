@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Opencollective module.
+ */
+
+use Drupal\Core\Render\Markup;
+
+require_once __DIR__ . '/opencollective.theme.inc';
+
+/**
+ * Dump a value to markup safe output.
+ *
+ * @param mixed $value
+ *   Value to dump.
+ *
+ * @return \Drupal\Component\Render\MarkupInterface|string
+ *   Debug markup.
+ */
+function _opencollective_dump_as_markup($value) {
+  $markup = "<pre>" . print_r($value, 1) . "<pre>";
+  if (function_exists('dump')) {
+    ob_start();
+    dump($value);
+    $markup = ob_get_clean();
+  }
+
+  return Markup::create($markup);
+}

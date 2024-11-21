@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * Default theme implementation to .
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'opencollective-webhooks-polling-indicator--wrapper',
+  ]
+%}
+<div {{ attributes.addClass(classes) }}>{{- content -}}</div>

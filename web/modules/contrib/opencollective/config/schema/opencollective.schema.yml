@@ -1,0 +1,34 @@
+field.formatter.settings.opencollective_contribution_flow:
+  type: mapping
+  label: Embed Contribution Flow formatter settings
+  mapping:
+    tier:
+      type: string
+      label: Tier
+
+field.formatter.settings.opencollective_button:
+  type: mapping
+  label: Embed Button formatter settings
+  mapping:
+    color:
+      type: string
+      label: Color
+    verb:
+      type: string
+      label: Verb
+
+field.formatter.settings.opencollective_banner:
+  type: mapping
+  label: Embed Banner formatter settings
+  mapping:
+    banner_type:
+      type: string
+      label: Banner Type
+
+field.formatter.settings.opencollective_api_events:
+  type: mapping
+  label: Api Events formatter settings
+  mapping:
+    event_properties:
+      type: string
+      label: Event Properties

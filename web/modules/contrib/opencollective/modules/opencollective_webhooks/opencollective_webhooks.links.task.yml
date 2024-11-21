@@ -1,0 +1,25 @@
+opencollective_webhooks.settings:
+  route_name: opencollective_webhooks.settings
+  title: Webhooks Settings
+  base_route: opencollective_webhooks.settings
+
+opencollective_webhooks.test_form:
+  route_name: opencollective_webhooks.test_form
+  title: Webhooks Testing Form
+  base_route: opencollective_webhooks.settings
+
+opencollective_webhooks.webhook_event.entity.collection:
+  route_name: entity.opencollective_webhook_event.collection
+  title: Webhook Events
+  base_route: opencollective_webhooks.settings
+
+entity.opencollective_webhook_event.view:
+  title: 'View'
+  route_name: entity.opencollective_webhook_event.canonical
+  base_route: entity.opencollective_webhook_event.canonical
+
+entity.opencollective_webhook_event.delete_form:
+  title: 'Delete'
+  route_name: entity.opencollective_webhook_event.delete_form
+  base_route: entity.opencollective_webhook_event.canonical
+  weight: 10

@@ -1,0 +1,5 @@
+embed-iframe:
+  version: 0.1
+  css:
+    theme:
+      css/embed-iframe.css: {}

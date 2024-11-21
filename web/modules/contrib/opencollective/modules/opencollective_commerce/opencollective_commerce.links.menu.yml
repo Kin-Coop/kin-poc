@@ -1,0 +1,12 @@
+
+opencollective_commerce.dashboard:
+  title: 'Commerce'
+  description: 'OpenCollective Commerce Dashboard.'
+  parent: opencollective.top_level
+  route_name: opencollective_commerce.dashboard
+
+opencollective_commerce.settings_form:
+  title: 'Commerce Settings'
+  description: 'Configure OpenCollective Commerce.'
+  parent: opencollective_commerce.dashboard
+  route_name: opencollective_commerce.settings_form

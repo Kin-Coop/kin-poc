@@ -1,0 +1,14 @@
+name: Open Collective - Webhooks
+description: Provides an endpoint for incoming webhooks. When received, the module will dispatch a Drupal/Symfony event.
+package: Open Collective (Experimental)
+type: module
+core_version_requirement: ^9.2 || ^10
+configure: opencollective_webhooks.settings
+lifecycle: experimental
+dependencies:
+  - opencollective:opencollective
+
+# Information added by Drupal.org packaging script on 2023-05-02
+version: '1.0.0-alpha1'
+project: 'opencollective'
+datestamp: 1683060159
