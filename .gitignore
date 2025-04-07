@@ -8,6 +8,7 @@ Config.IDS.ini
 
 # Contrib modules will be in the composer.json file
 /web/modules/contrib
+/web/themes/contrib
 
 # Ignore configuration files that may contain sensitive information
 /web/sites/*/*settings*.php
