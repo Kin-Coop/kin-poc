@@ -24,6 +24,7 @@ Config.IDS.ini
 /web/sites/*/private
 /web/sites/*/files-public
 /web/sites/*/files-private
+/web/private:
 
 # Ignore paths that may contain temporary files
 /web/sites/*/translations
