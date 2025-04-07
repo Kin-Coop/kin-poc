@@ -18,7 +18,7 @@ Config.IDS.ini
 
 # Ignore paths that may contain user-generated content
 /web/sites/*/files
-!/web/sites/default/files/civicrm
+!/web/sites/*/files/civicrm
 /web/sites/*/public
 /web/sites/*/private
 /web/sites/*/files-public
