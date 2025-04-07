@@ -1,2 +1,0 @@
-"id","createdAt","type","collective","amount","amountInHostCurrency","currency","description","netAmountInCollectiveCurrency","hostCurrency","hostCurrencyFxRate","paymentProcessorFeeInHostCurrency","hostFeeInHostCurrency","platformFeeInHostCurrency","netAmountInHostCurrency","private note","source","isRefund"
-"7612669","2024-06-29","CREDIT","rosca","1","1","GBP","Financial contribution to ROSCA","1","GBP","","0","0","0","1","","ORDER",""

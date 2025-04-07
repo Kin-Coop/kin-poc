@@ -6,6 +6,7 @@ Config.IDS.ini
 /web/sites/default/files/civicrm/templates_c
 /web/sites/default/files/civicrm/persist
 /web/sites/default/files/civicrm/upload
+/web/sites/default/files/civicrm/custom
 
 # Contrib modules will be in the composer.json file
 /web/modules/contrib
