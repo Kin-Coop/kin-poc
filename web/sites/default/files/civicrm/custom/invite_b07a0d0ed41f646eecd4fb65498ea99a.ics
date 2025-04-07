@@ -1,0 +1,58 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VTIMEZONE
+TZID:Europe/London
+X-LIC-LOCATION:Europe/London
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0100
+TZNAME:GMT+1
+DTSTART:19700329T010000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0000
+TZNAME:GMT
+DTSTART:19701025T020000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTART;TZID=Europe/London:20240828T100000
+DTEND;TZID=Europe/London:20240828T104500
+DTSTAMP:20240823T091639Z
+ORGANIZER;CN=Michael McAndrew:mailto:michaelmcandrew@thirdsectordesign.org
+UID:qrq3k4624u5ek5b6mt7k0icvp8@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE
+ ;CN=rob@kin.coop;X-NUM-GUESTS=0:mailto:rob@kin.coop
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE
+ ;CN=Michael McAndrew;X-NUM-GUESTS=0:mailto:michaelmcandrew@thirdsectordesig
+ n.org
+X-GOOGLE-CONFERENCE:https://meet.google.com/tis-vnno-kro
+X-MICROSOFT-CDO-OWNERAPPTID:-1441437889
+CREATED:20240823T091637Z
+DESCRIPTION:<b>Booked by</b>\nRob Callender\nrob@kin.coop\n\n-::~:~::~:~:~:
+ ~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~::~:~::-\n
+ Join with Google Meet: https://meet.google.com/tis-vnno-kro\nOr dial: (GB) 
+ +44 20 3956 8273 PIN: 570030107#\nMore phone numbers: https://tel.meet/tis-
+ vnno-kro?pin=1783604526076&hs=7\n\nLearn more about Meet at: https://suppor
+ t.google.com/a/users/answer/9282720\n\nPlease do not edit this section.\n-:
+ :~:~::~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~
+ :~::~:~::-
+LAST-MODIFIED:20240823T091637Z
+LOCATION:
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Meeting (Rob Callender)
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:This is an event reminder
+TRIGGER:-P0DT1H0M0S
+END:VALARM
+END:VEVENT
+END:VCALENDAR

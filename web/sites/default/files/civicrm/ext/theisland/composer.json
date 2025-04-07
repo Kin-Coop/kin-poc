@@ -1,0 +1,5 @@
+{
+    "name": "civicrm/theisland",
+    "type": "civicrm-ext",
+    "description": "A CiviCRM theme based on Bootstrap v3"
+}

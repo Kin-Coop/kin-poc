@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<extension key="biz.jmaconsulting.customcontribstatuses" type="module">
+  <downloadUrl>https://github.com/JMAConsulting/biz.jmaconsulting.customcontribstatuses/archive/v1.3.zip</downloadUrl>
+  <file>customcontribstatuses</file>
+  <name>Custom Contribution Status</name>
+  <description>Allows user to change contribution status from non-core to core.</description>
+  <urls>
+    <url desc="Support">https://github.com/JMAConsulting/biz.jmaconsulting.customcontribstatuses/issues?state=open</url>
+    <url desc="Installation Instructions for 1.4">https://github.com/JMAConsulting/biz.jmaconsulting.customcontribstatuses/blob/master/README.md</url>
+    <url desc="Documentation">https://github.com/JMAConsulting/biz.jmaconsulting.customcontribstatuses/blob/master/README.md</url>
+  </urls>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>JMA Consulting</author>
+    <email>joe.murray@jmaconsulting.biz</email>
+  </maintainer>
+  <releaseDate>2024-12-17</releaseDate>
+  <version>1.5</version>
+  <develStage>stable</develStage>
+  <compatibility>
+    <ver>5.77</ver>
+  </compatibility>
+  <comments/>
+  <civix>
+    <namespace>CRM/Customcontribstatuses</namespace>
+    <format>24.09.1</format>
+  </civix>
+  <classloader>
+    <psr4 prefix="Civi\" path="Civi"/>
+  </classloader>
+</extension>

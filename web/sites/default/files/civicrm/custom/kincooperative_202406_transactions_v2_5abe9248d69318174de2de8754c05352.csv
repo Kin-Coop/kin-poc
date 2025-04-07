@@ -1,0 +1,2 @@
+"datetime","shortId","shortGroup","description","type","kind","isRefund","isRefunded","shortRefundId","displayAmount","amount","netAmount","currency","accountSlug","accountName","oppositeAccountSlug","oppositeAccountName","paymentMethodService","paymentMethodType","expenseType","expenseTags","payoutMethodType","merchantId","orderMemo","orderProcessedDate"
+"2024-06-29T13:01:09","877089bc","b8663aa1","Contribution from Rob Callender to ROSCA","CREDIT","CONTRIBUTION","","","","£1.00 GBP",1,1,"GBP","rosca","ROSCA","robc","Rob Callender",,,,"",,,,"2024-06-29"

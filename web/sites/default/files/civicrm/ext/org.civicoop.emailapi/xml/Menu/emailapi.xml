@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/civirules/actions/emailapi</path>
+    <page_callback>CRM_Emailapi_Form_CivirulesAction_Send</page_callback>
+    <title>Email api (civirules action)</title>
+    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>administer CiviRules</access_arguments>
+    <access_arguments>administer CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/civirules/actions/emailapi_relatedcontact</path>
+    <page_callback>CRM_Emailapi_Form_CivirulesAction_SendToRelatedContact</page_callback>
+    <title>Email api (civirules action)</title>
+    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>administer CiviRules</access_arguments>
+    <access_arguments>administer CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/civirules/actions/emailapi_rolesoncase</path>
+    <page_callback>CRM_Emailapi_Form_CivirulesAction_SendToRolesOnCase</page_callback>
+    <title>Email api (civirules action)</title>
+    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>administer CiviRules</access_arguments>    
+    <access_arguments>administer CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/civirules/actions/emailapi_contactreference</path>
+    <page_callback>CRM_Emailapi_Form_CivirulesAction_SendToContactReference</page_callback>
+    <title>E-mail api - send to Contact Reference (civirules action)</title>
+    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>administer CiviRules</access_arguments>
+    <access_arguments>administer CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/civirules/actions/emailapi_customfieldvalue</path>
+    <page_callback>CRM_Emailapi_Form_CivirulesAction_SendToCustomFieldValue</page_callback>
+    <title>E-mail api - send to Custom Field Value (civirules action)</title>
+    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>administer CiviRules</access_arguments>
+    <access_arguments>administer CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/civirules/actions/emailapi_customfieldvalue/options</path>
+    <page_callback>CRM_Emailapi_CivirulesAction_SendToCustomFieldValue::getCustomFieldsForEntity</page_callback>
+    <title></title>
+    <access_arguments>access CiviCRM</access_arguments>
+    <access_arguments>administer CiviRules</access_arguments>
+    <access_arguments>administer CiviCRM</access_arguments>
+  </item>
+</menu>

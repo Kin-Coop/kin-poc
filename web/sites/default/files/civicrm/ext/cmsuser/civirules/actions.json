@@ -1,0 +1,3 @@
+[
+  {"name":"cmsuser_create","label":"Create CMS user","class_name":"CRM_CivirulesActions_Cmsuser_Create"}
+]

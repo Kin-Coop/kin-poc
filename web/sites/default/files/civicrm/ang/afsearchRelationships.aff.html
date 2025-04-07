@@ -1,0 +1,8 @@
+<div af-fieldset="">
+  <af-field name="Household.Relationship_Status" defn="{input_attrs: {multiple: true}, label: 'Status'}" />
+  <af-field name="near_contact_id.display_name" defn="{label: 'Contact (Relationship From)', input_attrs: {}}" />
+  <af-field name="far_contact_id.display_name" defn="{label: 'Contact (Relationship To)', input_attrs: {}}" />
+  <af-field name="near_relation" defn="{input_attrs: {multiple: true}, label: 'Relationship'}" />
+  <af-field name="start_date" defn="{input_type: 'Select', search_range: true, input_attrs: {}, label: 'Start Date'}" />
+  <crm-search-display-table search-name="Relationships" display-name="Relationships"></crm-search-display-table>
+</div>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Inlay</base>
+  <class>InlayConfigSet</class>
+  <name>civicrm_inlay_config_set</name>
+  <comment>Holds sets of config defined against arbitrary schemas provided by inlay type extensions.</comment>
+  <log>false</log>
+
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique InlayConfigSet ID</comment>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+
+  <field>
+    <name>schema_name</name>
+    <type>varchar</type>
+    <length>64</length>
+    <required>true</required>
+    <comment>Machine name of schema that owns this, typically prefixed with the inlay extension shortname, e.g. inlaypay_stylesets</comment>
+  </field>
+
+  <field>
+    <name>set_name</name>
+    <type>varchar</type>
+    <length>128</length>
+    <required>true</required>
+    <comment>Machine name of this config item, where needed, must be unique within schema.</comment>
+  </field>
+
+  <field>
+    <name>label</name>
+    <type>varchar</type>
+    <length>255</length>
+    <comment>Human friendly admin name for the set</comment>
+  </field>
+
+  <field>
+    <name>config</name>
+    <type>longtext</type>
+    <required>true</required>
+    <comment>JSON blob of config.</comment>
+  </field>
+
+  <index>
+    <name>index_schema_setname</name>
+    <unique>true</unique>
+    <fieldName>schema_name</fieldName>
+    <fieldName>set_name</fieldName>
+  </index>
+</table>

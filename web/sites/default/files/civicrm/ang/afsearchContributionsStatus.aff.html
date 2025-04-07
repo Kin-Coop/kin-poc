@@ -1,0 +1,10 @@
+<div af-fieldset="" store-values="1">
+  <af-field name="contribution_status_id" defn="{input_attrs: {multiple: true}}" />
+  <af-field name="Kin_Contributions.Approved" defn="{input_attrs: {multiple: true}}" />
+  <af-field name="total_amount" defn="{expose_operator: true, search_operator: '=', input_attrs: {}, required: false}" />
+  <af-field name="financial_type_id" defn="{input_attrs: {multiple: true}}" />
+  <af-field name="Kin_Contributions.Frequency" defn="{input_attrs: {multiple: true}, label: 'Frequency'}" />
+  <af-field name="Kin_Contributions.Household.display_name" defn="{label: 'Group', input_attrs: {}}" />
+  <af-field name="contact_id.display_name" defn="{label: 'Member', input_attrs: {}}" />
+  <crm-search-display-table search-name="Contributions" display-name="Contributions_Table_1"></crm-search-display-table>
+</div>

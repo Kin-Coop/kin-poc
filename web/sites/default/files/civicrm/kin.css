@@ -1,0 +1,40 @@
+#crm-container.crm-public .header-dark {
+        background-color: #FDC652;
+        color: #000;
+    }
+
+#crm-container.crm-public a {
+    color: #fff;
+}
+
+#crm-container.crm-public .alert a,
+#crm-container.crm-public .messages a,
+#crm-container.crm-public .select2-container a {
+    color: #2D4C9B;
+}
+
+#crm-container.crm-public .alert a:hover, #crm-container.crm-public .messages a:hover {
+    text-decoration: underline;
+}
+
+#crm-container.crm-public fieldset .crm-section {
+    margin: 1em 2em 1em 2em;
+}
+
+#crm-container.crm-public .crm-group .crm-section {
+    margin: 1em 2em 1em 2em !important;
+}
+
+#crm-container.crm-public .crm-group .crm-section.form-item {
+    margin: .6em 0 0 !important;
+}
+
+@media (min-width: 480px) {
+    .crm-container .crm-section .label {
+        width: 180px;
+    }
+}
+
+body .crm-search-display .crm-search-display-editable-buttons {
+    bottom: -50px;
+}

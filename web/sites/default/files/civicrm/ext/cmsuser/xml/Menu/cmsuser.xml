@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/civirules/conditions/cmsuser_hasaccount</path>
+    <page_callback>CRM_CivirulesConditions_Cmsuser_Form_HasAccount</page_callback>
+    <title>Civirules CMSUser Has account condition</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/task/create-cmsuser</path>
+    <page_callback>CRM_Cmsuser_Form_Task_CreateCMSUser</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+</menu>

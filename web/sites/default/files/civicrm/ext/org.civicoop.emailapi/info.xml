@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<extension key="org.civicoop.emailapi" type="module">
+  <file>emailapi</file>
+  <name>Email API</name>
+  <description>API to send an email to a contact</description>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>Jaap Jansma - CiviCooP</author>
+    <email>helpdesk@civicoop.org</email>
+  </maintainer>
+  <urls>
+    <url desc="Main Extension Page">https://lab.civicrm.org/extensions/emailapi</url>
+    <url desc="documentation">https://lab.civicrm.org/extensions/emailapi/blob/master/README.md</url>
+    <url desc="Support">https://civicoop.org</url>
+    <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
+  </urls>
+  <releaseDate>2024-11-08</releaseDate>
+  <version>2.16.0</version>
+  <develStage>stable</develStage>
+  <compatibility>
+    <ver>5.74</ver>
+  </compatibility>
+  <classloader>
+    <psr4 prefix="Civi\" path="Civi"/>
+    <psr0 prefix="CRM_" path="."/>
+  </classloader>
+  <comments>
+    Original developed by https://civicoop.org. Contributed by https://www.ixiam.com and https://www.mjwconsult.co.uk
+  </comments>
+  <civix>
+    <namespace>CRM/Emailapi</namespace>
+    <format>24.09.1</format>
+  </civix>
+  <mixins>
+    <mixin>menu-xml@1.0.0</mixin>
+    <mixin>entity-types-php@2.0.0</mixin>
+    <mixin>smarty@1.0.3</mixin>
+  </mixins>
+  <upgrader>CiviMix\Schema\Emailapi\AutomaticUpgrader</upgrader>
+</extension>

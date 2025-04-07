@@ -1,0 +1,43 @@
+BEGIN:VCALENDAR
+PRODID:-//zoom.us//iCalendar Event//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VTIMEZONE
+TZID:Europe/London
+LAST-MODIFIED:20240422T053450Z
+TZURL:https://www.tzurl.org/zoneinfo-outlook/Europe/London
+X-LIC-LOCATION:Europe/London
+BEGIN:DAYLIGHT
+TZNAME:BST
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0100
+DTSTART:19700329T010000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:GMT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0000
+DTSTART:19701025T020000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20240918T105047Z
+DTSTART;TZID=Europe/London:20241009T120000
+DTEND;TZID=Europe/London:20241009T130000
+SUMMARY:Framing numbers\, statistics and the economy to talk about homes
+UID:b97kuj9o70q3edhh70oj2cpj9td5ei1g9hrlkki5d5j58dj8cl76spbqb58g
+TZID:Europe/London
+DESCRIPTION:Join from a PC\, Mac\, iPad\, iPhone or Android device:\n    Please click this URL to join. https://us02web.zoom.us/w/88476181133?tk=NRmXSjWKSa6BvrYbIWZEIiJey1pR3q8TyMvpXNSqnFg.DQcAAAAUmZdijRZPWldIMEx3WlJFaWZUNmhlTm5lellRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=EAVKolyJLjSf1W8Crnib8d0qKhaa4X.1&uuid=WN_OIY2idKRTvOo_yOwXucw1Q\n    Passcode: 048407\n	Description: The latest webinar in our Talking about Homes series will explore how to effectively frame numbers and statistics\, and how to talk about the economy and our homes. \n\nStatistics and numbers can be useful for supporting our communications\, but they can’t tell a story by itself. There are many numbers - such as homelessness data\, housing benefit costs\, percentage price rises - that we use to try to convince the public of why we need changes to our housing system. Yet no matter how compelling a statistic might seem to us\, it’s unlikely to change hearts and minds when left adrift and unframed. Or worse\, it could be misinterpreted and end up telling a different story about homes entirely.   \n\nJoin FrameWorks UK\, in partnership with JRF and the Nationwide Foundation\, for a useful webinar that will provide insights and tips to help you: \n•	Understand why framing data makes a difference to your communications\n•	Hone your skills – with practical guidance and examples\, so you can use numbers to make the right impact\n•	Decide if\, when and how to make the economic case for changes to our housing system\n\nThis webinar will benefit anyone who writes and talks about the importance of improving and reforming housing in the UK and who uses numbers and statistics in their communications. It will last for one hour\, which will include about 40 minutes for a presentation and then the remaining time for questions and answers.\n\nRegister today to secure your place\, and be part of the conversation.\n\nOr One tap mobile:\n    +442039017895\,\,88476181133#\,\,\,\,*048407# United Kingdom\n    +442080806591\,\,88476181133#\,\,\,\,*048407# United Kingdom\n\nOr join by phone:\n    Dial(for higher quality\, dial a number based on your current location):\n        United Kingdom: +44 203 901 7895  or +44 208 080 6591  or +44 208 080 6592  or +44 330 088 5830  or +44 131 460 1196  or +44 203 481 5237  or +44 203 481 5240 \n    Webinar ID: 884 7618 1133\n    Passcode: 048407\n    International numbers available: https://us02web.zoom.us/u/kqRJgV4y3\n\n
+LOCATION:https://us02web.zoom.us/w/88476181133?tk=NRmXSjWKSa6BvrYbIWZEIiJey1pR3q8TyMvpXNSqnFg.DQcAAAAUmZdijRZPWldIMEx3WlJFaWZUNmhlTm5lellRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&pwd=EAVKolyJLjSf1W8Crnib8d0qKhaa4X.1&uuid=WN_OIY2idKRTvOo_yOwXucw1Q
+ORGANIZER;ROLE=REQ-PARTICIPANT;CN=JRF Host:no-reply@zoom.us
+ATTENDEE;ROLE=REQ-PARTICIPANT;CN=Rob Callender:rob@kin.coop
+BEGIN:VALARM
+TRIGGER:-PT10M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,11 @@
+{
+    "type": "search",
+    "title": "Test 2 Rels",
+    "placement": [],
+    "icon": "fa-list-alt",
+    "server_route": "civicrm/test2",
+    "permission": [
+        "access CiviCRM"
+    ],
+    "permission_operator": "AND"
+}
