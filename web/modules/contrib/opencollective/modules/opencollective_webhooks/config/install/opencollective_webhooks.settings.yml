@@ -1,4 +1,0 @@
-incoming_webhook_secret: ''
-poll_access_token_lifespan: 300
-poll_length: 2
-debug_mode: false

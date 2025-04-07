@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: opencollective_order_item
-label: 'OpenCollective Order item'
-traits: {  }
-locked: false
-purchasableEntityType: commerce_product_variation
-orderType: opencollective_order

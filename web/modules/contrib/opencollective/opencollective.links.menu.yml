@@ -1,5 +1,0 @@
-opencollective.top_level:
-  title: Open Collective
-  description: 'Open Collective related settings and integrations.'
-  parent: system.admin_config
-  route_name: opencollective.top_level

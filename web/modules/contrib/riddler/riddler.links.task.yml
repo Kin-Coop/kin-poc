@@ -1,4 +1,0 @@
-entity.riddle.collection:
-  route_name: entity.riddle.collection
-  title: 'Riddler Riddles'
-  base_route: captcha_settings

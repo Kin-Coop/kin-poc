@@ -1,9 +1,0 @@
-opencollective_commerce.dashboard:
-  route_name: opencollective_commerce.dashboard
-  title: Commerce Dashboard
-  base_route: opencollective_commerce.dashboard
-
-opencollective_commerce.settings_form:
-  route_name: opencollective_commerce.settings_form
-  title: Commerce Settings
-  base_route: opencollective_commerce.dashboard

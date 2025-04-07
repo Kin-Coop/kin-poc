@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: opencollective_event_ticket
-label: 'OpenCollective Event Ticket'
-traits: {  }
-locked: false
-orderItemType: opencollective_order_item
-generateTitle: false

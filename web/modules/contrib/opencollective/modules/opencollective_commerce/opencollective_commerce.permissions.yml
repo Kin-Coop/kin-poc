@@ -1,3 +1,0 @@
-administer opencollective_commerce configuration:
-  title: 'Administer opencollective_commerce configuration'
-  restrict access: true

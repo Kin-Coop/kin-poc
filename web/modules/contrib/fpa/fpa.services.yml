@@ -1,5 +1,0 @@
-services:
-  fpa.route_subscriber:
-    class: Drupal\fpa\Routing\RouteSubscriber
-    tags:
-      - { name: event_subscriber }

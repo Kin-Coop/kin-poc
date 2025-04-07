@@ -1,8 +1,0 @@
-# Schema for the configuration files of the OpenCollective Commerce module.
-opencollective_commerce.settings:
-  type: config_object
-  label: 'OpenCollective Commerce settings'
-  mapping:
-    example:
-      type: string
-      label: 'Example'
