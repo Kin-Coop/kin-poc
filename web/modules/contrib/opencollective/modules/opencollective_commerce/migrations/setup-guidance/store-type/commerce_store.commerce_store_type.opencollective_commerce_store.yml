@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: opencollective_commerce_store
-label: 'OpenCollective Commerce Store'
-traits: {  }
-locked: false
-description: 'Integrated with an Open Collective.'

@@ -1,0 +1,3 @@
+services:
+  kin_civi.kin_civi_service:
+    class: 'Drupal\kin_civi\Service\kin_civi_emails'

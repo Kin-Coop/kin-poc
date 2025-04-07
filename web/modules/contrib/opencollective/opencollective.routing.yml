@@ -1,7 +1,0 @@
-opencollective.top_level:
-  path: '/admin/config/opencollective'
-  defaults:
-    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'Open Collective'
-  requirements:
-    _permission: 'access administration pages'

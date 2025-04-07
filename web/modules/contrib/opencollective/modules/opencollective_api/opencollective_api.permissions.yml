@@ -1,7 +1,0 @@
-administer opencollective_api configuration:
-  title: 'Administer opencollective_api configuration'
-  restrict access: true
-
-access opencollective_api test form:
-  title: 'Access opencollective_api test form'
-  restrict access: true

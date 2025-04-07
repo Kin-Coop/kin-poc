@@ -1,6 +1,0 @@
-entity.riddle.collection:
-  title: 'Riddler riddles'
-  description: 'Configure Riddler questions.'
-  route_name: entity.riddle.collection
-  parent: captcha.settings
-  weight: 10

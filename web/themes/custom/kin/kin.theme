@@ -4,3 +4,16 @@
  * @file
  * Kin theme file.
  */
+
+/*
+function kin_views_pre_render(&$view){
+    //echo '<pre>';
+    print 'HELLO ' . $view->name;
+    //echo '</pre>'
+  //if($view->name == 'view_contributions_block_1'){
+    if(empty($view->result) && isset($view->exposed_widgets)){
+        $view->exposed_widgets = FALSE;
+      }
+  //}
+}
+*/

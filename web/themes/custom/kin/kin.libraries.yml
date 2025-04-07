@@ -2,7 +2,11 @@ global-styling:
   css:
     theme:
       css/style.css: {}
+      css/kin_style.css: {}
 global-scripts:
   version: 1.x
   js:
     js/script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

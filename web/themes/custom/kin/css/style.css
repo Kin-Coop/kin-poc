@@ -12812,11 +12812,35 @@ body {
   background: #5CBEB5;
   color: #fff;
   font-size: 1.1rem;
+  font-family: "Open Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+p {
+  font-family: "Open Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1, .h1 {
+  font-family: "Paytone One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
+  font-family: "Montserrat", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .btn-primary {
-  background-color: #FDC652;
-  color: #000;
+  background-color: #E6460F;
+  color: #fff;
   border: none;
   font-weight: 500;
   font-size: 1.1rem;
@@ -12825,6 +12849,18 @@ body {
 h2, .h2 {
   font-size: 3.2rem;
   line-height: 1.5;
+}
+h2.comment-form__title, .comment-form__title.h2 {
+  font-size: 1.4rem;
+  line-height: 1.3;
+}
+.field--name-field-comments > h2.title, .field--name-field-comments > .title.h2 {
+  font-size: 1.8rem;
+  line-height: 1.4;
+}
+
+h3, .h3 {
+  margin-bottom: 1.4rem;
 }
 
 p {
@@ -12838,19 +12874,63 @@ li {
   color: #000;
 }
 
+th {
+  font-weight: 500;
+}
+
+button[type=submit], .crm-container button[type=submit].crm-button {
+  margin-bottom: 2rem;
+}
+
+.crm-contribute-widget {
+  margin: 0.5rem 0 2rem;
+}
+
+.crm-container .bold,
+strong {
+  font-weight: 500;
+}
+
+.hide {
+  display: none;
+}
+
 a {
-  color: #2D4C9B;
+  color: #fff;
   text-decoration: none;
 }
 a:hover {
-  color: #FDC652;
+  color: #2D4C9B;
+}
+.messages a {
+  color: #2D4C9B;
+}
+.messages a:hover {
+  color: #000;
+}
+
+.form-type-checkbox label + .description {
+  margin-left: 0;
+}
+
+.btn-lg, .btn-group-lg > .btn, .btn-group-lg > button.link, .btn-group-lg > .button, .node-preview-container .btn-group-lg > .node-preview-backlink {
+  font-size: 1.5rem;
+}
+
+.btn-secondary {
+  background-color: #2D4C9B;
+  color: #fff;
+}
+.btn-secondary:hover {
+  background-color: #FDC652;
+  color: #000;
 }
 
 nav.navbar a {
   color: #fff;
 }
-nav.navbar a:hover {
-  color: #FDC652;
+nav.navbar a:hover, nav.navbar a.active, nav.navbar .media-library-view--widget .view-header a.is-active, .media-library-view--widget .view-header nav.navbar a.is-active {
+  color: #FDC652 !important;
 }
 nav.navbar .navbar-brand a.site-title {
   color: #fff;
@@ -12860,6 +12940,18 @@ nav.navbar button.navbar-toggler {
 }
 nav.navbar button.navbar-toggler .navbar-toggler-icon {
   filter: invert(1);
+}
+
+.region-breadcrumb #block-kin-views-block-messages-block-2 {
+  margin-top: 1rem;
+}
+.region-breadcrumb #block-kin-views-block-messages-block-2 a {
+  display: block;
+  background-color: rgb(254.1657142857, 231.2228571429, 182.8342857143);
+  color: #2D4C9B;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  margin: 1rem 0;
 }
 
 label {
@@ -12872,6 +12964,16 @@ label {
 form {
   max-width: 700px;
 }
+form .form--inline {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin-bottom: 0.8rem;
+}
+form .form--inline .form-item, form .form--inline .form-actions {
+  margin: 0.7rem 1rem 0.7rem 0;
+}
 form fieldset, form fieldset.form-item {
   margin-top: 2rem;
 }
@@ -12883,7 +12985,7 @@ form fieldset.border, form fieldset.form-item.border {
   border-radius: 6px;
 }
 form fieldset > legend > span, form fieldset.form-item > legend > span {
-  margin: -8px -14px 1rem;
+  margin: -8px -16px 0;
   padding: 8px 14px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
@@ -12894,24 +12996,48 @@ form fieldset > legend > span, form fieldset.form-item > legend > span {
   color: #000;
   display: block;
 }
+form fieldset.form-item:first-of-type {
+  margin-top: 0;
+}
 form .description {
   font-size: 1.1rem !important;
   margin-bottom: 0.5rem;
-  margin-top: -0.5rem;
   color: #fff;
+}
+form .description p {
+  color: #fff;
+}
+form .description p a {
+  color: #2D4C9B;
+}
+form .description p a:hover {
+  color: #FDC652;
 }
 form .fieldset-wrapper > fieldset {
   margin-top: 0;
 }
+form.webform-submission-join-kin-group-form .form-type-checkbox .description {
+  margin-left: 0;
+}
 
-footer {
+footer.footer {
   margin-top: 40px;
 }
-footer a {
+footer.footer .region-footer {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+footer.footer .region-footer a {
   color: #fff;
 }
-footer a.nav-link, footer .media-library-view--widget .view-header a, .media-library-view--widget .view-header footer a {
+footer.footer .region-footer a:hover {
+  color: #FDC652;
+}
+footer.footer .region-footer a.nav-link, footer.footer .region-footer .media-library-view--widget .view-header a, .media-library-view--widget .view-header footer.footer .region-footer a {
   color: #fff;
+}
+footer.footer .region-footer a.nav-link:hover, footer.footer .region-footer .media-library-view--widget .view-header a:hover, .media-library-view--widget .view-header footer.footer .region-footer a:hover {
+  color: #FDC652;
 }
 
 #block-kin-page-title h1, #block-kin-page-title .h1 {
@@ -12968,31 +13094,61 @@ legend {
 
 .block .member-block {
   padding: 0.8rem;
-  border: 1px solid #FDC652;
+  border: 1px solid #2D4C9B;
   border-radius: 8px;
   margin-bottom: 1.4rem;
   margin-top: 1.4rem;
+  background: #fff;
+  color: #000;
+}
+.block .member-block.lines .views-row {
+  border-bottom: 1px solid #FDC652;
+  padding: 0 0 0.3rem 0;
+  margin: 0.3rem 0 0 0;
 }
 .block .member-block a {
   color: #2D4C9B;
 }
 .block .member-block a.btn-primary {
-  color: #000;
+  color: #fff;
 }
 .block .member-block a.btn-primary:hover {
   color: #fff;
 }
 .block .member-block a:hover {
-  color: #fff;
+  color: #E6460F;
+}
+.block .member-block table th {
+  background-color: #ccc;
+}
+.block .member-block table a:hover {
+  color: #FDC652;
 }
 .block .member-block h2, .block .member-block .h2 {
   font-size: 1.3rem;
   margin: -0.8rem -0.8rem 0.8rem -0.81rem;
   padding: 0.8rem;
-  background: #FDC652;
-  color: #000;
+  background: #2D4C9B;
+  color: #fff;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
+}
+.block .member-block h3, .block .member-block .h3 {
+  font-size: 1.2rem;
+  margin: -0.8rem -0.8rem 0.8rem -0.81rem;
+  padding: 0.8rem;
+  background: #2D4C9B;
+  color: #fff;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.block .member-block .views-field-id-2 a {
+  margin-left: 1.4rem;
+}
+
+table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
+  background-color: rgb(183.1513157895, 226.3486842105, 222.3815789474) !important;
+  --bs-table-bg-type: lighten($secondary, 25%) !important;
 }
 
 .vertical-space {
@@ -13012,6 +13168,14 @@ legend {
   display: none;
 }
 
+#crm-container.crm-public {
+  margin-bottom: 5rem;
+}
+#crm-container.crm-public h3, #crm-container.crm-public .h3 {
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+}
 #crm-container.crm-public .header-dark {
   background-color: #FDC652;
   color: #000;
@@ -13031,6 +13195,11 @@ legend {
 #crm-container.crm-public .content {
   font-size: inherit;
 }
+#crm-container.crm-public .description {
+  color: #000;
+  line-height: 1.4;
+  font-style: normal;
+}
 #crm-container.crm-public .crm-section {
   margin: 0.6rem 0 0 0;
 }
@@ -13041,8 +13210,19 @@ legend {
   margin: 0;
   padding: 0;
 }
+#crm-container.crm-public textarea {
+  width: 80%;
+}
+#crm-container.crm-public #helprow-contribution_note {
+  margin-bottom: 0 !important;
+  margin-left: 10% !important;
+}
+#crm-container.crm-public #helprow-contribution_note + .editrow_contribution_note-section {
+  margin-top: 0 !important;
+}
 #crm-container.crm-public label {
   color: #fff;
+  margin-right: 0.8rem;
 }
 #crm-container.crm-public #onBehalfOfOrg {
   display: none;
@@ -13057,11 +13237,11 @@ legend {
 #crm-container.crm-public fieldset {
   border: none;
 }
-#crm-container.crm-public fieldset.crm-profile-name-Household_Contributions {
+#crm-container.crm-public fieldset.crm-profile-name-Household_Contributions, #crm-container.crm-public fieldset.crm-profile-name-Membership_Fee, #crm-container.crm-public fieldset.crm-profile-name-Contribution_Reference {
   margin: 0;
   padding: 0;
 }
-#crm-container.crm-public fieldset.crm-profile-name-Household_Contributions legend {
+#crm-container.crm-public fieldset.crm-profile-name-Household_Contributions legend, #crm-container.crm-public fieldset.crm-profile-name-Membership_Fee legend, #crm-container.crm-public fieldset.crm-profile-name-Contribution_Reference legend {
   display: none;
 }
 #crm-container.crm-public fieldset.pay_later-group {
@@ -13087,6 +13267,254 @@ legend {
 }
 #crm-container.crm-public input {
   color: #000;
+}
+
+.view-faqs .views-row {
+  margin: 0 0 1rem;
+}
+
+.views-field-fieldset .faq-parent > div {
+  display: none;
+}
+.views-field-fieldset .faq-parent.show > legend {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background-image: url("../assets/images/Arrow-white-back.svg");
+  background-color: #2D4C9B;
+  color: #fff;
+}
+.views-field-fieldset .faq-parent.show > div {
+  display: block;
+}
+
+.views-field-fieldset fieldset.faq-child > div {
+  display: none;
+  background-color: rgb(164.9210526316, 219.0789473684, 214.1052631579);
+}
+.views-field-fieldset fieldset.faq-child.show > legend {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background-image: url("../assets/images/Arrow-white-back.svg");
+  background-color: #2D4C9B;
+  color: #fff;
+}
+
+.views-field-fieldset .collapse {
+  display: block;
+}
+.views-field-fieldset .collapse legend {
+  position: relative;
+  font-weight: 500;
+  display: block;
+  background: #FDC652 url("../assets/images/Arrow-white.svg") no-repeat right center;
+  background-position: right 20px center;
+  background-size: 20px;
+  font-size: 1.2rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.4rem;
+  color: #000;
+  margin: 1rem 0 0;
+}
+.views-field-fieldset .collapse legend:hover {
+  cursor: pointer;
+  background-color: #2D4C9B;
+  color: #fff;
+}
+.views-field-fieldset .collapse > div {
+  padding: 1rem;
+  background-color: rgb(65.8552631579, 165.1447368421, 156.0263157895);
+  margin: 0;
+  border-bottom-left-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
+}
+.child-terms .views-field-fieldset .collapse > div {
+  display: none;
+}
+
+.faq-search .view-content {
+  padding: 1rem 1.6rem;
+  background: #eee;
+  color: #333;
+  border-radius: 0.4rem;
+  margin: 0 0 3rem;
+}
+.faq-search .view-content .views-row {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+.faq-search .view-content .views-row .views-field-name {
+  margin: -1rem -1.6rem 0 -1.6rem;
+  padding: 1rem 1.6rem 1rem 1.6rem;
+  background: #2D4C9B;
+  color: #fff;
+  border-top-left-radius: 0.4rem;
+  border-top-right-radius: 0.4rem;
+}
+.faq-search .view-content .views-row .views-field-name h4, .faq-search .view-content .views-row .views-field-name .h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+.faq-search .view-content .views-row .views-field-description__value {
+  margin: 1.4rem 0 0;
+}
+
+.crm-not-you-message,
+.pay_later-group {
+  display: none;
+}
+
+.gift-details .views-field-id-2 {
+  display: inline-block;
+}
+.gift-details .views-field-id-2 .btn-primary {
+  margin: 1rem 0;
+}
+.gift-details .views-field-nothing {
+  display: inline-block;
+  margin: 1rem 0 1rem 2rem;
+}
+
+.blue {
+  color: #2D4C9B;
+  margin-top: 0.4rem;
+}
+.blue a {
+  color: #2D4C9B;
+}
+.blue a:hover {
+  color: #fff;
+}
+
+table td a, table th a {
+  color: #2D4C9B;
+}
+
+.no-table table {
+  background-color: transparent !important;
+}
+.no-table table tr {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+.no-table table tr:last-child {
+  border-bottom: none;
+}
+.no-table table tr:last-child td {
+  border: none;
+}
+.no-table table tr td {
+  background-color: transparent !important;
+  --bs-table-bg-type: transparent !important;
+  padding: 0.3rem 0.6rem !important;
+}
+
+.privatemsg-message .privatemsg-message-recipient-unread-marker {
+  color: #2D4C9B;
+}
+
+.privatemsg-message-body, .field--name-message:not(.field--widget-text-textarea) {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.4rem 0.7rem;
+}
+
+#private-message-page .private-message-recipients article.profile .username {
+  display: inline-block;
+}
+#private-message-page .private-message-recipients article.profile .block-unblock {
+  display: inline-block;
+  margin-left: 1.4rem;
+}
+#private-message-page .field--name-private-messages .private-message {
+  border: none !important;
+}
+#private-message-page .field--name-private-messages .private-message .field__items .field__item p.username {
+  margin-bottom: 0.3rem;
+}
+#private-message-page .field--name-private-messages .private-message .field__items .field__item .block-unblock {
+  display: none;
+}
+
+#thread-members-display-container .private-message-member-display-item span {
+  color: #000;
+}
+
+#block-kin-privatemessageactions {
+  margin: 0 0 1.6rem 0;
+}
+#block-kin-privatemessageactions a:first-child {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  background-color: #FDC652;
+  color: #000;
+  border-radius: 6px;
+  margin: 0 1.6rem 0 0;
+  font-weight: 500;
+}
+#block-kin-privatemessageactions a:first-child:hover {
+  background-color: #2D4C9B;
+  color: #FDC652;
+}
+
+.node__meta .profile .block-unblock {
+  display: none;
+}
+
+.node--type-post .node__meta {
+  padding: 0 0 0.9rem;
+}
+.node--type-post .node__meta a {
+  color: #2D4C9B;
+}
+.node--type-post .node__meta a:hover {
+  color: #FDC652;
+}
+.node--type-post .node__content .node__links .links {
+  display: none;
+}
+
+.field--name-field-comments .comment__meta {
+  margin: 0 0 0.3rem;
+  padding: 0;
+  text-align: right;
+}
+.field--name-field-comments .comment__meta .comment__submitted {
+  margin-bottom: 0.3rem;
+  font-size: 1.05rem;
+}
+.field--name-field-comments .comment__meta .comment__submitted ~ a {
+  display: none;
+}
+.field--name-field-comments .comment-form__title {
+  margin: 1.4rem 0 0.8rem;
+}
+.field--name-field-comments .content ul.links {
+  margin: 0.1rem 0 0;
+  display: inline-block;
+  font-size: 1.05rem;
+}
+.field--name-field-comments .content ul.links li:first-child {
+  padding-left: 0;
+}
+.field--name-field-comments .content .field--name-comment-body {
+  background-color: #eee;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+.field--name-field-comments .content .field--name-comment-body .field__item p:last-child {
+  margin-bottom: 0;
+}
+
+.view-forum table tr.new-comment td {
+  background-color: #FDC652;
+  --bs-table-bg-type: $yellow;
+}
+
+#edit-submit {
+  margin-bottom: 1rem;
+  margin-left: 0;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,4 +1,15 @@
 # Based on https://github.com/github/gitignore/blob/b1ffcdbb332cf53a478f08f0db285e12c7f3d281/Drupal.gitignore
+# CiviCRM folders
+/web/sites/default/files/civicrm/ConfigAndLog
+Config.IDS.ini
+/web/sites/default/files/civicrm/templates_c
+/web/sites/default/files/civicrm/persist
+/web/sites/default/files/civicrm/upload
+
+# Contrib modules will be in the composer.json file
+/web/modules/contrib
+/web/themes/contrib
+/web/libraries
 
 # Ignore configuration files that may contain sensitive information
 /web/sites/*/*settings*.php

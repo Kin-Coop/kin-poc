@@ -1,8 +1,0 @@
-<?php
-
-/**
- * @file
- * Open Collective Api Fields module.
- */
-
-require_once __DIR__ . '/opencollective_api.theme.inc';

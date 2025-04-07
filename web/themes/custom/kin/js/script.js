@@ -6,6 +6,36 @@
 
     $(document).ready(function() {
 
+        p = window.location.pathname;
+
+        // Set faq to automatically open for selected faq from query string
+        if(p=='/faqs') {
+            var urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.has('term')) {
+                let t = urlParams.get('term').replace('-', ' ');
+                $("legend:contains(" + t + ")").parent().addClass("show");
+                to_position('.show');
+            }
+        }
+
+
+        $('fieldset.faq-parent > legend').click(function (){
+            $(this).parent().children('div').slideToggle("slow");
+            $(this).parent().toggleClass("show");
+        });
+
+        $('fieldset.faq-child > legend').click(function (){
+            $(this).parent().find('div').slideToggle("slow");
+            $(this).parent().toggleClass("show");
+        });
+
+        //Hide empty views - sometimes empty views are not being hidden and the wrapping div is still showing
+        //this is happening where a contextual filter is present using a value from the URL
+        //this code will check if there is no descendant HTML then to hide that wrapping div/view
+        $(".view:not(:has(div))").each(function(index) {
+            $(this).addClass('hide');
+        });
+
         /*
         $("#details summary").click(
             function(event) {

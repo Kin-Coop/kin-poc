@@ -1,5 +1,0 @@
-entity.opencollective_webhook_event.delete_form:
-  route_name: entity.findme.delete_form
-  group: findme
-  title: Delete
-  weight: 10
