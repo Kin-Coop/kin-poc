@@ -1,0 +1,45 @@
+<?php
+
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_views_post_render().
+ */
+function kin_views_post_render(ViewExecutable $view) {
+    if($view->id() == 'kin_group_list'  && $view->current_display == 'page_2'){
+        //dpm($view->result[0]->civicrm_contact_display_name);
+        //dpm($view->result[0]);
+        $title = $view->result[0]->civicrm_contact_display_name . " Group";
+
+        // Set the view title.
+        $view->setTitle($title);
+        // Set the route title.
+        //$route = \Drupal::routeMatch()->getCurrentRouteMatch()->getRouteObject();
+        //$route->setDefault('_title', $title);
+
+        $route = \Drupal::routeMatch()->getCurrentRouteMatch()->getRouteObject();
+        $route->setDefault('_title_callback', function() use ($title) {
+            return $title;
+        });
+    } elseif ($view->id() == 'forum'  && $view->current_display == 'page_2') {
+        //dpm($view->result[0]->_relationship_entities['field_group']->entityTypeId[0]);
+        $title = $view->result[0]->civicrm_group . " Group Forum";
+        // Set the view title.
+        $view->setTitle($title);
+        // Set the route title.
+        $route = \Drupal::routeMatch()->getCurrentRouteMatch()->getRouteObject();
+        $route->setDefault('_title_callback', function() use ($title) {
+            return $title;
+        });
+    }
+
+}
+
+function kin_views_pre_render(&$view){
+
+    if($view->id() == 'contributions'){
+        if(empty($view->result) && isset($view->exposed_widgets)){
+            $view->exposed_widgets = FALSE;
+        }
+    }
+}

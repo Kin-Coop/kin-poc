@@ -1,8 +1,6 @@
 # Based on https://github.com/github/gitignore/blob/b1ffcdbb332cf53a478f08f0db285e12c7f3d281/Drupal.gitignore
-<<<<<<< HEAD
-=======
+
 # CiviCRM folders
->>>>>>> 36c769d3c9e807e07d3ca37d36509df27d100df4
 /web/sites/default/files/civicrm/ConfigAndLog
 Config.IDS.ini
 /web/sites/default/files/civicrm/templates_c

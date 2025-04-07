@@ -1,0 +1,1 @@
+https://www.drupal.org/files/issues/2024-10-23/support-for-wildcard-2831605-138.patch (redirect module suppport wildcards)

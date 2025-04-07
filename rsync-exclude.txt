@@ -1,0 +1,6 @@
+.git
+settings.php
+civicrm.settings.php
+web/sites/default/files/civicrm/ConfigAndLog/*
+web/sites/default/files/civicrm/templates_c/*
+Config.IDS.ini

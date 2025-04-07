@@ -1,0 +1,7 @@
+name: 'Kin CiviCRM Form'
+type: module
+description: 'A custom form to update CiviCRM contribution status.'
+core_version_requirement: ^10
+package: Custom
+dependencies:
+  - civicrm:civicrm
