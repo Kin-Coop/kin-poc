@@ -17,8 +17,8 @@ Config.IDS.ini
 /web/sites/*/*services*.yml
 
 # Ignore paths that may contain user-generated content
-/web/sites/*/files
-!/web/sites/*/files/civicrm
+/web/sites/default/files
+!/web/sites/default/files/civicrm
 /web/sites/*/public
 /web/sites/*/private
 /web/sites/*/files-public
