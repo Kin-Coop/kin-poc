@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ac69b7bb22dc9383171be956127e004",
+    "content-hash": "5b12c70ab2b2105c51d520317e4b4ab1",
     "packages": [
         {
             "name": "adrienrn/php-mimetyper",
@@ -987,16 +987,16 @@
         },
         {
             "name": "civicrm/cli-tools",
-            "version": "v2024.09.28.1727563115",
+            "version": "v2025.04.05.1743825487",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-cli-tools.git",
-                "reference": "762870ed485969f703a3686682e9a88373d0ca53"
+                "reference": "3813793baa94986393a62935731cc76bd5664641"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/civicrm/civicrm-cli-tools/zipball/762870ed485969f703a3686682e9a88373d0ca53",
-                "reference": "762870ed485969f703a3686682e9a88373d0ca53",
+                "url": "https://api.github.com/repos/civicrm/civicrm-cli-tools/zipball/3813793baa94986393a62935731cc76bd5664641",
+                "reference": "3813793baa94986393a62935731cc76bd5664641",
                 "shasum": ""
             },
             "require": {
@@ -1016,12 +1016,12 @@
                         "type": "phar"
                     },
                     "cv.phar": {
-                        "url": "https://download.civicrm.org/cv/cv-0.3.58.phar",
-                        "version": "0.3.58"
+                        "url": "https://download.civicrm.org/cv/cv-0.3.62.phar",
+                        "version": "0.3.62"
                     },
                     "civix.phar": {
-                        "url": "https://download.civicrm.org/civix/civix-24.09.2.phar",
-                        "version": "24.09.2"
+                        "url": "https://download.civicrm.org/civix/civix-25.02.0.phar",
+                        "version": "25.02.0"
                     },
                     "coworker.phar": {
                         "url": "https://download.civicrm.org/coworker/coworker-0.6.phar",
@@ -1045,9 +1045,9 @@
             ],
             "support": {
                 "issues": "https://github.com/civicrm/civicrm-cli-tools/issues",
-                "source": "https://github.com/civicrm/civicrm-cli-tools/tree/v2024.09.28.1727563115"
+                "source": "https://github.com/civicrm/civicrm-cli-tools/tree/v2025.04.05.1743825487"
             },
-            "time": "2024-09-28T22:38:37+00:00"
+            "time": "2025-04-05T03:58:08+00:00"
         },
         {
             "name": "civicrm/composer-compile-lib",
@@ -3759,17 +3759,17 @@
         },
         {
             "name": "drupal/civicrm_entity",
-            "version": "4.0.0-beta7",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/civicrm_entity.git",
-                "reference": "4.0.0-beta7"
+                "reference": "4.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/civicrm_entity-4.0.0-beta7.zip",
-                "reference": "4.0.0-beta7",
-                "shasum": "41a0034e13ef58fb54ce3fee2a21e8f0b43ce0ac"
+                "url": "https://ftp.drupal.org/files/projects/civicrm_entity-4.0.0.zip",
+                "reference": "4.0.0",
+                "shasum": "103e50f3bf77a2a3ff3b746fcb0a9d5b8f653f34"
             },
             "require": {
                 "civicrm/civicrm-drupal-8": "*",
@@ -3781,11 +3781,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.0.0-beta7",
-                    "datestamp": "1740781628",
+                    "version": "4.0.0",
+                    "datestamp": "1744223426",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -6917,17 +6917,17 @@
         },
         {
             "name": "drupal/simplify",
-            "version": "2.2.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/simplify.git",
-                "reference": "2.2.0"
+                "reference": "2.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/simplify-2.2.0.zip",
-                "reference": "2.2.0",
-                "shasum": "01faf68401716cf0cc9e0aa88380d56fed1cb124"
+                "url": "https://ftp.drupal.org/files/projects/simplify-2.2.1.zip",
+                "reference": "2.2.1",
+                "shasum": "9942d6c6727ce2960c429f8acddd6f3fa39a187f"
             },
             "require": {
                 "drupal/core": "^10.3 || ^11"
@@ -6935,8 +6935,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.2.0",
-                    "datestamp": "1728390702",
+                    "version": "2.2.1",
+                    "datestamp": "1744274841",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8059,16 +8059,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v6.11.0",
+            "version": "v6.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/firebase/php-jwt.git",
-                "reference": "8f718f4dfc9c5d5f0c994cdfd103921b43592712"
+                "reference": "d1e91ecf8c598d073d0995afa8cd5c75c6e19e66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/8f718f4dfc9c5d5f0c994cdfd103921b43592712",
-                "reference": "8f718f4dfc9c5d5f0c994cdfd103921b43592712",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/d1e91ecf8c598d073d0995afa8cd5c75c6e19e66",
+                "reference": "d1e91ecf8c598d073d0995afa8cd5c75c6e19e66",
                 "shasum": ""
             },
             "require": {
@@ -8116,9 +8116,9 @@
             ],
             "support": {
                 "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/v6.11.0"
+                "source": "https://github.com/firebase/php-jwt/tree/v6.11.1"
             },
-            "time": "2025-01-23T05:11:06+00:00"
+            "time": "2025-04-09T20:32:01+00:00"
         },
         {
             "name": "grasmash/expander",

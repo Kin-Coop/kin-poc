@@ -15,10 +15,10 @@
         }
     ],
     "require": {
-        "civicrm/civicrm-core": "^6.00",
+        "civicrm/civicrm-core": "^6.1",
         "civicrm/civicrm-drupal-8": "^6.00",
-        "civicrm/civicrm-packages": "^6.00",
-        "civicrm/cli-tools": "^2024.09",
+        "civicrm/civicrm-packages": "^6.1",
+        "civicrm/cli-tools": "^2025.04",
         "composer/installers": "^2.0",
         "drupal/address": "^1.11",
         "drupal/admin_toolbar": "^3.4",
