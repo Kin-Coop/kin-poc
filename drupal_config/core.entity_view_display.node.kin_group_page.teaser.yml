@@ -1,0 +1,31 @@
+uuid: 054fde1e-7d8e-4df1-9967-c5bf32029b56
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.kin_group_page.body
+    - node.type.kin_group_page
+  module:
+    - text
+    - user
+id: node.kin_group_page.teaser
+targetEntityType: node
+bundle: kin_group_page
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

@@ -1,0 +1,22 @@
+uuid: 0ea48620-8005-4ef2-8b6d-a0596cd644c8
+langcode: en-gb
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - kin
+_core:
+  default_config_hash: 4wbPypsh7Ne9fYVUWg3upeMmMNoSnAe_wWxuK_w1MLA
+id: kin_messages
+theme: kin
+region: content
+weight: -8
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: Messages
+  label_display: '0'
+  provider: system
+visibility: {  }

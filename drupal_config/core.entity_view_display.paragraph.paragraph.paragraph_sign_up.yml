@@ -1,0 +1,25 @@
+uuid: d9614ecc-7605-4504-8eb3-5276d7db6688
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.paragraph_sign_up
+    - field.field.paragraph.paragraph.field_paragraph
+    - paragraphs.paragraphs_type.paragraph
+  module:
+    - entity_reference_revisions
+id: paragraph.paragraph.paragraph_sign_up
+targetEntityType: paragraph
+bundle: paragraph
+mode: paragraph_sign_up
+content:
+  field_paragraph:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

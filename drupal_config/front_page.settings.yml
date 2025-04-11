@@ -1,0 +1,31 @@
+enabled: true
+disable_for_administrators: false
+roles:
+  anonymous:
+    enabled: null
+    weight: 0
+    path: ''
+  authenticated:
+    enabled: null
+    weight: 0
+    path: ''
+  member:
+    enabled: true
+    weight: 0
+    path: /member/home
+  content_editor:
+    enabled: true
+    weight: 0
+    path: /member/home
+  administrator:
+    enabled: true
+    weight: 0
+    path: /member/home
+  pending_member:
+    enabled: true
+    weight: 0
+    path: /member/pending
+  civicrm:
+    enabled: null
+    weight: 0
+    path: ''

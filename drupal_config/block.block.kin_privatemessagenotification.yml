@@ -1,0 +1,22 @@
+uuid: 324a0999-2103-45b0-96d6-016891252f3a
+langcode: en-gb
+status: false
+dependencies:
+  module:
+    - private_message
+  theme:
+    - kin
+id: kin_privatemessagenotification
+theme: kin
+region: content
+weight: -2
+provider: null
+plugin: private_message_notification_block
+settings:
+  id: private_message_notification_block
+  label: 'Private Message Notification'
+  label_display: visible
+  provider: private_message
+  ajax_refresh_rate: 15
+  count_method: threads
+visibility: {  }

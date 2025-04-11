@@ -1,0 +1,25 @@
+uuid: bc1e66cf-7264-48bc-94cd-430b6a5442b6
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - block_classes
+    - masquerade
+  theme:
+    - kin
+third_party_settings:
+  block_classes:
+    block_class: col-sm-12
+id: kin_masquerade
+theme: kin
+region: footer
+weight: -3
+provider: null
+plugin: masquerade
+settings:
+  id: masquerade
+  label: Masquerade
+  label_display: '0'
+  provider: masquerade
+  show_unmasquerade_link: true
+visibility: {  }

@@ -1,0 +1,13 @@
+uuid: 0420bff2-da72-4942-ba64-cffea8dd670e
+langcode: en-gb
+status: true
+dependencies: {  }
+id: civicrm
+label: CiviCRM
+type: MySQL
+config:
+  host: localhost
+  database: kin_civi
+  username: kin
+  password: cahQuiem3theeN8AiWaa
+  port: 3306

@@ -1,0 +1,24 @@
+uuid: b79ccab8-5ebb-4d01-b7b7-7a2f635c53f6
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_body
+    - filter.format.plain_text
+    - node.type.post
+  module:
+    - text
+id: node.post.field_body
+field_name: field_body
+entity_type: node
+bundle: post
+label: Body
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - plain_text
+field_type: text_long

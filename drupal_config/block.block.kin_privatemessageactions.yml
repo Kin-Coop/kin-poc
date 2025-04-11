@@ -1,0 +1,37 @@
+uuid: f96b829e-0dbe-4413-a9ca-95f1702b0b3a
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - block_classes
+    - private_message
+    - system
+    - user
+  theme:
+    - kin
+third_party_settings:
+  block_classes:
+    block_class: pm-block
+id: kin_privatemessageactions
+theme: kin
+region: content
+weight: -1
+provider: null
+plugin: private_message_actions_block
+settings:
+  id: private_message_actions_block
+  label: 'Private Message Actions'
+  label_display: '0'
+  provider: private_message
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/member/messages*'
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated

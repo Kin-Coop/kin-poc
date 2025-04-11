@@ -1,0 +1,14 @@
+uuid: 49b9f8ea-cf79-40d9-87b6-87ef21640c4c
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - user.role.civicrm
+  module:
+    - user
+id: user_add_role_action.civicrm
+label: 'Add the Civicrm role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: civicrm

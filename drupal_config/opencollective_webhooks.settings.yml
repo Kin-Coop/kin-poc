@@ -1,0 +1,6 @@
+_core:
+  default_config_hash: Fm3yXHJHYv3nEGJQNwWg7hjnCUZW7Aymxrt2p0MmX2A
+incoming_webhook_secret: k1E7wnnVBnI3_RL9Tc9PXX819zjp_H_HBkN7DCSRQ4w
+poll_access_token_lifespan: 300
+poll_length: 2
+debug_mode: false

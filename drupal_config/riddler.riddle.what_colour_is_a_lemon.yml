@@ -1,0 +1,8 @@
+uuid: 59a7a5cc-9bb7-4b19-9748-255a97f4c914
+langcode: en-gb
+status: true
+dependencies: {  }
+id: what_colour_is_a_lemon
+question: 'What colour is a lemon?'
+solution: 'Yellow,yellow'
+hint: ''

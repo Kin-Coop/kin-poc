@@ -1,0 +1,10 @@
+uuid: f7eb4da2-29cb-4aa8-a25b-2121d40feeee
+langcode: en-gb
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: f7dN3Eb7xyyMUWug2Gwt-bjoXTpTvtXXGMQmIS4LJ44
+id: example
+question: 'What month comes after May?'
+solution: 'June,june'
+hint: ''

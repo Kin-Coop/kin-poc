@@ -1,0 +1,30 @@
+uuid: 2444bcad-793a-43dc-a8e5-1268517c93c4
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.user_message
+  module:
+    - system
+    - views
+  theme:
+    - kin
+id: kin_views_block__user_message_block_1
+theme: kin
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:user_message-block_1'
+settings:
+  id: 'views_block:user_message-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/user/*'

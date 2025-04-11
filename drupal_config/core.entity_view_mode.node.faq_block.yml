@@ -1,0 +1,11 @@
+uuid: dd642fd0-1a29-44b7-b01c-249cff74d8b4
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - node
+id: node.faq_block
+label: 'FAQ Block'
+description: ''
+targetEntityType: node
+cache: true

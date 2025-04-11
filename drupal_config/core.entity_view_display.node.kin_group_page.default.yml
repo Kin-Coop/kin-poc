@@ -1,0 +1,29 @@
+uuid: eb1bca60-176b-4028-9476-7ac1b36919ff
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.field.node.kin_group_page.body
+    - node.type.kin_group_page
+  module:
+    - text
+    - user
+id: node.kin_group_page.default
+targetEntityType: node
+bundle: kin_group_page
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

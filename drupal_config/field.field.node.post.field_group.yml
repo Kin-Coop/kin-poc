@@ -1,0 +1,31 @@
+uuid: ef466194-01f3-4097-a83a-1e7b0abc9a78
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_group
+    - node.type.post
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: '[current-page:query:group]'
+    on_update: 0
+id: node.post.field_group
+field_name: field_group
+entity_type: node
+bundle: post
+label: Group
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: households
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

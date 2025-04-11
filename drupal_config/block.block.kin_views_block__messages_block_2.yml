@@ -1,0 +1,24 @@
+uuid: 5fc32ea0-580c-4b09-a24b-0d6c6906cb96
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.messages
+  module:
+    - views
+  theme:
+    - kin
+id: kin_views_block__messages_block_2
+theme: kin
+region: breadcrumb
+weight: 0
+provider: null
+plugin: 'views_block:messages-block_2'
+settings:
+  id: 'views_block:messages-block_2'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility: {  }

@@ -1,0 +1,14 @@
+uuid: 620ea230-f4aa-4fc7-8e27-22534a99dece
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - user.role.civicrm
+  module:
+    - user
+id: user_remove_role_action.civicrm
+label: 'Remove the Civicrm role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: civicrm

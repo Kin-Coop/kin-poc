@@ -1,0 +1,570 @@
+uuid: 7c9c313e-e6cd-4956-ba80-c716e738956d
+langcode: en-gb
+status: open
+dependencies:
+  module:
+    - webform_civicrm
+weight: 0
+open: null
+close: null
+uid: 1
+template: false
+archive: false
+id: leave_kin_group
+title: 'Leave Kin Group'
+description: ''
+categories:
+  - Civi
+elements: |-
+  is_everything_okay:
+    '#type': details
+    '#title': 'Is everything okay?'
+    '#description': '<h3>Is the feeling mutual?</h3><p>If everyone''s happy for you to leave, the admins will approve your request and say goodbye!&nbsp;</p><p>If you have broken your group''s rules or expectations, for example receiving more in gifts than you contributed, then your group admins might reject your request.<br><br>If you are leaving the group because of behaviour that you think goes against the policies and code of conduct of Kin Cooperative, please report it <a href="https://kin.coop/form/report-behaviour-issue">here</a>.</p>'
+  civicrm_1_contact_1_contact_existing:
+    '#type': civicrm_contact
+    '#title': 'Existing Contact'
+    '#widget': hidden
+    '#none_prompt': '+ Create new +'
+    '#results_display':
+      display_name: display_name
+    '#default': user
+    '#allow_url_autofill': false
+    '#allow_create': 1
+    '#contact_type': individual
+    '#form_key': civicrm_1_contact_1_contact_existing
+    '#parent': civicrm_1_contact_1_fieldset_fieldset
+    '#extra': {  }
+  civicrm_2_contact_1_contact_existing:
+    '#type': civicrm_contact
+    '#title': 'Group Contact'
+    '#widget': hidden
+    '#none_prompt': '+ Create new +'
+    '#results_display':
+      display_name: display_name
+    '#default_relationship_to': '1'
+    '#default_relationship':
+      '': ''
+    '#filter_relationship_contact': ''
+    '#allow_create': 1
+    '#contact_type': household
+    '#form_key': civicrm_2_contact_1_contact_existing
+    '#parent': civicrm_2_contact_1_fieldset_fieldset
+    '#extra': {  }
+  civicrm_2_contact_1_contact_household_name:
+    '#type': textfield
+    '#title': 'Group Name'
+    '#readonly': true
+    '#counter_type': character
+    '#counter_maximum': 128
+    '#counter_maximum_message': ' '
+    '#contact_type': household
+    '#form_key': civicrm_2_contact_1_contact_household_name
+    '#extra':
+      width: 20
+    '#parent': civicrm_2_contact_1_fieldset_fieldset
+  civicrm_2_contact_1_relationship_start_date:
+    '#type': date
+    '#title': 'Start Date'
+    '#disabled': true
+    '#default_value': today
+    '#access': false
+    '#extra':
+      start_date: '-50 years'
+      end_date: '+10 years'
+    '#form_key': civicrm_2_contact_1_relationship_start_date
+    '#parent': civicrm_2_contact_1_fieldset_fieldset
+  civicrm_2_contact_1_relationship_custom_40:
+    '#type': civicrm_options
+    '#title': 'Relationship to Individual Relationship Status'
+    '#disabled': true
+    '#options':
+      'application pending': 'Application Pending'
+      'withdrawal pending': 'Withdrawal Pending'
+      'application approved': 'Application Approved'
+      'withdrawal approved': 'Withdrawal Approved'
+      completed: Completed
+    '#default_value': 'withdrawal pending'
+    '#access': false
+    '#extra':
+      aslist: 1
+      multiple: 0
+    '#data_type': String
+    '#form_key': civicrm_2_contact_1_relationship_custom_40
+    '#parent': civicrm_2_contact_1_relationship_fieldset
+    '#default_option': ''
+    '#civicrm_live_options': '1'
+  civicrm_1_activity_1_activity_subject:
+    '#type': textfield
+    '#title': 'Activity Subject'
+    '#default_value': 'Request to Leave Group [current-page:query:group] (ID: [current-page:query:cid2])'
+    '#access': false
+    '#form_key': civicrm_1_activity_1_activity_subject
+    '#extra':
+      width: 20
+    '#parent': civicrm_1_activity_1_fieldset_fieldset
+  civicrm_1_activity_1_activity_activity_date_time:
+    '#type': datetime
+    '#title': 'Activity Date'
+    '#default_value': now
+    '#access': false
+    '#date_time_step': '60'
+    '#form_key': civicrm_1_activity_1_activity_activity_date_time
+    '#parent': civicrm_1_activity_1_fieldset_fieldset
+    '#extra': {  }
+  civicrm_1_activity_1_activity_details:
+    '#type': text_format
+    '#title': 'Activity Details'
+    '#default_value': 'Request to Leave Group <a href="/civicrm/contact/view?reset=1&cid=[current-page:query:cid2]">[current-page:query:group]</a>'
+    '#access': false
+    '#allowed_formats':
+      basic_html: basic_html
+    '#hide_help': true
+    '#form_key': civicrm_1_activity_1_activity_details
+    '#parent': civicrm_1_activity_1_fieldset_fieldset
+    '#extra': {  }
+  civicrm_2_contact_1_relationship_custom_42:
+    '#type': textarea
+    '#title': 'Why are you leaving?'
+    '#data_type': Memo
+    '#extra':
+      cols: '60'
+      rows: '4'
+    '#form_key': civicrm_2_contact_1_relationship_custom_42
+    '#parent': civicrm_2_contact_1_relationship_fieldset
+    '#required': true
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+    '#submit__label': 'Leave Group'
+css: ''
+javascript: ''
+settings:
+  ajax: false
+  ajax_scroll_top: form
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: /members/leave-group
+  page_confirm_path: ''
+  page_theme_name: ''
+  form_title: source_entity_webform
+  form_submit_once: false
+  form_open_message: ''
+  form_close_message: ''
+  form_exception_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_disable_remote_addr: false
+  form_convert_anonymous: false
+  form_prepopulate: true
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_reset: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  form_attributes: {  }
+  form_method: ''
+  form_action: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
+  submission_label: ''
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_log: false
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_auto_forward: true
+  wizard_auto_forward_hide_next_button: false
+  wizard_keyboard: true
+  wizard_track: ''
+  wizard_prev_button_label: ''
+  wizard_next_button_label: ''
+  wizard_toggle: false
+  wizard_toggle_show_label: ''
+  wizard_toggle_hide_label: ''
+  wizard_page_type: container
+  wizard_page_title_tag: h2
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: message
+  confirmation_url: ''
+  confirmation_title: Success
+  confirmation_message: '<p>Your application to leave the group has been sent. We will let you know as soon as your application has been processed.</p>'
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: false
+  results_disabled_ignore: false
+  results_customize: false
+  token_view: false
+  token_update: false
+  token_delete: false
+  serial_disabled: false
+access:
+  create:
+    roles:
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  webform_civicrm:
+    id: webform_civicrm
+    handler_id: webform_civicrm
+    label: CiviCRM
+    notes: ''
+    status: true
+    conditions: {  }
+    weight: null
+    settings:
+      nid: 1
+      number_of_contacts: '2'
+      1_contact_type: individual
+      1_webform_label: Individual
+      civicrm_1_contact_1_contact_contact_sub_type: {  }
+      civicrm_1_contact_1_contact_existing: create_civicrm_webform_element
+      civicrm_1_contact_1_contact_prefix_id: 0
+      civicrm_1_contact_1_contact_first_name: 0
+      civicrm_1_contact_1_contact_middle_name: 0
+      civicrm_1_contact_1_contact_last_name: 0
+      civicrm_1_contact_1_contact_suffix_id: 0
+      civicrm_1_contact_1_contact_nick_name: 0
+      civicrm_1_contact_1_contact_gender_id: 0
+      civicrm_1_contact_1_contact_job_title: 0
+      civicrm_1_contact_1_contact_birth_date: 0
+      civicrm_1_contact_1_contact_preferred_communication_method: 0
+      civicrm_1_contact_1_contact_privacy: 0
+      civicrm_1_contact_1_contact_preferred_language: 0
+      civicrm_1_contact_1_contact_communication_style_id: 0
+      civicrm_1_contact_1_contact_image_url: 0
+      civicrm_1_contact_1_contact_contact_id: 0
+      civicrm_1_contact_1_contact_user_id: 0
+      civicrm_1_contact_1_contact_external_identifier: 0
+      civicrm_1_contact_1_contact_source: 0
+      civicrm_1_contact_1_contact_cs: 0
+      civicrm_1_contact_1_contact_employer_id: 0
+      civicrm_1_contact_1_contact_is_deceased: 0
+      civicrm_1_contact_1_contact_deceased_date: 0
+      contact_1_settings_matching_rule: Unsupervised
+      contact_1_number_of_cg2: '0'
+      contact_1_number_of_cg3: '0'
+      contact_1_number_of_other: '0'
+      contact_1_number_of_address: '0'
+      contact_1_number_of_phone: '0'
+      contact_1_number_of_email: '0'
+      contact_1_number_of_website: '0'
+      contact_1_number_of_im: '0'
+      contact_1_number_of_cg1: '0'
+      2_contact_type: household
+      2_webform_label: Group
+      civicrm_2_contact_1_contact_contact_sub_type: {  }
+      civicrm_2_contact_1_contact_existing: create_civicrm_webform_element
+      civicrm_2_contact_1_contact_household_name: create_civicrm_webform_element
+      civicrm_2_contact_1_contact_nick_name: 0
+      civicrm_2_contact_1_contact_preferred_communication_method: 0
+      civicrm_2_contact_1_contact_privacy: 0
+      civicrm_2_contact_1_contact_preferred_language: 0
+      civicrm_2_contact_1_contact_communication_style_id: 0
+      civicrm_2_contact_1_contact_image_url: 0
+      civicrm_2_contact_1_contact_contact_id: 0
+      civicrm_2_contact_1_contact_user_id: 0
+      civicrm_2_contact_1_contact_external_identifier: 0
+      civicrm_2_contact_1_contact_source: 0
+      civicrm_2_contact_1_contact_cs: 0
+      contact_2_settings_matching_rule: Unsupervised
+      contact_2_number_of_other: '0'
+      contact_2_number_of_address: '0'
+      contact_2_number_of_phone: '0'
+      contact_2_number_of_email: '0'
+      contact_2_number_of_website: '0'
+      contact_2_number_of_im: '0'
+      contact_2_number_of_relationship: '1'
+      civicrm_2_contact_1_relationship_relationship_type_id:
+        8_b: 8_b
+      civicrm_2_contact_1_relationship_is_active: '1'
+      civicrm_2_contact_1_relationship_relationship_permission: 0
+      civicrm_2_contact_1_relationship_start_date: create_civicrm_webform_element
+      civicrm_2_contact_1_relationship_end_date: 0
+      civicrm_2_contact_1_relationship_description: 0
+      civicrm_2_contact_1_relationship_custom_40: create_civicrm_webform_element
+      civicrm_2_contact_1_relationship_custom_41: 0
+      civicrm_2_contact_1_relationship_custom_42: create_civicrm_webform_element
+      contact_2_number_of_cg1: '0'
+      prefix_known: ''
+      prefix_unknown: ''
+      toggle_message: 0
+      message: ''
+      activity_number_of_activity: '1'
+      activity_1_settings_existing_activity_status:
+        '': ''
+      activity_1_settings_details:
+        view_link: view_link
+        entire_result: 0
+        edit_link: 0
+        view_link_secure: 0
+        update_existing: 0
+      civicrm_1_activity_1_activity_activity_type_id: '65'
+      civicrm_1_activity_1_activity_target_contact_id:
+        1: '1'
+      civicrm_1_activity_1_activity_source_contact_id: '0'
+      civicrm_1_activity_1_activity_subject: create_civicrm_webform_element
+      civicrm_1_activity_1_activity_details: create_civicrm_webform_element
+      civicrm_1_activity_1_activity_status_id: '2'
+      civicrm_1_activity_1_activity_priority_id: '2'
+      civicrm_1_activity_1_activity_assignee_contact_id:
+        '': ''
+      civicrm_1_activity_1_activity_location: 0
+      civicrm_1_activity_1_activity_activity_date_time: create_civicrm_webform_element
+      civicrm_1_activity_1_activity_duration: 0
+      civicrm_1_activity_1_activity_tag:
+        '': ''
+      civicrm_1_activity_1_activityupload_file_1: 0
+      civicrm_1_activity_1_activityupload_file_2: 0
+      civicrm_1_activity_1_activityupload_file_3: 0
+      participant_reg_type: '0'
+      reg_options:
+        event_type:
+          any: any
+        show_past_events: now
+        show_future_events: '1'
+        show_public_events: all
+        title_display: title
+        show_full_events: 1
+        event_sort_field: start_date
+        show_remaining: '0'
+        validate: 1
+        block_form: 0
+        disable_unregister: 0
+        allow_url_load: 0
+        disable_primary_participant: 0
+      membership_1_number_of_membership: '0'
+      membership_2_number_of_membership: '0'
+      civicrm_1_contribution_1_contribution_enable_contribution: '0'
+      checksum_text: ''
+      create_fieldsets: 0
+      confirm_subscription: 1
+      block_unknown_users: 0
+      create_new_relationship: 0
+      disable_contact_paging: 0
+      new_contact_source: 'Join Kin Group'
+      data:
+        contact:
+          1:
+            contact:
+              1:
+                contact_type: individual
+                contact_sub_type: {  }
+                webform_label: Individual
+            matching_rule: Unsupervised
+            number_of_cg2: '0'
+            number_of_cg3: '0'
+            number_of_other: '0'
+            number_of_address: '0'
+            number_of_phone: '0'
+            number_of_email: '0'
+            number_of_website: '0'
+            number_of_im: '0'
+            number_of_cg1: '0'
+          2:
+            contact:
+              1:
+                contact_type: household
+                contact_sub_type: {  }
+                webform_label: Group
+            matching_rule: Unsupervised
+            number_of_other: '0'
+            number_of_address: '0'
+            number_of_phone: '0'
+            number_of_email: '0'
+            number_of_website: '0'
+            number_of_im: '0'
+            number_of_relationship: '1'
+            number_of_cg1: '0'
+            relationship:
+              1:
+                relationship_type_id:
+                  8_b: 8_b
+                is_active: '1'
+        activity:
+          number_of_activity: '1'
+          1:
+            existing_activity_status: {  }
+            details:
+              view_link: view_link
+            activity:
+              1:
+                activity_type_id: '65'
+                target_contact_id:
+                  1: '1'
+                status_id: '2'
+                priority_id: '2'
+        membership:
+          1:
+            number_of_membership: '0'
+          2:
+            number_of_membership: '0'
+        participant_reg_type: '0'
+        reg_options:
+          event_type:
+            any: any
+          show_past_events: now
+          show_future_events: '1'
+          show_public_events: all
+          title_display: title
+          show_full_events: 1
+          event_sort_field: start_date
+          show_remaining: '0'
+          validate: 1
+          block_form: 0
+          disable_unregister: 0
+          allow_url_load: 0
+          disable_primary_participant: 0
+  email:
+    id: email
+    handler_id: email
+    label: 'Admin Notification'
+    notes: ''
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      states:
+        - completed
+      to_mail: admin@kin.coop
+      to_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      subject: 'Request to Leave Group [webform_submission:values:civicrm_2_contact_1_contact_household_name]'
+      body: '<p>Submitted on [webform_submission:created]</p><p>Submitted by: [webform_submission:user]</p><p>Submitted values are:</p><p><strong>[webform_submission:values:civicrm_1_contact_1_contact_existing]</strong> has joined <strong>[webform_submission:values:civicrm_2_contact_1_contact_household_name]</strong></p>'
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      parameters: {  }
+      debug: false
+variants: {  }

@@ -1,0 +1,20 @@
+uuid: 15b65343-aab5-4825-bad5-102862395f5d
+langcode: en-gb
+status: true
+dependencies:
+  theme:
+    - kin
+_core:
+  default_config_hash: _0hTXdhQI4ZkCqVBtmWtqQY0vsuTra0nXCXGRrVdbbg
+id: kin_page_title
+theme: kin
+region: content
+weight: -7
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }
