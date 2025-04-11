@@ -19,6 +19,7 @@ Config.IDS.ini
 
 # ddev
 .ddev
+.idea
 
 # Ignore paths that may contain user-generated content
 /web/sites/*/public
