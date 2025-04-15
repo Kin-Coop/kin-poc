@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/admin/civiconfig</path>
+    <page_callback>CRM_Civiconfig_Form_Manage</page_callback>
+    <title>Import/Export Configuration</title>
+    <desc>Create an export of your configuration or import a previously exported configuration.</desc>
+    <access_arguments>administer CiviCRM</access_arguments>
+    <adminGroup>System Settings</adminGroup>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/settings</path>
+    <page_callback>CRM_Civiconfig_Form_Settings</page_callback>
+    <title>Configuration Set Settings</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/cancelimportjob</path>
+    <page_callback>CRM_Civiconfig_Form_CancelImportJob</page_callback>
+    <title>Configuration Set Settings</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/edit</path>
+    <page_callback>CRM_Civiconfig_Form_Edit</page_callback>
+    <title>Edit Configuration Set</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+    <skipBreadcrumb>TRUE</skipBreadcrumb>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/edit/entity</path>
+    <page_callback>CRM_Civiconfig_Form_EditEntity</page_callback>
+    <title>Edit Configuration Set</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+    <skipBreadcrumb>TRUE</skipBreadcrumb>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/edit/decorator</path>
+    <page_callback>CRM_Civiconfig_Form_EditDecorator</page_callback>
+    <title>Edit Configuration Set</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+    <skipBreadcrumb>TRUE</skipBreadcrumb>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/edit/extension</path>
+    <page_callback>CRM_Civiconfig_Form_EditExtension</page_callback>
+    <title>Edit Configuration Set</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+    <skipBreadcrumb>TRUE</skipBreadcrumb>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/edit/optiongroup</path>
+    <page_callback>CRM_Civiconfig_Form_EditOptionGroup</page_callback>
+    <title>Edit Configuration Set</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+    <skipBreadcrumb>TRUE</skipBreadcrumb>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/edit/customgroup</path>
+    <page_callback>CRM_Civiconfig_Form_EditCustomGroup</page_callback>
+    <title>Edit Configuration Set</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+    <skipBreadcrumb>TRUE</skipBreadcrumb>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/edit/urlreplacement</path>
+    <page_callback>CRM_Civiconfig_Form_EditUrlReplacement</page_callback>
+    <title>Edit Configuration Set</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+    <skipBreadcrumb>TRUE</skipBreadcrumb>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/edit/imagereplacement</path>
+    <page_callback>CRM_Civiconfig_Form_EditImageReplacement</page_callback>
+    <title>Edit Configuration Set</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+    <skipBreadcrumb>TRUE</skipBreadcrumb>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/export</path>
+    <page_callback>CRM_Civiconfig_Form_Export</page_callback>
+    <title>Export Configuration Set</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+    <skipBreadcrumb>TRUE</skipBreadcrumb>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/import</path>
+    <page_callback>CRM_Civiconfig_Form_Import</page_callback>
+    <title>Import Configuration Set</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+    <skipBreadcrumb>TRUE</skipBreadcrumb>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/import/entity</path>
+    <page_callback>CRM_Civiconfig_Form_ImportEntity</page_callback>
+    <title>Import Configuration Set</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+    <skipBreadcrumb>TRUE</skipBreadcrumb>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/import/decorator</path>
+    <page_callback>CRM_Civiconfig_Form_ImportDecorator</page_callback>
+    <title>Import Configuration Set</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+    <skipBreadcrumb>TRUE</skipBreadcrumb>
+  </item>
+  <item>
+    <path>civicrm/admin/civiconfig/import/run</path>
+    <page_callback>CRM_Civiconfig_Page_RunImport</page_callback>
+    <title>Import Configuration Set</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+    <skipBreadcrumb>TRUE</skipBreadcrumb>
+  </item>
+</menu>

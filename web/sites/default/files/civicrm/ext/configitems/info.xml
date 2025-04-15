@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<extension key="org.civicoop.configitems" type="module">
+  <file>civiconfig</file>
+  <name>CiviCRM Configuration Loader (Version 2)</name>
+  <description>CiviCRM extension to load and save custom configuration items from JSON files</description>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>Erik Hommel (CiviCooP)</author>
+    <email>erik.hommel@civicoop.org</email>
+  </maintainer>
+  <urls>
+    <url desc="Main Extension Page">https://lab.civicrm.org/extensions/configitems</url>
+    <url desc="Documentation">https://lab.civicrm.org/extensions/configitems/blob/master/README.md</url>
+    <url desc="Support">https://www.civicoop.org</url>
+    <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
+  </urls>
+  <releaseDate>2022-03-01</releaseDate>
+  <version>2.0.0</version>
+  <develStage>development</develStage>
+  <compatibility>
+    <ver>5.45</ver>
+  </compatibility>
+  <comments>Please read README.md or check this extension's Github repository for documentation and examples. Funded by Deutsche Stiftung f&#xFC;r Engagement und Ehrenamt, B&#xFC;ndnis der B&#xFC;rgerstiftungen Deutschlands, civiservice.de GmbH and CiviCooP</comments>
+  <civix>
+    <namespace>CRM/Civiconfig</namespace>
+    <format>24.09.1</format>
+  </civix>
+  <mixins>
+    <mixin>afform-entity-php@1.0.0</mixin>
+    <mixin>smarty-v2@1.0.3</mixin>
+    <mixin>entity-types-php@2.0.0</mixin>
+    <mixin>menu-xml@1.0.0</mixin>
+  </mixins>
+  <classloader>
+    <psr4 prefix="Civi\" path="Civi"/>
+    <psr0 prefix="CRM_" path="."/>
+  </classloader>
+  <upgrader>CiviMix\Schema\Civiconfig\AutomaticUpgrader</upgrader>
+</extension>
