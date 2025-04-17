@@ -62,7 +62,7 @@ class Copycontribution extends \Civi\Api4\Generic\AbstractAction {
    * @param Result $result
    */
   public function _run(Result $result) {
-    
+
     /**
      * This will be a scheduled job running once a day.
      * It should look for recurring contributions exactly one month ago and then duplicate them
@@ -74,28 +74,28 @@ class Copycontribution extends \Civi\Api4\Generic\AbstractAction {
      * 31st March would not need to do anything
      *
      */
-    
-    $today = "2025-05-01";
+
+    $today = "2025-05-16";
     //$today = date('Y-m-d');
     $thisYear = date('Y', strtotime($today));
     $thisMonth = date('m', strtotime($today));
     $thisDay = date('d', strtotime($today));
     $lastDay = $thisDay;
-    
+
     $lastMonth = ($thisMonth == 1) ? 12 : $thisMonth - 1;
     $lastMonth = str_pad($lastMonth,2,'0',STR_PAD_LEFT);
     $lastYear = ($thisMonth == 1) ? $thisYear - 1 : $thisYear;
-    
+
     $daysInThisMonth = cal_days_in_month(CAL_GREGORIAN, $thisMonth, $thisYear);
     $daysInLastMonth = cal_days_in_month(CAL_GREGORIAN, $lastMonth, $lastYear);
-    
+
     $startDate = $lastYear . '-' . $lastMonth . '-' . $lastDay;
     $startDate = date("Y-m-d", strtotime($startDate));
     $endDate = $startDate;
     $startDatePlusOne = date('Y-m-d', strtotime($startDate . ' +1 day'));
     // Is this going to be a date range?
     $range = FALSE;
-    
+
     if($thisDay == $daysInThisMonth) {
       if($daysInThisMonth < $daysInLastMonth) {
         $range = TRUE;
@@ -104,7 +104,7 @@ class Copycontribution extends \Civi\Api4\Generic\AbstractAction {
         $endDate = $lastYear . '-' . $lastMonth . '-' . $endDay;
       }
     }
-    
+
     //\Civi::log()->debug('Contents of $someInterestingVariable: ' . print_r($startDate . ' ' . $endDate, TRUE));
 
     if($range) {
@@ -114,7 +114,7 @@ class Copycontribution extends \Civi\Api4\Generic\AbstractAction {
                                               ->addWhere('receive_date', '>=', $startDate . ' 00:00:00')
                                               ->addWhere('receive_date', '<=', $endDate . ' 23:59:00')
                                               ->addWhere('financial_type_id', '=', 1)
-                                              //->addWhere('Kin_Contributions.Frequency', '=', 1)
+                                              ->addWhere('Kin_Contributions.Frequency', '=', 2)
                                               ->execute();
     } else {
       //$api = '{"select":["*"],"where":[["receive_date","=","' . $startDate . '"]],"limit":25}';
@@ -122,12 +122,12 @@ class Copycontribution extends \Civi\Api4\Generic\AbstractAction {
                                               ->addSelect('*', 'custom.*')
                                               ->addWhere('receive_date', '=', $startDate)
                                               ->addWhere('financial_type_id', '=', 1)
-                                              //->addWhere('Kin_Contributions.Frequency', '=', 1)
+                                              ->addWhere('Kin_Contributions.Frequency', '=', 2)
                                               ->execute();
     }
     //\Civi::log()->debug('Contents of $someInterestingVariable: ' . print_r($contributions, TRUE));
     $newContributions = array();
-    
+
     foreach ($contributions as $contribution) {
 
         /**
@@ -147,41 +147,41 @@ class Copycontribution extends \Civi\Api4\Generic\AbstractAction {
             $newContributions[] = $this->createContributions($contribution);
         }
     }
-    
+
     //$recurringContributions =
 
       //return $newContribution;
 
       $result[] = $newContributions;
-      
+
   }
-  
+
   /**
    * @return int
    */
   public function createContributions($originalContribution) {
     //return $this->id;
-    
+
     // Prepare data for the new contribution
     $newContributionData = $originalContribution;
-    
+
     unset($newContributionData['id']); // Remove ID to create a new record
-    
+
     $newContributionData['receive_date'] = date('Y-m-d');
-    
+
     // Generate new unique invoice ID
     $string = substr(str_replace(['+', '/', '='], '', base64_encode(random_bytes(32))), 0, 32); // 32 characters, without /=+
     $newContributionData['invoice_id'] = $string;
-    
+
     // Set contribution status to pending (2)
     $newContributionData['contribution_status_id'] = 2;
-    
+
     // Create the new contribution
     $newContribution = civicrm_api4('Contribution', 'create', [
       'values' => $newContributionData,
       'checkPermissions' => FALSE,
     ]);
-    
+
     return $newContribution;
   }
 
@@ -213,7 +213,7 @@ class Copycontribution extends \Civi\Api4\Generic\AbstractAction {
 
 
   }
-  
+
   /**
    * @param $contributions
    *

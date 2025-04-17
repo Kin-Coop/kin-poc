@@ -106,6 +106,7 @@ return [
               'dataType' => 'String',
               'label' => E::ts('Label'),
               'sortable' => TRUE,
+              'editable' => TRUE,
             ],
             [
               'type' => 'field',
@@ -120,6 +121,7 @@ return [
               'dataType' => 'Integer',
               'label' => E::ts('Tags'),
               'sortable' => TRUE,
+              'editable' => TRUE,
             ],
             [
               'type' => 'field',
@@ -127,6 +129,7 @@ return [
               'dataType' => 'String',
               'label' => E::ts('Description'),
               'sortable' => TRUE,
+              'editable' => TRUE,
             ],
             [
               'type' => 'field',
@@ -134,6 +137,7 @@ return [
               'dataType' => 'Boolean',
               'label' => E::ts('Enabled'),
               'sortable' => TRUE,
+              'editable' => TRUE,
             ],
             [
               'type' => 'field',

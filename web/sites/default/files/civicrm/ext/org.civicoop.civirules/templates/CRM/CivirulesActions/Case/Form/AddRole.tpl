@@ -1,5 +1,6 @@
 <h3>{$ruleActionHeader}</h3>
 <div class="crm-block crm-form-block crm-civirule-rule_action-block-case_add_role">
+  <div class="help">{$ruleActionHelp}</div>
     <div class="crm-section case-role">
         <div class="label">{$form.role.label}</div>
         <div class="content">{$form.role.html}</div>

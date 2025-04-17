@@ -36,7 +36,7 @@ class CRM_CivirulesActions_Case_AddRole extends CRM_Civirules_Action {
         'return' => 'name_a_b',
         'id' => $action_params['role'],
       ]);
-    } catch (CiviCRM_API3_Exception $e) {
+    } catch (CRM_Core_Exception $e) {
     }
     return $action_params;
   }
@@ -53,7 +53,7 @@ class CRM_CivirulesActions_Case_AddRole extends CRM_Civirules_Action {
         'return' => 'id',
         'name_a_b' => $action_params['role'],
       ]);
-    } catch (CiviCRM_API3_Exception $e) {
+    } catch (CRM_Core_Exception $e) {
     }
     return parent::importActionParameters($action_params);
   }
@@ -66,7 +66,7 @@ class CRM_CivirulesActions_Case_AddRole extends CRM_Civirules_Action {
    * @access public
    */
   public function getExtraDataInputUrl($ruleActionId) {
-    return CRM_Utils_System::url('civicrm/civirule/form/action/case/addrole', 'rule_action_id='.$ruleActionId);
+    return $this->getFormattedExtraDataInputUrl('civicrm/civirule/form/action/case/addrole', $ruleActionId);
   }
 
 
@@ -102,7 +102,7 @@ class CRM_CivirulesActions_Case_AddRole extends CRM_Civirules_Action {
    * Returns a list of possible case roles
    *
    * @return array
-   * @throws \CiviCRM_API3_Exception
+   * @throws \CRM_Core_Exception
    */
   public static function getCaseRoles() {
     $relationshipTypesApi = civicrm_api3('RelationshipType', 'get', ['options' => ['limit' => 0]]);

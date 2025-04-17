@@ -8,6 +8,7 @@ if (!class_exists("\\Psr\\Log\\LogLevel")) {
   require_once('psr/log/LogLevel.php');
 }
 
+use Civi\Core\ClassScanner;
 use CRM_Civirules_ExtensionUtil as E;
 
 /**
@@ -103,8 +104,9 @@ function _civirules_upgrade_to_2x_backup() {
   // Check schema version
   // Schema version 1023 is inserted by a 2x version
   // So if the schema version is lower than 1023 we are still on a 1x version.
+  // If empty, we are installing
   $schemaVersion = CRM_Core_DAO::singleValueQuery("SELECT schema_version FROM civicrm_extension WHERE `name` = 'CiviRules'");
-  if ($schemaVersion >= 1023) {
+  if ($schemaVersion >= 1023 || empty($schemaVersion)) {
     return; // No need for preparing the update.
   }
 
@@ -141,6 +143,7 @@ function _civirules_upgrade_to_2x_backup() {
  * @param $params
  */
 function civirules_civicrm_pre($op, $objectName, $objectId, &$params) {
+  CRM_Civirules_Utils_ContributionTrigger::pre($op, $objectName, $objectId, $params);
   // New style pre/post Delete/Insert/Update events exist from 5.34.
   if (civirules_use_prehook($op, $objectName, $objectId, $params)) {
     try {
@@ -435,4 +438,42 @@ function civirules_civicrm_permission(&$permissions) {
     'label' => E::ts('CiviRules: administer CiviRules extension'),
     'description' => E::ts('Perform all CiviRules administration tasks in CiviCRM'),
   ];
+}
+
+/**
+ * We can't use mixin scan-classes directly because we need to exclude the ConfigItems classes
+ *   since that will fail if ConfigItems extension is not installed because scan-classes
+ *   picks them up automatically.
+ *
+ * @param $classes
+ *
+ * @return void
+ */
+function civirules_civicrm_scanClasses(&$classes) {
+  $cache = ClassScanner::cache('structure');
+  $cacheKey = E::LONG_NAME;
+  $all = $cache->get($cacheKey);
+  if ($all === NULL) {
+    $baseDir = CRM_Utils_File::addTrailingSlash(E::path());
+    $all = [];
+
+    ClassScanner::scanFolders($all, $baseDir, 'CRM', '_');
+    ClassScanner::scanFolders($all, $baseDir, 'Civi', '\\', ';(ConfigItems);');
+    $cache->set($cacheKey, $all, ClassScanner::TTL);
+  }
+
+  $classes = array_merge($classes, $all);
+}
+
+/**
+ * Intercept form functions
+ * @param $formName
+ * @param $form
+ */
+function civirules_civicrm_buildForm($formName, &$form) {
+  switch ($formName) {
+    case 'CRM_Civirules_Form_Rule':
+      Civi::service('angularjs.loader')->addModules(['afsearchRuleActions', 'afsearchRuleTriggerHistory']);
+      break;
+  }
 }

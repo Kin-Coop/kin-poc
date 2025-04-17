@@ -416,7 +416,7 @@ public function userFriendlyConditionParams() {
         return "Membership Type ".$operator." ".$membershipType['name'];
       }
     }
-  } catch (CiviCRM_API3_Exception $ex) {}
+  } catch (CRM_Core_Exception $ex) {}
   return '';
 }
 ```
@@ -483,7 +483,7 @@ class CRM_CivirulesConditions_Form_Membership_Type extends CRM_CivirulesConditio
    */
   public function setDefaultValues() {
     $defaultValues = parent::setDefaultValues();
-    $data = unserialize($this->ruleCondition->condition_params);
+    $data = $this->ruleCondition->unserializeParams();
     if (!empty($data['membership_type_id'])) {
       $defaultValues['membership_type_id'] = $data['membership_type_id'];
     }
