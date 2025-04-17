@@ -30,3 +30,5 @@ function kinrc_civicrm_install(): void {
 function kinrc_civicrm_enable(): void {
   _kinrc_civix_civicrm_enable();
 }
+
+
