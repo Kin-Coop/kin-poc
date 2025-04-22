@@ -75,7 +75,12 @@ class Copycontribution extends \Civi\Api4\Generic\AbstractAction {
      *
      */
 
-    $today = "2025-05-16";
+    /***********************************
+    * Looks like I can't create a scheduled job that calls an API4 function, they only work with api3
+     **********************************/
+
+    $today = "2025-05-17";
+    //live
     //$today = date('Y-m-d');
     $thisYear = date('Y', strtotime($today));
     $thisMonth = date('m', strtotime($today));
@@ -151,6 +156,8 @@ class Copycontribution extends \Civi\Api4\Generic\AbstractAction {
     //$recurringContributions =
 
       //return $newContribution;
+
+    //maybe output number of contributions created? That would actually be useful
 
       $result[] = $newContributions;
 
