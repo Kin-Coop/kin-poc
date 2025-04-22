@@ -21,8 +21,9 @@
   <comments>Try enabling this and looking up the Example entity in the Api Explorer.</comments>
   <civix>
     <namespace>CRM/Kincopy</namespace>
+    <format>25.01.1</format>
   </civix>
   <classloader>
-    <psr4 prefix="Civi\" path="Civi" />
+    <psr4 prefix="Civi\" path="Civi"/>
   </classloader>
 </extension>
