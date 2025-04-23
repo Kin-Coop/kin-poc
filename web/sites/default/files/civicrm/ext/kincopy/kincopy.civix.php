@@ -101,7 +101,7 @@ function _kincopy_civix_civicrm_config($config = NULL) {
   $extRoot = __DIR__ . DIRECTORY_SEPARATOR;
   $include_path = $extRoot . PATH_SEPARATOR . get_include_path();
   set_include_path($include_path);
-  _kincopy_civix_mixin_polyfill();
+  //_kincopy_civix_mixin_polyfill();
 }
 
 /**
@@ -111,7 +111,7 @@ function _kincopy_civix_civicrm_config($config = NULL) {
  */
 function _kincopy_civix_civicrm_install() {
   _kincopy_civix_civicrm_config();
-  _kincopy_civix_mixin_polyfill();
+  //_kincopy_civix_mixin_polyfill();
 }
 
 /**
@@ -121,7 +121,7 @@ function _kincopy_civix_civicrm_install() {
  */
 function _kincopy_civix_civicrm_enable(): void {
   _kincopy_civix_civicrm_config();
-  _kincopy_civix_mixin_polyfill();
+  //_kincopy_civix_mixin_polyfill();
 }
 
 /**
