@@ -10,7 +10,7 @@ use CRM_Kincopy_ExtensionUtil as E;
  * @see https://docs.civicrm.org/dev/en/latest/framework/api-architecture/
  */
 function _civicrm_api3_conrc_Duplicateconrc_spec(&$spec) {
-  $spec['magicword']['api.required'] = 1;
+  //$spec['magicword']['api.required'] = 1;
 }
 
 /**
@@ -25,7 +25,14 @@ function _civicrm_api3_conrc_Duplicateconrc_spec(&$spec) {
  *
  * @throws CRM_Core_Exception
  */
+
 function civicrm_api3_conrc_Duplicateconrc($params) {
+    $results = \Civi\Api4\Kinrc::copycontribution(FALSE)
+        ->execute();
+    foreach ($results as $result) {
+        // do something
+    }
+    /*
   if (array_key_exists('magicword', $params) && $params['magicword'] == 'sesame') {
     $returnValues = array(
       // OK, return several data rows
@@ -39,7 +46,9 @@ function civicrm_api3_conrc_Duplicateconrc($params) {
     // Spec: civicrm_api3_create_success($values = 1, $params = [], $entity = NULL, $action = NULL)
     return civicrm_api3_create_success($returnValues, $params, 'Conrc', 'Duplicateconrc');
   }
-  else {
-    throw new CRM_Core_Exception(/*error_message*/ 'Everyone knows that the magicword is "sesame"', /*error_code*/ 'magicword_incorrect');
-  }
+    */
+    //else {
+    //throw new CRM_Core_Exception(/*error_message*/ 'Everyone knows that the magicword is "sesame"', /*error_code*/ 'magicword_incorrect');
+    //}
+    return civicrm_api3_create_success($results, $params, 'Conrc', 'Duplicateconrc');
 }
