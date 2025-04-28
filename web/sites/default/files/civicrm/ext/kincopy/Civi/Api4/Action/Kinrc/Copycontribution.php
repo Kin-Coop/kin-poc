@@ -79,7 +79,7 @@ class Copycontribution extends \Civi\Api4\Generic\AbstractAction {
     * Looks like I can't create a scheduled job that calls an API4 function, they only work with api3
      **********************************/
 
-    $today = "2025-05-17";
+    $today = "2025-05-22";
     //live
     //$today = date('Y-m-d');
     $thisYear = date('Y', strtotime($today));
