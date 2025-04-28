@@ -387,16 +387,16 @@
         },
         {
             "name": "civicrm/civicrm-core",
-            "version": "6.1.0",
+            "version": "6.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-core.git",
-                "reference": "4850aba0757db1a4d95e9bbd5b1cd3a409cb6696"
+                "reference": "dfcf8876833922dbc22e5d2004b2c2435d964521"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/civicrm/civicrm-core/zipball/4850aba0757db1a4d95e9bbd5b1cd3a409cb6696",
-                "reference": "4850aba0757db1a4d95e9bbd5b1cd3a409cb6696",
+                "url": "https://api.github.com/repos/civicrm/civicrm-core/zipball/dfcf8876833922dbc22e5d2004b2c2435d964521",
+                "reference": "dfcf8876833922dbc22e5d2004b2c2435d964521",
                 "shasum": ""
             },
             "require": {
@@ -892,7 +892,7 @@
             ],
             "description": "Open source constituent relationship management for non-profits, NGOs and advocacy organizations.",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-core/tree/6.1.0"
+                "source": "https://github.com/civicrm/civicrm-core/tree/6.1.2"
             },
             "funding": [
                 {
@@ -900,11 +900,11 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-04-04T04:07:55+00:00"
+            "time": "2025-04-21T22:36:51+00:00"
         },
         {
             "name": "civicrm/civicrm-drupal-8",
-            "version": "6.1.0",
+            "version": "6.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-drupal-8.git",
@@ -953,7 +953,7 @@
             ],
             "description": "Open source constituent relationship management for non-profits, NGOs and advocacy organizations.",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-drupal-8/tree/6.1.0"
+                "source": "https://github.com/civicrm/civicrm-drupal-8/tree/6.1.2"
             },
             "funding": [
                 {
@@ -965,7 +965,7 @@
         },
         {
             "name": "civicrm/civicrm-packages",
-            "version": "6.1.0",
+            "version": "6.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-packages.git",
@@ -981,22 +981,22 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Legacy third party dependencies for CiviCRM",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-packages/tree/6.1.0"
+                "source": "https://github.com/civicrm/civicrm-packages/tree/6.1.2"
             },
             "time": "2025-02-13T15:24:30+00:00"
         },
         {
             "name": "civicrm/cli-tools",
-            "version": "v2025.04.05.1743825487",
+            "version": "v2025.04.17.1744869264",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-cli-tools.git",
-                "reference": "3813793baa94986393a62935731cc76bd5664641"
+                "reference": "a52b5ffd4d7f41b6d91ba899ea93a2bb41c22ba8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/civicrm/civicrm-cli-tools/zipball/3813793baa94986393a62935731cc76bd5664641",
-                "reference": "3813793baa94986393a62935731cc76bd5664641",
+                "url": "https://api.github.com/repos/civicrm/civicrm-cli-tools/zipball/a52b5ffd4d7f41b6d91ba899ea93a2bb41c22ba8",
+                "reference": "a52b5ffd4d7f41b6d91ba899ea93a2bb41c22ba8",
                 "shasum": ""
             },
             "require": {
@@ -1016,12 +1016,12 @@
                         "type": "phar"
                     },
                     "cv.phar": {
-                        "url": "https://download.civicrm.org/cv/cv-0.3.62.phar",
-                        "version": "0.3.62"
+                        "url": "https://download.civicrm.org/cv/cv-0.3.63.phar",
+                        "version": "0.3.63"
                     },
                     "civix.phar": {
-                        "url": "https://download.civicrm.org/civix/civix-25.02.0.phar",
-                        "version": "25.02.0"
+                        "url": "https://download.civicrm.org/civix/civix-25.04.0.phar",
+                        "version": "25.04.0"
                     },
                     "coworker.phar": {
                         "url": "https://download.civicrm.org/coworker/coworker-0.6.phar",
@@ -1045,9 +1045,9 @@
             ],
             "support": {
                 "issues": "https://github.com/civicrm/civicrm-cli-tools/issues",
-                "source": "https://github.com/civicrm/civicrm-cli-tools/tree/v2025.04.05.1743825487"
+                "source": "https://github.com/civicrm/civicrm-cli-tools/tree/v2025.04.17.1744869264"
             },
-            "time": "2025-04-05T03:58:08+00:00"
+            "time": "2025-04-17T05:54:25+00:00"
         },
         {
             "name": "civicrm/composer-compile-lib",
@@ -4877,17 +4877,17 @@
         },
         {
             "name": "drupal/field_group",
-            "version": "4.0.0-alpha1",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/field_group.git",
-                "reference": "4.0.0-alpha1"
+                "reference": "4.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/field_group-4.0.0-alpha1.zip",
-                "reference": "4.0.0-alpha1",
-                "shasum": "0f1fbc8043a654af5b055f1b95ad9597c474ce83"
+                "url": "https://ftp.drupal.org/files/projects/field_group-4.0.0.zip",
+                "reference": "4.0.0",
+                "shasum": "d3ff81d8a64b6ac392989b668cfa417be5101642"
             },
             "require": {
                 "drupal/core": "^10.3 || ^11"
@@ -4898,11 +4898,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.0.0-alpha1",
-                    "datestamp": "1725972443",
+                    "version": "4.0.0",
+                    "datestamp": "1745478894",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -7783,16 +7783,16 @@
         },
         {
             "name": "drush/drush",
-            "version": "13.5.1",
+            "version": "13.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/drush.git",
-                "reference": "16076b24532eb27aaf9e2b8bca1e05a74871c713"
+                "reference": "570a05dce7aea9770f17306808804290764127ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/drush/zipball/16076b24532eb27aaf9e2b8bca1e05a74871c713",
-                "reference": "16076b24532eb27aaf9e2b8bca1e05a74871c713",
+                "url": "https://api.github.com/repos/drush-ops/drush/zipball/570a05dce7aea9770f17306808804290764127ad",
+                "reference": "570a05dce7aea9770f17306808804290764127ad",
                 "shasum": ""
             },
             "require": {
@@ -7919,7 +7919,7 @@
                 "issues": "https://github.com/drush-ops/drush/issues",
                 "security": "https://github.com/drush-ops/drush/security/advisories",
                 "slack": "https://drupal.slack.com/messages/C62H9CWQM",
-                "source": "https://github.com/drush-ops/drush/tree/13.5.1"
+                "source": "https://github.com/drush-ops/drush/tree/13.6.0"
             },
             "funding": [
                 {
@@ -7927,7 +7927,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-04-04T11:38:40+00:00"
+            "time": "2025-04-22T12:14:13+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -14826,16 +14826,16 @@
         },
         {
             "name": "tecnickcom/tcpdf",
-            "version": "6.9.1",
+            "version": "6.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/TCPDF.git",
-                "reference": "ed27e28a4c478f7f4015b5e7e7b1912af9e85f2b"
+                "reference": "d0e8dd17f8a1df3c97b94b9af8356e88e811ed59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/ed27e28a4c478f7f4015b5e7e7b1912af9e85f2b",
-                "reference": "ed27e28a4c478f7f4015b5e7e7b1912af9e85f2b",
+                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/d0e8dd17f8a1df3c97b94b9af8356e88e811ed59",
+                "reference": "d0e8dd17f8a1df3c97b94b9af8356e88e811ed59",
                 "shasum": ""
             },
             "require": {
@@ -14885,7 +14885,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tecnickcom/TCPDF/issues",
-                "source": "https://github.com/tecnickcom/TCPDF/tree/6.9.1"
+                "source": "https://github.com/tecnickcom/TCPDF/tree/6.9.3"
             },
             "funding": [
                 {
@@ -14893,7 +14893,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-04-03T06:38:07+00:00"
+            "time": "2025-04-20T15:52:50+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
