@@ -50,6 +50,13 @@ class CRM_Core_Payment_RecurOfflineACHEFT extends CRM_Core_Payment {
   public function getPaymentFormFields() {
     return [];
   }
+
+public function getBillingAddressFields($billingLocationID = NULL): array {
+
+        return [];
+
+    
+}
   
   /**
    * Are back office payments supported.
