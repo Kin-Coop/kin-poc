@@ -41,7 +41,7 @@ class CRM_Contributionrecur_Task_CompletePending extends CRM_Contribute_Form_Tas
     $query = "
 SELECT count(*)
 FROM   civicrm_contribution
-WHERE  contribution_status_id != 2
+WHERE  payment_status_id != 2
 AND    {$this->_componentClause}";
     $count = CRM_Core_DAO::singleValueQuery($query,
       CRM_Core_DAO::$_nullArray
@@ -120,12 +120,12 @@ WHERE  id IN ( $contribIDs )";
    * @return None
    */
   public function postProcess() {
-    // for each contribution id, just update the contribution_status_id
+    // for each contribution id, just update the payment_status_id
     foreach ($this->_rows as $row) {
       if (empty($row['trxn_id'])) {
         $row['trxn_id'] = $row['invoice_id'];
       }
-      $row['contribution_status_id'] = 1;
+      $row['payment_status_id'] = 1;
       try {
         $contributionResult = civicrm_api3('contribution', 'create', $row);
       }

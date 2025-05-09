@@ -18,7 +18,7 @@ class CRM_Contributionrecur_Form_ContributionRecurAdHoc extends CRM_Core_Form {
     $contribution_recur_id    = $values['crid'];
     $payment_processor_id = $values['paymentProcessorId'];
     $source = "Recurring Contribution (id=$contribution_recur_id)";
-    $receive_date = date("YmdHis",strtotime($values['receive_date'])); 
+    $receive_date = date("YmdHis",strtotime($values['receive_date']));
     $contribution = array(
       'version'        => 3,
       'contact_id'       => $contact_id,
@@ -28,7 +28,7 @@ class CRM_Contributionrecur_Form_ContributionRecurAdHoc extends CRM_Core_Form {
       'trxn_id' => $hash,
       'invoice_id'       => $hash,
       'source'         => $source,
-      'contribution_status_id' => 2, /* initialize as pending, so we can run completetransaction after taking the money */
+      'payment_status_id' => 2, /* initialize as pending, so we can run completetransaction after taking the money */
       'payment_processor'   => $payment_processor_id,
       'is_test'        => $values['is_test'], /* propagate the is_test value from the form */
     );

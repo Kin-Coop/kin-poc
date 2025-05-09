@@ -6,7 +6,7 @@
  * $contact is an array with keys:
  * membership_type_id, contact_id, contribution_ids
  * contribution_ids is an array of contributions with keys contribution id and array values receive date and total_amount
- * 
+ *
  * This is an internal function and requires the calling function to do any sanity checks, etc.
  *
  * The fourth optional parameter is a financial type id that contributions are converted to to conver the minimum membership cost
@@ -26,7 +26,7 @@ function contributionrecur_membershipImplicit($contact, $contributions, $options
   $return[] = $contributions;
   // watchdog('contributionrecur','running membership implicit function for '.$contact['contact_id'].', '.$op.', <pre>@params</pre>',array('@params' => print_r($params, TRUE)));
   $contact_id = $contact['contact_id'];
-  // only proceed if this contact has an active or expired membership of the right kind 
+  // only proceed if this contact has an active or expired membership of the right kind
   $p = ['contact_id' => $contact_id, 'status_id' => ['IN' => [1,2,3,4]], 'membership_type_id' => ['IN' => array_keys($membership_types)],
     'sequential' => 1,
     'options' => ['sort' => 'end_date DESC', 'limit' => 1]
@@ -56,7 +56,7 @@ function contributionrecur_membershipImplicit($contact, $contributions, $options
     }
     // for a grace/expired membership, figure out start and end dates of the membership and update it
     if ($membership['status_id'] > 2) {
-      // $start_date = date('Y-m-d'); 
+      // $start_date = date('Y-m-d');
       $updated_membership = array('contact_id' => $contact_id, 'id' => $membership['id']);
       $dates = CRM_Member_BAO_MembershipType::getRenewalDatesForMembershipType($membership['id'],date('YmdHis',strtotime($start_date)),$membership['membership_type_id'],1);
       $updated_membership['start_date'] = CRM_Utils_Array::value('start_date', $dates);
@@ -79,7 +79,7 @@ function contributionrecur_membershipImplicit($contact, $contributions, $options
       $last_contribution = end($applied_contributions);
       // first try and change the financial type of any pending contributions, but no more than the membership minimum fee
       foreach($applied_contributions as $i =>  $contribution) {
-        if ($contribution['contribution_status_id'] == 2 && (($membership_amount - $contribution['total_amount']) > 0)) {
+        if ($contribution['payment_status_id'] == 2 && (($membership_amount - $contribution['total_amount']) > 0)) {
           $p = array('id' => $contribution['id'], 'financial_type_id' => $membership_financial_type_id);
           try {
             civicrm_api3('Contribution', 'create', $p);
@@ -101,14 +101,14 @@ function contributionrecur_membershipImplicit($contact, $contributions, $options
         $membership_contribution = array(
           'version'        => 3,
           'contact_id'       => $contact_id,
-          'receive_date'       => $contribution['receive_date'], 
+          'receive_date'       => $contribution['receive_date'],
           'total_amount'       => $membership_amount,
           'payment_instrument_id'  => $contribution['payment_instrument_id'],
           'contribution_recur_id'  => $contribution['contribution_recur_id'],
           'trxn_id'        => $hash, /* placeholder: just something unique that can also be seen as the same as invoice_id */
           'invoice_id'       => $hash,
           'source'         => 'Implicit membership account transfer',
-          'contribution_status_id' => 1, 
+          'payment_status_id' => 1,
           'currency'  => $contribution['currency'],
           'payment_processor'   => $contribution['payment_processor'],
           'financial_type_id' => $membership_financial_type_id,

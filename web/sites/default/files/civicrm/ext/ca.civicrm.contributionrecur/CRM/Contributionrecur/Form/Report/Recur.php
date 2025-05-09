@@ -21,7 +21,7 @@ class CRM_Contributionrecur_Form_Report_Recur extends CRM_Report_Form {
     // self::$version = _contributionrecur_civicrm_domain_info('version');
     self::$financial_types = CRM_Contribute_PseudoConstant::financialType();
     self::$prefixes = CRM_Core_PseudoConstant::get('CRM_Contact_DAO_Contact', 'prefix_id');
-    self::$contributionStatus = CRM_Contribute_BAO_Contribution::buildOptions('contribution_status_id');
+    self::$contributionStatus = CRM_Contribute_BAO_Contribution::buildOptions('payment_status_id');
     self::$membershipStatus = CRM_Member_PseudoConstant::membershipStatus();
 
     $params = array('version' => 3, 'sequential' => 1, 'is_test' => 0, 'return.name' => 1);
@@ -203,7 +203,7 @@ class CRM_Contributionrecur_Form_Report_Recur extends CRM_Report_Form {
             'title' => ts('Amount'),
             'default' => TRUE,
           ),
-          'contribution_status_id' => array(
+          'payment_status_id' => array(
             'title' => ts('Recurring Donation Status'),
           ),
           'frequency_interval' => array(
@@ -256,7 +256,7 @@ class CRM_Contributionrecur_Form_Report_Recur extends CRM_Report_Form {
           ),
         ),
         'filters' => array(
-          'contribution_status_id' => array(
+          'payment_status_id' => array(
             'title' => ts('Donation Status'),
             'operatorType' => CRM_Report_Form::OP_MULTISELECT,
             'options' => self::$contributionStatus,
@@ -346,9 +346,9 @@ class CRM_Contributionrecur_Form_Report_Recur extends CRM_Report_Form {
           ON {$this->_aliases['civicrm_contact']}.id = {$this->_aliases['civicrm_contribution_recur']}.contact_id";
     $this->_from .= "
       LEFT JOIN civicrm_contribution  {$this->_aliases['civicrm_contribution']}
-        ON ({$this->_aliases['civicrm_contribution_recur']}.id = {$this->_aliases['civicrm_contribution']}.contribution_recur_id AND 1 = {$this->_aliases['civicrm_contribution']}.contribution_status_id)";
+        ON ({$this->_aliases['civicrm_contribution_recur']}.id = {$this->_aliases['civicrm_contribution']}.contribution_recur_id AND 1 = {$this->_aliases['civicrm_contribution']}.payment_status_id)";
     $this->_from .= "
-      LEFT JOIN civicrm_membership_payment 
+      LEFT JOIN civicrm_membership_payment
         ON {$this->_aliases['civicrm_contribution']}.id = civicrm_membership_payment.contribution_id";
     $this->_from .= "
       LEFT JOIN civicrm_membership  {$this->_aliases['civicrm_membership']}
@@ -378,8 +378,8 @@ class CRM_Contributionrecur_Form_Report_Recur extends CRM_Report_Form {
       }
 
       // handle contribution status id
-      if ($value = CRM_Utils_Array::value('civicrm_contribution_recur_contribution_status_id', $row)) {
-        $rows[$rowNum]['civicrm_contribution_recur_contribution_status_id'] = self::$contributionStatus[$value];
+      if ($value = CRM_Utils_Array::value('civicrm_contribution_recur_payment_status_id', $row)) {
+        $rows[$rowNum]['civicrm_contribution_recur_payment_status_id'] = self::$contributionStatus[$value];
       }
       // handle membership status id
       if ($value = CRM_Utils_Array::value('civicrm_membership_status_id', $row)) {

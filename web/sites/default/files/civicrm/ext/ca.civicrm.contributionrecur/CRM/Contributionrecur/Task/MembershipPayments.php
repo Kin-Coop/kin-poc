@@ -106,7 +106,7 @@ AND    {$this->_componentClause}";
    * @return None
    */
   public function postProcess() {
-    // for each contribution id, just update the contribution_status_id
+    // for each contribution id, just update the payment_status_id
     $results = array();
     $values = $this->exportValues();
     //print_r($values);
@@ -127,7 +127,7 @@ AND    {$this->_componentClause}";
         // get details of last matching contribution
         $params = array('version' => 3, 'sequential' => 1, 'contact_id' => $contact_id, 'financial_type_id' => $values['donation_ft_id'], 'options' => array('limit' => 1, 'sort' => 'id DESC')); // , 'contribution_recur_id' => array('>','0'));
         $result = civicrm_api3('Contribution', 'get', $params);
-        $contribution = $result['values'][0]; 
+        $contribution = $result['values'][0];
         $hash = md5(uniqid(rand(), true));
         $membership_contribution = array(
           'version'        => 3,
@@ -139,7 +139,7 @@ AND    {$this->_componentClause}";
           'trxn_id'        => $hash, /* placeholder: just something unique that can also be seen as the same as invoice_id */
           'invoice_id'       => $hash,
           'source'         => 'Implicit membership account transfer',
-          'contribution_status_id' => 1,
+          'payment_status_id' => 1,
           'currency'  => $contribution['currency'],
           'payment_processor'   => $contribution['payment_processor'],
           'financial_type_id' => $values['membership_ft_id'],

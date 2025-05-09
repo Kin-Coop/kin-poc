@@ -184,8 +184,8 @@ function contributionrecur_civicrm_pre($op, $objectName, $objectId, &$params) {
           // watchdog('civicrm','hook_civicrm_pre class name = <pre>'.print_r($class_name,TRUE).'</pre>');
           if ('Payment_RecurOffline' == substr($class_name,0,20)) {
             if ('create' == $op) {
-              if (5 != $params['contribution_status_id'] && empty($params['next_sched_contribution_date'])) {
-                $params['contribution_status_id'] = 5;
+              if (5 != $params['payment_status_id'] && empty($params['next_sched_contribution_date'])) {
+                $params['payment_status_id'] = 5;
                 // $params['trxn_id'] = NULL;
                 $next = strtotime('+'.$params['frequency_interval'].' '.$params['frequency_unit']);
                 $params['next_sched_contribution_date'] = date('YmdHis',$next);
@@ -483,7 +483,7 @@ function contributionrecur_CRM_Contribute_Form_UpdateSubscription(&$form) {
   // turn off default notification checkbox, most will want to hide it as well.
   $defaults = array('is_notify' => 0);
   $edit_fields = array(
-    'contribution_status_id' => 'Status',
+    'payment_status_id' => 'Status',
     'next_sched_contribution_date' => 'Next Scheduled Contribution',
     'start_date' => 'Start Date',
   );
@@ -500,10 +500,10 @@ function contributionrecur_CRM_Contribute_Form_UpdateSubscription(&$form) {
   }
   $form->addElement('static','contact',$contact['display_name']);
   // $form->addElement('static','contact',$contact['display_name']);
-  if ($edit_fields['contribution_status_id']) {
+  if ($edit_fields['payment_status_id']) {
     $contributionStatus = CRM_Contribute_PseudoConstant::contributionStatus(NULL, 'name');
-    $form->addElement('select', 'contribution_status_id', ts('Status'),$contributionStatus);
-    unset($edit_fields['contribution_status_id']);
+    $form->addElement('select', 'payment_status_id', ts('Status'),$contributionStatus);
+    unset($edit_fields['payment_status_id']);
   }
   foreach($edit_fields as $fid => $label) {
     $form->addDateTime($fid,ts($label));
@@ -748,7 +748,7 @@ function contributionrecur_evaluate_tokens(\Civi\Token\Event\TokenValueEvent $e)
     $contactId = $row->context['contactId'];
     $contributionRecur = \Civi\Api4\ContributionRecur::get(FALSE)
       ->addWhere('contact_id', '=', $contactId)
-      ->addWhere('contribution_status_id:name', '=', 'In Progress')
+      ->addWhere('payment_status_id:name', '=', 'In Progress')
       ->addWhere('next_sched_contribution_date', '>', 'NOW')
       ->addOrderBy('next_sched_contribution_date', 'ASC')
       ->setLimit(1)

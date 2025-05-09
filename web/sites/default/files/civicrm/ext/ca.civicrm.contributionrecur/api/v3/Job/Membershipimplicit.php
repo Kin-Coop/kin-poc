@@ -71,18 +71,18 @@ function civicrm_api3_job_membershipimplicit($params = array()) {
     $contribution_status = 1;
   }
   else { // check that it's a comma separated list of integers
-    $contribution_status_ids = explode(',',$params['contribution_status']);
-    for ($i = 0; $i < count($contribution_status_ids); $i++) {
-      $contribution_status_ids[$i] = (int) $contribution_status_ids[$i];
+    $payment_status_ids = explode(',',$params['contribution_status']);
+    for ($i = 0; $i < count($payment_status_ids); $i++) {
+      $payment_status_ids[$i] = (int) $payment_status_ids[$i];
     }
-    $contribution_status = implode(',',$contribution_status_ids);
-  } 
+    $contribution_status = implode(',',$payment_status_ids);
+  }
   $dl = date('Y-m-d',strtotime($dateLimit));
   // throw new CRM_Core_Exception(ts('Date: '.$dl));
   $maps = explode(';',$maps);
   foreach($maps as $map) {
     list($ftype_ids,$mtype_ids,$membership_ftype_id) = explode(':',$map,3);
-    $f = explode(',',$ftype_ids); 
+    $f = explode(',',$ftype_ids);
     $clean = array();
     foreach($f as $id) {
       if (!is_numeric($id) || empty($id)) {
@@ -90,11 +90,11 @@ function civicrm_api3_job_membershipimplicit($params = array()) {
       }
       else {
         $clean[] = (integer) $id;
-      } 
+      }
     }
     $ftype_ids = implode(',',$clean);
 
-    $m = explode(',',$mtype_ids); 
+    $m = explode(',',$mtype_ids);
     $clean = array();
     foreach($m as $id) {
       if (!is_numeric($id) || empty($id)) {
@@ -102,7 +102,7 @@ function civicrm_api3_job_membershipimplicit($params = array()) {
       }
       else {
         $clean[] = (integer) $id;
-      } 
+      }
     }
     $mtype_ids = $clean;
 
@@ -113,31 +113,31 @@ function civicrm_api3_job_membershipimplicit($params = array()) {
       }
       else {
         $membership_ftype_id = (integer) $id;
-      } 
-    }      
-    $sql = "SELECT c.id,c.contact_id,c.receive_date,c.total_amount,c.contribution_status_id FROM civicrm_contribution c INNER JOIN civicrm_line_item l ON c.id = l.contribution_id LEFT JOIN civicrm_membership_payment p ON c.id = p.contribution_id WHERE ISNULL(p.membership_id) AND (c.is_test = 0) AND (c.receive_date >= '$dl') AND (l.financial_type_id in ($ftype_ids)) AND (c.contribution_status_id IN ($contribution_status)) ORDER BY contact_id, receive_date".$countLimit;
+      }
+    }
+    $sql = "SELECT c.id,c.contact_id,c.receive_date,c.total_amount,c.payment_status_id FROM civicrm_contribution c INNER JOIN civicrm_line_item l ON c.id = l.contribution_id LEFT JOIN civicrm_membership_payment p ON c.id = p.contribution_id WHERE ISNULL(p.membership_id) AND (c.is_test = 0) AND (c.receive_date >= '$dl') AND (l.financial_type_id in ($ftype_ids)) AND (c.payment_status_id IN ($contribution_status)) ORDER BY contact_id, receive_date".$countLimit;
     $dao = CRM_Core_DAO::executeQuery($sql);
     $contacts = array();
     while($dao->fetch()) {
       if (empty($contacts[$dao->contact_id])) {
         $contacts[$dao->contact_id] = array();
-      } 
+      }
       // use the contribution id as a key to order them as input
-      $contacts[$dao->contact_id][$dao->id] = array('id' => $dao->id, 'receive_date' => $dao->receive_date, 'total_amount' => $dao->total_amount, 'contribution_status_id' => $dao->contribution_status_id, 'applied' => 0);
+      $contacts[$dao->contact_id][$dao->id] = array('id' => $dao->id, 'receive_date' => $dao->receive_date, 'total_amount' => $dao->total_amount, 'payment_status_id' => $dao->payment_status_id, 'applied' => 0);
     }
     // also deal with the possibility that the membership_payment records got created but no membership renewal happened
     /*
-    $sql_m = "SELECT c.id,c.contact_id,c.receive_date,c.total_amount,c.contribution_status_id FROM civicrm_contribution c INNER JOIN civicrm_membership_payment p ON c.id = p.contribution_id INNER JOIN civicrm_membership m ON p.membership_id = m.id WHERE (m.status_id > 2) AND (c.receive_date >= '$dl') AND (c.financial_type_id in ($ftype_ids)) AND (c.contribution_status_id = 1) ORDER BY contact_id, receive_date".$countLimit;
+    $sql_m = "SELECT c.id,c.contact_id,c.receive_date,c.total_amount,c.payment_status_id FROM civicrm_contribution c INNER JOIN civicrm_membership_payment p ON c.id = p.contribution_id INNER JOIN civicrm_membership m ON p.membership_id = m.id WHERE (m.status_id > 2) AND (c.receive_date >= '$dl') AND (c.financial_type_id in ($ftype_ids)) AND (c.payment_status_id = 1) ORDER BY contact_id, receive_date".$countLimit;
     $dao = CRM_Core_DAO::executeQuery($sql_m);
     while($dao->fetch()) {
       if (empty($contacts[$dao->contact_id])) {
         $contacts[$dao->contact_id] = array();
-      } 
+      }
       // use the contribution id as a key to order them as input
-      $contacts[$dao->contact_id][$dao->id] = array('id' => $dao->id, 'receive_date' => $dao->receive_date, 'total_amount' => $dao->total_amount, 'contribution_status_id' => $dao->contribution_status_id, 'applied' => 1);
+      $contacts[$dao->contact_id][$dao->id] = array('id' => $dao->id, 'receive_date' => $dao->receive_date, 'total_amount' => $dao->total_amount, 'payment_status_id' => $dao->payment_status_id, 'applied' => 1);
     }
     */
-  } 
+  }
   $results = array();
   if (count($contacts)) {
     $result = civicrm_api3('MembershipType', 'get', array('sequential' => 1, 'id' => array('IN' => $mtype_ids)));
@@ -154,8 +154,8 @@ function civicrm_api3_job_membershipimplicit($params = array()) {
   }
 
   // Spec: civicrm_api3_create_success($values = 1, $params = array(), $entity = NULL, $action = NULL)
-  if (!empty($results)) { 
-    $output = $verbose ? $sql.print_r($results, TRUE) : 'Processed '.count($results).' contacts'; 
+  if (!empty($results)) {
+    $output = $verbose ? $sql.print_r($results, TRUE) : 'Processed '.count($results).' contacts';
     return civicrm_api3_create_success($output);
   } else {
     return civicrm_api3_create_success("Nothing to do! ".$sql);

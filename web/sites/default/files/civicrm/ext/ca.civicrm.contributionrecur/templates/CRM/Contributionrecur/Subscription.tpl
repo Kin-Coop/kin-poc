@@ -3,8 +3,8 @@
  can move the rows where they belong
 *}
 <table id="contributionrecur-extra">
-<tr><td class="label">{$form.contribution_status_id.label}</td>
-        <td class="content">{$form.contribution_status_id.html}</td></tr>
+<tr><td class="label">{$form.payment_status_id.label}</td>
+        <td class="content">{$form.payment_status_id.html}</td></tr>
 <tr><td class="label">{$form.payment_processor_id.label}</td>
         <td class="content">{$form.payment_processor_id.html}</td></tr>
 <tr><td class="label">{$form.start_date.label}</td>
