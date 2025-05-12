@@ -55,7 +55,7 @@ public function getBillingAddressFields($billingLocationID = NULL): array {
 
         return [];
 
-    
+
 }
   
   /**
