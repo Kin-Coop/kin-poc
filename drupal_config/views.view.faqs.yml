@@ -774,6 +774,10 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
+      pager:
+        type: none
+        options:
+          offset: 0
       arguments:
         parent_target_id:
           id: parent_target_id
@@ -884,6 +888,7 @@ display:
           1: AND
       defaults:
         css_class: false
+        pager: false
         fields: false
         arguments: false
         filters: false
@@ -897,7 +902,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - url.query_args
         - user.permissions
       tags: {  }
   block_2:
