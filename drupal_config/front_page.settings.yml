@@ -18,7 +18,7 @@ roles:
     weight: 0
     path: /member/home
   administrator:
-    enabled: true
+    enabled: null
     weight: 0
     path: /member/home
   pending_member:
