@@ -22,6 +22,7 @@ Config.IDS.ini
 .ddev
 .idea
 *.Identifier
+cron*.sh
 
 # Ignore paths that may contain user-generated content
 /web/sites/*/public
