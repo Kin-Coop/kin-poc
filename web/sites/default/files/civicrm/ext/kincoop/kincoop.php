@@ -181,7 +181,9 @@ function kincoop_civicrm_buildForm($formName, $form) {
                     $form->setDefaults($defaults);
                     //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
                 }
-            $form->addRule('custom_25', ts('This field is required.'), 'required');
+            if (isset($form['custom_25'])) {
+              $form->addRule('custom_25', ts('This field is required.'), 'required');
+            }
             }
         }
     }
