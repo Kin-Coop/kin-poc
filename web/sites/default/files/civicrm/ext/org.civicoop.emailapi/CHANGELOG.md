@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.22.0 (2024-04-30)
+
+* [!70](https://lab.civicrm.org/extensions/emailapi/-/merge_requests/70) Pass additional params to the message template so that its available in hook.
+* Use actions.json for actions.
+* Use URL formatter function to make sure URLs are not escaped in WordPress.
+
 ## Version 2.21.0 (2025-04-04)
 **Requires CiviRules 3.18.0 or higher.**
 

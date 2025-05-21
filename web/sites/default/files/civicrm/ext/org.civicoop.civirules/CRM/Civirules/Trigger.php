@@ -330,7 +330,7 @@ abstract class CRM_Civirules_Trigger {
     try {
       CRM_Civirules_Engine::triggerRule($this, $this->getTriggerData());
     }
-    catch (Exception $e) {
+    catch (Throwable $e) {
       \Civi::log()->error('Failed to trigger rule: ' . $e->getMessage());
     }
   }

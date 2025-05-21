@@ -89,6 +89,7 @@ class CRM_Emailapi_ExtensionUtil {
 
 use CRM_Emailapi_ExtensionUtil as E;
 
+pathload()->addSearchDir(__DIR__ . '/mixin/lib');
 spl_autoload_register('_emailapi_civix_class_loader', TRUE, TRUE);
 
 function _emailapi_civix_class_loader($class) {

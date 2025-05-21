@@ -18,46 +18,7 @@ function gdpr_civicrm_config(&$config) {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_install
  */
 function gdpr_civicrm_install() {
-  // #188 - use install instead of managed entities hook to avoid fatal
-  $result = civicrm_api3('OptionValue', 'get', [
-    'sequential'      => 1,
-    'option_group_id' => "cg_extend_objects",
-    'value'           => "ContributionPage",
-  ]);
-  if (empty($result['id'])) {
-    civicrm_api3('OptionValue', 'create', [
-      'label'           => E::ts('Contribution Page'),
-      'name'            => 'civicrm_contribution_page',
-      'value'           => 'ContributionPage',
-      'option_group_id' => 'cg_extend_objects',
-      'is_active'       => 1,
-    ]);
-  }
   _gdpr_civix_civicrm_install();
-}
-
-/**
- * Implements hook_civicrm_uninstall().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_uninstall
- */
-function gdpr_civicrm_uninstall() {
-  $result = civicrm_api3('CustomGroup', 'get', [
-    'sequential' => 1,
-    'extends'    => "ContributionPage",
-  ]);
-  if (!$result['is_error'] && $result['count'] <= 0) {
-    $result = civicrm_api3('OptionValue', 'get', [
-      'sequential'      => 1,
-      'option_group_id' => "cg_extend_objects",
-      'value'           => "ContributionPage",
-    ]);
-    if (!empty($result['id'])) {
-      civicrm_api3('OptionValue', 'delete', [
-        'id' => $result['id'],
-      ]);
-    }
-  }
 }
 
 /**

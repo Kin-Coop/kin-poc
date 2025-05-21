@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## Version 3.20.0 (2025-05-08)
+
+* [!298](https://lab.civicrm.org/extensions/civirules/-/merge_requests/298) Refactor condition checking so we stop checking conditions when all conditions will evaluate to false and improve logging.
+* When adding a condition set the weight correctly so they are added in the right order.
+* Disable some debug logging for MembershipActivity trigger.
+* [!297](https://lab.civicrm.org/extensions/civirules/-/merge_requests/297) Condition shouldn't be valid for delayed action when entity has been deleted in the meantime.
+
+## Version 3.19.0 (2025-04-24)
+
+* [!296](https://lab.civicrm.org/extensions/civirules/-/merge_requests/296) Wrap all the execution steps for a rule in try/catch with Throwable so a broken rule should never kill the whole process.
+* [!295](https://lab.civicrm.org/extensions/civirules/-/merge_requests/295) Fix financial type comparison when no financial types selected.
+
 ## Version 3.18.2 (2025-04-11)
 
 * Fix [#258](https://lab.civicrm.org/extensions/civirules/-/issues/258) - Multiple conditions always evaluate to false.

@@ -205,6 +205,7 @@ function civicrm_api3_email_send($params) {
       'subject' => $messageSubject,
       'messageTemplateID' => $messageTemplates->id,
       'contactId' => $contactId,
+      'api_params' => $params,
     ];
 
     // render the &amp; entities in text mode, so that the links work

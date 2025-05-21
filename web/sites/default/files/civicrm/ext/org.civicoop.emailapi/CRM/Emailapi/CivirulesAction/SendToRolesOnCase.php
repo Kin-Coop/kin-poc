@@ -7,13 +7,15 @@ use CRM_Emailapi_ExtensionUtil as E;
 
 class CRM_Emailapi_CivirulesAction_SendToRolesOnCase extends CRM_Civirules_Action {
 
+  /**
+   * @var array
+   */
   protected static $alreadySend = [];
 
   /**
    * Process the action
    *
    * @param CRM_Civirules_TriggerData_TriggerData $triggerData
-   * @access public
    */
   public function processAction(CRM_Civirules_TriggerData_TriggerData $triggerData) {
     $actionParams = $this->getActionParameters();
@@ -48,6 +50,12 @@ class CRM_Emailapi_CivirulesAction_SendToRolesOnCase extends CRM_Civirules_Actio
     }
   }
 
+  /**
+   * @param $case_id
+   * @param $relationship_type
+   * @return array
+   * @throws \Civi\Core\Exception\DBQueryException
+   */
   protected function getRelatedContacts($case_id, $relationship_type) {
     $dir = 'b';
     if (stripos($relationship_type, 'b_') === 0) {
@@ -77,6 +85,10 @@ class CRM_Emailapi_CivirulesAction_SendToRolesOnCase extends CRM_Civirules_Actio
     return $contacts;
   }
 
+  /**
+   * @return array
+   * @throws CRM_Core_Exception
+   */
   public static function getRelationshipTypes() {
     $return = CRM_Emailapi_CivirulesAction_SendToRelatedContact::getRelationshipTypes('a_b');
     return $return;
@@ -88,11 +100,11 @@ class CRM_Emailapi_CivirulesAction_SendToRolesOnCase extends CRM_Civirules_Actio
    * Return false if you do not need extra data input
    *
    * @param int $ruleActionId
+   *
    * @return bool|string
-   * $access public
    */
   public function getExtraDataInputUrl($ruleActionId) {
-    return CRM_Utils_System::url('civicrm/civirules/actions/emailapi_rolesoncase', 'rule_action_id='.$ruleActionId);
+    return $this->getFormattedExtraDataInputUrl('civicrm/civirules/actions/emailapi_rolesoncase', $ruleActionId);
   }
 
   /**
@@ -100,7 +112,6 @@ class CRM_Emailapi_CivirulesAction_SendToRolesOnCase extends CRM_Civirules_Actio
    * e.g. 'Older than 65'
    *
    * @return string
-   * @access public
    */
   public function userFriendlyConditionParams() {
     $template = 'unknown template';
@@ -158,6 +169,7 @@ class CRM_Emailapi_CivirulesAction_SendToRolesOnCase extends CRM_Civirules_Actio
    *
    * @param CRM_Civirules_Trigger $trigger
    * @param CRM_Civirules_BAO_Rule $rule
+   *
    * @return bool
    */
   public function doesWorkWithTrigger(CRM_Civirules_Trigger $trigger, CRM_Civirules_BAO_Rule $rule) {

@@ -50,7 +50,7 @@ class CRM_CivirulesPostTrigger_MembershipActivity extends CRM_CivirulesPostTrigg
 
     // Check if this trigger is enabled for this op
     if (str_contains($this->triggerParams['trigger_op'], '$op')) {
-      \Civi::log()->debug('CiviRules MembershipActivity trigger: Trigger op not enabled: ' . $op);
+      // \Civi::log()->debug('CiviRules MembershipActivity trigger: Trigger op not enabled: ' . $op);
       return;
     }
 
@@ -69,7 +69,7 @@ class CRM_CivirulesPostTrigger_MembershipActivity extends CRM_CivirulesPostTrigg
       }
     }
     if (empty($membershipActivityTypes[$activityTypeID])) {
-      \Civi::log()->debug('CiviRules MembershipActivity trigger: activity_type_id ' . $activityTypeID . ' not a membership activity');
+      // \Civi::log()->debug('CiviRules MembershipActivity trigger: activity_type_id ' . $activityTypeID . ' not a membership activity');
       return;
     }
 

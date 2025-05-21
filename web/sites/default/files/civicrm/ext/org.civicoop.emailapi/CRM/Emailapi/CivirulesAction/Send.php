@@ -13,8 +13,6 @@ class CRM_Emailapi_CivirulesAction_Send extends CRM_CivirulesActions_Generic_Api
   /**
    * Method to get the api entity to process in this CiviRule action
    *
-   * @access protected
-   * @abstract
    */
   protected function getApiEntity() {
     return 'Email';
@@ -23,8 +21,6 @@ class CRM_Emailapi_CivirulesAction_Send extends CRM_CivirulesActions_Generic_Api
   /**
    * Method to get the api action to process in this CiviRule action
    *
-   * @access protected
-   * @abstract
    */
   protected function getApiAction() {
     return 'send';
@@ -34,9 +30,9 @@ class CRM_Emailapi_CivirulesAction_Send extends CRM_CivirulesActions_Generic_Api
    * Returns an array with parameters used for processing an action
    *
    * @param array $parameters
-   * @param CRM_Civirules_TriggerData_TriggerData $rtiggerData
+   * @param CRM_Civirules_TriggerData_TriggerData $triggerData
+   *
    * @return array
-   * @access protected
    */
   protected function alterApiParameters($parameters, CRM_Civirules_TriggerData_TriggerData $triggerData) {
     //this method could be overridden in subclasses to alter parameters to meet certain criteria
@@ -93,8 +89,8 @@ class CRM_Emailapi_CivirulesAction_Send extends CRM_CivirulesActions_Generic_Api
    * Return false if you do not need extra data input
    *
    * @param int $ruleActionId
+   *
    * @return bool|string
-   * $access public
    */
   public function getExtraDataInputUrl($ruleActionId) {
     return $this->getFormattedExtraDataInputUrl('civicrm/civirules/actions/emailapi', $ruleActionId);
@@ -105,7 +101,6 @@ class CRM_Emailapi_CivirulesAction_Send extends CRM_CivirulesActions_Generic_Api
    * e.g. 'Older than 65'
    *
    * @return string
-   * @access public
    */
   public function userFriendlyConditionParams() {
     $template = 'unknown template';

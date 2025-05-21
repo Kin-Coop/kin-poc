@@ -12,7 +12,6 @@ class CRM_Emailapi_CivirulesAction_SendToRelatedContact extends CRM_Civirules_Ac
    * Process the action
    *
    * @param CRM_Civirules_TriggerData_TriggerData $triggerData
-   * @access public
    */
   public function processAction(CRM_Civirules_TriggerData_TriggerData $triggerData) {
     $actionParams = $this->getActionParameters();
@@ -44,6 +43,14 @@ class CRM_Emailapi_CivirulesAction_SendToRelatedContact extends CRM_Civirules_Ac
     }
   }
 
+    /**
+     * @param $contact_id
+     * @param $relationship_type
+     * @param $relationship_option
+     *
+     * @return array
+     * @throws \Civi\Core\Exception\DBQueryException
+     */
   protected function getRelatedContacts($contact_id, $relationship_type, $relationship_option) {
     $dir = 'b';
     $inverse_dir = 'a';
@@ -107,6 +114,9 @@ class CRM_Emailapi_CivirulesAction_SendToRelatedContact extends CRM_Civirules_Ac
     return $contacts;
   }
 
+  /**
+   * @return array
+   */
   public static function getRelationshipOptions() {
     return [
       'all_active' => ts('All active related contacts'),
@@ -115,7 +125,13 @@ class CRM_Emailapi_CivirulesAction_SendToRelatedContact extends CRM_Civirules_Ac
     ];
   }
 
-  public static function getRelationshipTypes($dir='both') {
+  /**
+   * @param string $dir
+   *
+   * @return array
+   * @throws CRM_Core_Exception
+   */
+  public static function getRelationshipTypes($dir = 'both') {
     $return = [];
     $relationshipTypes = civicrm_api3('RelationshipType', 'Get', ['is_active' => 1, 'options' => ['limit' => 0]]);
     foreach ($relationshipTypes['values'] as $relationshipType) {
@@ -142,11 +158,11 @@ class CRM_Emailapi_CivirulesAction_SendToRelatedContact extends CRM_Civirules_Ac
    * Return false if you do not need extra data input
    *
    * @param int $ruleActionId
+   *
    * @return bool|string
-   * $access public
    */
   public function getExtraDataInputUrl($ruleActionId) {
-    return CRM_Utils_System::url('civicrm/civirules/actions/emailapi_relatedcontact', 'rule_action_id='.$ruleActionId);
+    return $this->getFormattedExtraDataInputUrl('civicrm/civirules/actions/emailapi_relatedcontact', $ruleActionId);
   }
 
   /**
@@ -154,7 +170,6 @@ class CRM_Emailapi_CivirulesAction_SendToRelatedContact extends CRM_Civirules_Ac
    * e.g. 'Older than 65'
    *
    * @return string
-   * @access public
    */
   public function userFriendlyConditionParams() {
     $template = 'unknown template';

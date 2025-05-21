@@ -8,7 +8,6 @@ class CRM_Emailapi_CivirulesAction_SendToCustomFieldValue extends CRM_Civirules_
    * Process the action
    *
    * @param CRM_Civirules_TriggerData_TriggerData $triggerData
-   * @access public
    */
   public function processAction(CRM_Civirules_TriggerData_TriggerData $triggerData) {
     $actionParams = $this->getActionParameters();
@@ -48,7 +47,6 @@ class CRM_Emailapi_CivirulesAction_SendToCustomFieldValue extends CRM_Civirules_
    * Get a list of entities that use custom fields.
    *
    * @return array
-   * @access public
    */
   public static function getCustomFieldEntities() {
     $return = ['' => '-- please select --'];
@@ -113,11 +111,11 @@ class CRM_Emailapi_CivirulesAction_SendToCustomFieldValue extends CRM_Civirules_
    * Return false if you do not need extra data input
    *
    * @param int $ruleActionId
+   *
    * @return bool|string
-   * @access public
    */
   public function getExtraDataInputUrl($ruleActionId) {
-    return CRM_Utils_System::url('civicrm/civirules/actions/emailapi_customfieldvalue', 'rule_action_id=' . $ruleActionId);
+    return $this->getFormattedExtraDataInputUrl('civicrm/civirules/actions/emailapi_customfieldvalue', $ruleActionId);
   }
 
   /**
@@ -125,7 +123,6 @@ class CRM_Emailapi_CivirulesAction_SendToCustomFieldValue extends CRM_Civirules_
    * e.g. 'Older than 65'
    *
    * @return string
-   * @access public
    */
   public function userFriendlyConditionParams() {
     $template = 'unknown template';
@@ -166,6 +163,7 @@ class CRM_Emailapi_CivirulesAction_SendToCustomFieldValue extends CRM_Civirules_
   /**
    * If it's not a contact type, then just return itself. If it is a contact type, then return "Contact".
    * @param string $entity
+   *
    * @return string
    */
   private function figureOutEntity(string $entity): string {

@@ -39,24 +39,34 @@ class CRM_Civirules_Engine {
           $triggerData->setContactId($triggerData->getEntityId());
         }
       }
+    } catch (Throwable $e) {
+      // Catch *any* error when loading the triggerData and log it.
+      \Civi::log('civirules')->error('CiviRules: Failed loading triggerData for ruleID: ' . $trigger->getRuleId() . ' with error: ' . $e->getMessage());
+      return FALSE;
+    }
 
-      // Check if the conditions are valid
+    // Check if the conditions are valid
+    try {
       $isRuleValid = self::areConditionsValid($triggerData);
+    } catch (Throwable $e) {
+      // Catch *any* error when executing the conditions and log it.
+      \Civi::log('civirules')->error('CiviRules: One or more conditions is crashing for ruleID: ' . $trigger->getRuleId() . ' with error: ' . $e->getMessage());
+      return FALSE;
+    }
 
+    try {
       if ($isRuleValid) {
         // Log and execute the actions for the rule
         self::logRule($triggerData);
         self::executeActions($triggerData);
         return TRUE;
       }
-    } catch (Exception $e) {
-      $message = "Error on {file} (Line {line})\r\n\r\n{exception_message}";
-      $context = [];
-      $context['line'] = $e->getLine();
-      $context['file'] = $e->getFile();
-      $context['exception_message'] = $e->getMessage();
-      CRM_Civirules_Utils_LoggerFactory::logError('Failed to execute rule',  $message, $triggerData, $context);
+    } catch (Throwable $e) {
+      // Catch *any* error when executing the actions and log it.
+      \Civi::log('civirules')->error('CiviRules: Failed executing actions for ruleID: ' . $trigger->getRuleId() . ' with error: ' . $e->getMessage());
+      return FALSE;
     }
+
     return FALSE;
   }
 
@@ -161,9 +171,22 @@ class CRM_Civirules_Engine {
         $entity = $triggerData->getEntity();
         if ($entity) {
           try {
-            $entityData = civicrm_api3($entity, 'getsingle', ['id' => $triggerData->getEntityId()]);
-            $entityData = self::useCanonicalFieldNames($entity, $entityData);
-            $triggerData->setEntityData($entity, $entityData);
+            $entityData = civicrm_api3($entity, 'get', ['id' => $triggerData->getEntityId(), 'sequential' => 1]);
+            if ($entityData['count'] === 0) {
+              // Since this is a delayed action, it's possible the entity has
+              // been deleted by now, so don't compare against the original.
+              $triggerData->setEntityData($entity, []);
+            }
+            elseif ($entityData['count'] > 1) {
+              // Unlikely because we're getting via entity id, but just in case.
+              // Since probably will never see this, don't bother with ts().
+              throw new \CRM_Core_Exception('Expected one ' . $entity . ' but found ' . $entityData['count']);
+            }
+            else {
+              $entityData = $entityData['values'][0];
+              $entityData = self::useCanonicalFieldNames($entity, $entityData);
+              $triggerData->setEntityData($entity, $entityData);
+            }
           }
           catch (Exception $e) {
             // leave $triggerData as is
@@ -273,24 +296,47 @@ class CRM_Civirules_Engine {
   public static function areConditionsValid(CRM_Civirules_TriggerData_TriggerData $triggerData): bool {
     $isValid = TRUE;
     $firstCondition = TRUE;
+    $previousConditionLink = '';
 
     $ruleConditions = $triggerData->getTrigger()->getRuleConditions();
     foreach ($ruleConditions as $ruleConditionId => $ruleCondition) {
       if ($firstCondition) {
+        // Always check the first condition
         $isValid = self::checkCondition($ruleCondition, $triggerData);
+        $conditionsValid[$ruleConditionId] = $ruleConditionId . '=' . ($isValid ? 'true' : 'false');
         $firstCondition = FALSE;
-      } elseif ($ruleCondition['condition_link'] == 'AND') {
-        if ($isValid) {
-          $isValid = self::checkCondition($ruleCondition, $triggerData);
-        }
-      } elseif ($ruleCondition['condition_link'] == 'OR') {
-        if (!$isValid) {
-          $isValid = self::checkCondition($ruleCondition, $triggerData);
-        }
-      } else {
-        $isValid = FALSE; // we should never reach this statement
+        // We always check the next condition because it might have condition_link=OR.
+        continue;
       }
-      $conditionsValid[$ruleConditionId] = "$ruleConditionId=" . ($isValid ? 'true' : 'false');
+      switch ($ruleCondition['condition_link']) {
+        case 'AND':
+          // If the previous condition evaluated to TRUE then we need this condition to be TRUE as well
+          if (!$isValid) {
+            // Previous condition was not valid so conditions are not met.
+            // Don't check any more conditions
+            break 2;
+          }
+          $isValid = self::checkCondition($ruleCondition, $triggerData);
+          $conditionsValid[$ruleConditionId] = $ruleCondition['condition_link'] . $ruleConditionId . '=' . ($isValid ? 'true' : 'false');
+          break;
+
+        case 'OR':
+          if ($isValid) {
+            // Previous condition was valid so conditions are met.
+            $conditionsValid[$ruleConditionId] = $ruleCondition['condition_link'] . $ruleConditionId . '=' . ('notchecked');
+            break;
+          }
+          $isValid = self::checkCondition($ruleCondition, $triggerData);
+          $conditionsValid[$ruleConditionId] = $ruleCondition['condition_link'] . $ruleConditionId . '=' . ($isValid ? 'true' : 'false');
+          break;
+
+        default:
+          \Civi::log('civirules')->error(
+            'CiviRules: RuleID: ' . $triggerData->getTrigger()->getRuleId() . ', ConditionID: ' . $ruleConditionId
+            . ' has invalid condition_link operator: ' . $ruleCondition['condition_link']);
+          $isValid = FALSE;
+          break 2;
+      }
     }
 
     if ($triggerData->getTrigger()->getRuleDebugEnabled()) {
@@ -298,7 +344,7 @@ class CRM_Civirules_Engine {
       if (!empty($ruleConditions)) {
         $context = [];
         $context['rule_id'] = $triggerData->getTrigger()->getRuleId();
-        $context['conditions_valid'] = implode(';', $conditionsValid ?? []);
+        $context['conditions_valid'] = ($isValid ? 'true' : 'false') . '; Detail: ' . implode(';', $conditionsValid ?? []);
         $context['contact_id'] = $triggerData->getContactId();
         $context['entity_id'] = $triggerData->getEntityId();
         CRM_Civirules_Utils_LoggerFactory::log("Rule {$context['rule_id']}: Conditions: {$context['conditions_valid']}",

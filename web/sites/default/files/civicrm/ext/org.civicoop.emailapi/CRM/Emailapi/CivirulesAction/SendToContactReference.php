@@ -12,7 +12,6 @@ class CRM_Emailapi_CivirulesAction_SendToContactReference extends CRM_Civirules_
    * Process the action
    *
    * @param CRM_Civirules_TriggerData_TriggerData $triggerData
-   * @access public
    */
   public function processAction(CRM_Civirules_TriggerData_TriggerData $triggerData) {
     $actionParams = $this->getActionParameters();
@@ -76,7 +75,6 @@ class CRM_Emailapi_CivirulesAction_SendToContactReference extends CRM_Civirules_
    * Get a list of entities that use custom fields.
    *
    * @return array
-   * @access public
    */
   public static function getContactReferenceEntities() {
     $return[] = '-- please select --';
@@ -99,11 +97,11 @@ class CRM_Emailapi_CivirulesAction_SendToContactReference extends CRM_Civirules_
    * Return false if you do not need extra data input
    *
    * @param int $ruleActionId
+   *
    * @return bool|string
-   * @access public
    */
   public function getExtraDataInputUrl($ruleActionId) {
-    return CRM_Utils_System::url('civicrm/civirules/actions/emailapi_contactreference', 'rule_action_id=' . $ruleActionId);
+    return $this->getFormattedExtraDataInputUrl('civicrm/civirules/actions/emailapi_contactreference', $ruleActionId);
   }
 
   /**
@@ -111,7 +109,6 @@ class CRM_Emailapi_CivirulesAction_SendToContactReference extends CRM_Civirules_
    * e.g. 'Older than 65'
    *
    * @return string
-   * @access public
    */
   public function userFriendlyConditionParams() {
     $template = 'unknown template';
