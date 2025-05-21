@@ -173,17 +173,17 @@ function kincoop_civicrm_buildForm($formName, $form) {
             //Civi::log()->debug('Contents of $formName: ' . print_r($_GET, TRUE));
           if($form->getAction() == CRM_Core_Action::ADD) {
             if (isset($_GET['groupid']) && $_GET['me']) {
-                    $cid = CRM_Core_Session::singleton()->getLoggedInContactID();
-                    $cid = $cid ? $cid : 'K';
-                    $ref = $cid . '-' . date('mdi');
-                    $defaults['custom_25'] = $_GET['groupid'];
-                    $defaults['custom_61'] = $ref;
-                    $form->setDefaults($defaults);
+                $cid = CRM_Core_Session::singleton()->getLoggedInContactID();
+                $cid = $cid ? $cid : 'K';
+                $ref = $cid . '-' . date('mdi');
+                $defaults['custom_25'] = $_GET['groupid'];
+                $defaults['custom_61'] = $ref;
+                $form->setDefaults($defaults);
+                //if (isset($form['custom_25'])) {
+                //  $form->addRule('custom_25', ts('This field is required.'), 'required');
+                //}
                     //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
                 }
-            if (isset($form['custom_25'])) {
-              $form->addRule('custom_25', ts('This field is required.'), 'required');
-            }
             }
         }
     }
