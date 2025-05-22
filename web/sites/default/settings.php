@@ -2,8 +2,6 @@
 
 // phpcs:ignoreFile
 
-// DDEV-created Drupal 10 settings.php from upstream default.settings.php
-
 /**
  * @file
  * Drupal site-specific configuration file.
@@ -258,7 +256,7 @@ $databases = [];
  * directory in the public files path. The setting below allows you to set
  * its location.
  */
- $settings['config_sync_directory'] = '../drupal_config';
+# $settings['config_sync_directory'] = '/directory/outside/webroot';
 
 /**
  * Settings:
@@ -288,7 +286,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-#$settings['hash_salt'] = '';
+$settings['hash_salt'] = 'k4DewKABnQOE9yWIPwM_JaB9VG6UOy4Y4Nzj8rbXhJacwZgxfxNXZp92sg4FdogH8HPrmnUc6Q';
 
 /**
  * Deployment identifier.
@@ -612,7 +610,7 @@ $settings['update_free_access'] = FALSE;
  * See https://www.drupal.org/documentation/modules/file for more information
  * about securing private files.
  */
-# $settings['file_private_path'] = '';
+# $settings['file_private_path'] = '/home/kin/sites/kin/private';
 
 /**
  * Temporary file path:
@@ -875,11 +873,6 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 # $settings['migrate_file_public_path'] = '';
 # $settings['migrate_file_private_path'] = '';
 
-// Automatically generated include for settings managed by ddev.
-if (getenv('IS_DDEV_PROJECT') == 'true' && file_exists(__DIR__ . '/settings.ddev.php')) {
-  include __DIR__ . '/settings.ddev.php';
-}
-
 /**
  * Load local development override configuration, if available.
  *
@@ -897,4 +890,6 @@ if (getenv('IS_DDEV_PROJECT') == 'true' && file_exists(__DIR__ . '/settings.ddev
  if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
    include $app_root . '/' . $site_path . '/settings.local.php';
  }
+
+$settings['config_sync_directory'] = '../drupal_config';
 
