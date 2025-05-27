@@ -3755,7 +3755,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Make A Contribution\r\n    </h2>\r\n    <p>\r\n       You can make a one-off contribution or set up a regular recurring contribution. Please see the recurring contribution FAQ for more information on how this works.\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=1&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Contribution</a>\r\n        &nbsp;&nbsp;&nbsp;\r\n       <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=5&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up Recurring Contribution</a>\r\n    </p>\r\n</div>"
+            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Make A Contribution\r\n    </h2>\r\n    <p>\r\n       You can make a one-off contribution or set up a regular recurring contribution. Please see the <a href=\"/faqs?term=recurring\" target=\"_blank\">recurring contribution FAQ</a> for more information on how this works.\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=1&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Contribution</a>\r\n        &nbsp;&nbsp;&nbsp;\r\n       <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=7&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up Recurring Contribution</a>\r\n    </p>\r\n</div>"
             format: full_html
           tokenize: true
         area_2:

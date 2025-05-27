@@ -2,9 +2,15 @@ uuid: ec9fc71c-f52f-4247-9a89-68dddc8b6f55
 langcode: en-gb
 status: open
 dependencies:
+  module:
+    - honeypot
   enforced:
     module:
       - webform
+third_party_settings:
+  honeypot:
+    honeypot: true
+    time_restriction: true
 _core:
   default_config_hash: _je-MWeeJB6gfm6iECiqjcyNetfMFbn-YIInYwZ1gIk
 weight: 0
@@ -34,8 +40,9 @@ elements: |-
     '#required': true
     '#test': 'Testing contact webform from [site:name]'
   message:
-    '#title': Message
     '#type': textarea
+    '#title': Message
+    '#maxlength': 1400
     '#required': true
     '#test': 'Please ignore this email.'
   captcha:

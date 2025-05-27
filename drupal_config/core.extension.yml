@@ -45,6 +45,7 @@ module:
   gin_toolbar: 0
   help: 0
   history: 0
+  honeypot: 0
   image: 0
   kin_civi: 0
   kinmod: 0

@@ -356,7 +356,7 @@ handlers:
     notes: ''
     status: true
     conditions: {  }
-    weight: null
+    weight: -50
     settings:
       nid: 1
       number_of_contacts: '2'
@@ -587,13 +587,13 @@ handlers:
       cc_options: {  }
       from_mail: _default
       from_options: {  }
-      from_name: _default
+      from_name: 'Kin Cooperative'
       reply_to: ''
       return_path: ''
       sender_mail: ''
       sender_name: ''
       subject: 'Kin Group Application'
-      body: '<p>Dear [webform_submission:values:civicrm_1_contact_1_contact_first_name],</p><p>Thank you for your application to join the group [webform_submission:values:civicrm_2_contact_1_contact_household_name]. Your status has now been updated to [webform_submission:values:civicrm_2_contact_1_relationship_custom_40].&nbsp;</p><p>The Kin Team</p>'
+      body: '<p>Hi [webform_submission:values:civicrm_1_contact_1_contact_first_name],</p><p>Your application to join the group [webform_submission:values:civicrm_2_contact_1_contact_household_name] has been updated.&nbsp;<br><br><strong>[webform_submission:values:civicrm_2_contact_1_relationship_custom_40]</strong></p><p>The Kin Cooperative Team</p>'
       excluded_elements: {  }
       ignore_access: false
       exclude_empty: true
