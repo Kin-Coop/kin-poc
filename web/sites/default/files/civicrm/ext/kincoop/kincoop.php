@@ -185,6 +185,19 @@ function kincoop_civicrm_buildForm($formName, $form) {
                     //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
                 }
             }
+        } elseif ($form->_id === 7) {
+          if($form->getAction() == CRM_Core_Action::ADD) {
+            if (isset($_GET['groupid']) && $_GET['me']) {
+              $ref = $_GET['me'] . '-' . date('mdi');
+              $defaults['custom_25'] = $_GET['groupid'];
+              $defaults['custom_61'] = $ref;
+              $defaults['frequency_unit'] = "month";
+              //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
+            }
+            $defaults['custom_66'] = 1;
+            $form->setDefaults($defaults);
+            $form->addRule('custom_25', ts('This field is required.'), 'required');
+          }
         }
     }
 }
