@@ -6,9 +6,9 @@
     "title": "Contributions Status",
     "description": null,
     "placement": [],
+    "placement_filters": [],
+    "placement_weight": null,
     "tags": null,
-    "summary_contact_type": null,
-    "summary_weight": null,
     "icon": "fa-list-alt",
     "server_route": "civicrm/households/contributions",
     "is_public": false,
@@ -29,5 +29,5 @@
         "label": "Contributions",
         "weight": 0
     },
-    "modified_date": "2025-03-08 09:48:37"
+    "modified_date": "2025-04-07 16:52:41"
 }
