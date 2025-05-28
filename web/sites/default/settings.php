@@ -887,9 +887,15 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  * Keep this code block at the end of this file to take full effect.
  */
 
- if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-   include $app_root . '/' . $site_path . '/settings.local.php';
- }
-
 $settings['config_sync_directory'] = '../drupal_config';
 
+
+// Automatically generated include for settings managed by ddev.
+$ddev_settings = __DIR__ . '/settings.ddev.php';
+if (getenv('IS_DDEV_PROJECT') == 'true' && is_readable($ddev_settings)) {
+  require $ddev_settings;
+}
+
+if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+  include $app_root . '/' . $site_path . '/settings.local.php';
+}
