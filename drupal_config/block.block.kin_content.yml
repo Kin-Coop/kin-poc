@@ -1,0 +1,22 @@
+uuid: df36269f-2f24-40c8-8cc2-47186b768eba
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - kin
+_core:
+  default_config_hash: W2FQ1TRAsiPu4VyAh3dZrcCMZPCLkIxlGjn8HCCmRtI
+id: kin_content
+theme: kin
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

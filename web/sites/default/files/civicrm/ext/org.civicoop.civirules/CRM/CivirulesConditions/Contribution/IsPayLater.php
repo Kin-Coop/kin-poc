@@ -1,5 +1,7 @@
 <?php
 
+use CRM_Civirules_ExtensionUtil as E;
+
 class CRM_CivirulesConditions_Contribution_IsPayLater extends CRM_Civirules_Condition {
 
   private $conditionParams = array();
@@ -56,7 +58,7 @@ class CRM_CivirulesConditions_Contribution_IsPayLater extends CRM_Civirules_Cond
    * @access public
    */
   public function userFriendlyConditionParams() {
-    return ts('Contribution ' . $this->conditionParams['test']);
+    return E::ts('Contribution %1', [1 => $this->conditionParams['test']]);
   }
 
   /**

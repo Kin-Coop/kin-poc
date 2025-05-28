@@ -1,0 +1,31 @@
+uuid: ffe870d3-3445-47db-abf6-3205717cbce9
+langcode: en-gb
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:ba826fe0-b0ec-4864-a9fb-907a9626a191'
+  module:
+    - block_classes
+    - block_content
+    - block_visibility_groups
+  theme:
+    - kin
+id: kin_coopmarque
+theme: kin
+region: footer
+weight: 0
+provider: null
+plugin: 'block_content:ba826fe0-b0ec-4864-a9fb-907a9626a191'
+settings:
+  id: 'block_content:ba826fe0-b0ec-4864-a9fb-907a9626a191'
+  label: 'Coop Marque'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: default
+visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''

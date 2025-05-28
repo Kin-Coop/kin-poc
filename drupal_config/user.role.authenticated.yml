@@ -1,0 +1,54 @@
+uuid: bf742593-c40c-44c7-9b8b-1d732a61bdb4
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - filter.format.webform_default
+  module:
+    - civicrm
+    - exclude_node_title
+    - file
+    - filter
+    - media
+    - node_view_permissions
+    - search
+    - shortcut
+    - system
+_core:
+  default_config_hash: cFrlqjtkTfvY3RGccjJkPf1SGIfJ942IrxTLWAO4mgA
+id: authenticated
+label: 'Authenticated user'
+weight: -9
+is_admin: false
+permissions:
+  - 'access CiviContribute'
+  - 'access CiviMail subscribe/unsubscribe pages'
+  - 'access all custom data'
+  - 'access contact reference fields'
+  - 'access content'
+  - 'access shortcuts'
+  - 'access uploaded files'
+  - 'delete own files'
+  - 'edit contributions'
+  - 'edit my contact'
+  - 'make online contributions'
+  - 'profile create'
+  - 'profile edit'
+  - 'profile listings'
+  - 'profile listings and forms'
+  - 'profile view'
+  - 'register for events'
+  - 'search content'
+  - 'use exclude node title'
+  - 'use text format basic_html'
+  - 'use text format webform_default'
+  - 'view all contacts'
+  - 'view any article content'
+  - 'view any faq content'
+  - 'view any member_page content'
+  - 'view any page content'
+  - 'view event info'
+  - 'view event participants'
+  - 'view media'
+  - 'view my contact'

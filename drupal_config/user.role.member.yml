@@ -1,0 +1,27 @@
+uuid: 7edd297b-3b3f-4917-9df7-11976c6e7de9
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - node.type.post
+  module:
+    - comment
+    - message
+    - node
+    - node_view_permissions
+    - private_message
+id: member
+label: Member
+weight: -7
+is_admin: null
+permissions:
+  - 'access comments'
+  - 'access user profiles'
+  - 'create post content'
+  - 'edit own comments'
+  - 'edit own post content'
+  - 'overview messages'
+  - 'post comments'
+  - 'skip comment approval'
+  - 'use private messaging system'
+  - 'view any post content'

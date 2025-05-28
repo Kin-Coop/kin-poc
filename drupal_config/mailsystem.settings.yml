@@ -1,0 +1,11 @@
+_core:
+  default_config_hash: IhwTepsVwtbtbcT5GzQKhCXDCRvbk3MNkWqPiuiZ10s
+theme: current
+defaults:
+  sender: maillog
+  formatter: php_mail
+modules:
+  webform:
+    none:
+      sender: maillog
+      formatter: webform_php_mail

@@ -7,6 +7,8 @@
  * @license http://www.gnu.org/licenses/agpl-3.0.html
  */
 
+use CRM_Civirules_ExtensionUtil as E;
+
 class CRM_CivirulesConditions_Activity_Date extends CRM_Civirules_Condition {
 
   private $_conditionParams = array();
@@ -164,12 +166,13 @@ class CRM_CivirulesConditions_Activity_Date extends CRM_Civirules_Condition {
    */
   public function userFriendlyConditionParams() {
     $operatorOptions = CRM_Civirules_Utils::getActivityDateOperatorOptions();
-    $friendlyText = ts("Activity Date ") . ts($operatorOptions[$this->_conditionParams['operator']]);
+    // @todo ts() usage here makes it difficult to correctly translate
+    $friendlyText = E::ts('Activity Date') . ' ' . ts($operatorOptions[$this->_conditionParams['operator']]);
     if ($this->_conditionParams['operator'] == 6) {
       try {
         $fromDate = new DateTime($this->_conditionParams['activity_from_date']);
         $toDate = new DateTime($this->_conditionParams['activity_to_date']);
-        $friendlyText .= ' ' . $fromDate->format('j F Y') . ts(' and ') . $toDate->format('j F Y');
+        $friendlyText .= ' ' . $fromDate->format('j F Y') . ' ' . ts('and') . ' ' . $toDate->format('j F Y');
       }
       catch (Exception $ex) {
       }
@@ -177,11 +180,11 @@ class CRM_CivirulesConditions_Activity_Date extends CRM_Civirules_Condition {
     else {
       // if use_trigger_date
       if ($this->_conditionParams['use_trigger_date'] == 1) {
-        $friendlyText .= ' the date the rule is triggered.';
+        $friendlyText .= ' ' . E::ts('the date the rule is triggered.');
       }
       elseif ($this->_conditionParams['use_action_date'] == 1) {
         // if use_action_date
-        $friendlyText .= ' the date the action is executed.';
+        $friendlyText .= ' ' . E::ts('the date the action is executed.');
       }
       else {
         try {
@@ -189,7 +192,7 @@ class CRM_CivirulesConditions_Activity_Date extends CRM_Civirules_Condition {
           $friendlyText .= ' ' . $compareDate->format('j F Y');
         }
         catch (Exception $ex) {
-          $friendlyText = 'Could not parse dates!';
+          $friendlyText = E::ts('Could not parse dates!');
         }
       }
     }

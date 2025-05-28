@@ -4,20 +4,27 @@
         $('html, body').animate({scrollTop:$(divid).position().top - 50 }, 'slow');
     }
 
+    jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
+        return function( elem ) {
+            return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+        };
+    });
+
     $(document).ready(function() {
 
         p = window.location.pathname;
 
         // Set faq to automatically open for selected faq from query string
-        if(p=='/faqs') {
+        if(p=='/faq') {
             var urlParams = new URLSearchParams(window.location.search);
             if(urlParams.has('term')) {
                 let t = urlParams.get('term').replace('-', ' ');
-                $("legend:contains(" + t + ")").parent().addClass("show");
+                $("legend:Contains(" + t + ")").parents('fieldset').addClass("show");
+                $("legend:Contains(" + t + ")").parent().children('div').slideToggle("slow");
+                $("legend:Contains(" + t + ")").parent().addClass("show");
                 to_position('.show');
             }
         }
-
 
         $('fieldset.faq-parent > legend').click(function (){
             $(this).parent().children('div').slideToggle("slow");

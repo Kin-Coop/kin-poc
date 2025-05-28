@@ -1,0 +1,14 @@
+_core:
+  default_config_hash: Y6N99PUFkBRgLVuhmXA_GaMNQgM4AacxEwZjw5x07Ss
+filter_format: plain_text
+enabled_entity_types:
+  - civicrm_contact
+disable_hooks: false
+enable_links_per_type:
+  civicrm_contact:
+    values:
+      view: view
+      add: add
+      edit: edit
+      delete: delete
+disable_links: false

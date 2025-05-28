@@ -1,0 +1,13 @@
+uuid: 3d043725-58d6-497b-8b60-ed27ca24694d
+langcode: en-gb
+status: true
+dependencies: {  }
+id: daily_civi
+label: 'Daily Civi'
+enabled: true
+keep: 14
+period: 86400
+cron: null
+source_id: civicrm
+destination_id: private_files
+settings_profile_id: civi_backup

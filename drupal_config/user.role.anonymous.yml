@@ -1,0 +1,39 @@
+uuid: 0eea785d-4b85-4fd7-9f92-1469faceb31d
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - filter.format.restricted_html
+  module:
+    - civicrm
+    - exclude_node_title
+    - filter
+    - media
+    - node_view_permissions
+    - search
+    - system
+_core:
+  default_config_hash: 6WavjUYXIegP9AAg2zXGx54MWIVoomC3SZhNiqe-Dyk
+id: anonymous
+label: 'Anonymous user'
+weight: -10
+is_admin: false
+permissions:
+  - 'access CiviMail subscribe/unsubscribe pages'
+  - 'access all custom data'
+  - 'access content'
+  - 'access uploaded files'
+  - 'make online contributions'
+  - 'profile create'
+  - 'profile edit'
+  - 'profile view'
+  - 'register for events'
+  - 'search content'
+  - 'use exclude node title'
+  - 'use text format restricted_html'
+  - 'view any article content'
+  - 'view any faq content'
+  - 'view any page content'
+  - 'view event info'
+  - 'view event participants'
+  - 'view media'

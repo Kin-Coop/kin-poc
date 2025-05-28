@@ -1,0 +1,25 @@
+uuid: c11e3769-54f4-4fc0-abf6-e11b84216621
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - kin
+_core:
+  default_config_hash: O79xz2PwOflNJz2dkkL-Ij4Pa9jKX-Ifa_HNt0GnkyQ
+id: kin_branding
+theme: kin
+region: nav_branding
+weight: -6
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }

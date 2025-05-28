@@ -35,7 +35,7 @@ class CRM_CivirulesActions_Case_Form_AddRole extends CRM_CivirulesActions_Form_F
    */
   public function setDefaultValues() {
     $defaultValues = parent::setDefaultValues();
-    $data = unserialize($this->ruleAction->action_params);
+    $data = $this->ruleAction->unserializeParams();
     $defaultValues['role'] = empty($data['role']) ? '' : $data['role'];
     $defaultValues['cid'] = empty($data['cid']) ? '' : $data['cid'];
     return $defaultValues;

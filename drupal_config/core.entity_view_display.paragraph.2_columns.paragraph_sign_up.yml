@@ -1,0 +1,27 @@
+uuid: 2c08fb56-e427-4b32-8f5a-774e53ec51e5
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.paragraph_sign_up
+    - field.field.paragraph.2_columns.field_paragraph
+    - field.field.paragraph.2_columns.field_paragraphs_2
+    - paragraphs.paragraphs_type.2_columns
+  module:
+    - entity_reference_revisions
+id: paragraph.2_columns.paragraph_sign_up
+targetEntityType: paragraph
+bundle: 2_columns
+mode: paragraph_sign_up
+content:
+  field_paragraph:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_paragraphs_2: true

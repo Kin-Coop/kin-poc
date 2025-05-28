@@ -149,40 +149,55 @@ function kincoop_civicrm_buildForm($formName, $form) {
     //Civi::log()->debug('Contents of $formName: ' . print_r($form, TRUE));
     if ($formName === 'CRM_Contribute_Form_Contribution_Main') {
         if ($form->_id === 1) {
-            if($_GET['groupid'] && $_GET['me']) {
-                if ($form->getAction() == CRM_Core_Action::ADD) {
+          if($form->getAction() == CRM_Core_Action::ADD) {
+             if (isset($_GET['groupid']) && $_GET['me']) {
                     $ref = $_GET['me'] . '-' . date('mdi');
                     $defaults['custom_25'] = $_GET['groupid'];
                     $defaults['custom_61'] = $ref;
-                    $form->setDefaults($defaults);
-                    $form->addRule('custom_25', ts('This field is required.'), 'required');
                     //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
-                }
-            }
+             }
+            $defaults['custom_66'] = 1;
+            $form->setDefaults($defaults);
+            $form->addRule('custom_25', ts('This field is required.'), 'required');
+          }
         } elseif ($form->_id === 3) {
-            if($_GET['groupid'] && $_GET['me']) {
-                if ($form->getAction() == CRM_Core_Action::ADD) {
+          if($form->getAction() == CRM_Core_Action::ADD) {
+            if (isset($_GET['groupid']) && $_GET['me']) {
                     $defaults['custom_25'] = $_GET['groupid'];
                     //$defaults['custom_62'] = 'Gift';
                     $form->setDefaults($defaults);
-                    $form->addRule('custom_25', ts('This field is required.'), 'required');
                 }
+            $form->addRule('custom_25', ts('This field is required.'), 'required');
             }
         } elseif ($form->_id === 4) {
             //Civi::log()->debug('Contents of $formName: ' . print_r($_GET, TRUE));
-            if($_GET['groupid'] && $_GET['me']) {
-                //Civi::log()->debug('Contents of $defaults: 1');
-                if ($form->getAction() == CRM_Core_Action::ADD) {
-                    $cid = CRM_Core_Session::singleton()->getLoggedInContactID();
-                    $cid = $cid ? $cid : 'K';
-                    $ref = $cid . '-' . date('mdi');
-                    $defaults['custom_25'] = $_GET['groupid'];
-                    $defaults['custom_61'] = $ref;
-                    $form->setDefaults($defaults);
-                    $form->addRule('custom_25', ts('This field is required.'), 'required');
+          if($form->getAction() == CRM_Core_Action::ADD) {
+            if (isset($_GET['groupid']) && $_GET['me']) {
+                $cid = CRM_Core_Session::singleton()->getLoggedInContactID();
+                $cid = $cid ? $cid : 'K';
+                $ref = $cid . '-' . date('mdi');
+                $defaults['custom_25'] = $_GET['groupid'];
+                $defaults['custom_61'] = $ref;
+                $form->setDefaults($defaults);
+                //if (isset($form['custom_25'])) {
+                //  $form->addRule('custom_25', ts('This field is required.'), 'required');
+                //}
                     //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
                 }
             }
+        } elseif ($form->_id === 7) {
+          if($form->getAction() == CRM_Core_Action::ADD) {
+            if (isset($_GET['groupid']) && $_GET['me']) {
+              $ref = $_GET['me'] . '-' . date('mdi');
+              $defaults['custom_25'] = $_GET['groupid'];
+              $defaults['custom_61'] = $ref;
+              $defaults['frequency_unit'] = "month";
+              //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
+            }
+            $defaults['custom_66'] = 1;
+            $form->setDefaults($defaults);
+            $form->addRule('custom_25', ts('This field is required.'), 'required');
+          }
         }
     }
 }

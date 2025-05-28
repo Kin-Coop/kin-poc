@@ -1,0 +1,44 @@
+uuid: 036e2c3e-0ed6-44da-bfcd-8a33b8d88f4e
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - core.entity_view_display.comment.comment.default
+    - field.field.node.post.field_body
+    - field.field.node.post.field_comments
+    - field.field.node.post.field_group
+    - node.type.post
+  module:
+    - comment
+    - text
+    - user
+id: node.post.default
+targetEntityType: node
+bundle: post
+mode: default
+content:
+  field_body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_comments:
+    type: comment_default
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_group: true
+  langcode: true
+  private_message_link: true

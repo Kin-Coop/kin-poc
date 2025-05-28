@@ -1,0 +1,41 @@
+uuid: a44bd5e9-b818-4eec-9510-a573b423f20f
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content.field_body
+    - field.field.paragraph.content.field_title
+    - paragraphs.paragraphs_type.content
+  module:
+    - fences
+    - text
+id: paragraph.content.default
+targetEntityType: paragraph
+bundle: content
+mode: default
+content:
+  field_body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      fences:
+        fences_field_tag: h2
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
+        fences_field_item_tag: div
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+    weight: 0
+    region: content
+hidden: {  }

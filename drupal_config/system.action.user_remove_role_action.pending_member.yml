@@ -1,0 +1,14 @@
+uuid: 27db8613-e216-4f24-ae58-cf954bc2403a
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - user.role.pending_member
+  module:
+    - user
+id: user_remove_role_action.pending_member
+label: 'Remove the Pending member role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: pending_member

@@ -59,7 +59,7 @@ class CRM_CivirulesActions_Membership_CancelLatestMembership extends CRM_Civirul
   /**
    * This function validates whether this action works with the selected trigger.
    *
-   * This function could be overriden in child classes to provide additional validation
+   * This function could be overridden in child classes to provide additional validation
    * whether an action is possible in the current setup.
    *
    * @param CRM_Civirules_Trigger $trigger
@@ -67,7 +67,7 @@ class CRM_CivirulesActions_Membership_CancelLatestMembership extends CRM_Civirul
    * @return bool
    */
   public function doesWorkWithTrigger(CRM_Civirules_Trigger $trigger, CRM_Civirules_BAO_Rule $rule): bool {
-    return $trigger->doesProvideEntities(['GroupContact']);
+    return $trigger->doesProvideEntity('GroupContact');
   }
 
   /**

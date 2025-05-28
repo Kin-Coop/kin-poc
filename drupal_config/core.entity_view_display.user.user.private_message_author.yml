@@ -1,0 +1,39 @@
+uuid: 343c74dd-7ea8-41cb-9b35-19276d59d2d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.user.private_message_author
+    - field.field.user.user.user_picture
+  module:
+    - user
+_core:
+  default_config_hash: 5VkjdDDe_kM-giLC61z36ACn6Z2eMjaH63Rh6adWWpw
+id: user.user.private_message_author
+targetEntityType: user
+bundle: user
+mode: private_message_author
+content:
+  block_user:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  linked_username:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  masquerade:
+    weight: 50
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  civicrm_dashboard: true
+  civicrm_profiles: true
+  civicrm_record: true
+  langcode: true
+  member_for: true
+  private_message_link: true
+  user_picture: true

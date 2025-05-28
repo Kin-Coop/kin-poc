@@ -1,0 +1,11 @@
+uuid: 77a3e8be-eba3-43eb-8729-d63431c84826
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.paragraph_sign_up
+label: 'Paragraph Sign Up'
+description: ''
+targetEntityType: paragraph
+cache: true

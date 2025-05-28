@@ -1,0 +1,47 @@
+uuid: 0cff34d0-277f-4793-927b-d06eefc4ca13
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.field.node.open_collective_functionality.body
+    - field.field.node.open_collective_functionality.field_foo
+    - field.field.node.open_collective_functionality.field_open_collective_slug
+    - node.type.open_collective_functionality
+  module:
+    - text
+    - user
+id: node.open_collective_functionality.default
+targetEntityType: node
+bundle: open_collective_functionality
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_foo:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_open_collective_slug:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

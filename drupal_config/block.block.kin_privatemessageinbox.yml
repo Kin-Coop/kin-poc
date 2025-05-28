@@ -1,0 +1,28 @@
+uuid: 2200dc9e-d4e0-4cf0-946b-dd21f8e169dc
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - private_message
+    - system
+  theme:
+    - kin
+id: kin_privatemessageinbox
+theme: kin
+region: content
+weight: 1
+provider: null
+plugin: private_message_inbox_block
+settings:
+  id: private_message_inbox_block
+  label: 'Private Message Inbox'
+  label_display: visible
+  provider: private_message
+  thread_count: 15
+  ajax_load_count: 15
+  ajax_refresh_rate: 15
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /messages

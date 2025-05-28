@@ -1,0 +1,30 @@
+site_name: CiviCRM Configuration Loader
+repo_url: https://lab.civicrm.org/extensions/configitems
+site_description: 'A guide for the CiviCRM Configuration Loader extension.'
+theme:
+  name: material
+
+nav:
+- Introduction: index.md
+- Developer:
+  - Getting Started: dev-getting-started.md
+  - Make your entity available for import/export: dev-simple-entity-integration.md
+
+
+markdown_extensions:
+  - attr_list
+  - admonition
+  - def_list
+  - pymdownx.highlight:
+      guess_lang: False
+  - toc:
+      permalink: True
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.tilde
+  - pymdownx.betterem
+  - pymdownx.mark
+
+plugins:
+  - search:
+      lang: en

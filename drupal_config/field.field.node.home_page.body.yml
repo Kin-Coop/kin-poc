@@ -1,0 +1,24 @@
+uuid: 51620c7a-4ba4-4e88-951c-be2db5409bb7
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.home_page
+  module:
+    - text
+id: node.home_page.body
+field_name: body
+entity_type: node
+bundle: home_page
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

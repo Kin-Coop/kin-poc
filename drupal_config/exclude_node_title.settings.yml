@@ -1,0 +1,18 @@
+_core:
+  default_config_hash: 0yJNd4uWv8TzhYEPQBDiApPL2e8ar88kBmQrzDjNCqc
+nid_list:
+  - 4
+translation_sync: true
+search: false
+type: hidden
+content_types:
+  article: none
+  home_page: none
+  open_collective_functionality: none
+  page: user
+content_type_modes:
+  article: {  }
+  home_page: {  }
+  open_collective_functionality: {  }
+  page:
+    - full

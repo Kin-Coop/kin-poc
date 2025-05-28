@@ -1,0 +1,15 @@
+uuid: 6b114767-b52a-4f8e-97f5-074e1a1bbead
+langcode: en-gb
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: B6mQr6j7ZcqZB14S8ytJEXCYzOQ1mcOW9-oWYbtkbJc
+id: daily_schedule
+label: 'Daily Drupal'
+enabled: true
+keep: 14
+period: 86400
+cron: null
+source_id: default_db
+destination_id: private_files
+settings_profile_id: drupal_backup

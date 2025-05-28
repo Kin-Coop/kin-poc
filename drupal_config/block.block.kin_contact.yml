@@ -1,0 +1,29 @@
+uuid: ccaf0fe2-f599-4407-ba54-00bbe93ccc26
+langcode: en-gb
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:1b51129d-1ff3-4286-8050-ce71fc361fac'
+  module:
+    - block_classes
+    - block_content
+  theme:
+    - kin
+third_party_settings:
+  block_classes:
+    block_class: col-sm-4
+id: kin_contact
+theme: kin
+region: footer
+weight: -6
+provider: null
+plugin: 'block_content:1b51129d-1ff3-4286-8050-ce71fc361fac'
+settings:
+  id: 'block_content:1b51129d-1ff3-4286-8050-ce71fc361fac'
+  label: Contact
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: default
+visibility: {  }

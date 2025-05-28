@@ -49,6 +49,7 @@
         "drupal/gin_toolbar": "^1.0@rc",
         "drupal/google_analytics": "^4.0",
         "drupal/gutenberg": "^3.0",
+        "drupal/honeypot": "^2.2",
         "drupal/image_widget_crop": "^2.4",
         "drupal/login_destination": "^2.0@beta",
         "drupal/mail_login": "^3.0",

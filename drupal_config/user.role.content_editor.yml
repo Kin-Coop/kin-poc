@@ -1,0 +1,68 @@
+uuid: 2cb9e9f3-df54-4d7d-aa46-000962eaf080
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - node.type.article
+    - node.type.page
+    - node.type.post
+    - taxonomy.vocabulary.tags
+  module:
+    - comment
+    - contextual
+    - environment_indicator
+    - exclude_node_title
+    - file
+    - message
+    - node
+    - node_view_permissions
+    - path
+    - private_message
+    - system
+    - taxonomy
+    - toolbar
+_core:
+  default_config_hash: e_wG1u7SrGaJbY2-Szgbgl-c8T3kdirU3uTNq2c_QJQ
+id: content_editor
+label: 'Content editor'
+weight: -6
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access comments'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access environment indicator'
+  - 'access files overview'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'administer url aliases'
+  - 'create article content'
+  - 'create page content'
+  - 'create post content'
+  - 'create terms in tags'
+  - 'create url aliases'
+  - 'delete any post content'
+  - 'delete article revisions'
+  - 'delete own article content'
+  - 'delete own files'
+  - 'delete own page content'
+  - 'delete page revisions'
+  - 'edit any post content'
+  - 'edit own article content'
+  - 'edit own comments'
+  - 'edit own page content'
+  - 'edit own post content'
+  - 'edit terms in tags'
+  - 'overview messages'
+  - 'post comments'
+  - 'revert all revisions'
+  - 'revert post revisions'
+  - 'skip comment approval'
+  - 'use exclude node title'
+  - 'use private messaging system'
+  - 'view all revisions'
+  - 'view any post content'
+  - 'view own unpublished content'
+  - 'view post revisions'
+  - 'view the administration theme'

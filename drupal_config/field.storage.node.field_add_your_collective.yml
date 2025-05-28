@@ -1,0 +1,22 @@
+uuid: 80587a5a-ba8e-4e2f-822f-9dbe230512ed
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - node
+    - opencollective_fields
+id: node.field_add_your_collective
+field_name: field_add_your_collective
+entity_type: node
+type: opencollective_slug
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: opencollective_fields
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

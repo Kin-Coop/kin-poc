@@ -1,0 +1,18 @@
+uuid: e72d30ff-38f4-4473-b46b-e20fb03f6970
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - node.type.post
+id: node.post.title
+field_name: title
+entity_type: node
+bundle: post
+label: Subject
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

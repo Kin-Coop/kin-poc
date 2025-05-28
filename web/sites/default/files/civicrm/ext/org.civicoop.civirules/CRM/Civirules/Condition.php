@@ -79,18 +79,6 @@ abstract class CRM_Civirules_Condition {
   }
 
   /**
-   * Returns an array with required entity names
-   *
-   * When returning false we assume the doesWorkWithTrigger does the validation.
-   *
-   * @deprecated
-   * @return array|false
-   */
-  public function requiredEntities() {
-    return FALSE;
-  }
-
-  /**
    * This function validates whether this condition works with the selected trigger.
    *
    * This function could be overridden in child classes to provide additional validation

@@ -1,0 +1,29 @@
+uuid: accd956c-704b-4000-a95e-58164bc4ed5f
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.messages
+  module:
+    - system
+    - views
+  theme:
+    - kin
+id: kin_views_block__messages_block_1
+theme: kin
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:messages-block_1'
+settings:
+  id: 'views_block:messages-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /member/messages

@@ -1,0 +1,18 @@
+uuid: 513cc96a-bfba-4a86-bcfd-aa48da112f51
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - node.type.home_page
+id: node.home_page.title
+field_name: title
+entity_type: node
+bundle: home_page
+label: Home
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

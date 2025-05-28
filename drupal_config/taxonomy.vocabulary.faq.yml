@@ -1,0 +1,9 @@
+uuid: 4b41bc0d-eefd-440b-b632-7d34cca8979b
+langcode: en-gb
+status: true
+dependencies: {  }
+name: FAQ
+vid: faq
+description: 'Used for FAQs'
+weight: 0
+new_revision: false

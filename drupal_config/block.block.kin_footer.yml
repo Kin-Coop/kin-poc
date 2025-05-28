@@ -1,0 +1,31 @@
+uuid: 6a72eeb8-aeb2-4dd6-b4c6-cf1faad9fa5d
+langcode: en-gb
+status: false
+dependencies:
+  config:
+    - system.menu.footer
+  module:
+    - block_classes
+    - system
+  theme:
+    - kin
+third_party_settings:
+  block_classes:
+    block_class: col-sm-4
+_core:
+  default_config_hash: U9qB_XKUrfEzMP85hLd0qfTziXqWZxTEXJJy8ZU2MdU
+id: kin_footer
+theme: kin
+region: footer
+weight: -2
+provider: null
+plugin: 'system_menu_block:footer'
+settings:
+  id: 'system_menu_block:footer'
+  label: Footer
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

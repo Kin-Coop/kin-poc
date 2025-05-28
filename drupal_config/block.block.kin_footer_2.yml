@@ -1,0 +1,29 @@
+uuid: 61c6c61e-8f28-403e-b110-2b1780c777b4
+langcode: en-gb
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:9e5ab18c-9927-473b-bbfc-c87b564b0873'
+  module:
+    - block_classes
+    - block_content
+  theme:
+    - kin
+third_party_settings:
+  block_classes:
+    block_class: col-sm-4
+id: kin_footer_2
+theme: kin
+region: footer
+weight: -5
+provider: null
+plugin: 'block_content:9e5ab18c-9927-473b-bbfc-c87b564b0873'
+settings:
+  id: 'block_content:9e5ab18c-9927-473b-bbfc-c87b564b0873'
+  label: Footer
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: default
+visibility: {  }

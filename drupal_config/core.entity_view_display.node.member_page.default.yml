@@ -1,0 +1,40 @@
+uuid: 5f16b991-a7f6-4298-a31c-5bebd7a11844
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.field.node.member_page.body
+    - field.field.node.member_page.field_paragraphs
+    - node.type.member_page
+  module:
+    - entity_reference_revisions
+    - text
+    - user
+id: node.member_page.default
+targetEntityType: node
+bundle: member_page
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_paragraphs:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

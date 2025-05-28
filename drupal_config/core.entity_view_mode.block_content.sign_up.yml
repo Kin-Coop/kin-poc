@@ -1,0 +1,11 @@
+uuid: 4f223742-e774-4ca2-8a84-e50a7b8349e2
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - block_content
+id: block_content.sign_up
+label: 'Sign Up'
+description: ''
+targetEntityType: block_content
+cache: true

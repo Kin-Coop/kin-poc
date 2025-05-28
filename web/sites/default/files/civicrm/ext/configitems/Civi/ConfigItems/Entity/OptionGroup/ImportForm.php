@@ -1,0 +1,306 @@
+<?php
+/**
+ * Copyright (C) 2021  Jaap Jansma (jaap.jansma@civicoop.org)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+namespace Civi\ConfigItems\Entity\OptionGroup;
+
+use Civi\ConfigItems\ConfigurationForm;
+use Civi\ConfigItems\ConfigurationFormCountable;
+use Civi\ConfigItems\Tab;
+use Civi\ConfigItems\FileFormat\EntityImportDataException;
+use CRM_Civiconfig_ExtensionUtil as E;
+
+class ImportForm implements ConfigurationForm, ConfigurationFormCountable, Tab {
+
+  /**
+   * @var \Civi\ConfigItems\Entity\OptionGroup\Importer
+   */
+  protected $importer;
+
+  public function __construct(Importer $importer) {
+    $this->importer = $importer;
+  }
+
+  /**
+   * @return string
+   */
+  public function getTitle() {
+    return $this->importer->getEntityDefinition()->getTitlePlural();
+  }
+
+  /**
+   * @return string
+   */
+  public function getHelpText() {
+    return $this->importer->getHelpText();
+  }
+
+  /**
+   * @param \CRM_Core_Form $form
+   * @param array $configuration
+   * @param array $config_item_set
+   */
+  public function buildConfigurationForm(\CRM_Core_Form $form, $configuration, $config_item_set) {
+    $entityName = $this->importer->getEntityDefinition()->getName();
+    $entityData = $this->importer->loadEntityImportData($config_item_set);
+    $exportConfig = $config_item_set['configuration'][$entityName];
+    $defaults = [];
+    $form->assign('entityData', $entityData);
+    $form->assign('entityTitle', $this->getTitle());
+    $form->assign('helpText', $this->getHelpText());
+    $elements = [];
+    if (!isset($exportConfig['include'])) {
+      $exportConfig['include'] = [];
+    }
+    foreach ($exportConfig['include'] as $name => $item) {
+      $elementName = \CRM_Utils_String::munge($name);
+      $radioButtons = $this->getRadioButtonOptionsForOptionGroup('include', $entityData[$name]);
+      if ($radioButtons && is_array($radioButtons) && count($radioButtons)) {
+        $form->addRadio($elementName, $entityData[$name]['title'], $radioButtons, ['allowClear' => TRUE, 'class' => 'included_option_group'], NULL, TRUE);
+        if (isset($configuration['include'][$data['name']])) {
+          $defaults[$elementName] = $configuration['include'][$name];
+        }
+        else {
+          $defaults[$elementName] = $this->getDefaultRadioButtonOptionForOptionGroup('include', $entityData[$name]);
+        }
+        $elements['include'][$elementName] = ['name' => $entityData[$name]['title'], 'subelements' => []];
+
+        foreach($entityData[$name]['values'] as $optionValueName => $optionValue) {
+          $subElementName = \CRM_Utils_String::munge($name) . '_' . \CRM_Utils_String::munge($optionValueName);
+          $radioButtons = $this->getRadioButtonOptionsForOptionValue('include', $optionValue);
+          if ($radioButtons && is_array($radioButtons) && count($radioButtons)) {
+            $form->addRadio($subElementName, $optionValue['label'], $radioButtons, ['allowClear' => TRUE], NULL, TRUE);
+            if (isset($configuration['include_values'][$name][$optionValueName])) {
+              $defaults[$subElementName] = $configuration['include_values'][$name][$optionValueName];
+            } else {
+              $defaults[$subElementName] = $this->getDefaultRadioButtonOptionForOptionValue('include', $optionValue);
+            }
+            $elements['include'][$elementName]['subelements'][] = $subElementName;
+          }
+        }
+        foreach($entityData[$name]['existing_values'] as $optionValueName => $optionValue) {
+          $subElementName = \CRM_Utils_String::munge($name) . '_' . \CRM_Utils_String::munge($optionValueName);
+          $radioButtons = $this->getRadioButtonOptionsForOptionValue('remove', $optionValue);
+          if ($radioButtons && is_array($radioButtons) && count($radioButtons)) {
+            $form->addRadio($subElementName, $optionValue['label'], $radioButtons, ['allowClear' => TRUE], NULL, TRUE);
+            if (isset($configuration['remove_values'][$name][$optionValueName])) {
+              $defaults[$subElementName] = $configuration['remove_values'][$name][$optionValueName];
+            } else {
+              $defaults[$subElementName] = $this->getDefaultRadioButtonOptionForOptionValue('remove', $optionValue);
+            }
+            $elements['include'][$elementName]['subelements'][] = $subElementName;
+          }
+        }
+
+      }
+    }
+
+    if (!isset($exportConfig['remove'])) {
+      $exportConfig['remove'] = [];
+    }
+    foreach ($exportConfig['remove'] as $name) {
+      $elementName = \CRM_Utils_String::munge($name);
+      $radioButtons = $this->getRadioButtonOptionsForOptionGroup('remove', $entityData[$name]);
+      if ($radioButtons && is_array($radioButtons) && count($radioButtons)) {
+        $form->addRadio($elementName, $entityData[$name]['title'], $radioButtons, ['allowClear' => TRUE], NULL, TRUE);
+        if (isset($configuration['remove'][$data['name']])) {
+          $defaults[$elementName] = $configuration['remove'][$name];
+        }
+        else {
+          $defaults[$elementName] = $this->getDefaultRadioButtonOptionForOptionGroup('remove', $entityData[$name]);
+        }
+        $elements['remove'][$elementName] = ['name' => $entityData[$name]['title'], 'subelements' => []];
+      }
+    }
+
+    $form->assign('elements', $elements);
+    $form->setDefaults($defaults);
+  }
+
+
+  /**
+   * Returns the name of the template for the configuration form.
+   *
+   * @return string
+   */
+  public function getConfigurationTemplateFileName() {
+    return "CRM/ConfigItems/Entity/OptionGroup/ImportForm.tpl";
+  }
+
+  /**
+   * Process the submitted values and create a configuration array
+   *
+   * @param $submittedValues
+   * @param array $config_item_set
+   * @return array
+   */
+  public function processConfiguration($submittedValues, $config_item_set) {
+    $entityName = $this->importer->getEntityDefinition()->getName();
+    $config = [];
+    $exportConfig = $config_item_set['configuration'][$entityName];
+    $entityData = $this->importer->loadEntityImportData($config_item_set);
+    if (isset($exportConfig['include'])) {
+      foreach ($exportConfig['include'] as $name => $item) {
+        $elementName = \CRM_Utils_String::munge($name);
+        if (isset($submittedValues[$elementName])) {
+          $config['include'][$name] = $submittedValues[$elementName];
+        }
+        foreach ($entityData[$name]['values'] as $optionValueName => $optionValue) {
+          $subElementName = \CRM_Utils_String::munge($name) . '_' . \CRM_Utils_String::munge($optionValueName);
+          $config['include_values'][$name][$optionValueName] = $submittedValues[$subElementName];
+        }
+        foreach ($entityData[$name]['existing_values'] as $optionValueName => $optionValue) {
+          $subElementName = \CRM_Utils_String::munge($name) . '_' . \CRM_Utils_String::munge($optionValueName);
+          $config['remove_values'][$name][$optionValueName] = $submittedValues[$subElementName];
+        }
+      }
+    }
+    if (isset($exportConfig['remove'])) {
+      foreach ($exportConfig['remove'] as $name) {
+        $elementName = \CRM_Utils_String::munge($name);
+        if (isset($submittedValues[$elementName])) {
+          $config['remove'][$name] = $submittedValues[$elementName];
+        }
+      }
+    }
+    return $config;
+  }
+
+  /**
+   * This function is called to add tabs to the tabset.
+   * Returns the $tabset
+   *
+   * @param $tabset
+   * @param $configuration
+   * @param $config_item_set
+   * @param bool $reset
+   * @return array
+   */
+  public function getTabs($tabset, $configuration, $config_item_set, $reset=FALSE) {
+    $entityName = $this->importer->getEntityDefinition()->getName();
+    $url = \CRM_Utils_System::url('civicrm/admin/civiconfig/import/entity', ['reset' => 1, 'id' => $config_item_set['id'], 'entity' => $entityName]);
+    $tabset[$entityName] = [
+      'title' => $this->importer->getEntityDefinition()->getTitlePlural(),
+      'active' => 1,
+      'valid' => 1,
+      'link' => $url,
+      'current' => false,
+      'count' => $this->getCount($configuration),
+    ];
+    return $tabset;
+  }
+
+  /**
+   * Returns the number of options to be configured or which are configured.
+   * The count is used to display in the tabs on the import/export
+   * configuration screen.
+   *
+   * @param $configuration
+   *
+   * @return int
+   */
+  public function getCount($configuration) {
+    return 0;
+  }
+
+  /**
+   * @param $group
+   * @param $data
+   *
+   * @return array
+   */
+  protected function getRadioButtonOptionsForOptionGroup($group, $data) {
+    if ($group == 'include' && isset($data['id'])) {
+      return [
+        0 => E::ts('Do not update'),
+        1 => E::ts('Update'),
+      ];
+    } elseif ($group == 'include' && !isset($data['id'])) {
+      return [
+        1 => E::ts('Add'),
+        0 => E::ts('Do not add'),
+      ];
+    } elseif ($group == 'remove' && isset($data['id'])) {
+      return  [
+        0 => E::ts('Keep'),
+        1 => E::ts('Remove')
+      ];
+    }
+    return [];
+  }
+
+  /**
+   * @param $group
+   * @param $data
+   *
+   * @return string|void
+   */
+  protected function getDefaultRadioButtonOptionForOptionGroup($group, $data) {
+    if ($group == 'include' && isset($data['id'])) {
+      return '0';
+    } elseif ($group == 'include' && !isset($data['id'])) {
+      return '1';
+    } elseif ($group == 'remove') {
+      return  '0';
+    }
+  }
+
+  /**
+   * @param $group
+   * @param $data
+   *
+   * @return array
+   */
+  protected function getRadioButtonOptionsForOptionValue($group, $data) {
+    if ($group == 'include' && isset($data['id'])) {
+      return [
+        0 => E::ts('Do not update'),
+        1 => E::ts('Update (keep current value)'),
+        2 => E::ts('Update (with value: %1)', [1=>$data['value']]),
+      ];
+    } elseif ($group == 'include' && !isset($data['id'])) {
+      return [
+        1 => E::ts('Add (generate new value)'),
+        2 => E::ts('Add (with value: %1)', [1=>$data['value']]),
+        0 => E::ts('Do not add'),
+      ];
+    } elseif ($group == 'remove' && isset($data['id'])) {
+      return  [
+        0 => E::ts('Keep'),
+        1 => E::ts('Remove')
+      ];
+    }
+    return [];
+  }
+
+  /**
+   * @param $group
+   * @param $data
+   *
+   * @return string|void
+   */
+  protected function getDefaultRadioButtonOptionForOptionValue($group, $data) {
+    if ($group == 'include' && isset($data['id'])) {
+      return '0';
+    } elseif ($group == 'include' && !isset($data['id'])) {
+      return '2';
+    } elseif ($group == 'remove') {
+      return  '0';
+    }
+  }
+
+}

@@ -1,0 +1,22 @@
+uuid: 5efb75e4-7a97-4442-8729-41a46bcae431
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - kin
+_core:
+  default_config_hash: CJaTBl3Gq8YVl6gMNlCqUN00VP-S0yt-8uP8PW5DU-s
+id: kin_help
+theme: kin
+region: content
+weight: -5
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }
