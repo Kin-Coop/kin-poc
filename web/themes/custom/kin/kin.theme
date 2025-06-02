@@ -17,3 +17,28 @@ function kin_views_pre_render(&$view){
   //}
 }
 */
+
+function kin_preprocess_html(&$variables) {
+
+    $route = \Drupal::routeMatch();
+    $user = \Drupal::currentUser();
+
+    //$route_parts = explode('.', $route->getRouteName());
+    $route_parts = explode('/', \Drupal::requestStack()->getCurrentRequest()->getPathInfo());
+
+    $is_front = \Drupal::service('path.matcher')->isFrontPage();
+
+    $variables['attributes']['class'][] = $is_front ? 'frontpage' : 'not-frontpage';
+
+    if (in_array('taxonomy_term', $route_parts)) {
+        $variables['attributes']['class'][] = 'taxonomy-term--page';
+    }
+
+    if (in_array('node', $route_parts)) {
+        $variables['attributes']['class'][] = 'node--page';
+    }
+
+    $variables['attributes']['class'][] = 'page--' . implode('-', $route_parts);
+
+    $variables['attributes']['class'][] = $user->id() ? 'user-authenticated' : 'user-anonymous';
+}

@@ -13092,7 +13092,7 @@ legend {
   text-transform: lowercase;
 }
 
-.block .member-block {
+.block .member-block, .block .content-block {
   padding: 0.8rem;
   border: 1px solid #2D4C9B;
   border-radius: 8px;
@@ -13101,30 +13101,30 @@ legend {
   background: #fff;
   color: #000;
 }
-.block .member-block.lines .views-row {
+.block .member-block.lines .views-row, .block .content-block.lines .views-row {
   border-bottom: 1px solid #FDC652;
   padding: 0 0 0.3rem 0;
   margin: 0.3rem 0 0 0;
 }
-.block .member-block a {
+.block .member-block a, .block .content-block a {
   color: #2D4C9B;
 }
-.block .member-block a.btn-primary {
+.block .member-block a.btn-primary, .block .content-block a.btn-primary {
   color: #fff;
 }
-.block .member-block a.btn-primary:hover {
+.block .member-block a.btn-primary:hover, .block .content-block a.btn-primary:hover {
   color: #fff;
 }
-.block .member-block a:hover {
+.block .member-block a:hover, .block .content-block a:hover {
   color: #E6460F;
 }
-.block .member-block table th {
+.block .member-block table th, .block .content-block table th {
   background-color: #ccc;
 }
-.block .member-block table a:hover {
+.block .member-block table a:hover, .block .content-block table a:hover {
   color: #FDC652;
 }
-.block .member-block h2, .block .member-block .h2 {
+.block .member-block h2, .block .member-block .h2, .block .content-block h2, .block .content-block .h2 {
   font-size: 1.3rem;
   margin: -0.8rem -0.8rem 0.8rem -0.81rem;
   padding: 0.8rem;
@@ -13133,7 +13133,7 @@ legend {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
-.block .member-block h3, .block .member-block .h3 {
+.block .member-block h3, .block .member-block .h3, .block .content-block h3, .block .content-block .h3 {
   font-size: 1.2rem;
   margin: -0.8rem -0.8rem 0.8rem -0.81rem;
   padding: 0.8rem;
@@ -13142,7 +13142,7 @@ legend {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
-.block .member-block .views-field-id-2 a {
+.block .member-block .views-field-id-2 a, .block .content-block .views-field-id-2 a {
   margin-left: 1.4rem;
 }
 
