@@ -344,7 +344,7 @@ legend {
 }
 
 .block {
-  .member-block, .content-block {
+  .member-block, main & .content-block {
     padding: .8rem;
     border: 1px solid $primary;
     border-radius: 8px;
