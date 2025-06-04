@@ -25,6 +25,43 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
       reverseSignsOnAmounts($params);
     }
   }
+  
+  if ($objectName === 'Contribution' && $op === 'create') {
+    // Check if custom override email field was submitted
+    
+    Civi::log()->debug('New email: ' . $_POST['email-5']);
+    if(!empty($params['contribution_page_id']) && $params['contribution_page_id'] == 8){
+      if (!empty($_POST['email-5'])) {
+        $overrideEmail = trim($_POST['email-5']);
+        
+        Civi::log()->debug('New email: ' . $overrideEmail);
+        
+        try {
+          $result = civicrm_api3('Email', 'get', [
+            'email' => $overrideEmail,
+            'sequential' => 1,
+            'options' => ['limit' => 1],
+          ]);
+          
+          Civi::log()->debug('New id: ' . $result['id']);
+          
+          if (!empty($result['id'])) {
+            $new_contact_id = $result['id'];
+            if ($params['contact_id'] != $new_contact_id) {
+              $params['contact_id'] = $new_contact_id;
+              \Civi::log()->info("Contact ID overridden based on email: $overrideEmail", [
+                'new_contact_id' => $params['contact_id'],
+              ]);
+            }
+          } else {
+            \Civi::log()->warning("No contact found for override email: $overrideEmail");
+          }
+        } catch (CiviCRM_API3_Exception $e) {
+          \Civi::log()->error("API error during email lookup: " . $e->getMessage());
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -214,6 +251,7 @@ function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$er
     }
     return;
 }
+
 
 /*
 function civicrm_custom_access_civicrm_buildForm($formName, &$form) {
