@@ -25,26 +25,22 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
       reverseSignsOnAmounts($params);
     }
   }
-  
+
   if ($objectName === 'Contribution' && $op === 'create') {
     // Check if custom override email field was submitted
-    
-    Civi::log()->debug('New email: ' . $_POST['email-5']);
+
+    //Civi::log()->debug('New email: ' . $_POST['email-5']);
     if(!empty($params['contribution_page_id']) && $params['contribution_page_id'] == 8){
       if (!empty($_POST['email-5'])) {
         $overrideEmail = trim($_POST['email-5']);
-        
-        Civi::log()->debug('New email: ' . $overrideEmail);
-        
+
         try {
             $contacts = \Civi\Api4\Contact::get(FALSE)
                 ->addSelect('id')
                 ->addWhere('email_primary.email', '=', $overrideEmail)
                 ->setLimit(1)
                 ->execute();
-          
-          Civi::log()->debug('New id: ' . $contacts[0]['id']);
-          
+
           if (!empty($contacts[0]['id'])) {
             $new_contact_id = $contacts[0]['id'];
             if ($params['contact_id'] != $new_contact_id) {
@@ -249,26 +245,49 @@ function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$er
             }
         } elseif ($form->_id === 8) {
             //check contact exists from email
-            Civi::log()->debug('Contents of $fields: ' . print_r($fields, TRUE));
+            //Civi::log()->debug('Contents of $fields: ' . print_r($fields, TRUE));
 
-            try {
+            if(empty($fields['custom_25'])) {
+              $errors['custom_25'] = ts('This field is required.');
+            }
+
+            if (!empty($fields['email-5'])) {
+              $on_behalf_of = $fields['email-5'];
+
+              try {
                 $contacts = \Civi\Api4\Contact::get(FALSE)
-                    ->addSelect('id')
-                    ->addWhere('email_primary.email', '=', $fields['email-5'])
-                    ->setLimit(1)
-                    ->execute();
+                  ->addSelect('id')
+                  ->addWhere('email_primary.email', '=', $on_behalf_of)
+                  ->setLimit(1)
+                  ->execute();
 
-                if (empty($contacts)) {
-                    $errors['email-5'] = ts('No contact found with this email address. Please check and try again.');
+                  if (empty($contacts[0])) {
+                      $errors['email-5'] = ts('No member found with this email address. Please check and try again.');
+                  } else {
+                    $contact_id = $contacts[0]["id"];
+                  }
+              }
+              catch (CiviCRM_API4_Exception $e) {
+                  \Civi::log()->error("API error during email lookup: " . $e->getMessage());
+              }
+
+              //check a relationship exists for the contact and the group
+              try {
+                $relationships = \Civi\Api4\Relationship::get(TRUE)
+                  ->addSelect('*')
+                  ->addWhere('contact_id_a', '=', $contact_id)
+                  ->addWhere('contact_id_b', '=', $fields['custom_25'])
+                  ->setLimit(25)
+                  ->execute();
+
+                if (empty($relationships[0])) {
+                  $errors['custom_25'] = ts('The email given does not match any members of this group. Please check and try again.');
                 }
-            }
-            catch (CiviCRM_API4_Exception $e) {
+              }
+              catch (CiviCRM_API4_Exception $e) {
                 \Civi::log()->error("API error during email lookup: " . $e->getMessage());
-
-            }
-
-
-            $errors['custom_25'] = ts('This field is required.');
+              }
+          }
         }
     }
     return;
