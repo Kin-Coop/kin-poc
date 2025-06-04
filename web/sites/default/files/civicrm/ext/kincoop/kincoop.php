@@ -37,16 +37,16 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
         Civi::log()->debug('New email: ' . $overrideEmail);
         
         try {
-          $result = civicrm_api3('Email', 'get', [
-            'email' => $overrideEmail,
-            'sequential' => 1,
-            'options' => ['limit' => 1],
-          ]);
+            $contacts = \Civi\Api4\Contact::get(FALSE)
+                ->addSelect('id')
+                ->addWhere('email_primary.email', '=', $overrideEmail)
+                ->setLimit(1)
+                ->execute();
           
-          Civi::log()->debug('New id: ' . $result['id']);
+          Civi::log()->debug('New id: ' . $contacts[0]['id']);
           
-          if (!empty($result['id'])) {
-            $new_contact_id = $result['id'];
+          if (!empty($contacts[0]['id'])) {
+            $new_contact_id = $contacts[0]['id'];
             if ($params['contact_id'] != $new_contact_id) {
               $params['contact_id'] = $new_contact_id;
               \Civi::log()->info("Contact ID overridden based on email: $overrideEmail", [
@@ -56,7 +56,7 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
           } else {
             \Civi::log()->warning("No contact found for override email: $overrideEmail");
           }
-        } catch (CiviCRM_API3_Exception $e) {
+        } catch (CiviCRM_API4_Exception $e) {
           \Civi::log()->error("API error during email lookup: " . $e->getMessage());
         }
       }
@@ -247,6 +247,28 @@ function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$er
             if(empty($fields['custom_25'])) {
                 $errors['custom_25'] = ts('This field is required.');
             }
+        } elseif ($form->_id === 8) {
+            //check contact exists from email
+            Civi::log()->debug('Contents of $fields: ' . print_r($fields, TRUE));
+
+            try {
+                $contacts = \Civi\Api4\Contact::get(FALSE)
+                    ->addSelect('id')
+                    ->addWhere('email_primary.email', '=', $fields['email-5'])
+                    ->setLimit(1)
+                    ->execute();
+
+                if (empty($contacts)) {
+                    $errors['email-5'] = ts('No contact found with this email address. Please check and try again.');
+                }
+            }
+            catch (CiviCRM_API4_Exception $e) {
+                \Civi::log()->error("API error during email lookup: " . $e->getMessage());
+
+            }
+
+
+            $errors['custom_25'] = ts('This field is required.');
         }
     }
     return;
