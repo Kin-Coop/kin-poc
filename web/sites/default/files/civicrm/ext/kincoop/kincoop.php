@@ -30,10 +30,13 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
     // Check if custom override email field was submitted
 
     //Civi::log()->debug('New email: ' . $_POST['email-5']);
+      // This is code for on behalf of to submit a contribution on behalf of someone else
+      // It uses the contribution page/form 8
     if(!empty($params['contribution_page_id']) && $params['contribution_page_id'] == 8){
       if (!empty($_POST['email-5'])) {
         $overrideEmail = trim($_POST['email-5']);
 
+        // Get contact id from email
         try {
             $contacts = \Civi\Api4\Contact::get(FALSE)
                 ->addSelect('id')
@@ -202,7 +205,7 @@ function kincoop_civicrm_buildForm($formName, $form) {
                 }
             $form->addRule('custom_25', ts('This field is required.'), 'required');
             }
-        } elseif ($form->_id === 4) {
+        } elseif ($form->_id === 4 || $form->_id === 8) {
             //Civi::log()->debug('Contents of $formName: ' . print_r($_GET, TRUE));
           if($form->getAction() == CRM_Core_Action::ADD) {
             if (isset($_GET['groupid']) && $_GET['me']) {
@@ -243,9 +246,11 @@ function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$er
             if(empty($fields['custom_25'])) {
                 $errors['custom_25'] = ts('This field is required.');
             }
-        } elseif ($form->_id === 8) {
+        }
+
+        // on behalf of form
+        elseif ($form->_id === 8) {
             //check contact exists from email
-            //Civi::log()->debug('Contents of $fields: ' . print_r($fields, TRUE));
 
             if(empty($fields['custom_25'])) {
               $errors['custom_25'] = ts('This field is required.');
@@ -254,6 +259,7 @@ function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$er
             if (!empty($fields['email-5'])) {
               $on_behalf_of = $fields['email-5'];
 
+              // Check contact exists
               try {
                 $contacts = \Civi\Api4\Contact::get(FALSE)
                   ->addSelect('id')
@@ -271,9 +277,9 @@ function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$er
                   \Civi::log()->error("API error during email lookup: " . $e->getMessage());
               }
 
-              //check a relationship exists for the contact and the group
+              //check that the member is in the group selected
               try {
-                $relationships = \Civi\Api4\Relationship::get(TRUE)
+                $relationships = \Civi\Api4\Relationship::get(FALSE)
                   ->addSelect('*')
                   ->addWhere('contact_id_a', '=', $contact_id)
                   ->addWhere('contact_id_b', '=', $fields['custom_25'])
