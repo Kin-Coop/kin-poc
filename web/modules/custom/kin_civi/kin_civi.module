@@ -1,0 +1,21 @@
+<?php
+  
+  /**
+   * @file
+   * Module file for Custom Contribution Form.
+   */
+  
+  use Drupal\Core\Form\FormStateInterface;
+  
+  /**
+   * Implements hook_help().
+   */
+  function kin_civi_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_match) {
+    switch ($route_name) {
+      case 'help.page.kin_civi':
+        $output = '';
+        $output .= '<h3>' . t('On behalf of Custom Contribution Form') . '</h3>';
+        $output .= '<p>' . t('Provides a custom on behalf of form for CiviCRM contributions.') . '</p>';
+        return $output;
+    }
+  }

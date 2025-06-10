@@ -5,3 +5,10 @@ kin_civi.update_status:
     _title: 'Update Money Request'
   requirements:
     _permission: 'access content'
+kin_civi.contribution:
+  path: '/contribute-onbehalfof/{group_id}'
+  defaults:
+    _title: 'Make a Contribution on behalf of'
+    _form: '\Drupal\kin_civi\Form\OnBehalfOfForm'
+  requirements:
+    _permission: 'access content'
