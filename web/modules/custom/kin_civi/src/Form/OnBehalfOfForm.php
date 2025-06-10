@@ -2,6 +2,8 @@
   
   namespace Drupal\kin_civi\Form;
   
+  \Drupal::service('civicrm')->initialize();
+  
   use Drupal\Core\Form\FormBase;
   use Drupal\Core\Form\FormStateInterface;
   use Drupal\Core\Url;
@@ -24,37 +26,48 @@
      */
     public function buildForm(array $form, FormStateInterface $form_state, ?Request $request = NULL) {
       
+      if(\Drupal::currentUser()->isAuthenticated() == FALSE) {
+        throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
+      }
+      
       $group_id = \Drupal::routeMatch()->getParameter('group_id');
+      $group = $this->kin_civi_check_group($group_id);
       
-      $form['email'] = [
-        '#type' => 'email',
-        '#title' => $this->t('Email Address'),
-        '#required' => TRUE,
-        '#description' => $this->t('Please enter the email address of the member you are making the contribution on behalf of.'),
-      ];
-      
-      $form['amount'] = [
-        '#type' => 'number',
-        '#title' => $this->t('Contribution Amount'),
-        '#required' => TRUE,
-        '#min' => 0.01,
-        '#step' => 0.01,
-        '#description' => $this->t('Enter the amount you are contributing.'),
-      ];
-      
-      $form['group_id'] = [
-        '#type' => 'hidden',
-        '#value' => $group_id,
-      ];
-      
-      $form['actions'] = [
-        '#type' => 'actions',
-      ];
-      
-      $form['actions']['submit'] = [
-        '#type' => 'submit',
-        '#value' => $this->t('Submit Contribution'),
-      ];
+      If($group == false) {
+        $form = [
+          '#markup' => $this->t('The group was not found. Please check and try again.'),
+        ];
+      } else {
+        $form['group_id'] = [
+          '#type'  => 'hidden',
+          '#value' => $group_id,
+        ];
+        
+        $form['email'] = [
+          '#type'        => 'email',
+          '#title'       => $this->t( 'Email Address' ),
+          '#required'    => TRUE,
+          '#description' => $this->t( 'Please enter the email address of the member you are making the contribution on behalf of.' ),
+        ];
+        
+        $form['amount'] = [
+          '#type'        => 'number',
+          '#title'       => $this->t( 'Contribution Amount' ),
+          '#required'    => TRUE,
+          '#min'         => 0.01,
+          '#step'        => 0.01,
+          '#description' => $this->t( 'Enter the amount you are contributing.' ),
+        ];
+        
+        $form['actions'] = [
+          '#type' => 'actions',
+        ];
+        
+        $form['actions']['submit'] = [
+          '#type'  => 'submit',
+          '#value' => $this->t( 'Submit Contribution' ),
+        ];
+      }
       
       return $form;
     }
@@ -178,13 +191,15 @@
     
     function kin_civi_check_group($group_id) {
       try {
-        $households = \Civi\Api4\Household::get(FALSE)
+        $group = \Civi\Api4\Household::get(FALSE)
                                           ->addSelect('id', 'display_name')
                                           ->addWhere('id', '=', 7)
                                           ->setLimit(1)
                                           ->execute();
-        foreach ($households as $household) {
-          // do something
+        if (!empty($group)) {
+          return (array) $group->first();
+        } else {
+          return FALSE;
         }
       }
       catch (APIException $e) {
