@@ -451,6 +451,16 @@ table {
 
 #crm-container.crm-public {
 
+  a {
+    color: #fff;
+  }
+
+  .help {
+    a {
+      color: $primary;
+    }
+  }
+
   .CRM_Contribute_Form_Contribution_Main {
     #editrow-custom_25 {
       //display: none;
