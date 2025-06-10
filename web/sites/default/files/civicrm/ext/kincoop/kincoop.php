@@ -283,7 +283,7 @@ function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$er
                   ->addSelect('*')
                   ->addWhere('contact_id_a', '=', $contact_id)
                   ->addWhere('contact_id_b', '=', $fields['custom_25'])
-                  ->setLimit(25)
+                  ->setLimit(1)
                   ->execute();
 
                 if (empty($relationships[0])) {
