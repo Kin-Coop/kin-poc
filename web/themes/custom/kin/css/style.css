@@ -13171,6 +13171,12 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 #crm-container.crm-public {
   margin-bottom: 5rem;
 }
+#crm-container.crm-public a {
+  color: #fff;
+}
+#crm-container.crm-public .help a {
+  color: #2D4C9B;
+}
 #crm-container.crm-public .crm-contribution-page-id-7.crm-contribution-thankyou-form-block .help {
   display: none;
 }

@@ -25,6 +25,42 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
       reverseSignsOnAmounts($params);
     }
   }
+
+  if ($objectName === 'Contribution' && $op === 'create') {
+    // Check if custom override email field was submitted
+
+    //Civi::log()->debug('New email: ' . $_POST['email-5']);
+      // This is code for on behalf of to submit a contribution on behalf of someone else
+      // It uses the contribution page/form 8
+    if(!empty($params['contribution_page_id']) && $params['contribution_page_id'] == 8){
+      if (!empty($_POST['email-5'])) {
+        $overrideEmail = trim($_POST['email-5']);
+
+        // Get contact id from email
+        try {
+            $contacts = \Civi\Api4\Contact::get(FALSE)
+                ->addSelect('id')
+                ->addWhere('email_primary.email', '=', $overrideEmail)
+                ->setLimit(1)
+                ->execute();
+
+          if (!empty($contacts[0]['id'])) {
+            $new_contact_id = $contacts[0]['id'];
+            if ($params['contact_id'] != $new_contact_id) {
+              $params['contact_id'] = $new_contact_id;
+              \Civi::log()->info("Contact ID overridden based on email: $overrideEmail", [
+                'new_contact_id' => $params['contact_id'],
+              ]);
+            }
+          } else {
+            \Civi::log()->warning("No contact found for override email: $overrideEmail");
+          }
+        } catch (CiviCRM_API4_Exception $e) {
+          \Civi::log()->error("API error during email lookup: " . $e->getMessage());
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -169,7 +205,7 @@ function kincoop_civicrm_buildForm($formName, $form) {
                 }
             $form->addRule('custom_25', ts('This field is required.'), 'required');
             }
-        } elseif ($form->_id === 4) {
+        } elseif ($form->_id === 4 || $form->_id === 8) {
             //Civi::log()->debug('Contents of $formName: ' . print_r($_GET, TRUE));
           if($form->getAction() == CRM_Core_Action::ADD) {
             if (isset($_GET['groupid']) && $_GET['me']) {
@@ -211,9 +247,58 @@ function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$er
                 $errors['custom_25'] = ts('This field is required.');
             }
         }
+
+        // on behalf of form
+        elseif ($form->_id === 8) {
+            //check contact exists from email
+
+            if(empty($fields['custom_25'])) {
+              $errors['custom_25'] = ts('This field is required.');
+            }
+
+            if (!empty($fields['email-5'])) {
+              $on_behalf_of = $fields['email-5'];
+
+              // Check contact exists
+              try {
+                $contacts = \Civi\Api4\Contact::get(FALSE)
+                  ->addSelect('id')
+                  ->addWhere('email_primary.email', '=', $on_behalf_of)
+                  ->setLimit(1)
+                  ->execute();
+
+                  if (empty($contacts[0])) {
+                      $errors['email-5'] = ts('No member found with this email address. Please check and try again.');
+                  } else {
+                    $contact_id = $contacts[0]["id"];
+                  }
+              }
+              catch (CiviCRM_API4_Exception $e) {
+                  \Civi::log()->error("API error during email lookup: " . $e->getMessage());
+              }
+
+              //check that the member is in the group selected
+              try {
+                $relationships = \Civi\Api4\Relationship::get(FALSE)
+                  ->addSelect('*')
+                  ->addWhere('contact_id_a', '=', $contact_id)
+                  ->addWhere('contact_id_b', '=', $fields['custom_25'])
+                  ->setLimit(1)
+                  ->execute();
+
+                if (empty($relationships[0])) {
+                  $errors['custom_25'] = ts('The email given does not match any members of this group. Please check and try again.');
+                }
+              }
+              catch (CiviCRM_API4_Exception $e) {
+                \Civi::log()->error("API error during email lookup: " . $e->getMessage());
+              }
+          }
+        }
     }
     return;
 }
+
 
 /*
 function civicrm_custom_access_civicrm_buildForm($formName, &$form) {
