@@ -8,6 +8,7 @@
   use Drupal\Core\Form\FormStateInterface;
   use Drupal\Core\Url;
   use CRM_Core_Exception;
+  use Civi\Api4\UFMatch;
   
   /**
    * Provides a custom contribution form.
@@ -26,18 +27,32 @@
      */
     public function buildForm(array $form, FormStateInterface $form_state, ?Request $request = NULL) {
       
+      $user = \Drupal::currentUser();
+      $uid = $user->id();
+      $cid = kin_civi_get_contact_id($uid);
+      
       if(\Drupal::currentUser()->isAuthenticated() == FALSE) {
         throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
       }
       
       $group_id = \Drupal::routeMatch()->getParameter('group_id');
       $group = $this->kin_civi_check_group($group_id);
+      $ref = $cid . '-' . date('mdi');
+      
+      //dpm($cid);
       
       If($group == false) {
         $form = [
-          '#markup' => $this->t('The group was not found. Please check and try again.'),
+          '#markup' => $this->t('The group not found. Please check and try again.'),
         ];
       } else {
+        $form['intro'] = [
+          '#markup' => '<p>This form is to allow you to make a contribution on behalf of someone else in your group.
+                        Please ensure you have the correct email for the member.</p>
+                        <p>Once you have submitted this form, please make the bank transfer to Kin for the amount
+                        stated using the unique reference below.</p>',
+        ];
+        
         $form['group_id'] = [
           '#type'  => 'hidden',
           '#value' => $group_id,
@@ -47,7 +62,7 @@
           '#type'        => 'email',
           '#title'       => $this->t( 'Email Address' ),
           '#required'    => TRUE,
-          '#description' => $this->t( 'Please enter the email address of the member you are making the contribution on behalf of.' ),
+          '#description' => $this->t( 'The email address of the member you are making the contribution on behalf of.' ),
         ];
         
         $form['amount'] = [
@@ -57,6 +72,27 @@
           '#min'         => 0.01,
           '#step'        => 0.01,
           '#description' => $this->t( 'Enter the amount you are contributing.' ),
+        ];
+        
+        $form['group'] = [
+          '#type' => 'textfield',
+          '#title' => $this->t('Group'),
+          '#default_value' => $group['display_name'], // This is the preset value
+          '#disabled' => TRUE, // Makes the field read-only
+        ];
+        
+        $form['reference'] = [
+          '#type' => 'textfield',
+          '#title' => $this->t('Reference'),
+          '#default_value' => $ref, // This is the preset value
+          '#disabled' => TRUE, // Makes the field read-only
+          '#description' => $this->t('Please use this reference when making the bank transfer.'),
+        ];
+        
+        $form['note'] = [
+          '#type' => 'textarea',
+          '#title' => $this->t('Notes'),
+          '#description' => $this->t( 'Enter any notes you want to give about this contribution.' ),
         ];
         
         $form['actions'] = [
@@ -103,7 +139,7 @@
       try {
         $email = $form_state->getValue('email');
         $amount = $form_state->getValue('amount');
-        $householdReference = $form_state->getValue('household_reference');
+        $group = $form_state->getValue('group');
         
         // Step 1: Find or create the contact
         $contactId = $this->findOrCreateContact($email);
@@ -193,7 +229,7 @@
       try {
         $group = \Civi\Api4\Household::get(FALSE)
                                           ->addSelect('id', 'display_name')
-                                          ->addWhere('id', '=', 7)
+                                          ->addWhere('id', '=', $group_id)
                                           ->setLimit(1)
                                           ->execute();
         if (!empty($group)) {
@@ -206,4 +242,25 @@
         \Drupal::logger('kin_civi')->error('CiviCRM APIv4 error: @message', ['@message' => $e->getMessage()]);
       }
     }
+    
+    function kin_civi_get_id_from_email($email) {
+      try {
+        $contacts = \Civi\Api4\Contact::get(FALSE)
+                                      ->addSelect('id')
+                                      ->addWhere('email_primary.email', '=', $email)
+                                      ->setLimit(1)
+                                      ->execute();
+        
+        if (empty($contacts[0])) {
+          $errors['email-5'] = ts('No member found with this email address. Please check and try again.');
+        } else {
+          $contact_id = $contacts[0]["id"];
+        }
+      }
+      catch (CiviCRM_API4_Exception $e) {
+        \Civi::log()->error("API error during email lookup: " . $e->getMessage());
+      }
+    }
   }
+  
+  

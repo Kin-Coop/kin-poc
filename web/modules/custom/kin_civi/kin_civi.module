@@ -6,6 +6,9 @@
    */
   
   use Drupal\Core\Form\FormStateInterface;
+  use Civi\Api4\UFMatch;
+  
+  \Drupal::service('civicrm')->initialize();
   
   /**
    * Implements hook_help().
@@ -17,5 +20,24 @@
         $output .= '<h3>' . t('On behalf of Custom Contribution Form') . '</h3>';
         $output .= '<p>' . t('Provides a custom on behalf of form for CiviCRM contributions.') . '</p>';
         return $output;
+    }
+  }
+  
+  function kin_civi_get_contact_id($uid) {
+    try {
+      // Query CiviCRM APIv4 to get the contact ID for the Drupal user.
+      $result = UFMatch::get(FALSE)
+                       ->addWhere('uf_id', '=', $uid)
+                       ->addSelect('contact_id')
+                       ->execute();
+      
+      if ($result) {
+        return (int) $result->first()['contact_id'];
+      } else {
+        return FALSE;
+      }
+    }
+    catch (APIException $e) {
+      \Drupal::logger('mymodule')->error('CiviCRM APIv4 error: @message', ['@message' => $e->getMessage()]);
     }
   }
