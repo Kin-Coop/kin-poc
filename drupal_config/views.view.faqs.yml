@@ -2295,7 +2295,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<h3>FAQ Categories</h3>'
+            value: "<p>If you have difficulty with the FAQ links below, you can also view the FAQs <a href=\"/faqs-list\">here</a>.</p>\r\n<h3>FAQ Categories</h3>"
             format: basic_html
           tokenize: false
       display_extenders: {  }
