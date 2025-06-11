@@ -300,18 +300,3 @@ function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$er
 }
 
 
-/*
-function civicrm_custom_access_civicrm_buildForm($formName, &$form) {
-    global $user;
-    drupal_access_denied();
-    drupal_exit();
-
-    $grant_access = 0;
-    if(\Drupal::currentUser()->isAnonymous()) {
-        if($formName == 'CRM_Contribute_Form_Contribution_Main' && $form->_id == 4 && !$grant_access) {
-            drupal_access_denied();
-            drupal_exit();
-        }
-    }
-}
-*/

@@ -9,6 +9,7 @@
   use Drupal\Core\Url;
   use CRM_Core_Exception;
   use Civi\Api4\UFMatch;
+  use CRM_Utils_Money;
   
   /**
    * Provides a custom contribution form.
@@ -127,10 +128,13 @@
       if ($amount <= 0) {
         $form_state->setErrorByName('amount', $this->t('Please enter a positive amount.'));
       }
-      
+
+      //dpm($email);
       // Get original contributor ID
       $onbehalfof_id = $this->kin_civi_get_id_from_email($email);
       $form_state->setValue('on_behalf_of_id', $onbehalfof_id);
+      //dpm($onbehalfof_id);
+      //dpm($group_id);
       
       // Check original contributor is in group
       $relationship = $this->kin_civi_check_contact_in_group($onbehalfof_id, $group_id);
@@ -150,23 +154,15 @@
         return;
       }
       
-      civicrm_initialize();
-      
       try {
-        $email = $form_state->getValue('email');
+        //$email = $form_state->getValue('email');
         $amount = $form_state->getValue('amount');
         $group_id = $form_state->getValue('group_id');
         $onbehalfof_id = $form_state->getValue('on_behalf_of_id');
         $delegate_id = $form_state->getValue('delegate_id');
         $ref = $form_state->getValue('reference');
         
-        
-        //if (!$contactId) {
-          //throw new \Exception('Could not find or create contact.');
-        //}
-        
         // Step 2: Create the contribution
-        
         $results = \Civi\Api4\Contribution::create(FALSE)
                   ->addValue('contact_id', $onbehalfof_id)
                   ->addValue('financial_type_id', 1)
@@ -176,13 +172,17 @@
                   ->addValue('Kin_Contributions.Delegated_Contributor', $delegate_id)
                   ->addValue('Unique_Contribution_ID.Unique_Contribution_Reference', $ref)
                   ->execute();
-        
-        \Drupal::messenger()->addStatus($this->t('Thank you for your contribution of @amount. Your reference number is @id.', [
-          '@amount' => \Drupal::service('renderer')->renderPlain(\Drupal::service('commerce_price.currency_formatter')->format($amount, 'GBP')),
-            '@id' => $results['id'],
-        ]));
-        
-    } catch (\Exception $e) {
+
+          \Drupal::messenger()->addStatus($this->t(
+              'Thank you for your contribution of @amount. Your reference number is @id.',
+              [
+                  '@amount' => CRM_Utils_Money::format($amount, 'GBP'),
+                  '@id' => $results['id'],
+              ]
+          ));
+
+
+      } catch (\Exception $e) {
         \Drupal::logger('kin_civi')->error($e->getMessage());
         \Drupal::messenger()->addError($this->t('There was an error processing your contribution.'));
       }
@@ -191,10 +191,10 @@
     function kin_civi_check_group($group_id) {
       try {
         $group = \Civi\Api4\Household::get(FALSE)
-                                          ->addSelect('id', 'display_name')
-                                          ->addWhere('id', '=', $group_id)
-                                          ->setLimit(1)
-                                          ->execute();
+                  ->addSelect('id', 'display_name')
+                  ->addWhere('id', '=', $group_id)
+                  ->setLimit(1)
+                  ->execute();
         if (!empty($group)) {
           return (array) $group->first();
         } else {
@@ -208,16 +208,16 @@
     
     function kin_civi_get_id_from_email($email) {
       try {
-        $contacts = \Civi\Api4\Contact::get(FALSE)
-                                      ->addSelect('id')
-                                      ->addWhere('email_primary.email', '=', $email)
-                                      ->setLimit(1)
-                                      ->execute();
+          $individuals = \Civi\Api4\Individual::get(FALSE)
+              ->addSelect('id')
+              ->addWhere('email_primary.email', '=', $email)
+              ->setLimit(1)
+              ->execute();
         
-        if (empty($contacts[0])) {
-          $errors['email-5'] = ts('No member found with this email address. Please check and try again.');
+        if (empty($individuals[0])) {
+            \Drupal::logger('kin_civi')->error('CiviCRM APIv4 error: Contact not found.');
         } else {
-          $contact_id = $contacts[0]["id"];
+          return $individuals[0]["id"];
         }
       }
       catch (CiviCRM_API4_Exception $e) {
@@ -228,14 +228,16 @@
     function kin_civi_check_contact_in_group($contact_id, $group_id) {
       try {
         $relationships = \Civi\Api4\Relationship::get(FALSE)
-                                                ->addSelect('*')
-                                                ->addWhere('contact_id_a', '=', $contact_id)
-                                                ->addWhere('contact_id_b', '=', $group_id)
-                                                ->setLimit(1)
-                                                ->execute();
+                        ->addSelect('*')
+                        ->addWhere('contact_id_a', '=', $contact_id)
+                        ->addWhere('contact_id_b', '=', $group_id)
+                        ->setLimit(1)
+                        ->execute();
         
         if (empty($relationships[0])) {
           return false;
+        } else {
+            return true;
         }
       }
       catch (CiviCRM_API4_Exception $e) {
