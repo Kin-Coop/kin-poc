@@ -27,9 +27,13 @@
      */
     public function buildForm(array $form, FormStateInterface $form_state, ?Request $request = NULL) {
       
+      $this->mySharedValue = 'Hello from buildForm';
+      
       $user = \Drupal::currentUser();
       $uid = $user->id();
       $cid = kin_civi_get_contact_id($uid);
+      $form_state->setValue('delegate_id', $cid);
+      
       
       if(\Drupal::currentUser()->isAuthenticated() == FALSE) {
         throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
@@ -113,6 +117,7 @@
      */
     public function validateForm(array &$form, FormStateInterface $form_state) {
       $email = $form_state->getValue('email');
+      $group_id = $form_state->getValue('group_id');
       
       if (!\Drupal::service('email.validator')->isValid($email)) {
         $form_state->setErrorByName('email', $this->t('Please enter a valid email address.'));
@@ -122,6 +127,17 @@
       if ($amount <= 0) {
         $form_state->setErrorByName('amount', $this->t('Please enter a positive amount.'));
       }
+      
+      // Get original contributor ID
+      $onbehalfof_id = $this->kin_civi_get_id_from_email($email);
+      $form_state->setValue('on_behalf_of_id', $onbehalfof_id);
+      
+      // Check original contributor is in group
+      $relationship = $this->kin_civi_check_contact_in_group($onbehalfof_id, $group_id);
+      if(!$relationship) {
+        $form_state->setErrorByName('email', $this->t('This email does not match anyone in this group. Please try again.'));
+      }
+      
     }
     
     /**
@@ -139,89 +155,36 @@
       try {
         $email = $form_state->getValue('email');
         $amount = $form_state->getValue('amount');
-        $group = $form_state->getValue('group');
+        $group_id = $form_state->getValue('group_id');
+        $onbehalfof_id = $form_state->getValue('on_behalf_of_id');
+        $delegate_id = $form_state->getValue('delegate_id');
+        $ref = $form_state->getValue('reference');
         
-        // Step 1: Find or create the contact
-        $contactId = $this->findOrCreateContact($email);
         
-        if (!$contactId) {
-          throw new \Exception('Could not find or create contact.');
-        }
+        //if (!$contactId) {
+          //throw new \Exception('Could not find or create contact.');
+        //}
         
         // Step 2: Create the contribution
-        $contributionParams = [
-          'contact_id' => $contactId,
-          'financial_type_id' => 1, // Adjust this to your financial type ID
-          'total_amount' => $amount,
-          'receive_date' => date('YmdHis'),
-          'contribution_status_id' => 2, // Pending status
-          'custom_' . $this->getHouseholdCustomFieldId() => $householdReference,
-        ];
         
-        $result = civicrm_api3('Contribution', 'create', $contributionParams);
-        
-        if ($result['is_error']) {
-          throw new \Exception($result['error_message']);
-        }
+        $results = \Civi\Api4\Contribution::create(FALSE)
+                  ->addValue('contact_id', $onbehalfof_id)
+                  ->addValue('financial_type_id', 1)
+                  ->addValue('total_amount', $amount)
+                  ->addValue('contribution_status_id', 2)
+                  ->addValue('Kin_Contributions.Household', $group_id)
+                  ->addValue('Kin_Contributions.Delegated_Contributor', $delegate_id)
+                  ->addValue('Unique_Contribution_ID.Unique_Contribution_Reference', $ref)
+                  ->execute();
         
         \Drupal::messenger()->addStatus($this->t('Thank you for your contribution of @amount. Your reference number is @id.', [
-          '@amount' => \Drupal::service('renderer')->renderPlain(\Drupal::service('commerce_price.currency_formatter')->format($amount, 'USD')),
-            '@id' => $result['id'],
+          '@amount' => \Drupal::service('renderer')->renderPlain(\Drupal::service('commerce_price.currency_formatter')->format($amount, 'GBP')),
+            '@id' => $results['id'],
         ]));
-      
-
+        
     } catch (\Exception $e) {
         \Drupal::logger('kin_civi')->error($e->getMessage());
-        \Drupal::messenger()->addError($this->t('There was an error processing your contribution. Please try again later.'));
-      }
-    }
-    
-    /**
-     * Finds or creates a contact based on email.
-     */
-    protected function findOrCreateContact($email) {
-      try {
-        // First try to find the contact
-        $result = civicrm_api3('Contact', 'get', [
-          'sequential' => 1,
-          'return' => ['id'],
-          'email' => $email,
-          'options' => ['limit' => 1],
-        ]);
-        
-        if ($result['count'] > 0) {
-          return $result['values'][0]['id'];
-        }
-        
-        // If not found, create a new contact
-        $result = civicrm_api3('Contact', 'create', [
-          'contact_type' => 'Individual',
-          'email' => $email,
-        ]);
-        
-        return $result['id'];
-        
-      } catch (\CiviCRM_API3_Exception $e) {
-        \Drupal::logger('kin_civi')->error($e->getMessage());
-        return FALSE;
-      }
-    }
-    
-    /**
-     * Gets the custom field ID for the household reference.
-     */
-    protected function getHouseholdCustomFieldId() {
-      try {
-        // You'll need to adjust these parameters to match your custom field
-        $result = civicrm_api3('CustomField', 'getsingle', [
-          'name' => 'household_reference',
-          'return' => ['id'],
-        ]);
-        
-        return $result['id'];
-      } catch (\CiviCRM_API3_Exception $e) {
-        \Drupal::logger('kin_civi')->error('Could not find household_reference custom field: ' . $e->getMessage());
-        throw new \Exception('Configuration error: Household reference custom field not found.');
+        \Drupal::messenger()->addError($this->t('There was an error processing your contribution.'));
       }
     }
     
@@ -255,6 +218,24 @@
           $errors['email-5'] = ts('No member found with this email address. Please check and try again.');
         } else {
           $contact_id = $contacts[0]["id"];
+        }
+      }
+      catch (CiviCRM_API4_Exception $e) {
+        \Civi::log()->error("API error during email lookup: " . $e->getMessage());
+      }
+    }
+    
+    function kin_civi_check_contact_in_group($contact_id, $group_id) {
+      try {
+        $relationships = \Civi\Api4\Relationship::get(FALSE)
+                                                ->addSelect('*')
+                                                ->addWhere('contact_id_a', '=', $contact_id)
+                                                ->addWhere('contact_id_b', '=', $group_id)
+                                                ->setLimit(1)
+                                                ->execute();
+        
+        if (empty($relationships[0])) {
+          return false;
         }
       }
       catch (CiviCRM_API4_Exception $e) {
