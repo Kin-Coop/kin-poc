@@ -2,6 +2,7 @@
 
 namespace Drupal\kin_civi\Plugin\views\access;
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\views\Plugin\views\access\AccessPluginBase;
 use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -38,12 +39,29 @@ class HouseholdAccess extends AccessPluginBase {
   }
 
   public function access(AccountInterface $account) {
+    /*
     $household_id = \Drupal::routeMatch()->getParameter('household_id');
     if (!$household_id) {
       return FALSE;
     }
     $current_uid = $account->id();
     return $this->accessChecker->isInSameHousehold($current_uid, $this->getUidFromHousehold($household_id));
+
+    */
+    // Your logic to check household membership.
+    $is_allowed = TRUE;
+    //$is_allowed = $this->checkUserIsInHousehold($account);
+
+    if ($is_allowed) {
+      return AccessResult::allowed()
+        ->addCacheContexts(['user'])
+        ->addCacheTags(['civicrm_contact']); // Adjust as needed
+    }
+    else {
+      return AccessResult::forbidden()
+        ->addCacheContexts(['user'])
+        ->addCacheTags(['civicrm_contact']);
+    }
   }
 
   private function getUidFromHousehold($household_id): ?int {

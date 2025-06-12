@@ -36,6 +36,7 @@
         "drupal/core-project-message": "^10.3",
         "drupal/core-recommended": "^10.3",
         "drupal/devel": "^5.3",
+        "drupal/devel_php": "^1.7",
         "drupal/ds": "^3.0",
         "drupal/editor_advanced_link": "^2.2",
         "drupal/environment_indicator": "^4.0",
