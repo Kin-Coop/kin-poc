@@ -53,7 +53,7 @@ elements: |-
     '#type': text_format
     '#title': Details
     '#allowed_formats':
-      restricted_html: restricted_html
+      basic_html: basic_html
     '#hide_help': true
     '#form_key': civicrm_1_activity_1_activity_details
     '#parent': civicrm_1_activity_1_fieldset_fieldset

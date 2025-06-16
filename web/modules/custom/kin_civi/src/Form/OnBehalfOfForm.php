@@ -124,6 +124,7 @@
     public function validateForm(array &$form, FormStateInterface $form_state) {
       $email = $form_state->getValue('email');
       $group_id = $form_state->getValue('group_id');
+      $utils = \Drupal::service('kin_civi.utils');
       
       if (!\Drupal::service('email.validator')->isValid($email)) {
         $form_state->setErrorByName('email', $this->t('Please enter a valid email address.'));
@@ -136,13 +137,13 @@
 
       //dpm($email);
       // Get original contributor ID
-      $onbehalfof_id = \Drupal::service('kin_civi.utils')->kin_civi_get_id_from_email($email);
+      $onbehalfof_id = $utils->kin_civi_get_id_from_email($email);
       $form_state->setValue('on_behalf_of_id', $onbehalfof_id);
       //dpm($onbehalfof_id);
       //dpm($group_id);
       
       // Check original contributor is in group
-      $relationship = \Drupal::service('kin_civi.utils')->kin_civi_check_contact_in_group($onbehalfof_id, $group_id);
+      $relationship = $utils->kin_civi_check_contact_in_group($onbehalfof_id, $group_id);
       if(!$relationship) {
         $form_state->setErrorByName('email', $this->t('This email does not match anyone in this group. Please try again.'));
       }
@@ -158,6 +159,8 @@
         \Drupal::messenger()->addError($this->t('CiviCRM is not installed.'));
         return;
       }
+
+      $utils = \Drupal::service('kin_civi.utils');
       
       try {
         //$email = $form_state->getValue('email');
@@ -166,7 +169,7 @@
         $onbehalfof_id = $form_state->getValue('on_behalf_of_id');
         $delegate_id = $form_state->getValue('delegate_id');
         $ref = $form_state->getValue('reference');
-        $onbehalfof_name = \Drupal::service('kin_civi.utils')->kin_civi_get_name($onbehalfof_id);
+        $onbehalfof_name = $utils->kin_civi_get_name($onbehalfof_id);
         
         // Step 2: Create the contribution
         $results = \Civi\Api4\Contribution::create(FALSE)
@@ -197,7 +200,7 @@ Sort Code: 08-92-99</p>
 <p><strong>Please enter the unique contribution reference as the payment reference.</strong></p>
 <p>An email will be sent to @name confirming the contribution. You will also receive an email with the payment instructions.</p>
 <p>If you are with the Co-operative Bank, <a href="https://www.co-operativebank.co.uk/help-and-support/payments/money-transfer/">they are having a temporary issue with references</a> and you can leave this field blank.</p>
-<p><a href="/members/group/@gid" class="btn btn-primary">Return to group</a></p>
+<p style="margin: 1.2rem 0 2rem;"><a href="/members/group/@gid" class="btn btn-primary">Return to group</a></p>
             ',
               [
                   '@amount' => CRM_Utils_Money::format($amount, 'GBP'),
@@ -209,6 +212,29 @@ Sort Code: 08-92-99</p>
 
           // Rebuild the form so buildForm runs again and shows the message.
           $form_state->setRebuild(TRUE);
+
+          //Send email
+          $contribution_id = $results->first()['id'];
+
+          $sent = $utils->sendTemplateEmail(
+              contactId: $delegate_id,
+              toEmail: $utils->kin_civi_get_email($delegate_id),
+              templateId: 96, // Your template ID
+              params: [
+                  'onbehalfof_name' => $onbehalfof_name,
+                  'amount' => $amount,
+              ],
+              contributionId: $contribution_id // Optional
+          );
+
+          if ($sent) {
+              \Drupal::messenger()->addMessage('Confirmation email sent and logged.');
+          }
+          else {
+              \Drupal::messenger()->addError('Error sending confirmation email.');
+          }
+
+          );
 
 
       } catch (\Exception $e) {

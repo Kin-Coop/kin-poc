@@ -88,4 +88,60 @@ class Utils
             \Civi::log()->error("API error during email lookup: " . $e->getMessage());
         }
     }
+
+    public function kin_civi_get_email($cid) {
+        try {
+            // Query CiviCRM APIv4 to get the name from the id.
+            $contacts = \Civi\Api4\Contact::get(FALSE)
+                ->addSelect('display_name', 'email_primary.email')
+                ->addWhere('id', '=', $cid)
+                ->execute();
+
+            if ($contacts) {
+                return (array) $contacts->first()['email_primary.email'];
+            } else {
+                return FALSE;
+            }
+        }
+        catch (APIException $e) {
+            \Drupal::logger('kin_civi')->error('CiviCRM APIv4 error: @message', ['@message' => $e->getMessage()]);
+        }
+    }
+
+    public function sendTemplateEmail(
+        int $contactId,
+        string $toEmail,
+        int $templateId,
+        array $params = [],
+        ?int $contributionId = NULL,
+        string $bcc = 'info@kin.coop'
+    ): bool {
+        try {
+            $apiParams = [
+                'contact_id' => $contactId,
+                'template_id' => $templateId,
+                'to_email' => $toEmail,
+                'from_email' => 'admin@kin.coop',
+                'from_name' => 'KIN',
+                'bcc' => $bcc,
+                'record_activity' => 1, // Log email as activity
+                'params' => $params,
+            ];
+
+            if ($contributionId) {
+                $apiParams['contribution_id'] = $contributionId;
+            }
+
+            civicrm_api3('Email', 'send', $apiParams);
+            return TRUE;
+        }
+        catch (\CiviCRM_API3_Exception $e) {
+            \Drupal::logger('kin_civi')->error('Failed to send email to @to: @msg', [
+                '@to' => $toEmail,
+                '@msg' => $e->getMessage(),
+            ]);
+            return FALSE;
+        }
+    }
+
 }
