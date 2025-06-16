@@ -10,6 +10,7 @@
   use CRM_Core_Exception;
   use Civi\Api4\UFMatch;
   use CRM_Utils_Money;
+  use Drupal\kin_civi\Service\Utils;
   
   /**
    * Provides a custom contribution form.
@@ -41,15 +42,19 @@
       }
       
       $group_id = \Drupal::routeMatch()->getParameter('group_id');
-      $group = $this->kin_civi_check_group($group_id);
+      $group = \Drupal::service('kin_civi.utils')->kin_civi_check_group($group_id);
       $ref = $cid . '-' . date('mdi');
       
       //dpm($cid);
       
       If($group == false) {
-        $form = [
-          '#markup' => $this->t('The group not found. Please check and try again.'),
-        ];
+          $form = [
+              '#markup' => $this->t('The group was not found. Please check and try again.'),
+          ];
+      } elseif ($form_state->get('submitted')) {
+          return [
+              '#markup' => $form_state->get('message')
+          ];
       } else {
         $form['intro'] = [
           '#markup' => '<p>This form is to allow you to make a contribution on behalf of someone else in your group.
@@ -131,13 +136,13 @@
 
       //dpm($email);
       // Get original contributor ID
-      $onbehalfof_id = $this->kin_civi_get_id_from_email($email);
+      $onbehalfof_id = \Drupal::service('kin_civi.utils')->kin_civi_get_id_from_email($email);
       $form_state->setValue('on_behalf_of_id', $onbehalfof_id);
       //dpm($onbehalfof_id);
       //dpm($group_id);
       
       // Check original contributor is in group
-      $relationship = $this->kin_civi_check_contact_in_group($onbehalfof_id, $group_id);
+      $relationship = \Drupal::service('kin_civi.utils')->kin_civi_check_contact_in_group($onbehalfof_id, $group_id);
       if(!$relationship) {
         $form_state->setErrorByName('email', $this->t('This email does not match anyone in this group. Please try again.'));
       }
@@ -161,6 +166,7 @@
         $onbehalfof_id = $form_state->getValue('on_behalf_of_id');
         $delegate_id = $form_state->getValue('delegate_id');
         $ref = $form_state->getValue('reference');
+        $onbehalfof_name = \Drupal::service('kin_civi.utils')->kin_civi_get_name($onbehalfof_id);
         
         // Step 2: Create the contribution
         $results = \Civi\Api4\Contribution::create(FALSE)
@@ -173,13 +179,36 @@
                   ->addValue('Unique_Contribution_ID.Unique_Contribution_Reference', $ref)
                   ->execute();
 
-          \Drupal::messenger()->addStatus($this->t(
-              'Thank you for your contribution of @amount. Your reference number is @id.',
+          \Drupal::messenger()->addStatus($this->t('Contribution created successfully.'));
+
+          // Set a flag to indicate successful submission.
+          $form_state->set('submitted', TRUE);
+
+          $message = t( '<p>Your contribution has been created successfully. The details are:</p>
+            <p>Amount: @amount<br>
+            On behalf of: @name<br>
+            Reference: @ref</p>
+            <p><strong>Please go to your bank app and pay your contribution to:</strong></p>
+            <p>&nbsp;</p>
+<p style="font-weight: 600;">Kin Co operative Limited<br />
+Account Number: 67355138<br />
+Sort Code: 08-92-99</p>
+<p>&nbsp;</p>
+<p><strong>Please enter the unique contribution reference as the payment reference.</strong></p>
+<p>An email will be sent to @name confirming the contribution. You will also receive an email with the payment instructions.</p>
+<p>If you are with the Co-operative Bank, <a href="https://www.co-operativebank.co.uk/help-and-support/payments/money-transfer/">they are having a temporary issue with references</a> and you can leave this field blank.</p>
+<p><a href="/members/group/@gid" class="btn btn-primary">Return to group</a></p>
+            ',
               [
                   '@amount' => CRM_Utils_Money::format($amount, 'GBP'),
-                  '@id' => $results['id'],
-              ]
-          ));
+                  '@name' => $onbehalfof_name,
+                  '@ref' => $ref,
+                  '@gid' => $group_id,
+              ]);
+          $form_state->set('message' , $message);
+
+          // Rebuild the form so buildForm runs again and shows the message.
+          $form_state->setRebuild(TRUE);
 
 
       } catch (\Exception $e) {
@@ -187,63 +216,7 @@
         \Drupal::messenger()->addError($this->t('There was an error processing your contribution.'));
       }
     }
-    
-    function kin_civi_check_group($group_id) {
-      try {
-        $group = \Civi\Api4\Household::get(FALSE)
-                  ->addSelect('id', 'display_name')
-                  ->addWhere('id', '=', $group_id)
-                  ->setLimit(1)
-                  ->execute();
-        if (!empty($group)) {
-          return (array) $group->first();
-        } else {
-          return FALSE;
-        }
-      }
-      catch (APIException $e) {
-        \Drupal::logger('kin_civi')->error('CiviCRM APIv4 error: @message', ['@message' => $e->getMessage()]);
-      }
-    }
-    
-    function kin_civi_get_id_from_email($email) {
-      try {
-          $individuals = \Civi\Api4\Individual::get(FALSE)
-              ->addSelect('id')
-              ->addWhere('email_primary.email', '=', $email)
-              ->setLimit(1)
-              ->execute();
-        
-        if (empty($individuals[0])) {
-            \Drupal::logger('kin_civi')->error('CiviCRM APIv4 error: Contact not found.');
-        } else {
-          return $individuals[0]["id"];
-        }
-      }
-      catch (CiviCRM_API4_Exception $e) {
-        \Civi::log()->error("API error during email lookup: " . $e->getMessage());
-      }
-    }
-    
-    function kin_civi_check_contact_in_group($contact_id, $group_id) {
-      try {
-        $relationships = \Civi\Api4\Relationship::get(FALSE)
-                        ->addSelect('*')
-                        ->addWhere('contact_id_a', '=', $contact_id)
-                        ->addWhere('contact_id_b', '=', $group_id)
-                        ->setLimit(1)
-                        ->execute();
-        
-        if (empty($relationships[0])) {
-          return false;
-        } else {
-            return true;
-        }
-      }
-      catch (CiviCRM_API4_Exception $e) {
-        \Civi::log()->error("API error during email lookup: " . $e->getMessage());
-      }
-    }
+
   }
   
   

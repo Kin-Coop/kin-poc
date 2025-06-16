@@ -38,6 +38,6 @@
       }
     }
     catch (APIException $e) {
-      \Drupal::logger('mymodule')->error('CiviCRM APIv4 error: @message', ['@message' => $e->getMessage()]);
+      \Drupal::logger('kin_civi')->error('CiviCRM APIv4 error: @message', ['@message' => $e->getMessage()]);
     }
   }

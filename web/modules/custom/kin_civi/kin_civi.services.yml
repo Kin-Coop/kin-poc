@@ -1,3 +1,5 @@
 services:
   kin_civi.kin_civi_service:
     class: 'Drupal\kin_civi\Service\kin_civi_emails'
+  kin_civi.utils:
+    class: 'Drupal\kin_civi\Service\Utils'
