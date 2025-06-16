@@ -30,11 +30,13 @@
     public function buildForm(array $form, FormStateInterface $form_state, ?Request $request = NULL) {
       
       $this->mySharedValue = 'Hello from buildForm';
+      $utils = \Drupal::service('kin_civi.utils');
       
       $user = \Drupal::currentUser();
       $uid = $user->id();
-      $cid = kin_civi_get_contact_id($uid);
+      $cid = $utils->kin_civi_get_contact_id($uid);
       $form_state->setValue('delegate_id', $cid);
+
       
       
       if(\Drupal::currentUser()->isAuthenticated() == FALSE) {
@@ -46,6 +48,8 @@
       $ref = $cid . '-' . date('mdi');
       
       //dpm($cid);
+      //dpm($form_state->getValue('delegate_id'));
+      //dpm($form_state);
       
       If($group == false) {
           $form = [
@@ -67,6 +71,11 @@
           '#type'  => 'hidden',
           '#value' => $group_id,
         ];
+
+          $form['delegate_id'] = [
+              '#type'  => 'hidden',
+              '#value' => $cid,
+          ];
         
         $form['email'] = [
           '#type'        => 'email',
@@ -161,8 +170,9 @@
       }
 
       $utils = \Drupal::service('kin_civi.utils');
-      
-      try {
+
+        //dpm($form_state);
+
         //$email = $form_state->getValue('email');
         $amount = $form_state->getValue('amount');
         $group_id = $form_state->getValue('group_id');
@@ -170,7 +180,9 @@
         $delegate_id = $form_state->getValue('delegate_id');
         $ref = $form_state->getValue('reference');
         $onbehalfof_name = $utils->kin_civi_get_name($onbehalfof_id);
-        
+      
+      try {
+
         // Step 2: Create the contribution
         $results = \Civi\Api4\Contribution::create(FALSE)
                   ->addValue('contact_id', $onbehalfof_id)
@@ -193,28 +205,27 @@
             Reference: @ref</p>
             <p><strong>Please go to your bank app and pay your contribution to:</strong></p>
             <p>&nbsp;</p>
-<p style="font-weight: 600;">Kin Co operative Limited<br />
-Account Number: 67355138<br />
-Sort Code: 08-92-99</p>
-<p>&nbsp;</p>
-<p><strong>Please enter the unique contribution reference as the payment reference.</strong></p>
-<p>An email will be sent to @name confirming the contribution. You will also receive an email with the payment instructions.</p>
-<p>If you are with the Co-operative Bank, <a href="https://www.co-operativebank.co.uk/help-and-support/payments/money-transfer/">they are having a temporary issue with references</a> and you can leave this field blank.</p>
-<p style="margin: 1.2rem 0 2rem;"><a href="/members/group/@gid" class="btn btn-primary">Return to group</a></p>
-            ',
+            <p style="font-weight: 600;">Kin Co operative Limited<br />
+            Account Number: 67355138<br />
+            Sort Code: 08-92-99</p>
+            <p>&nbsp;</p>
+            <p><strong>Please enter the unique contribution reference as the payment reference.</strong></p>
+            <p>An email will be sent to @name confirming the contribution. You will also receive an email with the payment instructions.</p>
+            <p>If you are with the Co-operative Bank, <a href="https://www.co-operativebank.co.uk/help-and-support/payments/money-transfer/">they are having a temporary issue with references</a> and you can leave this field blank.</p>
+            <p style="margin: 1.2rem 0 2rem;"><a href="/members/group/@gid" class="btn btn-primary">Return to group</a></p>
+                    ',
               [
                   '@amount' => CRM_Utils_Money::format($amount, 'GBP'),
                   '@name' => $onbehalfof_name,
                   '@ref' => $ref,
                   '@gid' => $group_id,
               ]);
-          $form_state->set('message' , $message);
 
-          // Rebuild the form so buildForm runs again and shows the message.
-          $form_state->setRebuild(TRUE);
 
           //Send email
           $contribution_id = $results->first()['id'];
+          //dpm($delegate_id);
+
 
           $sent = $utils->sendTemplateEmail(
               contactId: $delegate_id,
@@ -234,7 +245,10 @@ Sort Code: 08-92-99</p>
               \Drupal::messenger()->addError('Error sending confirmation email.');
           }
 
-          );
+          $form_state->set('message' , $message);
+
+          // Rebuild the form so buildForm runs again and shows the message.
+          $form_state->setRebuild(TRUE);
 
 
       } catch (\Exception $e) {

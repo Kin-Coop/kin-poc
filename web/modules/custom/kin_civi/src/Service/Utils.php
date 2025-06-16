@@ -98,7 +98,26 @@ class Utils
                 ->execute();
 
             if ($contacts) {
-                return (array) $contacts->first()['email_primary.email'];
+                return $contacts->first()['email_primary.email'];
+            } else {
+                return FALSE;
+            }
+        }
+        catch (APIException $e) {
+            \Drupal::logger('kin_civi')->error('CiviCRM APIv4 error: @message', ['@message' => $e->getMessage()]);
+        }
+    }
+
+    public function kin_civi_get_contact_id($uid) {
+        try {
+            // Query CiviCRM APIv4 to get the contact ID for the Drupal user.
+            $result = UFMatch::get(FALSE)
+                ->addWhere('uf_id', '=', $uid)
+                ->addSelect('contact_id')
+                ->execute();
+
+            if ($result) {
+                return (int) $result->first()['contact_id'];
             } else {
                 return FALSE;
             }
@@ -125,7 +144,7 @@ class Utils
                 'from_name' => 'KIN',
                 'bcc' => $bcc,
                 'record_activity' => 1, // Log email as activity
-                'params' => $params,
+                'extra_data' => $params,
             ];
 
             if ($contributionId) {
