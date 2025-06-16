@@ -621,7 +621,7 @@ display:
           entity_field: id
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -650,7 +650,7 @@ display:
             preserve_tags: ''
             html: false
           element_type: ''
-          element_class: ''
+          element_class: hidden
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
