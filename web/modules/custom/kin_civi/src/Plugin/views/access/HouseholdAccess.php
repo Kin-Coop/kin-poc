@@ -3,6 +3,7 @@
 namespace Drupal\kin_civi\Plugin\views\access;
 
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\views\Plugin\views\access\AccessPluginBase;
 use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -27,6 +28,8 @@ class HouseholdAccess extends AccessPluginBase {
   public function alterRouteDefinition(Route $route) {
     // Nothing to modify here for this use case.
     // This method must be present to fulfill the interface.
+    $route->setRequirement('_access', 'TRUE') ;
+    return TRUE;
   }
 
   public function __construct(array $configuration, $plugin_id, $plugin_definition, $accessChecker) {
@@ -39,18 +42,28 @@ class HouseholdAccess extends AccessPluginBase {
   }
 
   public function access(AccountInterface $account) {
-    /*
-    $household_id = \Drupal::routeMatch()->getParameter('household_id');
-    if (!$household_id) {
-      return FALSE;
+
+    $messenger = \Drupal::messenger();
+    //$parameters = \Drupal::routeMatch()->getParameters();
+    //dpm($parameters);
+    $group_id = \Drupal::routeMatch()->getParameter('arg_0');
+    //dpm($group_id);
+    if (!$group_id) {
+      //return FALSE;
     }
     $current_uid = $account->id();
-    return $this->accessChecker->isInSameHousehold($current_uid, $this->getUidFromHousehold($household_id));
-
-    */
+    $contact_id = $this->accessChecker->getContactId($current_uid);
+    //return $this->accessChecker->isInSameHousehold($current_uid, $this->getUidFromHousehold($group_id));
+    $is_allowed = $this->accessChecker->isInSameHousehold($contact_id, $group_id);
     // Your logic to check household membership.
-    $is_allowed = TRUE;
+    $is_allowed = FALSE;
+    //return $is_allowed;
+
+    //$messenger->addMessage(t('You do not have permission to access this page.'), 'error');
+    //return AccessResult::forbidden();
+
     //$is_allowed = $this->checkUserIsInHousehold($account);
+
 
     if ($is_allowed) {
       return AccessResult::allowed()
@@ -62,6 +75,8 @@ class HouseholdAccess extends AccessPluginBase {
         ->addCacheContexts(['user'])
         ->addCacheTags(['civicrm_contact']);
     }
+
+
   }
 
   private function getUidFromHousehold($household_id): ?int {

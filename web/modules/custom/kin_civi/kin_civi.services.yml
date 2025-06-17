@@ -3,6 +3,8 @@ services:
     class: 'Drupal\kin_civi\Service\kin_civi_emails'
   kin_civi.household_access:
     class: Drupal\kin_civi\Service\HouseholdAccessChecker
+  kin_civi.kin_access:
+    class: Drupal\kin_civi\Service\KinAccessChecker
   kin_civi.route_subscriber:
     class: Drupal\kin_civi\EventSubscriber\RouteAccessSubscriber
     arguments: [ '@kin_civi.household_access' ]

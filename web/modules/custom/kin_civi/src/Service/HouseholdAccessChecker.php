@@ -2,9 +2,51 @@
 
 namespace Drupal\kin_civi\Service;
 
+\Drupal::service('civicrm')->initialize();
+
 use Drupal\Core\Session\AccountInterface;
+use Civi\Api4\UFMatch;
 
 class HouseholdAccessChecker {
+
+  public function getContactId($uid)
+  {
+    try {
+      // Query CiviCRM APIv4 to get the contact ID for the Drupal user.
+      $result = UFMatch::get(FALSE)
+        ->addWhere('uf_id', '=', $uid)
+        ->addSelect('contact_id')
+        ->execute();
+
+      if (isset($result[0])) {
+        return (int)$result->first()['contact_id'];
+      } else {
+        return FALSE;
+      }
+    } catch (APIException $e) {
+      \Drupal::logger('mymodule')->error('CiviCRM APIv4 error: @message', ['@message' => $e->getMessage()]);
+    }
+  }
+
+  public function isInHousehold($contact_id, $group_id) {
+    try {
+      $relationships = \Civi\Api4\Relationship::get(FALSE)
+        ->addSelect('*')
+        ->addWhere('contact_id_a', '=', $contact_id)
+        ->addWhere('contact_id_b', '=', $group_id)
+        ->setLimit(1)
+        ->execute();
+
+      if (empty($relationships[0])) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    catch (CiviCRM_API4_Exception $e) {
+      \Civi::log()->error("API error during email lookup: " . $e->getMessage());
+    }
+  }
 
   /**
    * Check if a Drupal user is in the same CiviCRM household as another.
@@ -40,6 +82,13 @@ class HouseholdAccessChecker {
 
     return $rels2['count'] > 0;
   }
+
+  /*
+  public function access($uid1,$uid2, Route $route) {
+    //return $this->isUserTheGatekeeper($account) || $this->isUserTheKeymaster($account);
+    return FALSE;
+  }
+  */
 
   private function getContactIdFromUid($uid): ?int {
     $match = civicrm_api3('UFMatch', 'get', ['uf_id' => $uid]);

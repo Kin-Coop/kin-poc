@@ -6,7 +6,7 @@ use Drupal\views\ViewExecutable;
  * Implements hook_views_post_render().
  */
 function kin_views_post_render(ViewExecutable $view) {
-    if($view->id() == 'kin_group_list'  && $view->current_display == 'page_2'){
+    if($view->id() == 'kin_group_list2'  && $view->current_display == 'page_2'){
         //dpm($view->result[0]->civicrm_contact_display_name);
         //dpm($view->result[0]);
         $title = $view->result[0]->civicrm_contact_display_name . " Group";
