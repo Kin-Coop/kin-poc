@@ -41,3 +41,41 @@
       \Drupal::logger('kin_civi')->error('CiviCRM APIv4 error: @message', ['@message' => $e->getMessage()]);
     }
   }
+
+
+ function renderMessageTemplate($template_id, $contact_id, $params = []) {
+    // Load the message template directly
+    $dao = new CRM_Core_DAO_MessageTemplate();
+    $dao->id = $template_id;
+    if (!$dao->find(TRUE)) {
+        throw new \Exception("Template not found.");
+    }
+
+    // Init Smarty
+    $smarty = CRM_Core_Smarty::singleton();
+
+    // Assign contact tokens manually
+    if ($contact_id) {
+        $tokens = CRM_Utils_Token::getTokens(['contact'], [$contact_id]);
+        $smarty->assign('contact', $tokens[$contact_id]['contact'] ?? []);
+    }
+
+    // Assign custom params
+    foreach ($params as $key => $value) {
+        $smarty->assign($key, $value);
+    }
+
+    // Render each part
+    $html = $smarty->fetch("string:" . $dao->msg_html);
+    $text = $smarty->fetch("string:" . $dao->msg_text);
+    //$subject = $smarty->fetch("string:" . $dao->msg_subject);
+     $subject = "hi";
+
+    return [
+        'html' => $html,
+        'text' => $text,
+        'subject' => $subject,
+    ];
+}
+
+

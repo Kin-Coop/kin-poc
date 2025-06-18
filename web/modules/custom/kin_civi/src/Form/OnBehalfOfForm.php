@@ -224,7 +224,7 @@
 
           //Send email
           $contribution_id = $results->first()['id'];
-          //dpm($delegate_id);
+          //dpm($onbehalfof_name);
 
 
           $sent = $utils->sendTemplateEmail(
@@ -232,7 +232,7 @@
               toEmail: $utils->kin_civi_get_email($delegate_id),
               templateId: 96, // Your template ID
               params: [
-                  'onbehalfof_name' => $onbehalfof_name,
+                  'onbehalfof' => $onbehalfof_name,
                   'amount' => $amount,
               ],
               contributionId: $contribution_id // Optional

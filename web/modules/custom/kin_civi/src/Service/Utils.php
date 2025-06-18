@@ -144,8 +144,10 @@ class Utils
                 'from_name' => 'KIN',
                 'bcc' => $bcc,
                 'record_activity' => 1, // Log email as activity
-                'extra_data' => $params,
+                'tplParams' => $params,
             ];
+
+            dpm($apiParams);
 
             if ($contributionId) {
                 $apiParams['contribution_id'] = $contributionId;
