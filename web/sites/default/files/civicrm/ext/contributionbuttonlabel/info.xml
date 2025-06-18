@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<extension key="contributionbuttonlabel" type="module">
+  <file>contributionbuttonlabel</file>
+  <name>Contribution Button Label</name>
+  <description>Allows ability to set the button label on Main and Confirm page of Contribution.</description>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>Pradeep Nayak</author>
+    <email>pradpnayak@gmail.com</email>
+  </maintainer>
+  <urls>
+    <url desc="Main Extension Page">https://lab.civicrm.org/extensions/contributionbuttonlabel</url>
+    <url desc="Documentation">https://lab.civicrm.org/extensions/contributionbuttonlabel/blob/master/README.md</url>
+    <url desc="Support">https://lab.civicrm.org/extensions/contributionbuttonlabel/-/issues</url>
+    <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
+  </urls>
+  <releaseDate>2024-11-07</releaseDate>
+  <version>1.2.0</version>
+  <develStage>stable</develStage>
+  <compatibility>
+    <ver>5.78</ver>
+  </compatibility>
+  <classloader>
+    <psr4 prefix="Civi\" path="Civi"/>
+  </classloader>
+  <civix>
+    <namespace>CRM/ContributionButtonLabel</namespace>
+    <format>24.09.1</format>
+  </civix>
+  <mixins>
+    <mixin>smarty@1.0.3</mixin>
+    <mixin>entity-types-php@2.0.0</mixin>
+  </mixins>
+</extension>
