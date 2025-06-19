@@ -395,7 +395,7 @@ display:
           pagination_heading_level: h4
           items_per_page: 10
           total_pages: null
-          id: 0
+          id: 4
           tags:
             next: ››
             previous: ‹‹
