@@ -1,0 +1,5 @@
+watchdog_search:
+  version: VERSION
+  css:
+    theme:
+      css/watchdog_search.css: {}

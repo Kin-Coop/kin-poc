@@ -1,0 +1,9 @@
+services:
+  watchdog_search.override:
+    class: Drupal\watchdog_search\ConfigOverride
+    tags:
+      - { name: config.factory.override, priority: 5 }
+  watchdog_search.route_subscriber:
+    class: Drupal\watchdog_search\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

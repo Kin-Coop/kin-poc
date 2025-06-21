@@ -1,0 +1,21 @@
+.watchdog-search-form {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.watchdog-search-form .form-element {
+  margin-right: 1rem;
+}
+
+.watchdog-search-form .form-item {
+  margin-top: 0;
+}
+
+.watchdog-search-form .watchdog-search-actions {
+  width: 100%;
+}
+
+.watchdog-search-form .watchdog-search-actions .button {
+  margin: 0 1rem 0 0;
+}

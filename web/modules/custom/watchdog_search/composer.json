@@ -1,0 +1,12 @@
+{
+  "name": "drupal/watchdog_search",
+  "description": "Enhances the Watchdog log messages page by adding a search field and advanced filtering options.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Kevin Brocatus",
+      "email": "kevinbrocatus@gmail.com"
+    }
+  ]
+}

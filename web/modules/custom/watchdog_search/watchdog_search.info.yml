@@ -1,0 +1,13 @@
+name: 'Watchdog Search'
+type: module
+description: 'Enhances the Watchdog log messages page by adding a search field and advanced filtering options.'
+core_version_requirement: ^9 || ^10 || ^11
+package: Search
+php: 8.1
+dependencies:
+  - drupal:dblog
+
+# Information added by Drupal.org packaging script on 2023-07-15
+version: '1.0.0-beta1'
+project: 'watchdog_search'
+datestamp: 1689448273
