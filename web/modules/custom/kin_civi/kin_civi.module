@@ -8,7 +8,7 @@
   use Drupal\Core\Form\FormStateInterface;
   use Civi\Api4\UFMatch;
   
-  \Drupal::service('civicrm')->initialize();
+  //\Drupal::service('civicrm')->initialize();
   
   /**
    * Implements hook_help().
