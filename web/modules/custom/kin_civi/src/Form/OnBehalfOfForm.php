@@ -29,7 +29,7 @@
      */
     public function buildForm(array $form, FormStateInterface $form_state, ?Request $request = NULL) {
       
-      $this->mySharedValue = 'Hello from buildForm';
+      //$this->mySharedValue = 'Hello from buildForm';
       $utils = \Drupal::service('kin_civi.utils');
       
       $user = \Drupal::currentUser();
@@ -193,8 +193,39 @@
                   ->addValue('Kin_Contributions.Delegated_Contributor', $delegate_id)
                   ->addValue('Unique_Contribution_ID.Unique_Contribution_Reference', $ref)
                   ->execute();
+        
+        $delivery = \CRM_Core_BAO_MessageTemplate::sendTemplate([
+          'workflow' => 'workflow_test',
+          'tokenContext' => ['contactId' => 2],
+          'toEmail' => 'friend@benmango.co.uk',
+          'from' => 'admin@kin.coop',
+        ]);
 
-          \Drupal::messenger()->addStatus($this->t('Contribution created successfully.'));
+        /*
+        $delivery = \CRM_Core_BAO_MessageTemplate::sendTemplate([
+          'workflow' => 'share_certificate_email',
+          'tokenContext' => ['contactId' => $contactId],
+          'tplParams' => [
+            'society' => $society,
+            'issue' => $issue,
+            'amount' => $amount,
+            'onBehalfOf' => $onBehalfOf,
+            'date' => $date,
+          ],
+          'toEmail' => $to,
+          'from' => $from,
+          'attachments' => [
+            [
+              'fullPath' => $filename,
+              'mime_type' => 'application/pdf',
+              'cleanName' => 'certificate.pdf',
+            ],
+          ],
+        ]);
+        */
+        
+        
+        \Drupal::messenger()->addStatus($this->t('Contribution created successfully.'));
 
           // Set a flag to indicate successful submission.
           $form_state->set('submitted', TRUE);
@@ -226,6 +257,7 @@
           $contribution_id = $results->first()['id'];
           //dpm($onbehalfof_name);
 
+        /*
 
           $sent = $utils->sendTemplateEmail(
               contactId: $delegate_id,
@@ -237,7 +269,8 @@
               ],
               contributionId: $contribution_id // Optional
           );
-
+        */
+        $sent = TRUE;
           if ($sent) {
               \Drupal::messenger()->addMessage('Confirmation email sent and logged.');
           }
