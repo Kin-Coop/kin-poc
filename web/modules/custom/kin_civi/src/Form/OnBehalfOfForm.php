@@ -180,6 +180,19 @@
         $delegate_id = $form_state->getValue('delegate_id');
         $ref = $form_state->getValue('reference');
         $onbehalfof_name = $utils->kin_civi_get_name($onbehalfof_id);
+        $group_name = $utils->kin_civi_get_name($group_id);
+      
+        $onBehalfOf = \Civi\Api4\Contact::get()
+                     ->addSelect('custom.*','*','email_primary.email')
+                     ->addWhere('id', '=', $onbehalfof_id)
+                     ->execute()
+                     ->first();
+      
+      $delegate = \Civi\Api4\Contact::get()
+                    ->addSelect('custom.*','*','email_primary.email')
+                    ->addWhere('id', '=', $delegate_id)
+                    ->execute()
+                    ->first();
       
       try {
 
@@ -194,36 +207,24 @@
                   ->addValue('Unique_Contribution_ID.Unique_Contribution_Reference', $ref)
                   ->execute();
         
+        $contribution_id = $results->first()['id'];
+        
+        // To delegate
         $delivery = \CRM_Core_BAO_MessageTemplate::sendTemplate([
           'workflow' => 'workflow_test',
-          'tokenContext' => ['contactId' => 2],
-          'toEmail' => 'friend@benmango.co.uk',
-          'from' => 'admin@kin.coop',
-        ]);
-
-        /*
-        $delivery = \CRM_Core_BAO_MessageTemplate::sendTemplate([
-          'workflow' => 'share_certificate_email',
-          'tokenContext' => ['contactId' => $contactId],
+          'tokenContext' => [
+            'contactId' => $delegate_id,
+            'contributionId' => $contribution_id,
+          ],
           'tplParams' => [
-            'society' => $society,
-            'issue' => $issue,
-            'amount' => $amount,
+            'group' => $group_name,
             'onBehalfOf' => $onBehalfOf,
-            'date' => $date,
+              'ref' => $ref,
           ],
-          'toEmail' => $to,
-          'from' => $from,
-          'attachments' => [
-            [
-              'fullPath' => $filename,
-              'mime_type' => 'application/pdf',
-              'cleanName' => 'certificate.pdf',
-            ],
-          ],
+          'toEmail' => $delegate['email_primary.email'],
+          'from' => 'admin@kin.coop',
+          'bcc' => 'info@kin.coop',
         ]);
-        */
-        
         
         \Drupal::messenger()->addStatus($this->t('Contribution created successfully.'));
 
@@ -252,26 +253,9 @@
                   '@gid' => $group_id,
               ]);
 
+          //dpm($delivery);
 
-          //Send email
-          $contribution_id = $results->first()['id'];
-          //dpm($onbehalfof_name);
-
-        /*
-
-          $sent = $utils->sendTemplateEmail(
-              contactId: $delegate_id,
-              toEmail: $utils->kin_civi_get_email($delegate_id),
-              templateId: 96, // Your template ID
-              params: [
-                  'onbehalfof' => $onbehalfof_name,
-                  'amount' => $amount,
-              ],
-              contributionId: $contribution_id // Optional
-          );
-        */
-        $sent = TRUE;
-          if ($sent) {
+          if ($delivery[0]) {
               \Drupal::messenger()->addMessage('Confirmation email sent and logged.');
           }
           else {

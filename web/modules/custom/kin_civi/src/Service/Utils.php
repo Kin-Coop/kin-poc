@@ -38,11 +38,11 @@ class Utils
             $contacts = \Civi\Api4\Contact::get(FALSE)
                 ->addSelect('display_name', 'email_primary.email')
                 ->addWhere('id', '=', $cid)
-                ->execute();
+                ->execute()
+                ->first();
 
             if ($contacts) {
-                //return (array) $contacts->first();
-                return $contacts->first()['display_name'];
+                return $contacts['display_name'];
             } else {
                 return FALSE;
             }
