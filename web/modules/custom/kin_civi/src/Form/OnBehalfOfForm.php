@@ -208,10 +208,12 @@
                   ->execute();
         
         $contribution_id = $results->first()['id'];
-        
-        // To delegate
+
+        \Drupal::messenger()->addStatus($this->t('Contribution created successfully.'));
+
+        // Send email to delegate
         $delivery = \CRM_Core_BAO_MessageTemplate::sendTemplate([
-          'workflow' => 'workflow_test',
+          'workflow' => 'onbehalfof_delegate',
           'tokenContext' => [
             'contactId' => $delegate_id,
             'contributionId' => $contribution_id,
@@ -225,8 +227,25 @@
           'from' => 'admin@kin.coop',
           'bcc' => 'info@kin.coop',
         ]);
+
+      // Send email to original contributor
+      $delivery = \CRM_Core_BAO_MessageTemplate::sendTemplate([
+          'workflow' => 'onbehalfof_contributor',
+          'tokenContext' => [
+              'contactId' => $delegate_id,
+              'contributionId' => $contribution_id,
+          ],
+          'tplParams' => [
+              'group' => $group_name,
+              'onBehalfOf' => $onBehalfOf,
+              'ref' => $ref,
+          ],
+          'toEmail' => $onBehalfOf['email_primary.email'],
+          'from' => 'admin@kin.coop',
+          'bcc' => 'info@kin.coop',
+      ]);
         
-        \Drupal::messenger()->addStatus($this->t('Contribution created successfully.'));
+
 
           // Set a flag to indicate successful submission.
           $form_state->set('submitted', TRUE);
