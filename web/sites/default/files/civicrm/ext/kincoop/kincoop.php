@@ -26,6 +26,62 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
     }
   }
 
+  // Send email to delegated contributor when contribution is set to completed
+  // No need to send one to the contributor as they will recieve the normal one via civirules anyway
+  if($objectName === 'Contribution' && $op === 'edit') {
+
+    // Has it been set to completed?
+    if($params['contribution_status_id'] == 1) {
+      $contribution = \Civi\Api4\Contribution::get(FALSE)
+        ->addSelect('*', 'custom.*')
+        ->addWhere('id', '=', 435)
+        ->setLimit(25)
+        ->execute()
+        ->first();
+
+      // Has it been delegated and was it originally pending?
+      if($contribution["Kin_Contributions.Delegated_Contributor"] && $contribution["contribution_status_id"] != 1) {
+
+        $delegate_id = $contribution["Kin_Contributions.Delegated_Contributor"];
+        $contribution_id = $params['id'];
+
+        $group = \Civi\Api4\Contact::get()
+          ->addSelect('custom.*','*','email_primary.email')
+          ->addWhere('id', '=', $contribution["Kin_Contributions.Household"])
+          ->execute()
+          ->first();
+
+        $onBehalfOf = \Civi\Api4\Contact::get()
+          ->addSelect('custom.*','*','email_primary.email')
+          ->addWhere('id', '=', $contribution["contact_id"])
+          ->execute()
+          ->first();
+
+        $delegate = \Civi\Api4\Contact::get()
+          ->addSelect('custom.*','*','email_primary.email')
+          ->addWhere('id', '=', $delegate_id)
+          ->execute()
+          ->first();
+
+        // Send email to delegate confirming contribution
+        $delivery = \CRM_Core_BAO_MessageTemplate::sendTemplate([
+          'workflow' => 'onbehalfof_delegate',
+          'tokenContext' => [
+            'contactId' => $delegate_id,
+            'contributionId' => $contribution_id,
+          ],
+          'tplParams' => [
+            'group' => $group['display_name'],
+            'onBehalfOf' => $onBehalfOf,
+          ],
+          'toEmail' => $delegate['email_primary.email'],
+          'from' => 'admin@kin.coop',
+          'bcc' => 'info@kin.coop',
+        ]);
+      }
+    }
+  }
+
   if ($objectName === 'Contribution' && $op === 'create') {
     // Check if custom override email field was submitted
 
