@@ -228,7 +228,18 @@
           'bcc' => 'info@kin.coop',
         ]);
 
-      // Send email to original contributor
+        // Log email as activity to contacts
+          $activity = \Civi\Api4\Activity::create(FALSE)
+              ->addValue('status_id:name', 'Completed')
+              ->addValue('activity_type_id:name', 'Email')
+              ->addValue('subject', $delivery[1])
+              ->addValue('details', $delivery[3])
+              ->addValue('source_contact_id', $delegate_id)
+              ->addValue('target_contact_id', $onbehalfof_id)
+              ->execute();
+
+
+          // Send email to original contributor
       $delivery = \CRM_Core_BAO_MessageTemplate::sendTemplate([
           'workflow' => 'onbehalfof_contributor',
           'tokenContext' => [
@@ -244,6 +255,16 @@
           'from' => 'admin@kin.coop',
           'bcc' => 'info@kin.coop',
       ]);
+
+          // Log email as activity to contacts
+          $activity = \Civi\Api4\Activity::create(FALSE)
+              ->addValue('status_id:name', 'Completed')
+              ->addValue('activity_type_id:name', 'Email')
+              ->addValue('subject', $delivery[1])
+              ->addValue('details', $delivery[3])
+              ->addValue('source_contact_id', $onbehalfof_id)
+              ->addValue('target_contact_id', $delegate_id)
+              ->execute();
         
 
 
@@ -263,7 +284,7 @@
             <p><strong>Please enter the unique contribution reference as the payment reference.</strong></p>
             <p>An email will be sent to @name confirming the contribution. You will also receive an email with the payment instructions.</p>
             <p>If you are with the Co-operative Bank, <a href="https://www.co-operativebank.co.uk/help-and-support/payments/money-transfer/">they are having a temporary issue with references</a> and you can leave this field blank.</p>
-            <p style="margin: 1.2rem 0 2rem;"><a href="/members/group/@gid" class="btn btn-primary">Return to group</a></p>
+            <p style="margin: 1.2rem 0 2rem;"><a href="/member/group/@gid" class="btn btn-primary">Return to group</a></p>
                     ',
               [
                   '@amount' => CRM_Utils_Money::format($amount, 'GBP'),

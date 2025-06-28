@@ -65,7 +65,7 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
 
         // Send email to delegate confirming contribution
         $delivery = \CRM_Core_BAO_MessageTemplate::sendTemplate([
-          'workflow' => 'onbehalfof_contributor_completed',
+          'workflow' => 'onbehalfof_delegate_completed',
           'tokenContext' => [
             'contactId' => $delegate_id,
             'contributionId' => $contribution_id,
