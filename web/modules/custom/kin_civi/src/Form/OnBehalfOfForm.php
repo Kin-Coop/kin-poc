@@ -296,7 +296,7 @@
           //dpm($delivery);
 
           if ($delivery[0]) {
-              \Drupal::messenger()->addMessage('Confirmation email sent and logged.');
+              //\Drupal::messenger()->addMessage('Confirmation email sent and logged.');
           }
           else {
               \Drupal::messenger()->addError('Error sending confirmation email.');

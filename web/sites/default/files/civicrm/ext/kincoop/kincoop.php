@@ -34,7 +34,7 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
     if($params['contribution_status_id'] == 1) {
       $contribution = \Civi\Api4\Contribution::get(FALSE)
         ->addSelect('*', 'custom.*')
-        ->addWhere('id', '=', 435)
+        ->addWhere('id', '=', $id)
         ->setLimit(25)
         ->execute()
         ->first();
