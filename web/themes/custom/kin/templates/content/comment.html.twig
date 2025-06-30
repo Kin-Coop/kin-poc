@@ -85,11 +85,10 @@
     indicator here would break the render cache.
   #}
   <mark class="hidden" data-comment-timestamp="{{ new_indicator_timestamp }}"></mark>
-
   {% if submitted %}
     <footer class="comment__meta">
       {{ user_picture }}
-      <p class="comment__submitted">{{ submitted }}</p>
+      <p class="comment__submitted">{{ author }} {{ created }}</p>
 
       {#
         Indicate the semantic relationship between parent and child comments for
@@ -99,12 +98,15 @@
       {% if parent %}
         <p class="parent visually-hidden">{{ parent }}</p>
       {% endif %}
-
-      {{ permalink }}
     </footer>
   {% endif %}
 
   <div{{ content_attributes.addClass('content') }}>
+    {% if title %}
+      {{ title_prefix }}
+      <h3{{ title_attributes }}>{{ title }}</h3>
+      {{ title_suffix }}
+    {% endif %}
     {{ content }}
   </div>
 </article>

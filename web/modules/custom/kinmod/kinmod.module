@@ -1,6 +1,40 @@
 <?php
 
 use Drupal\views\ViewExecutable;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Alter the standard comment form.
+ */
+function kinmod_form_comment_comment_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add custom submit handler.
+  $form['#submit'][] = 'kinmod_custom_comment_submit';
+  //dpm("hello");
+}
+
+/**
+ * Custom submit handler for the comment form.
+ */
+function kinmod_custom_comment_submit(array &$form, FormStateInterface $form_state) {
+  // Get the current path, e.g., "member/group/123/forum"
+  $current_path = \Drupal::service('path.current')->getPath();
+  dpm($current_path);
+  $path_args = explode('/', trim($current_path, '/'));
+
+  // If path is like "node/123", get the nid
+  $gid = NULL;
+  if (isset($path_args[3]) && $path_args[3] === 'forum' && is_numeric($path_args[2])) {
+    $gid = $path_args[2];
+  }
+
+  // If we have an nid, redirect to a custom URL.
+  if ($gid) {
+    //$form_state->setRedirect('entity.node.canonical', ['node' => $nid], ['fragment' => 'comment-form']);
+    // Or a completely custom route:
+     $form_state->setRedirectUrl(Url::fromUri("internal:member/group/$gid/forum"));
+  }
+}
+
 
 /**
  * Implements hook_views_post_render().
