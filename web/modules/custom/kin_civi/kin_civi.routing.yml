@@ -5,3 +5,24 @@ kin_civi.update_status:
     _title: 'Update Money Request'
   requirements:
     _permission: 'access content'
+kin_civi.contribution:
+  path: '/contribute-onbehalfof/{group_id}'
+  defaults:
+    _title: 'Make a Contribution on behalf of'
+    _form: '\Drupal\kin_civi\Form\OnBehalfOfForm'
+  requirements:
+    _permission: 'access content'
+kin_civi.test:
+  path: '/test'
+  defaults:
+    _title: 'Test'
+    _form: '\Drupal\kin_civi\Form\TestForm'
+  requirements:
+    _permission: 'access content'
+kin_civi.template_preview:
+  path: '/admin/kin-civi/template-preview'
+  defaults:
+    _form: '\Drupal\kin_civi\Form\TemplatePreviewForm'
+    _title: 'CiviCRM Message Template Preview'
+  requirements:
+    _permission: 'administer site configuration'

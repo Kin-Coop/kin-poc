@@ -235,7 +235,7 @@ function kin_civi_get_name($cid) {
         }
     }
     catch (APIException $e) {
-        \Drupal::logger('mymodule')->error('CiviCRM APIv4 error: @message', ['@message' => $e->getMessage()]);
+        \Drupal::logger('kin_civi')->error('CiviCRM APIv4 error: @message', ['@message' => $e->getMessage()]);
     }
 }
 

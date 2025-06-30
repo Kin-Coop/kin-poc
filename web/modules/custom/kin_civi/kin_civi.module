@@ -1,0 +1,81 @@
+<?php
+  
+  /**
+   * @file
+   * Module file for Custom Contribution Form.
+   */
+  
+  use Drupal\Core\Form\FormStateInterface;
+  use Civi\Api4\UFMatch;
+  
+  //\Drupal::service('civicrm')->initialize();
+  
+  /**
+   * Implements hook_help().
+   */
+  function kin_civi_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_match) {
+    switch ($route_name) {
+      case 'help.page.kin_civi':
+        $output = '';
+        $output .= '<h3>' . t('On behalf of Custom Contribution Form') . '</h3>';
+        $output .= '<p>' . t('Provides a custom on behalf of form for CiviCRM contributions.') . '</p>';
+        return $output;
+    }
+  }
+  
+  function kin_civi_get_contact_id($uid) {
+    try {
+      // Query CiviCRM APIv4 to get the contact ID for the Drupal user.
+      $result = UFMatch::get(FALSE)
+                       ->addWhere('uf_id', '=', $uid)
+                       ->addSelect('contact_id')
+                       ->execute();
+      
+      if ($result) {
+        return (int) $result->first()['contact_id'];
+      } else {
+        return FALSE;
+      }
+    }
+    catch (APIException $e) {
+      \Drupal::logger('kin_civi')->error('CiviCRM APIv4 error: @message', ['@message' => $e->getMessage()]);
+    }
+  }
+
+
+ function renderMessageTemplate($template_id, $contact_id, $params = []) {
+    // Load the message template directly
+    $dao = new CRM_Core_DAO_MessageTemplate();
+    $dao->id = $template_id;
+    if (!$dao->find(TRUE)) {
+        throw new \Exception("Template not found.");
+    }
+
+    // Init Smarty
+    $smarty = CRM_Core_Smarty::singleton();
+
+    // Assign contact tokens manually
+    if ($contact_id) {
+        $tokens = CRM_Utils_Token::getTokens(['contact'], [$contact_id]);
+        $smarty->assign('contact', $tokens[$contact_id]['contact'] ?? []);
+    }
+
+    // Assign custom params
+    foreach ($params as $key => $value) {
+        $smarty->assign($key, $value);
+    }
+
+    // Render each part
+    $html = $smarty->fetch("string:" . $dao->msg_html);
+    $text = $smarty->fetch("string:" . $dao->msg_text);
+    //$subject = $smarty->fetch("string:" . $dao->msg_subject);
+     $subject = "hi";
+
+    return [
+        'html' => $html,
+        'text' => $text,
+        'subject' => $subject,
+    ];
+}
+
+
