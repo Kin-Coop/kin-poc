@@ -164,7 +164,7 @@ class ContributionStatusForm extends FormBase {
                         $params = [
                             'subject' => 'Kin Gift Request Approved',
                             'text' => "Dear Kin Admin,\r\n\r\nThe gift request for contribution id $contribution_id has been approved.\r\n\r\nPlease take the appropriate action.",
-                            'from' => '"Admin" <admin@kin.coop>',
+                            'from' => '"Kin" <admin@kin.coop>',
                             'toName' => 'Kin Admin',
                             'toEmail' => '"Admin" <admin@kin.coop>',
                             'admin' => $admin_cid,

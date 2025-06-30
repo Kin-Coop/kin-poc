@@ -224,7 +224,7 @@
               'ref' => $ref,
           ],
           'toEmail' => $delegate['email_primary.email'],
-          'from' => 'admin@kin.coop',
+            'from' => '"Kin" <admin@kin.coop>',
           'bcc' => 'info@kin.coop',
         ]);
 
@@ -252,7 +252,7 @@
               'ref' => $ref,
           ],
           'toEmail' => $onBehalfOf['email_primary.email'],
-          'from' => 'admin@kin.coop',
+          'from' => '"Kin" <admin@kin.coop>',
           'bcc' => 'info@kin.coop',
       ]);
 
