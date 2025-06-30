@@ -6,6 +6,8 @@ dependencies:
     - comment.type.comment
     - field.field.comment.comment.comment_body
   module:
+    - fences
+    - manage_display
     - text
 _core:
   default_config_hash: aBQUGsQ46M4048fIlFuTXwl2zV0j2cJX89CTUobh9hA
@@ -19,10 +21,58 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 1
+    region: content
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: custom
+      custom_date_format: 'H:i j M'
+      timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
+        description: ''
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
+        fences_field_item_tag: div
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+    weight: 4
     region: content
   links:
-    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  pid:
+    type: in_reply_to
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  uid:
+    type: submitted
+    label: hidden
+    settings:
+      user_picture: ''
+    third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   langcode: true
+  private_message_link: true
+  subject: true

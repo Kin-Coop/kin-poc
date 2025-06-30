@@ -2295,8 +2295,8 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<p>If you have difficulty with the FAQ links below, you can also view the FAQs <a href=\"/faqs-list\">here</a>.</p>\r\n<h3>FAQ Categories</h3>"
-            format: basic_html
+            value: "<p>If you have difficulty with the FAQ links below, you can also view the FAQs <a href=\"/faqs-list\">here</a>.</p>\r\n<p>Can't find the answer to your question? Get in touch. <a href=\"https://wa.me/447985022771?\" target=\"_blank\">WhatsApp Kin (faster)</a> or <a href=\"mailto:?subject=Help;\">Contact Kin</a></p>\r\n<h3>FAQ Categories</h3>"
+            format: full_html
           tokenize: false
       display_extenders: {  }
       path: faq

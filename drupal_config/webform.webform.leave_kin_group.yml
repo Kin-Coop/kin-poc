@@ -77,12 +77,9 @@ elements: |-
     '#type': civicrm_options
     '#title': 'Relationship to Individual Relationship Status'
     '#disabled': true
+    '#civicrm_live_options': 0
     '#options':
-      'application pending': 'Application Pending'
       'withdrawal pending': 'Withdrawal Pending'
-      'application approved': 'Application Approved'
-      'withdrawal approved': 'Withdrawal Approved'
-      completed: Completed
     '#default_value': 'withdrawal pending'
     '#access': false
     '#extra':
@@ -91,8 +88,7 @@ elements: |-
     '#data_type': String
     '#form_key': civicrm_2_contact_1_relationship_custom_40
     '#parent': civicrm_2_contact_1_relationship_fieldset
-    '#default_option': ''
-    '#civicrm_live_options': '1'
+    '#default_option': 'withdrawal pending'
   civicrm_1_activity_1_activity_subject:
     '#type': textfield
     '#title': 'Activity Subject'
@@ -555,7 +551,7 @@ handlers:
       sender_mail: ''
       sender_name: ''
       subject: 'Request to Leave Group [webform_submission:values:civicrm_2_contact_1_contact_household_name]'
-      body: '<p>Submitted on [webform_submission:created]</p><p>Submitted by: [webform_submission:user]</p><p>Submitted values are:</p><p><strong>[webform_submission:values:civicrm_1_contact_1_contact_existing]</strong> has joined <strong>[webform_submission:values:civicrm_2_contact_1_contact_household_name]</strong></p>'
+      body: '<p>Submitted on [webform_submission:created]</p><p>Submitted by: [webform_submission:user]</p><p>Submitted values are:</p><p><strong>[webform_submission:values:civicrm_1_contact_1_contact_existing]</strong> has request to leave <strong>[webform_submission:values:civicrm_2_contact_1_contact_household_name].</strong></p><p>The group admin(s) have been informed.</p>'
       excluded_elements: {  }
       ignore_access: false
       exclude_empty: true

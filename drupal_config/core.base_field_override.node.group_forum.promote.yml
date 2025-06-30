@@ -1,0 +1,22 @@
+uuid: 523f54cd-a1d8-4ed0-b65a-27e85d592d7c
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - node.type.group_forum
+id: node.group_forum.promote
+field_name: promote
+entity_type: node
+bundle: group_forum
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

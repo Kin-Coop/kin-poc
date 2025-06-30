@@ -1,0 +1,28 @@
+uuid: 854b02bd-18dc-4586-9e13-b46b78d6ffe5
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.group_forum.field_body
+    - field.field.node.group_forum.field_comments
+    - field.field.node.group_forum.field_group
+    - node.type.group_forum
+  module:
+    - user
+id: node.group_forum.teaser
+targetEntityType: node
+bundle: group_forum
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_body: true
+  field_comments: true
+  field_group: true
+  langcode: true
+  private_message_link: true

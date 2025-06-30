@@ -1,0 +1,17 @@
+uuid: f5aeeb6c-64f6-4520-9acf-daa0edfc1671
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Group Forum'
+type: group_forum
+description: 'Used for members to communicate with their group'
+help: null
+new_revision: false
+preview_mode: 0
+display_submitted: false

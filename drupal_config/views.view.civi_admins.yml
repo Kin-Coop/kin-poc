@@ -575,8 +575,8 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<h2>Group Admin Member Tasks</h2>\r\n<p><a href='/member/group/{{ id }}/make-admin' class=\"btn btn-primary\">Make/Remove Member Admin Status</a></p>"
-            format: full_html
+            value: '<h2>Admin Tasks</h2>'
+            format: basic_html
           tokenize: true
         area_1:
           id: area_1
@@ -588,8 +588,8 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<p>Below is a list of members with a pending status and money requests that need approving. These need to be actioned.</p>'
-            format: basic_html
+            value: '<p>New member and money requests will appear here. <a href="https://wa.me/447985022771?" target="_blank">WhatsApp Kin (faster)</a> or <a href="mailto:?subject=Help;">contact Kin</a> to change group admins.</p>'
+            format: full_html
           tokenize: false
       footer: {  }
       display_extenders: {  }
