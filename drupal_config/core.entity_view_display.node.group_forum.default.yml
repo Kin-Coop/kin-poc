@@ -1,0 +1,62 @@
+uuid: 1bfc7cbf-0c91-42b9-8954-c48e11735e0f
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - core.entity_view_display.comment.comment.default
+    - field.field.node.group_forum.field_body
+    - field.field.node.group_forum.field_comments
+    - field.field.node.group_forum.field_group
+    - node.type.group_forum
+  module:
+    - comment
+    - manage_display
+    - text
+id: node.group_forum.default
+targetEntityType: node
+bundle: group_forum
+mode: default
+content:
+  field_body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_comments:
+    type: comment_default
+    label: hidden
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_group:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: -49
+    region: content
+hidden:
+  created: true
+  langcode: true
+  private_message_link: true
+  uid: true

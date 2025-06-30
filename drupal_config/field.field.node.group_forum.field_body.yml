@@ -1,0 +1,24 @@
+uuid: ec12c9c7-ec14-49a8-8898-5f88d5972f0a
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_body
+    - filter.format.plain_text
+    - node.type.group_forum
+  module:
+    - text
+id: node.group_forum.field_body
+field_name: field_body
+entity_type: node
+bundle: group_forum
+label: Body
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - plain_text
+field_type: text_long

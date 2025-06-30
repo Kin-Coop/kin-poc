@@ -6,6 +6,9 @@ dependencies:
     - user.role.authenticated
     - views.view.civi_admins
     - views.view.contributions
+  content:
+    - 'block_content:basic:41334e37-b9fd-451e-b87f-7a87359c0831'
+    - 'block_content:basic:93a450f5-1c6b-4301-92c5-62282fc96681'
   module:
     - civicrm_entity
     - datetime
@@ -2900,7 +2903,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<h3>Group Join Requests</h3>'
+            value: '<h3>Group Requests</h3>'
             format: basic_html
           tokenize: false
       display_extenders: {  }
@@ -4386,7 +4389,20 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Make A Contribution\r\n    </h2>\r\n    <p>\r\n       You can make a one-off contribution or set up a regular recurring contribution. Please see the <a href=\"/faqs?term=recurring\" target=\"_blank\">recurring contribution FAQ</a> for more information on how this works.\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=1&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Contribution</a>\r\n        &nbsp;&nbsp;&nbsp;\r\n       <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=7&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up Recurring Contribution</a>\r\n    </p>\r\n</div>"
+            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Make A Contribution\r\n    </h2>\r\n    <p>\r\n       Make a one-off or regular recurring contribution. See the <a href=\"/faqs?term=recurring\" target=\"_blank\">recurring contribution FAQ</a> for more information.\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=1&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Contribution</a>\r\n        &nbsp;&nbsp;&nbsp;\r\n       <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=7&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up Recurring Contribution</a>\r\n    </p>\r\n</div>"
+            format: full_html
+          tokenize: true
+        area_4:
+          id: area_4
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: 'Contribution on behalf of'
+          plugin_id: text
+          empty: false
+          content:
+            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Contribute On Behalf Of\r\n    </h2>\r\n    <p>\r\n       Make a one-off contribution on behalf of another group member. You will need their kin email address.\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/contribute-onbehalfof/{{ id }}\">Contribute On Behalf Of</a>\r\n    </p>\r\n</div>"
             format: full_html
           tokenize: true
         area_2:
@@ -4423,7 +4439,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Group Forum\r\n    </h2>\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"#\">Group Forum</a>\r\n    </p>\r\n</div>"
+            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Group Forum\r\n    </h2>\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"#\">Group Forum</a> <i> coming soon </i>\r\n    </p>\r\n</div>"
             format: full_html
           tokenize: true
         view_1:
@@ -4467,7 +4483,7 @@ display:
     display_plugin: page
     position: 2
     display_options:
-      title: 'Kin Group'
+      title: 'Kin Members'
       fields:
         id:
           id: id
@@ -4671,7 +4687,7 @@ display:
           admin_label: ''
           plugin_id: custom
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: true
             text: '<p class="fs-6 blue">(<a href="/form/edit-group?cid2={{ id }}&destination=/member/group/{{ id }}">Edit description</a>)</p>'
@@ -4858,28 +4874,6 @@ display:
       display_description: ''
       header: {  }
       footer:
-        view_2:
-          id: view_2
-          table: views
-          field: view
-          relationship: none
-          group_type: group
-          admin_label: 'Group Admin Tasks'
-          plugin_id: view
-          empty: false
-          view_to_insert: 'civi_admins:block_1'
-          inherit_arguments: false
-        view:
-          id: view
-          table: views
-          field: view
-          relationship: none
-          group_type: group
-          admin_label: Members
-          plugin_id: view
-          empty: false
-          view_to_insert: 'kin_group_list:block_3'
-          inherit_arguments: false
         area_1:
           id: area_1
           table: views
@@ -4890,31 +4884,9 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Make A Contribution\r\n    </h2>\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=1&destination=/member/group/{{ id }}\">Make Contribution</a>\r\n    </p>\r\n</div>"
+            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Make A Contribution\r\n    </h2>\r\n    <p>\r\n       Make a new one-off contribution to support Kin Cooperative or set up a new regular contribution. If you need to change your existing recurring contribution, contact the team by WhatsApp or email.\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=1&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Contribution</a>\r\n        &nbsp;&nbsp;&nbsp;\r\n       <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=7&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up Recurring Contribution</a>\r\n    </p>\r\n</div>"
             format: full_html
           tokenize: true
-        view_3:
-          id: view_3
-          table: views
-          field: view
-          relationship: none
-          group_type: group
-          admin_label: 'Contribution Totals'
-          plugin_id: view
-          empty: false
-          view_to_insert: 'contributions:block_2'
-          inherit_arguments: false
-        view_1:
-          id: view_1
-          table: views
-          field: view
-          relationship: none
-          group_type: group
-          admin_label: Contributions
-          plugin_id: view
-          empty: false
-          view_to_insert: 'contributions:block_1'
-          inherit_arguments: false
       display_extenders: {  }
       path: member/group/425
     cache_metadata:

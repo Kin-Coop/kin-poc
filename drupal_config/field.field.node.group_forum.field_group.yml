@@ -1,0 +1,25 @@
+uuid: 4316363a-0789-4aa6-8fe5-6a9288be3fcf
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_group
+    - node.type.group_forum
+id: node.group_forum.field_group
+field_name: field_group
+entity_type: node
+bundle: group_forum
+label: Group
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: households
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

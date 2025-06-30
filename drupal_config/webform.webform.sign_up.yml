@@ -133,11 +133,14 @@ elements: |-
     '#required': true
   civicrm_1_contact_1_other_group:
     '#type': civicrm_options
-    '#title': 'Would you like to receive updates from Kin?'
+    '#title': 'I would like to receive updates from Kin Cooperative'
     '#civicrm_live_options': 0
     '#options':
       3: 'Yes'
+    '#required': true
     '#states_clear': false
+    '#default_value':
+      - '1'
     '#wrapper_attributes':
       class:
         - border
@@ -148,7 +151,6 @@ elements: |-
     '#form_key': civicrm_1_contact_1_other_group
     '#parent': civicrm_1_contact_1_fieldset_fieldset
     '#default_option': '1'
-    '#default_value': '1'
   civicrm_1_activity_1_activity_subject:
     '#type': textfield
     '#title': 'Activity Subject'
@@ -180,8 +182,8 @@ elements: |-
     '#civicrm_live_options': '1'
   civicrm_1_contact_1_cg18_custom_45:
     '#type': civicrm_options
-    '#title': "I accept Kin Cooperative's Rules, Policies and Member Code of Conduct"
-    '#description': '<p>Read Kin''s <a href="https://kin.coop/kin-cooperative-terms-and-conditions" target="_blank">terms and conditions</a> and <a href="https://kin.coop/codeofconduct">member code of conduct</a>.</p>'
+    '#title': "I accept Kin Cooperative's Terms & Conditions and Member Code of Conduct"
+    '#description': '<p>Read the <a href="https://kin.coop/kin-cooperative-terms-and-conditions" target="_blank">terms and conditions</a> and <a href="https://kin.coop/codeofconduct">member code of conduct</a></p>'
     '#description_display': before
     '#civicrm_live_options': 0
     '#options':
@@ -197,8 +199,8 @@ elements: |-
     '#default_option': '0'
   civicrm_1_activity_1_cg4_custom_24:
     '#type': civicrm_options
-    '#title': 'Do you accept the Kin data policy?'
-    '#description': '<p>Read the <a href="https://kin.coop/kin-privacy-policy" target="_blank">Kin data policy</a>.</p>'
+    '#title': "I accept Kin Cooperative's Privacy Policy"
+    '#description': '<p>Read the <a href="https://kin.coop/kin-privacy-policy" target="_blank">privacy policy</a></p>'
     '#description_display': before
     '#options':
       'yes': 'Yes'
@@ -328,7 +330,7 @@ settings:
   confirmation_type: page
   confirmation_url: ''
   confirmation_title: Success!
-  confirmation_message: '<p>Thank you for joining Kin. You will shortly receive an email with instructions on how to login. If you have any difficulties, please email <a href="mailto:info@kin.coop">info@kin.coop</a>.</p>'
+  confirmation_message: '<p>Thank you for joining Kin!</p><p>We''ve sent you an email with instructions for how to login and set your new password.&nbsp;</p><p>Please check your spam folder and save <a href="mailto:admin@kin.coop">admin@kin.coop</a> as a contact. For any difficulties, please <a href="https://wa.me/447985022771?">WhatsApp the team</a> or email <a href="mailto:info@kin.coop">info@kin.coop</a>. &nbsp;</p>'
   confirmation_attributes: {  }
   confirmation_back: false
   confirmation_back_label: ''
