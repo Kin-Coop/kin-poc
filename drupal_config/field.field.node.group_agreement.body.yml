@@ -1,0 +1,24 @@
+uuid: df20fc47-a996-410a-8bc8-8b6106bc10fe
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.group_agreement
+  module:
+    - text
+id: node.group_agreement.body
+field_name: body
+entity_type: node
+bundle: group_agreement
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

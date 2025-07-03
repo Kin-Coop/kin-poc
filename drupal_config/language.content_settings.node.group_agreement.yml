@@ -1,0 +1,11 @@
+uuid: a7e61a12-578b-41d1-b34a-d488704a66ae
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - node.type.group_agreement
+id: node.group_agreement
+target_entity_type_id: node
+target_bundle: group_agreement
+default_langcode: site_default
+language_alterable: false

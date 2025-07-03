@@ -1,0 +1,17 @@
+uuid: 1aa92360-7904-4f74-bfd3-18c82fa2d418
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Group Agreement'
+type: group_agreement
+description: 'Used for groups to create their agreement'
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: true

@@ -1,0 +1,41 @@
+uuid: 1c60b783-7751-45cd-8f87-3947d9c28b46
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.field.node.group_agreement.body
+    - node.type.group_agreement
+  module:
+    - manage_display
+    - text
+id: node.group_agreement.default
+targetEntityType: node
+bundle: group_agreement
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: -49
+    region: content
+hidden:
+  created: true
+  langcode: true
+  private_message_link: true
+  uid: true
