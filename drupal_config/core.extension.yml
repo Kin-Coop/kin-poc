@@ -48,6 +48,7 @@ module:
   history: 0
   honeypot: 0
   image: 0
+  imce: 0
   kin_civi: 0
   kinmod: 0
   language: 0
@@ -83,6 +84,7 @@ module:
   path_alias: 0
   private_message: 0
   private_message_notify: 0
+  rabbit_hole: 0
   redirect: 0
   reroute_email: 0
   riddler: 0

@@ -1,0 +1,13 @@
+uuid: 330413a7-1ed5-484e-a023-ccb7ba7e29de
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - node.type.open_collective_functionality
+id: node.open_collective_functionality
+targetEntityType: node
+bundle: open_collective_functionality
+action: display_page
+no_bypass: false
+bypass_message: false
+configuration: {  }

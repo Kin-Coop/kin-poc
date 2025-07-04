@@ -5,7 +5,6 @@ dependencies:
   content:
     - 'block_content:basic:ba826fe0-b0ec-4864-a9fb-907a9626a191'
   module:
-    - block_classes
     - block_content
     - block_visibility_groups
   theme:
@@ -13,7 +12,7 @@ dependencies:
 id: kin_coopmarque
 theme: kin
 region: footer
-weight: 0
+weight: -6
 provider: null
 plugin: 'block_content:ba826fe0-b0ec-4864-a9fb-907a9626a191'
 settings:

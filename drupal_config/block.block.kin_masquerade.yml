@@ -13,7 +13,7 @@ third_party_settings:
 id: kin_masquerade
 theme: kin
 region: footer
-weight: -3
+weight: -7
 provider: null
 plugin: masquerade
 settings:

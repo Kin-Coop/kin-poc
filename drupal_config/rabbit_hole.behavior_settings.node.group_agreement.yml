@@ -1,0 +1,13 @@
+uuid: 67528ee2-edb3-40fe-a8c1-582a42f5ed7f
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - node.type.group_agreement
+id: node.group_agreement
+targetEntityType: node
+bundle: group_agreement
+action: display_page
+no_bypass: false
+bypass_message: false
+configuration: {  }

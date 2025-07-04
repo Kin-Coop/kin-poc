@@ -1,0 +1,38 @@
+uuid: eb86e4d5-0479-4c55-8e30-7f062cb620a0
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.partners
+  module:
+    - block_classes
+    - block_visibility_groups
+    - system
+    - views
+  theme:
+    - kin
+third_party_settings:
+  block_classes:
+    block_class: w-100
+id: kin_views_block__partners_block_1
+theme: kin
+region: footer
+weight: -11
+provider: null
+plugin: 'views_block:partners-block_1'
+settings:
+  id: 'views_block:partners-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: /member/group/217
