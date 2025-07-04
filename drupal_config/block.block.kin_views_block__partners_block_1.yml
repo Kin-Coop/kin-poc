@@ -13,7 +13,7 @@ dependencies:
     - kin
 third_party_settings:
   block_classes:
-    block_class: w-100
+    block_class: 'w-100 mb-4'
 id: kin_views_block__partners_block_1
 theme: kin
 region: footer

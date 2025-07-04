@@ -227,7 +227,7 @@ display:
         type: default
         options:
           grouping: {  }
-          row_class: col
+          row_class: 'col-sm my-4 text-center'
           default_row_class: true
       row:
         type: fields

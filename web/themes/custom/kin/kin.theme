@@ -42,3 +42,12 @@ function kin_preprocess_html(&$variables) {
 
     $variables['attributes']['class'][] = $user->id() ? 'user-authenticated' : 'user-anonymous';
 }
+
+function kin_preprocess_views_view(array &$variables) {
+  if (
+    $variables['view']->id() === 'partners' &&
+    $variables['view']->current_display === 'block_1'
+  ) {
+    $variables['attributes']['class'][] = 'row align-items-center';
+  }
+}
