@@ -1,0 +1,20 @@
+uuid: 3baa964d-d9da-45f9-930e-f983e9cc6915
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - civicrm_entity
+    - node
+id: node.field_civi_group
+field_name: field_civi_group
+entity_type: node
+type: entity_reference
+settings:
+  target_type: civicrm_contact
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

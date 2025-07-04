@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.group_agreement.body
+    - field.field.node.group_agreement.field_civi_group
     - node.type.group_agreement
   module:
     - manage_display
@@ -38,6 +39,7 @@ content:
     region: content
 hidden:
   created: true
+  field_civi_group: true
   langcode: true
   private_message_link: true
   uid: true

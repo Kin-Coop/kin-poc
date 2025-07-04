@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.group_agreement.body
+    - field.field.node.group_agreement.field_civi_group
     - node.type.group_agreement
   module:
     - manage_display
@@ -19,6 +20,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 101
+    region: content
+  field_civi_group:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
     region: content
   links:
     settings: {  }

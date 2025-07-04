@@ -23,6 +23,7 @@
         "drupal/address": "^1.11",
         "drupal/admin_toolbar": "^3.4",
         "drupal/allowed_formats": "^3.0",
+        "drupal/auto_entitylabel": "^3.4",
         "drupal/backup_migrate": "^5.0",
         "drupal/better_exposed_filters": "^7.0",
         "drupal/block_classes": "^1.0",
