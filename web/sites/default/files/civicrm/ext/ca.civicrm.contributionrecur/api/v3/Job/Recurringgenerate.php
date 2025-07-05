@@ -225,6 +225,25 @@ function civicrm_api3_job_recurringgenerate($params) {
       $contribution['skipLineItem'] = 1;
       $contribution[ 'api.line_item.create'] = $contribution_template['line_items'];
     }
+
+    // check if there are already any existing contributions for this recurring
+    // id for today with a status of pending and this contact
+    // if so skip creating a contribution record but still need to
+    // set the recurring next scheduled date to the next period below
+    $check = 'SELECT c.*
+        FROM civicrm_contribution c
+        WHERE
+          c.contribution_recur_id = %1 AND
+          c.contact_id = %2 AND
+          c.contribution_status_id = 2 AND
+          c.receive_date = %3';
+    $c_args[1] = array($contribution_recur_id, 'Integer');
+    $c_args[2] = array($contact_id, 'Integer');
+    $c_args[3] = array($dtCurrentDayEnd, 'String');
+
+    $c_dao = CRM_Core_DAO::executeQuery($check,$c_args);
+
+
     // create the pending contribution, and save its id
     $contributionResult = civicrm_api('contribution','create', $contribution);
     if (!empty($contributionResult['is_error'])) {
