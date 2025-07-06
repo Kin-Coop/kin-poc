@@ -245,7 +245,7 @@ function civicrm_api3_job_recurringgenerate($params) {
     $c_dao = CRM_Core_DAO::executeQuery($check,$c_args);
 
     if ($c_dao->fetch()) {
-      // do nothing
+      // do nothing - there is already an existing contribution record
     } else {
       // create the pending contribution, and save its id
       $contributionResult = civicrm_api('contribution','create', $contribution);
