@@ -15,7 +15,7 @@ third_party_settings:
 id: kin_contact
 theme: kin
 region: footer
-weight: -6
+weight: -10
 provider: null
 plugin: 'block_content:1b51129d-1ff3-4286-8050-ce71fc361fac'
 settings:

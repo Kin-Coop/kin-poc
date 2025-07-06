@@ -1,0 +1,13 @@
+uuid: 7100f5ce-a3bb-4f48-98a4-da166c8b71ae
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - node.type.faq
+id: node.faq
+targetEntityType: node
+bundle: faq
+action: display_page
+no_bypass: false
+bypass_message: false
+configuration: {  }

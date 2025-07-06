@@ -1,0 +1,23 @@
+uuid: a4903dd6-5830-4a98-adee-2ffabb396bd4
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_website
+    - node.type.partners
+  module:
+    - link
+id: node.partners.field_website
+field_name: field_website
+entity_type: node
+bundle: partners
+label: Website
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

@@ -1,0 +1,60 @@
+uuid: 135c05bc-3915-4d6b-83e2-05ca3647d62d
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.field.node.partners.field_image
+    - field.field.node.partners.field_website
+    - image.style.wide
+    - node.type.partners
+  module:
+    - image
+    - link
+    - manage_display
+id: node.partners.default
+targetEntityType: node
+bundle: partners
+mode: default
+content:
+  field_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: wide
+      image_loading:
+        attribute: eager
+    third_party_settings: {  }
+    weight: -1
+    region: content
+  field_website:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: -49
+    region: content
+hidden:
+  created: true
+  langcode: true
+  private_message_link: true
+  uid: true

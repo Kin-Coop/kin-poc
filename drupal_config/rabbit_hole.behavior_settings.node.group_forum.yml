@@ -1,0 +1,13 @@
+uuid: eebf05ee-67cb-45d6-95ba-f7f5d757ea0e
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - node.type.group_forum
+id: node.group_forum
+targetEntityType: node
+bundle: group_forum
+action: display_page
+no_bypass: false
+bypass_message: false
+configuration: {  }
