@@ -2,41 +2,43 @@
 
 use Drupal\views\ViewExecutable;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\comment\CommentInterface;
+use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 
 /**
- * Alter the standard comment form.
+ * Implements hook_comment_insert().
  */
-function kinmod_form_comment_comment_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Add custom submit handler.
-  $form['#submit'][] = 'kinmod_custom_comment_submit';
-  dpm("hello");
-}
+function kinmod_comment_insert(\Drupal\comment\CommentInterface $comment) {
+  $request = \Drupal::requestStack()->getCurrentRequest();
 
-/**
- * Custom submit handler for the comment form.
- */
-function kinmod_custom_comment_submit(array &$form, FormStateInterface $form_state) {
-  // will normally go to this path https://kin.coop/node/71#comment-41
+  if ($request->getMethod() === 'POST' && !$request->isXmlHttpRequest()) {
+    // Get the referring URL (where the form was submitted from)
+    $referer = $request->headers->get('referer');
 
-  // Get the current path, e.g., "member/group/123/forum"
-  $current_path = \Drupal::service('path.current')->getPath();
-  dpm($current_path);
-  $path_args = explode('/', trim($current_path, '/'));
+    if ($referer) {
+      $parsed_url = parse_url($referer);
+      $path = $parsed_url['path'] ?? '';
+      $path_parts = explode('/', trim($path, '/'));
 
-  // If path is like "node/123", get the nid
-  $gid = NULL;
-  if (isset($path_args[3]) && $path_args[3] === 'forum' && is_numeric($path_args[2])) {
-    $gid = $path_args[2];
+      // Expecting path like /member/group/217/forum
+      if (isset($path_parts[2]) && is_numeric($path_parts[2])) {
+        $group_id = $path_parts[2];
+        $comment_id = $comment->id();
+
+        // Build internal URL with anchor to comment
+        $url = Url::fromUri("internal:/member/group/{$group_id}/forum", [
+          'fragment' => "comment-{$comment_id}",
+        ])->toString();
+
+        $response = new RedirectResponse($url);
+        $response->send();
+        exit();
+      }
+    }
   }
-
-  // If we have an nid, redirect to a custom URL.
-  if ($gid) {
-    //$form_state->setRedirect('entity.node.canonical', ['node' => $nid], ['fragment' => 'comment-form']);
-    // Or a completely custom route:
-     $form_state->setRedirectUrl(Url::fromUri("internal:member/group/$gid/forum"));
-  }
 }
-
 
 /**
  * Implements hook_views_post_render().
@@ -68,7 +70,6 @@ function kin_views_post_render(ViewExecutable $view) {
             return $title;
         });
     }
-
 }
 
 function kin_views_pre_render(&$view){
