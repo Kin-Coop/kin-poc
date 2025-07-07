@@ -971,14 +971,47 @@ table {
     margin: .7rem 0 1rem;
 
     .content {
+      background-color: lighten($secondary, 10%);
+      padding: .3rem .6rem;
+      border-radius: 6px;
+      color: $primary;
+      display: inline-block;
+
+      a {
+        color: $primary;
+      }
+
       footer {
         padding: 0 0 .3rem;
         font-size: .9rem;
-        color: #fff;
+        color: #333;
 
         p {
           font-size: 1rem;
-          color: #fff;
+          color: #333;
+          display: flex;
+          justify-content: space-between;
+
+          span {
+            &:first-of-type {
+              text-align: left;
+              margin-right: 1rem;
+            }
+
+            &:last-of-type {
+              text-align: right;
+            }
+          }
+        }
+      }
+
+      .links {
+        display: block;
+        text-align: right;
+        margin: .1rem 0 0;
+
+        li {
+          font-size: .9rem;
         }
       }
 

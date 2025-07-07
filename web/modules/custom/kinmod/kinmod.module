@@ -9,13 +9,15 @@ use Drupal\Core\Form\FormStateInterface;
 function kinmod_form_comment_comment_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Add custom submit handler.
   $form['#submit'][] = 'kinmod_custom_comment_submit';
-  //dpm("hello");
+  dpm("hello");
 }
 
 /**
  * Custom submit handler for the comment form.
  */
 function kinmod_custom_comment_submit(array &$form, FormStateInterface $form_state) {
+  // will normally go to this path https://kin.coop/node/71#comment-41
+
   // Get the current path, e.g., "member/group/123/forum"
   $current_path = \Drupal::service('path.current')->getPath();
   dpm($current_path);

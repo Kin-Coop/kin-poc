@@ -13538,14 +13538,41 @@ table td a, table th a {
 .view-forum .comment {
   margin: 0.7rem 0 1rem;
 }
+.view-forum .comment .content {
+  background-color: rgb(128.4605263158, 204.5394736842, 197.5526315789);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  color: #2D4C9B;
+  display: inline-block;
+}
+.view-forum .comment .content a {
+  color: #2D4C9B;
+}
 .view-forum .comment .content footer {
   padding: 0 0 0.3rem;
   font-size: 0.9rem;
-  color: #fff;
+  color: #333;
 }
 .view-forum .comment .content footer p {
   font-size: 1rem;
-  color: #fff;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+}
+.view-forum .comment .content footer p span:first-of-type {
+  text-align: left;
+  margin-right: 1rem;
+}
+.view-forum .comment .content footer p span:last-of-type {
+  text-align: right;
+}
+.view-forum .comment .content .links {
+  display: block;
+  text-align: right;
+  margin: 0.1rem 0 0;
+}
+.view-forum .comment .content .links li {
+  font-size: 0.9rem;
 }
 .view-forum .comment .content .field--name-comment-body {
   background-color: #fff;
