@@ -962,6 +962,36 @@ table {
       }
     }
   }
+
+  p {
+    margin: 0;
+  }
+
+  .comment {
+    margin: .7rem 0 1rem;
+
+    .content {
+      footer {
+        padding: 0 0 .3rem;
+        font-size: .9rem;
+        color: #fff;
+
+        p {
+          font-size: 1rem;
+          color: #fff;
+        }
+      }
+
+      .field--name-comment-body {
+        background-color: #fff;
+        padding: .2rem .6rem;
+        border-radius: 8px;
+        display: inline-block;
+      }
+    }
+  }
+
+
 }
 
 #edit-submit {
