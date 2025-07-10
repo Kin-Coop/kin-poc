@@ -132,10 +132,19 @@ function kincoop_civicrm_post($op, $objectName, $objectId, &$objectRef) {
       // Check if it's pending and 'is_email_receipt' is set
       if ((int) $contribution->contribution_status_id === 2) {
         try {
-          // Send receipt manually
-          civicrm_api3('Contribution', 'sendconfirmation', [
+          // Step 1: Load full contribution with custom fields
+          $contribution_data = civicrm_api3('Contribution', 'getsingle', [
             'id' => $contribution->id,
+            'return' => ['custom'], // return all custom fields
           ]);
+
+          \Civi::log()->debug('Sending receipt for contribution ' . $contribution->id . ' with data: ' . print_r($contribution_data, TRUE));
+
+          // Step 2: Send confirmation with custom fields included
+          civicrm_api3('Contribution', 'sendconfirmation', array_merge(
+            ['id' => $contribution->id],
+            $contribution_data
+          ));
         }
         catch (CiviCRM_API3_Exception $e) {
           \Civi::log()->error('Failed to send receipt for pending contribution ID ' . $contribution->id . ': ' . $e->getMessage());
