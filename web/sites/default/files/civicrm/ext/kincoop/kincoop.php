@@ -119,6 +119,16 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
   }
 }
 
+// Re-direct all emails to me on dev sites
+function kincoop_civicrm_alterMailParams(&$params, $context) {
+
+  if(strpos('dev', $_SERVER['HTTP_HOST']) >= 0) {
+    $params['toEmail'] = 'ben@benmango.co.uk';
+    $params['cc'] = 'ben@benmango.co.uk';
+    $params['bcc'] = 'ben@benmango.co.uk';
+  }
+}
+
 /**
  * Implements hook_civirules_alter_trigger_data
  *
