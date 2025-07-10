@@ -119,6 +119,33 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
   }
 }
 
+/**
+ * Implements hook_civicrm_post().
+ */
+function kincoop_civicrm_post($op, $objectName, $objectId, &$objectRef) {
+  if ($objectName === 'Contribution' && $op === 'create') {
+    $contribution = $objectRef;
+
+    // Check if it's from a contribution page
+    if (!empty($contribution->contribution_page_id) && $contribution->contribution_page_id == 7) {
+
+      // Check if it's pending and 'is_email_receipt' is set
+      if ((int) $contribution->contribution_status_id === 2) {
+        try {
+          // Send receipt manually
+          civicrm_api3('Contribution', 'sendconfirmation', [
+            'id' => $contribution->id,
+          ]);
+        }
+        catch (CiviCRM_API3_Exception $e) {
+          \Civi::log()->error('Failed to send receipt for pending contribution ID ' . $contribution->id . ': ' . $e->getMessage());
+        }
+      }
+    }
+  }
+}
+
+
 // Re-direct all emails to me on dev sites
 function kincoop_civicrm_alterMailParams(&$params, $context) {
 
