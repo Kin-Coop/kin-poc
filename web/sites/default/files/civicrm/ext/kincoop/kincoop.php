@@ -127,6 +127,8 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
 // don't get sent for pending transactions using a payment processor. We are only using a payment processor
 // for recurring transactions. The alternative would be to update the payment processor class that just extends the real one
 // and then implements the function isSendReceiptForPending and returns TRUE instead of FALSE
+// (see https://github.com/civicrm/civicrm-core/blob/6bdf4c122348e57b708ff31d76fc45dad21ae1f8/CRM/Core/Payment.php#L1955 and
+// https://chat.civicrm.org/civicrm/pl/yj64iwrh6fyrzgcdw8wziabm4a)
 function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef) {
   if ($objectName === 'Contribution' && $op === 'create') {
     $contribution = $objectRef;
