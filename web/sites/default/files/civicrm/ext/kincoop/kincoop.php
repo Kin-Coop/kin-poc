@@ -119,32 +119,25 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
   }
 }
 
+
 /**
  * Implements hook_civicrm_post().
  */
-function kincoop_civicrm_post($op, $objectName, $objectId, &$objectRef) {
+// Send out the receipt email manually for recurring payments (form id 7) because by default receipt emails
+// don't get sent for pending transactions using a payment processor. We are only using a payment processor
+// for recurring transactions. The alternative would be to update the payment processor class that just extends the real one
+// and then implements the function isSendReceiptForPending and returns TRUE instead of FALSE
+function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef) {
   if ($objectName === 'Contribution' && $op === 'create') {
     $contribution = $objectRef;
 
     // Check if it's from a contribution page
     if (!empty($contribution->contribution_page_id) && $contribution->contribution_page_id == 7) {
 
-      // Check if it's pending and 'is_email_receipt' is set
+      // Check if it's pending
       if ((int) $contribution->contribution_status_id === 2) {
         try {
-          // Step 1: Load full contribution with custom fields
-          $contribution_data = civicrm_api3('Contribution', 'getsingle', [
-            'id' => $contribution->id,
-            'return' => ['custom'], // return all custom fields
-          ]);
-
-          \Civi::log()->debug('Sending receipt for contribution ' . $contribution->id . ' with data: ' . print_r($contribution_data, TRUE));
-
-          // Step 2: Send confirmation with custom fields included
-          civicrm_api3('Contribution', 'sendconfirmation', array_merge(
-            ['id' => $contribution->id],
-            $contribution_data
-          ));
+          civicrm_api3('Contribution', 'sendconfirmation',  ['id' => $contribution->id]);
         }
         catch (CiviCRM_API3_Exception $e) {
           \Civi::log()->error('Failed to send receipt for pending contribution ID ' . $contribution->id . ': ' . $e->getMessage());
