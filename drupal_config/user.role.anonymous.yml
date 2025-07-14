@@ -34,6 +34,8 @@ permissions:
   - 'view any article content'
   - 'view any faq content'
   - 'view any page content'
+  - 'view any partners content'
   - 'view event info'
   - 'view event participants'
   - 'view media'
+  - 'view own partners content'

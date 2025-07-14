@@ -11,7 +11,6 @@ dependencies:
     - image
     - link
     - node
-    - user
 id: partners
 label: Partners
 module: views
@@ -177,9 +176,8 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: perm
-        options:
-          perm: 'access content'
+        type: none
+        options: {  }
       cache:
         type: tag
         options: {  }
@@ -195,7 +193,7 @@ display:
           entity_type: node
           entity_field: created
           plugin_id: date
-          order: DESC
+          order: ASC
           expose:
             label: ''
             field_identifier: ''
@@ -227,7 +225,7 @@ display:
         type: default
         options:
           grouping: {  }
-          row_class: 'col-sm my-4 text-center'
+          row_class: 'col-sm-3 col-lg my-4 text-center'
           default_row_class: true
       row:
         type: fields
@@ -250,7 +248,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
-        - user.permissions
       tags:
         - 'config:field.storage.node.field_image'
         - 'config:field.storage.node.field_website'
@@ -268,7 +265,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
-        - user.permissions
       tags:
         - 'config:field.storage.node.field_image'
         - 'config:field.storage.node.field_website'

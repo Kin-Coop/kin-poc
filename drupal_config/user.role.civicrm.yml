@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - civicrm
+    - node_view_permissions
 id: civicrm
 label: Civicrm
 weight: -5
@@ -89,11 +90,13 @@ permissions:
   - 'view all contacts'
   - 'view all manual batches'
   - 'view all notes'
+  - 'view any partners content'
   - 'view debug output'
   - 'view event info'
   - 'view event participants'
   - 'view my contact'
   - 'view my invoices'
   - 'view own manual batches'
+  - 'view own partners content'
   - 'view public CiviMail content'
   - 'view report sql'

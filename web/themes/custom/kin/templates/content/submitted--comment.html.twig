@@ -27,10 +27,14 @@
  */
 #}
 <footer>
+
+
+
+
   {{ user_picture }}
   <p>
     {% if date -%}
-      {{ author_name }} {{ date }}
+      {{ author_name }} {{ entity.changed.value|date('H:i j M') }}{% if entity.changed.value != entity.created.value %} (edited){% endif %}
     {%- else -%}
       {{ author_name }}
     {%- endif -%}
@@ -44,5 +48,4 @@
   {% if parent %}
     <p class="visually-hidden">{{ parent }}</p>
   {% endif %}
-
 </footer>

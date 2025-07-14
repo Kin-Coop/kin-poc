@@ -42,3 +42,29 @@ function kin_preprocess_html(&$variables) {
 
     $variables['attributes']['class'][] = $user->id() ? 'user-authenticated' : 'user-anonymous';
 }
+
+function xxxkin_preprocess_comment(array &$variables) {
+  /** @var \Drupal\comment\CommentInterface $comment */
+  $comment = $variables['comment'];
+
+  // Format the changed date (last updated)
+  $variables['date'] = \Drupal::service('date.formatter')->format(
+    $comment->getChangedTime(),
+    'custom',
+    'd/m/Y H:i'
+  );
+
+  // Optional: log to confirm it's using changed date
+  //\Drupal::logger('kin')->notice('Overriding comment date to changed date: @date', ['@date' => $variables['date']]);
+}
+
+function kin_preprocess_node(array &$variables) {
+  $node = $variables['node'];
+
+  // Expose the changed date in a formatted way
+  $variables['changed_date'] = \Drupal::service('date.formatter')->format(
+    $node->getChangedTime(),
+    'custom',
+    'd/m/Y H:i'
+  );
+}

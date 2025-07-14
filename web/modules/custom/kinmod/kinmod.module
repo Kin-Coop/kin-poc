@@ -5,6 +5,40 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\comment\CommentInterface;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\node\NodeInterface;
+
+/**
+ * Alter the standard comment edit form.
+ */
+function kinmod_form_comment_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add custom submit handler.
+  $form['actions']['submit']['#submit'][] = 'kinmod_comment_edit_redirect';
+}
+
+/**
+ * Custom submit handler for comment edit redirect.
+ */
+function kinmod_comment_edit_redirect(array &$form, FormStateInterface $form_state) {
+  /** @var \Drupal\comment\CommentInterface $comment */
+  $comment = $form_state->getFormObject()->getEntity();
+  $parent = $comment->getCommentedEntity();
+
+  // Ensure the parent is a node
+  if ($parent instanceof NodeInterface) {
+    // Attempt to get the group ID from the entity reference field
+    if (!$parent->get('field_group')->isEmpty()) {
+      $group_target = $parent->get('field_group')->first();
+      $group_id = $group_target->getValue()['target_id'];
+
+      // Redirect to the view path with the comment anchor
+      $url = Url::fromUri('internal:/member/group/' . $group_id . '/forum', [
+        'fragment' => 'comment-' . $comment->id(),
+      ]);
+      $form_state->setRedirectUrl($url);
+    }
+  }
+}
+
 
 
 /**
