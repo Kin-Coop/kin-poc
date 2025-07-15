@@ -319,7 +319,7 @@ display:
         options:
           offset: 0
           pagination_heading_level: h4
-          items_per_page: 30
+          items_per_page: 1
           total_pages: null
           id: 0
           tags:
@@ -1604,6 +1604,7 @@ display:
     display_plugin: page
     position: 4
     display_options:
+      title: '{{ title }}'
       fields:
         title:
           id: title
@@ -1616,15 +1617,33 @@ display:
           entity_field: title
           plugin_id: field
           label: Title
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
+            text: ''
             make_link: false
+            path: ''
             absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
             word_boundary: false
             ellipsis: false
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
+            preserve_tags: ''
             html: false
           element_type: ''
           element_class: ''
@@ -1661,7 +1680,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -1779,6 +1798,36 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+      sorts:
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
+          granularity: second
+        field_comments_status:
+          id: field_comments_status
+          table: node__field_comments
+          field: field_comments_status
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
       arguments:
         field_group_target_id:
           id: field_group_target_id
@@ -1883,9 +1932,11 @@ display:
         type: fields
         options: {  }
       defaults:
+        title: false
         style: false
         row: false
         fields: false
+        sorts: false
         arguments: false
         filters: false
         filter_groups: false

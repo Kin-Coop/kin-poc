@@ -6,6 +6,69 @@ use Drupal\comment\CommentInterface;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\node\NodeInterface;
+use Drupal\node\Entity\Node;
+
+// Rename the forum title
+/**
+ * Implements hook_views_pre_render().
+ */
+function kinmod_views_pre_render(ViewExecutable $view) {
+  if ($view->id() === 'group_forum_comments' && $view->current_display === 'page_1') {
+    // Get the entity reference ID from the URL (e.g. 217 from /member/group/217/forum).
+    $args = $view->args;
+    if (!empty($args[0])) {
+      $group_id = (int) $args[0];
+
+      // Load the group_forum node(s) referencing this group.
+      $nids = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->getQuery()
+        ->accessCheck(TRUE)
+        ->condition('type', 'group_forum')
+        ->condition('field_group', $group_id)
+        ->range(0, 1) // get only the first match
+        ->execute();
+
+      if (!empty($nids)) {
+        $node = Node::load(reset($nids));
+        if ($node) {
+          $view->setTitle($node->getTitle());
+        }
+      }
+      else {
+        // Fallback title
+        $view->setTitle('Forum Comments');
+      }
+    }
+  }
+}
+
+
+/**
+ * Implements hook_entity_view().
+ */
+function kinmod_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+  // Only act on nodes of type 'group_forum'.
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'group_forum') {
+
+    // Get the entity reference target ID (field_group).
+    if ($entity->hasField('field_group') && !$entity->get('field_group')->isEmpty()) {
+      $group_id = $entity->get('field_group')->target_id;
+
+      // Build redirect URL.
+      $url = Url::fromUserInput("/member/group/$group_id/forum")->toString();
+
+      // Perform the redirect.
+      $response = new RedirectResponse($url);
+      $response->send();
+
+      // Stop further rendering.
+      // This prevents the node from continuing to render.
+      exit;
+    }
+  }
+}
+
 
 /**
  * Alter the standard comment edit form.

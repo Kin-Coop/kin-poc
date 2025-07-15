@@ -27,11 +27,6 @@
  */
 #}
 <footer>
-
-
-
-
-  {{ user_picture }}
   <p>
     {% if date -%}
       {{ author_name }} {{ entity.changed.value|date('H:i j M') }}{% if entity.changed.value != entity.created.value %} (edited){% endif %}
