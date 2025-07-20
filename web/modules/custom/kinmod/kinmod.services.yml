@@ -1,0 +1,5 @@
+services:
+  kinmod.comment_last_page_redirect_subscriber:
+    class: Drupal\kinmod\EventSubscriber\CommentLastPageRedirectSubscriber
+    tags:
+      - { name: event_subscriber }
