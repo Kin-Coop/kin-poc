@@ -1942,7 +1942,7 @@ display:
         filter_groups: false
       display_description: ''
       display_extenders: {  }
-      path: member/group/%group/forum
+      path: member/group/%group/forum-old
     cache_metadata:
       max-age: -1
       contexts:

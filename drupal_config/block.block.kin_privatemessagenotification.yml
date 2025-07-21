@@ -9,7 +9,7 @@ dependencies:
 id: kin_privatemessagenotification
 theme: kin
 region: content
-weight: -2
+weight: 1
 provider: null
 plugin: private_message_notification_block
 settings:

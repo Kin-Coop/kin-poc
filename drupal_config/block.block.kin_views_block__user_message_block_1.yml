@@ -12,7 +12,7 @@ dependencies:
 id: kin_views_block__user_message_block_1
 theme: kin
 region: content
-weight: 0
+weight: -3
 provider: null
 plugin: 'views_block:user_message-block_1'
 settings:

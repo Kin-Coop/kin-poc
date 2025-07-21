@@ -10,7 +10,7 @@ dependencies:
 id: kin_privatemessageinbox
 theme: kin
 region: content
-weight: 1
+weight: -2
 provider: null
 plugin: private_message_inbox_block
 settings:

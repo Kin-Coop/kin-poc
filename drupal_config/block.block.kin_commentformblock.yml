@@ -1,33 +1,35 @@
-uuid: f96b829e-0dbe-4413-a9ca-95f1702b0b3a
+uuid: 99302dd4-1ee2-4289-a10b-1542d0f1bca5
 langcode: en-gb
 status: true
 dependencies:
   module:
     - block_classes
-    - private_message
+    - block_visibility_groups
+    - kinmod
     - system
     - user
   theme:
     - kin
-third_party_settings:
-  block_classes:
-    block_class: pm-block
-id: kin_privatemessageactions
+id: kin_commentformblock
 theme: kin
 region: content
-weight: -6
+weight: -1
 provider: null
-plugin: private_message_actions_block
+plugin: comment_form_block
 settings:
-  id: private_message_actions_block
-  label: 'Private Message Actions'
+  id: comment_form_block
+  label: 'Comment Form Block'
   label_display: '0'
-  provider: private_message
+  provider: kinmod
 visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''
   request_path:
     id: request_path
     negate: false
-    pages: '/member/messages*'
+    pages: '/member/group/*/forum'
   user_role:
     id: user_role
     negate: false
