@@ -28,7 +28,6 @@ module:
   datetime: 0
   dblog: 0
   devel: 0
-  devel_generate: 0
   dynamic_page_cache: 0
   editor: 0
   editor_advanced_link: 0
@@ -51,6 +50,7 @@ module:
   image: 0
   imce: 0
   kin_civi: 0
+  kin_forum: 0
   kinmod: 0
   language: 0
   link: 0
