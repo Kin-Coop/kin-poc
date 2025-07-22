@@ -8,6 +8,82 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;
 
+/**
+ * Don't allow the creation of a group form if there is already one existing for that household
+ *
+ * Implements hook_node_presave().
+ *
+ * Prevent duplicate group_forum nodes for the same household.
+ */
+/*
+function kinmod_node_presave(\Drupal\Core\Entity\EntityInterface $node) {
+  // Only apply to group_forum nodes.
+  if ($node->getType() === 'group_forum') {
+    $field_group = $node->get('field_group')->target_id;
+
+    if ($field_group) {
+      // Check for existing group_forum with this household, excluding current (for updates).
+      $existing = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->getQuery()
+        ->condition('type', 'group_forum')
+        ->condition('field_group', $field_group)
+        //->condition('nid', $node->id(), '!=') // Exclude current node during update.
+        ->accessCheck(FALSE)
+        ->range(0, 1)
+        ->execute();
+
+      if (!empty($existing)) {
+        // Prevent save by throwing an exception.
+        throw new \Drupal\Core\Entity\EntityStorageException(t('A group forum already exists for this household.'));
+      }
+    }
+  }
+}
+*/
+
+/**
+ * Creates a group_forum node when a Household contact is created.
+ *
+ * @param string $op
+ *   Operation, e.g. 'create', 'edit'.
+ * @param string $objectName
+ *   Entity name, e.g. 'Contact'.
+ * @param int $objectId
+ *   The CiviCRM entity ID.
+ * @param object $objectRef
+ *   Reference to the full CiviCRM object.
+ */
+function kinmod_civicrm_post($op, $objectName, $objectId, &$objectRef) {
+  // Only act on newly‑created Household contacts.
+  if ($objectName === 'Household' && $op === 'create') {
+    $contact_id = (int)$objectId;
+    $household_name = $objectRef->display_name ?? t('Unnamed household');
+
+    // Avoid duplicates: only one forum node per household.
+    $existing = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->getQuery()
+      ->condition('type', 'group_forum')
+      ->condition('field_group', $contact_id)
+      ->accessCheck(FALSE)
+      ->range(0, 1)
+      ->execute();
+
+    if (empty($existing)) {
+      // Create the group_forum node.
+      $node = Node::create([
+        'type' => 'group_forum',
+        'title' => "$household_name Group Forum",
+        'field_group' => ['target_id' => $contact_id],
+        'status' => 1,
+      ]);
+      $node->save();
+    }
+  }
+}
+
+
 // Rename the forum title
 /**
  * Implements hook_views_pre_render().

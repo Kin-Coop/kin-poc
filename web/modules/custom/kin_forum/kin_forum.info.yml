@@ -1,0 +1,7 @@
+name: 'Kin Forum'
+type: module
+description: 'Functionality for forums'
+core_version_requirement: '^10 || ^11'
+package: Custom
+dependencies:
+  - drupal:node

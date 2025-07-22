@@ -1,0 +1,10 @@
+<?php
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function kin_forum_entity_bundle_field_info_alter(array &$fields, $entity_type, $bundle) {
+  if ($entity_type === 'node' && $bundle === 'group_forum' && isset($fields['field_group'])) {
+    $fields['field_group']->addConstraint('UniqueGroupForum');
+  }
+}
