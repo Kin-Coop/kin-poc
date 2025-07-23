@@ -16,7 +16,7 @@ use Drupal\node\Entity\Node;
  * Prevent duplicate group_forum nodes for the same household.
  */
 
-function kinmod_node_presave(\Drupal\Core\Entity\EntityInterface $node) {
+function kin_forum_node_presave(\Drupal\Core\Entity\EntityInterface $node) {
   // Only apply to group_forum nodes.
   if ($node->getType() === 'group_forum') {
     $field_group = $node->get('field_group')->target_id;
@@ -53,7 +53,7 @@ function kinmod_node_presave(\Drupal\Core\Entity\EntityInterface $node) {
  * @param object $objectRef
  *   Reference to the full CiviCRM object.
  */
-function kinmod_civicrm_post($op, $objectName, $objectId, &$objectRef) {
+function kin_forum_civicrm_post($op, $objectName, $objectId, &$objectRef) {
   // Only act on newly‑created Household contacts.
   if ($objectName === 'Household' && $op === 'create') {
     $contact_id = (int)$objectId;
@@ -87,7 +87,7 @@ function kinmod_civicrm_post($op, $objectName, $objectId, &$objectRef) {
 /**
  * Implements hook_views_pre_render().
  */
-function kinmod_views_pre_render(ViewExecutable $view) {
+function kin_forum_views_pre_render(ViewExecutable $view) {
   if ($view->id() === 'group_forum_comments' && $view->current_display === 'page_1') {
     // Get the entity reference ID from the URL (e.g. 217 from /member/group/217/forum).
     $args = $view->args;
@@ -123,7 +123,7 @@ function kinmod_views_pre_render(ViewExecutable $view) {
  *
  * Implements hook_entity_view().
  */
-function kinmod_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+function kin_forum_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
   // Only act on nodes of type 'group_forum'.
   if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'group_forum') {
 
@@ -151,15 +151,15 @@ function kinmod_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $
  *
  * Alter the standard comment edit form.
  */
-function kinmod_form_comment_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function kin_forum_form_comment_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Add custom submit handler.
-  $form['actions']['submit']['#submit'][] = 'kinmod_comment_edit_redirect';
+  $form['actions']['submit']['#submit'][] = 'kin_forum_comment_edit_redirect';
 }
 
 /**
  * Custom submit handler for comment edit redirect.
  */
-function kinmod_comment_edit_redirect(array &$form, FormStateInterface $form_state) {
+function kin_forum_comment_edit_redirect(array &$form, FormStateInterface $form_state) {
   /** @var \Drupal\comment\CommentInterface $comment */
   $comment = $form_state->getFormObject()->getEntity();
   $parent = $comment->getCommentedEntity();
@@ -185,7 +185,7 @@ function kinmod_comment_edit_redirect(array &$form, FormStateInterface $form_sta
  *
  * Implements hook_comment_insert().
  */
-function kinmod_comment_insert(\Drupal\comment\CommentInterface $comment) {
+function kin_forum_comment_insert(\Drupal\comment\CommentInterface $comment) {
   $request = \Drupal::requestStack()->getCurrentRequest();
 
   if ($request->getMethod() === 'POST' && !$request->isXmlHttpRequest()) {
