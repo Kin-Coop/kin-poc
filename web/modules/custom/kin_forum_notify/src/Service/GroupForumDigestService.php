@@ -89,7 +89,7 @@ class GroupForumDigestService {
 
       return $members;
     } catch (Exception $e) {
-      \Drupal::logger('your_module')->error('Error fetching household members: @message', ['@message' => $e->getMessage()]);
+      \Drupal::logger('kin_forum_notify')->error('Error fetching household members: @message', ['@message' => $e->getMessage()]);
       return [];
     }
   }
@@ -106,7 +106,7 @@ class GroupForumDigestService {
         return \Drupal\user\Entity\User::load($uf_match['uf_id']);
       }
     } catch (Exception $e) {
-      \Drupal::logger('your_module')->error('Error fetching user from contact: @message', ['@message' => $e->getMessage()]);
+      \Drupal::logger('kin_forum_notify')->error('Error fetching user from contact: @message', ['@message' => $e->getMessage()]);
     }
 
     return NULL;
@@ -126,7 +126,7 @@ class GroupForumDigestService {
 
     // Send email
     $this->mailManager->mail(
-      'your_module',
+      'kin_forum_notify',
       'group_forum_digest',
       $user->getEmail(),
       $user->getPreferredLangcode(),
