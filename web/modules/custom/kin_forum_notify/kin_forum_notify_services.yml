@@ -1,0 +1,4 @@
+services:
+  kin_forum_notify.group_forum_digest:
+    class: Drupal\kin_forum_notify\Service\GroupForumDigestService
+    arguments: ['@entity_type.manager', '@plugin.manager.mail', '@state']

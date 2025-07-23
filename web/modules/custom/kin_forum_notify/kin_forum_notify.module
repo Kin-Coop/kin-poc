@@ -1,35 +1,10 @@
 <?php
 
-// In a custom module, implement hook_install() or use Configuration Management
-function kin_forum_notify_install() {
-  // Create message template
-  $message_template = MessageTemplate::create([
-    'template' => 'group_forum_daily_digest',
-    'label' => 'Group Forum Daily Digest',
-    'description' => 'Daily notification for new comments in group forum',
-    'text' => [
-      [
-        'value' => 'New comments in your household forum',
-        'format' => 'plain_text',
-      ],
-      [
-        'value' => 'There have been [message:field-comment-count] new comments in your household forum today. <a href="[message:field-forum-url]">View the discussion</a>',
-        'format' => 'full_html',
-      ],
-    ],
-  ]);
-
-  // Add custom fields to the message template
-  $message_template->save();
-}
-
-// In your_module.module
 function kin_forum_notify_cron() {
   $digest_service = \Drupal::service('kin_forum_notify.group_forum_digest');
   $digest_service->sendDailyDigest();
 }
 
-// In your_module.module
 function kin_forum_notify_mail($key, &$message, $params) {
   switch ($key) {
     case 'group_forum_digest':

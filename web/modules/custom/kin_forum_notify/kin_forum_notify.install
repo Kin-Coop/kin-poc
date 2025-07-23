@@ -1,0 +1,57 @@
+<?php
+
+use Drupal\message\Entity\MessageTemplate;
+
+/**
+ * Implements hook_install().
+ */
+function kin_forum_notify_install() {
+  // Create message template
+  $message_template = MessageTemplate::create([
+    'template' => 'group_forum_daily_digest',
+    'label' => 'Group Forum Daily Digest',
+    'description' => 'Daily notification for new comments in group forum',
+    'text' => [
+      [
+        'value' => 'New comments in your household forum',
+        'format' => 'plain_text',
+      ],
+      [
+        'value' => 'There have been [message:field-comment-count] new comments in your household forum today. <a href="[message:field-forum-url]">View the discussion</a>',
+        'format' => 'full_html',
+      ],
+    ],
+  ]);
+
+  $message_template->save();
+
+  // Add custom fields if needed
+  $field_storage = \Drupal\field\Entity\FieldStorageConfig::create([
+    'field_name' => 'field_comment_count',
+    'entity_type' => 'message',
+    'type' => 'integer',
+  ]);
+  $field_storage->save();
+
+  $field = \Drupal\field\Entity\FieldConfig::create([
+    'field_storage' => $field_storage,
+    'bundle' => 'group_forum_daily_digest',
+    'label' => 'Comment Count',
+  ]);
+  $field->save();
+
+  // Add URL field
+  $field_storage = \Drupal\field\Entity\FieldStorageConfig::create([
+    'field_name' => 'field_forum_url',
+    'entity_type' => 'message',
+    'type' => 'string',
+  ]);
+  $field_storage->save();
+
+  $field = \Drupal\field\Entity\FieldConfig::create([
+    'field_storage' => $field_storage,
+    'bundle' => 'group_forum_daily_digest',
+    'label' => 'Forum URL',
+  ]);
+  $field->save();
+}
