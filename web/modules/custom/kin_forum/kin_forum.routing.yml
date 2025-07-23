@@ -1,0 +1,7 @@
+kin_forum.debug_constraints:
+  path: '/admin/kin-forum/debug'
+  defaults:
+    _controller: '\Drupal\kin_forum\Controller\DebugController::debugConstraints'
+    _title: 'Constraint Debug'
+  requirements:
+    _permission: 'administer site configuration'

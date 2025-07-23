@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.node.field_group
     - node.type.group_forum
+  module:
+    - kin_forum
 id: node.group_forum.field_group
 field_name: field_group
 entity_type: node
