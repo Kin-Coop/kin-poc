@@ -1,0 +1,7 @@
+name: 'Kin Forum Notify'
+type: module
+description: 'Setting up notifications for forums'
+core_version_requirement: '^10 || ^11'
+package: Custom
+dependencies:
+  - drupal:node
