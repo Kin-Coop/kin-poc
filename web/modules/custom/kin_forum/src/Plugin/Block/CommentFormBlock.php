@@ -1,6 +1,6 @@
 <?php
 
-  namespace Drupal\kinmod\Plugin\Block;
+  namespace Drupal\kin_forum\Plugin\Block;
 
   use Drupal\Core\Block\BlockBase;
   use Drupal\Core\Form\FormBuilderInterface;

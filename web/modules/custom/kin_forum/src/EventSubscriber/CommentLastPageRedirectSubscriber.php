@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\kinmod\EventSubscriber;
+namespace Drupal\kin_forum\EventSubscriber;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\KernelEvents;
