@@ -2,6 +2,8 @@
 
 namespace Drupal\kin_forum_notify\Service;
 
+\Drupal::service('civicrm')->initialize();
+
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\State\StateInterface;
@@ -60,7 +62,7 @@ class GroupForumDigestService {
     $comment_count = count($comment_ids);
 
     // Get household contact ID from entity reference field
-    $household_contact_id = $node->get('field_household_reference')->target_id;
+    $household_contact_id = $node->get('field_group')->target_id;
 
     // Get household members from CiviCRM
     $household_members = $this->getHouseholdMembers($household_contact_id);
@@ -77,8 +79,8 @@ class GroupForumDigestService {
     // Use CiviCRM API to get household members
     try {
       $result = civicrm_api3('Relationship', 'get', [
+        'sequential' => 1,
         'contact_id_b' => $household_contact_id,
-        'relationship_type_id' => 'Member of Household', // Adjust based on your relationship type
         'is_active' => 1,
       ]);
 
