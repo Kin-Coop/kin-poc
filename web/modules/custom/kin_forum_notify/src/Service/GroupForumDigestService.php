@@ -115,6 +115,10 @@ class GroupForumDigestService {
   }
 
   protected function sendDigestToUser($user, $node, $comment_count) {
+    // Get first name from CiviCRM
+    $contact_id = $this->getContactIdFromUser($user);
+    $first_name = $this->getContactFirstName($contact_id);
+
     // Create message entity
     $message = Message::create([
       'template' => 'group_forum_daily_digest',
@@ -126,18 +130,59 @@ class GroupForumDigestService {
     $message->set('field_forum_url', $node->toUrl('canonical', ['absolute' => TRUE])->toString());
     $message->save();
 
+    $params = compact('message', 'user', 'node', 'comment_count', 'first_name');
+    $params['headers'] = [
+      'Content-Type' => 'text/html; charset=UTF-8',
+      'MIME-Version' => '1.0',
+    ];
+
     // Send email
     $this->mailManager->mail(
       'kin_forum_notify',
       'group_forum_digest',
       $user->getEmail(),
       $user->getPreferredLangcode(),
-      [
-        'message' => $message,
-        'user' => $user,
-        'node' => $node,
-        'comment_count' => $comment_count,
-      ]
+      $params
     );
   }
+
+  protected function getContactIdFromUser($user) {
+    try {
+      $result = civicrm_api3('UFMatch', 'get', [
+        'uf_id' => $user->id(),
+      ]);
+
+      if (!empty($result['values'])) {
+        $uf_match = reset($result['values']);
+        return $uf_match['contact_id'];
+      }
+    } catch (Exception $e) {
+      \Drupal::logger('kin_forum_notify')->error('Error fetching contact from user: @message', ['@message' => $e->getMessage()]);
+    }
+
+    return NULL;
+  }
+
+  protected function getContactFirstName($contact_id) {
+    if (!$contact_id) {
+      return 'Friend'; // Fallback if no contact found
+    }
+
+    try {
+      $result = civicrm_api3('Contact', 'get', [
+        'id' => $contact_id,
+        'return' => ['first_name'],
+      ]);
+
+      if (!empty($result['values'])) {
+        $contact = reset($result['values']);
+        return !empty($contact['first_name']) ? $contact['first_name'] : 'Friend';
+      }
+    } catch (Exception $e) {
+      \Drupal::logger('kin_forum_notify')->error('Error fetching contact first name: @message', ['@message' => $e->getMessage()]);
+    }
+
+    return 'Friend'; // Fallback
+  }
 }
+
