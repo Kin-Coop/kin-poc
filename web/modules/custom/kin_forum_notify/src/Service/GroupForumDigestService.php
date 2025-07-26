@@ -23,8 +23,9 @@ class GroupForumDigestService {
   }
 
   public function sendDailyDigest() {
-    $last_run = $this->state->get('group_forum_digest_last_run', 0);
+    //$last_run = $this->state->get('group_forum_digest_last_run', 0);
     $current_time = \Drupal::time()->getCurrentTime();
+    $today = date('Y-m-d', $current_time);
 
     // Get all group_forum nodes
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
@@ -36,27 +37,58 @@ class GroupForumDigestService {
 
     foreach ($nids as $nid) {
       $node = Node::load($nid);
-      $this->processNodeDigest($node, $last_run, $current_time);
+      // Check if we've already sent emails for this node today
+      if ($this->hasEmailBeenSentToday($nid, $today)) {
+        continue; // Skip this node - already sent today
+      }
+
+      // Check if there are new comments and send emails
+      if ($this->processNodeDigest($node, $current_time)) {
+        // Mark that we've sent emails for this node today
+        $this->markEmailSentToday($nid, $today);
+      }
     }
 
     // Update last run timestamp
-    $this->state->set('group_forum_digest_last_run', $current_time);
+    //$this->state->set('group_forum_digest_last_run', $current_time);
+  }
+
+  protected function hasEmailBeenSentToday($nid, $today) {
+    $sent_dates = $this->state->get('kin_forum_notify_sent_dates', []);
+    return isset($sent_dates[$nid]) && $sent_dates[$nid] === $today;
+  }
+
+  protected function markEmailSentToday($nid, $today) {
+    $sent_dates = $this->state->get('kin_forum_notify_sent_dates', []);
+    $sent_dates[$nid] = $today;
+
+    // Clean up old entries (keep only last 7 days to prevent bloat)
+    $cutoff_date = date('Y-m-d', strtotime('-7 days'));
+    foreach ($sent_dates as $node_id => $date) {
+      if ($date < $cutoff_date) {
+        unset($sent_dates[$node_id]);
+      }
+    }
+
+    $this->state->set('kin_forum_notify_sent_dates', $sent_dates);
   }
 
   protected function processNodeDigest($node, $last_run, $current_time) {
     // Get new comments since last run
+    $yesterday = $current_time - 86400; // 24 hours ago
+
     $comment_storage = $this->entityTypeManager->getStorage('comment');
     $query = $comment_storage->getQuery()
-      ->condition('entity_id', $node->id())
-      ->condition('entity_type', 'node')
-      ->condition('created', $last_run, '>')
-      ->condition('status', 1)
-      ->accessCheck(FALSE);
+       ->condition('entity_id', $node->id())
+       ->condition('entity_type', 'node')
+       ->condition('created', $yesterday, '>')
+       ->condition('status', 1)
+       ->accessCheck(FALSE);
 
     $comment_ids = $query->execute();
 
     if (empty($comment_ids)) {
-      return; // No new comments
+      return FALSE; // No new comments
     }
 
     $comment_count = count($comment_ids);
@@ -64,15 +96,24 @@ class GroupForumDigestService {
     // Get household contact ID from entity reference field
     $household_contact_id = $node->get('field_group')->target_id;
 
+    if (!$household_contact_id) {
+      return FALSE; // No household reference, skip
+    }
+
     // Get household members from CiviCRM
     $household_members = $this->getHouseholdMembers($household_contact_id);
+
+    $emails_sent = FALSE;
 
     foreach ($household_members as $contact_id) {
       $user = $this->getUserFromCiviContact($contact_id);
       if ($user) {
         $this->sendDigestToUser($user, $node, $comment_count);
+        $emails_sent = TRUE;
       }
     }
+
+    return $emails_sent; // Return whether any emails were actually sent
   }
 
   protected function getHouseholdMembers($household_contact_id) {
