@@ -83,7 +83,7 @@ function kin_forum_civicrm_post($op, $objectName, $objectId, &$objectRef) {
 }
 
 // Attached javascript to check for new comments to display message to user to refresh
-function kin_forum_notify_preprocess_views_view(&$variables) {
+function kin_forum_preprocess_views_view(&$variables) {
   $view = $variables['view'];
 
   // Only attach to your specific comment view
@@ -153,33 +153,6 @@ function kin_forum_views_pre_render(ViewExecutable $view) {
         // Fallback title
         $view->setTitle('Forum Comments');
       }
-    }
-  }
-}
-
-/**
- * Redirect anyone looking at the node to the group forum view
- *
- * Implements hook_entity_view().
- */
-function kin_forum_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
-  // Only act on nodes of type 'group_forum'.
-  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'group_forum') {
-
-    // Get the entity reference target ID (field_group).
-    if ($entity->hasField('field_group') && !$entity->get('field_group')->isEmpty()) {
-      $group_id = $entity->get('field_group')->target_id;
-
-      // Build redirect URL.
-      $url = Url::fromUserInput("/member/group/$group_id/forum")->toString();
-
-      // Perform the redirect.
-      $response = new RedirectResponse($url);
-      $response->send();
-
-      // Stop further rendering.
-      // This prevents the node from continuing to render.
-      exit;
     }
   }
 }
