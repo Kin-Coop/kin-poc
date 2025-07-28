@@ -73,7 +73,7 @@ class GroupForumDigestService {
     $this->state->set('kin_forum_notify_sent_dates', $sent_dates);
   }
 
-  protected function processNodeDigest($node, $last_run, $current_time) {
+  protected function processNodeDigest($node, $current_time) {
     // Get new comments since last run
     $yesterday = $current_time - 86400; // 24 hours ago
 
@@ -108,7 +108,7 @@ class GroupForumDigestService {
     foreach ($household_members as $contact_id) {
       $user = $this->getUserFromCiviContact($contact_id);
       if ($user) {
-        $this->sendDigestToUser($user, $node, $comment_count);
+        $this->sendDigestToUser($user, $node, $comment_count, $household_contact_id);
         $emails_sent = TRUE;
       }
     }
@@ -155,10 +155,11 @@ class GroupForumDigestService {
     return NULL;
   }
 
-  protected function sendDigestToUser($user, $node, $comment_count) {
+  protected function sendDigestToUser($user, $node, $comment_count, $household_contact_id) {
     // Get first name from CiviCRM
     $contact_id = $this->getContactIdFromUser($user);
     $first_name = $this->getContactFirstName($contact_id);
+    $household = $this->getHouseholdName($household_contact_id);
 
     // Create message entity
     $message = Message::create([
@@ -171,7 +172,7 @@ class GroupForumDigestService {
     $message->set('field_forum_url', $node->toUrl('canonical', ['absolute' => TRUE])->toString());
     $message->save();
 
-    $params = compact('message', 'user', 'node', 'comment_count', 'first_name');
+    $params = compact('message', 'user', 'node', 'comment_count', 'first_name', 'household', 'household_contact_id');
     $params['headers'] = [
       'Content-Type' => 'text/html; charset=UTF-8',
       'MIME-Version' => '1.0',
@@ -221,6 +222,28 @@ class GroupForumDigestService {
       }
     } catch (Exception $e) {
       \Drupal::logger('kin_forum_notify')->error('Error fetching contact first name: @message', ['@message' => $e->getMessage()]);
+    }
+
+    return 'Friend'; // Fallback
+  }
+
+  protected function getHouseholdName($household_contact_id) {
+    if (!$household_contact_id) {
+      return ''; // Fallback if no contact found
+    }
+
+    try {
+      $result = civicrm_api3('Contact', 'get', [
+        'id' => $household_contact_id,
+        'return' => ['display_name'],
+      ]);
+
+      if (!empty($result['values'])) {
+        $household = reset($result['values']);
+        return !empty($household['display_name']) ? $household['display_name'] : '';
+      }
+    } catch (Exception $e) {
+      \Drupal::logger('kin_forum_notify')->error('Error fetching household name: @message', ['@message' => $e->getMessage()]);
     }
 
     return 'Friend'; // Fallback

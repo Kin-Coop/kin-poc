@@ -36,10 +36,11 @@ function kin_forum_notify_mail($key, &$message, $params) {
       $message['subject'] = t('Daily Forum Digest - @count new comments', ['@count' => $params['comment_count']]);
 
       // For plain text emails with line breaks
-      $body_text = "Dear {$first_name},\n\n";
-      $body_text .= "There have been {$params['comment_count']} new comments in your household forum today.\n\n";
-      $body_text .= "View the discussion: {$params['node']->toUrl('canonical', ['absolute' => TRUE])->toString()}\n\n";
-      $body_text .= "Best regards,\nYour Forum Team";
+      $body_text = "Hi {$first_name},\n\n";
+      $body_text .= "There have been {$params['comment_count']} new comments in the {$params['household']} forum today.\n\n";
+      //$body_text .= "See the discussion at: {$params['node']->toUrl('canonical', ['absolute' => TRUE])->toString()}\n\n";
+      $body_text .= "See the discussion at: https://site/members/group/{$params['household_contact_id']}/forum.\n\n";
+      $body_text .= "\nThe Kin Team";
 
       $message['body'][] = $body_text;
       break;
