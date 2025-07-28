@@ -1,0 +1,7 @@
+comment-notify:
+  js:
+    js/comment-notify.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.ajax

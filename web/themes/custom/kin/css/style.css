@@ -13172,6 +13172,12 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
   background-color: #FDC652;
   color: #000;
 }
+.alert-success a {
+  color: var(--bs-link-color) !important;
+}
+.alert-success a:hover {
+  color: #fff !important;
+}
 
 #civicrm-footer {
   display: none;

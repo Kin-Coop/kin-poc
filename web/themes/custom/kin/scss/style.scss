@@ -443,6 +443,14 @@ table {
 .alert-success {
   background-color: $yellow;
   color: #000;
+
+  a {
+    color: var(--bs-link-color) !important;
+
+    &:hover {
+      color: #fff !important;
+    }
+  }
 }
 
 #civicrm-footer {
