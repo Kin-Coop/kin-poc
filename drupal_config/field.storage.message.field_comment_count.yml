@@ -1,0 +1,20 @@
+uuid: d871ad7e-5388-40de-912a-9fb3d34ce07c
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - message
+id: message.field_comment_count
+field_name: field_comment_count
+entity_type: message
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,21 @@
+uuid: 89c05b93-5b21-412d-8de0-9ccc9c1cef7b
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_subject
+    - field.field.message.group_forum_daily_digest.field_comment_count
+    - field.field.message.group_forum_daily_digest.field_forum_url
+    - message.template.group_forum_daily_digest
+id: message.group_forum_daily_digest.mail_subject
+targetEntityType: message
+bundle: group_forum_daily_digest
+mode: mail_subject
+content:
+  partial_0:
+    weight: 0
+    region: content
+hidden:
+  field_comment_count: true
+  field_forum_url: true
+  partial_1: true
