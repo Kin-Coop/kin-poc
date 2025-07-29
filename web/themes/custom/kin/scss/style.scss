@@ -1039,3 +1039,28 @@ table {
   margin-bottom: 1rem;
   margin-left: 0;
 }
+
+.forum-teaser {
+  .view-content {
+    display: flex;
+    flex-direction: column-reverse;
+
+    .views-field-comment-body {
+      p {
+        margin-bottom: .1rem;
+      }
+    }
+  }
+
+  .more-link {
+    a {
+      @extend .btn;
+      @extend .btn-primary;
+      color: #fff;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+}

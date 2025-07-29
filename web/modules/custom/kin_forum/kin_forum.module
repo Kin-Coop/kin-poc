@@ -73,7 +73,7 @@ function kin_forum_civicrm_post($op, $objectName, $objectId, &$objectRef) {
       // Create the group_forum node.
       $node = Node::create([
         'type' => 'group_forum',
-        'title' => "$household_name Group Forum",
+        'title' => "$household_name Forum",
         'field_group' => ['target_id' => $contact_id],
         'status' => 1,
       ]);
