@@ -24,6 +24,7 @@ permissions:
   - 'post comments'
   - 'skip comment approval'
   - 'use private messaging system'
+  - 'view any group_forum content'
   - 'view any partners content'
   - 'view any post content'
   - 'view own partners content'

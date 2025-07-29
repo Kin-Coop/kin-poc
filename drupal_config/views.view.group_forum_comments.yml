@@ -81,7 +81,7 @@ display:
         options:
           offset: 0
           pagination_heading_level: h4
-          items_per_page: 10
+          items_per_page: 40
           total_pages: null
           id: 0
           tags:
@@ -925,7 +925,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: '<h2>Latest Forum Discussion</h2>'
+            value: '<h2>Group Forum</h2>'
             format: basic_html
           tokenize: false
       display_extenders: {  }
