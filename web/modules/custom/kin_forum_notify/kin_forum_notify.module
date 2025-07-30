@@ -7,17 +7,17 @@ function kin_forum_notify_cron() {
   $last_run = \Drupal::state()->get('kin_forum_notify_last_run', 0);
   $current_time = \Drupal::time()->getCurrentTime();
 
-  /*
+
   \Drupal::logger('my_module')->notice('<pre><code>@data</code></pre> <pre><code>@data1</code></pre> @data2', [
     '@data' => $last_run,
     '@data1' => $current_time,
-    '@data2' => $last_run - $current_time,
+    '@data2' => $current_time - $last_run,
   ]);
-  */
+
 
   // Skip if already run today (86400 seconds = 24 hours)
   if (($current_time - $last_run) < 86400) {
-    return;
+    //return;
   }
 
   try {
