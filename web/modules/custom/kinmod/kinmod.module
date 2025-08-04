@@ -3,17 +3,18 @@
 use Drupal\views\ViewExecutable;
 use Drupal\Core\Form\FormStateInterface;
 
-/**
- * Implements hook_form_alter().
- */
-function kinmod_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Check if the form is the Private Message add form.
-  if ($form_id == 'private_message_add_form') {
-    // Restrict the 'message' field to use only the 'plain_text' format.
-    if (isset($form['message']['widget'][0])) {
-      $form['message']['widget'][0]['#format'] = 'plain_text';
-      $form['message']['widget'][0]['#allowed_formats'] = ['plain_text'];
-    }
+function kinmod_form_private_message_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  //dpm($form);
+  //\Kint\Kint::dump($form);
+
+  // Restrict the 'message' field to use only the 'plain_text' format.
+  if (isset($form['message']['widget'][0])) {
+    $form['message']['widget'][0]['#format'] = 'plain_text';
+    $form['message']['widget'][0]['#allowed_formats'] = ['plain_text'];
+  }
+  if (isset($form['members'])) {
+    // Make it disabled/read-only
+    $form['members']['#disabled'] = TRUE;
   }
 }
 
