@@ -14,8 +14,7 @@ class CRM_CivirulesConditions_Activity_Date extends CRM_Civirules_Condition {
   private $_conditionParams = array();
 
   public function getExtraDataInputUrl($ruleConditionId) {
-    return CRM_Utils_System::url('civicrm/civirule/form/condition/activity/date',
-      'rule_condition_id='.$ruleConditionId);
+    return $this->getFormattedExtraDataInputUrl('civicrm/civirule/form/condition/activity/date', $ruleConditionId);
   }
 
   /**

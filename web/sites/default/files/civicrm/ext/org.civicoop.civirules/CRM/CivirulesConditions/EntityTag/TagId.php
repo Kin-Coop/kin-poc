@@ -34,7 +34,7 @@ class CRM_CivirulesConditions_EntityTag_TagId extends CRM_Civirules_Condition {
    */
   public function isConditionValid(CRM_Civirules_TriggerData_TriggerData $triggerData) {
     $entityTag = $triggerData->getEntityData('EntityTag');
-    if (in_array($entityTag['tag_id'], $this->conditionParams['tag_id'])) {
+    if (isset($entityTag['tag_id']) && in_array($entityTag['tag_id'], $this->conditionParams['tag_id'])) {
       return TRUE;
     }
     return FALSE;
@@ -51,7 +51,7 @@ class CRM_CivirulesConditions_EntityTag_TagId extends CRM_Civirules_Condition {
    * @abstract
    */
   public function getExtraDataInputUrl($ruleConditionId) {
-    return CRM_Utils_System::url('civicrm/civirule/form/condition/entitytag/tagid/', 'rule_condition_id='.$ruleConditionId);
+    return $this->getFormattedExtraDataInputUrl('civicrm/civirule/form/condition/entitytag/tagid', $ruleConditionId);
   }
 
   /**

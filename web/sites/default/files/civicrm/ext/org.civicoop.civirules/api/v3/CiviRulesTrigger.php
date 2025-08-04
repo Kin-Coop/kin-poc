@@ -189,8 +189,6 @@ function _civicrm_api3_civi_rules_trigger_cleanup_spec(&$spec) {
  * @throws \CRM_Core_Exception
  */
 function civicrm_api3_civi_rules_trigger_cleanup($params) {
-  \Civi::log()->debug('params: ' . print_r($params,TRUE));
-
   // Get all the civirule triggers
   $civiruletriggers = civicrm_api3('CiviRuleTrigger', 'get', [
     'options' => ['limit' => 0, 'sort' => 'id ASC'],

@@ -1,5 +1,40 @@
 # CHANGELOG
 
+## Version 3.24.0 (2025-07-23)
+
+* Fix [#265](https://lab.civicrm.org/extensions/civirules/-/issues/265) Navigation menu items out of place on install.
+* [!306](https://lab.civicrm.org/extensions/civirules/-/merge_requests/306) Add Contribution Recurring Cancel Action and FailureCount conditions.
+* [!305](https://lab.civicrm.org/extensions/civirules/-/merge_requests/305) Fix crash inline editing with CiviImport.
+
+## Version 3.23.0 (2025-07-07)
+
+* Added 'Case is created' trigger.
+* [!304](https://lab.civicrm.org/extensions/civirules/-/merge_requests/304) Add action: Set Field Value.
+* Update managedEntities/forms.
+* Only check active conditions.
+* Add a generic Trigger parameters form - allows you to configure the 'Trigger on create/edit|update' when available.
+* Add getFormattedExtraInputURL() function for triggers.
+* [!303](https://lab.civicrm.org/extensions/civirules/-/merge_requests/303) Remove error handling (try/catch) in Tag actions/conditions so we see more useful generic error including rule ID etc.
+  * Rework logError,logAction,logCondition messages so they are easier to read.
+  * Allow for log messages to be translated.
+* Drop API3 support for tags (API4 has been supported for a long time now!).
+
+## Version 3.22.0 (2025-05-28)
+
+* Changed action Add Case role to add the triggering contact as a role on the case.
+
+## Version 3.21.0 (2025-05-19)
+
+* [!300](https://lab.civicrm.org/extensions/civirules/-/merge_requests/300) Fix undefined method when trigger does not define getHelpText().
+* Move insert triggers/conditions/actions to install/upgrade because it causes performance issues when called via managed.
+* Execute conditions by weight (now we fixed the issue - see https://lab.civicrm.org/extensions/civirules/-/commit/d25d13353313e109e5989c3738dccc9b06fd3037)
+* Add 'invalid condition link' to condition logging - if there is a misconfiguration it will be logged.
+* Use pseudoconstant for Condition Link Operator so it can be used with 'edit in place' in SearchKit etc.
+* Formatting and add Conditions links provider so we can generate condition-specific links in SearchKit.
+* Improve filters for Manage Rules display.
+* Hide top buttons when adding a new rule.
+* Use getFormattedExtraDataInputUrl function for conditions to make sure we generate a correctly formatted URL.
+
 ## Version 3.20.0 (2025-05-08)
 
 * [!298](https://lab.civicrm.org/extensions/civirules/-/merge_requests/298) Refactor condition checking so we stop checking conditions when all conditions will evaluate to false and improve logging.

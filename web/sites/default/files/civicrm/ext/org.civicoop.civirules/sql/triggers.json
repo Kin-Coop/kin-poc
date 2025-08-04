@@ -7,7 +7,7 @@
   {"name":"new_address","label":"Address is added","object_name":"Address","op":"create","class_name":null,"cron":"0"},
   {"name":"changed_address","label":"Address is changed","object_name":"Address","op":"edit","class_name":null,"cron":"0"},
   {"name":"deleted_address","label":"Address is deleted","object_name":"Address","op":"delete","class_name":null,"cron":"0"},
-  {"name":"changed_case","label":"Case is changed","object_name":"Case","op":"edit","class_name":"CRM_CivirulesPostTrigger_Case","cron":"0"},
+  {"name":"new_case","label":"Case is created","object_name":"Case","op":"create","class_name":"CRM_CivirulesPostTrigger_Case","cron":"0"},
   {"name":"changed_case","label":"Case is changed","object_name":"Case","op":"edit","class_name":"CRM_CivirulesPostTrigger_Case","cron":"0"},
   {"name":"deleted_case","label":"Case is deleted","object_name":"Case","op":"delete","class_name":"CRM_CivirulesPostTrigger_Case","cron":"0"},
   {"name":"new_contact","label":"Contact of any type is added","object_name":"Contact","op":"create","class_name":"CRM_CivirulesPostTrigger_Contact","cron":"0"},

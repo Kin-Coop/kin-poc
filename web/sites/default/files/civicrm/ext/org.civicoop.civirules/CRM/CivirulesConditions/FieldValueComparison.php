@@ -118,7 +118,7 @@ class CRM_CivirulesConditions_FieldValueComparison extends CRM_CivirulesConditio
    * @return bool|string
    */
   public function getExtraDataInputUrl($ruleConditionId) {
-    return CRM_Utils_System::url('civicrm/civirule/form/condition/fieldvaluecomparison/', 'rule_condition_id='.$ruleConditionId);
+    return $this->getFormattedExtraDataInputUrl('civicrm/civirule/form/condition/fieldvaluecomparison', $ruleConditionId);
   }
 
   /**

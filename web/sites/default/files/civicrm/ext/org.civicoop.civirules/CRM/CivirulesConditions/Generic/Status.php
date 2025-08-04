@@ -135,7 +135,9 @@ abstract class CRM_CivirulesConditions_Generic_Status extends CRM_Civirules_Cond
    */
   public function getExtraDataInputUrl($ruleConditionId) {
     return CRM_Utils_System::url('civicrm/civirule/form/condition/status',
-      "rule_condition_id={$ruleConditionId}&entity={$this->getEntity()}");
+      "rule_condition_id={$ruleConditionId}&entity={$this->getEntity()}",
+      FALSE, NULL, FALSE, FALSE, TRUE
+    );
   }
 
   /**

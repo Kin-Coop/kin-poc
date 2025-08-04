@@ -30,8 +30,7 @@ class CRM_CivirulesConditions_Contact_HasValidEmail extends CRM_Civirules_Condit
    * @param $ruleConditionId
    * @return false
    */
-  public function getExtraDataInputUrl($ruleConditionId)
-  {
+  public function getExtraDataInputUrl($ruleConditionId) {
     return false;
   }
 

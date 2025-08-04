@@ -52,8 +52,7 @@ class CRM_CivirulesActions_Membership_CancelLatestMembership extends CRM_Civirul
    * @access public
    */
   public function getExtraDataInputUrl($ruleActionId): string {
-    return CRM_Utils_System::url('civicrm/civirule/form/action/cancellatestmembership', 'rule_action_id='
-      . $ruleActionId);
+    return $this->getFormattedExtraDataInputUrl('civicrm/civirule/form/action/cancellatestmembership', $ruleActionId);
   }
 
   /**

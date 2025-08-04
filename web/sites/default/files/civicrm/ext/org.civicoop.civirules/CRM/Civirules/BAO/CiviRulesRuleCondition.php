@@ -1,5 +1,6 @@
 <?php
 
+use CRM_Civirules_ExtensionUtil as E;
 use Civi\Api4\CiviRulesRuleCondition;
 
 /**
@@ -95,6 +96,13 @@ class CRM_Civirules_BAO_CiviRulesRuleCondition extends CRM_Civirules_DAO_RuleCon
       return unserialize($this->condition_params);
     }
     return [];
+  }
+
+  public static function getConditionLinkOptions() {
+    return [
+      'AND' => E::ts('AND'),
+      'OR' => E::ts('OR'),
+    ];
   }
 
 }

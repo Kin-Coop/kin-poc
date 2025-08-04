@@ -43,6 +43,16 @@ abstract class CRM_Civirules_Condition {
   abstract public function getExtraDataInputUrl($ruleConditionId);
 
   /**
+   * @param string $url
+   * @param int $ruleConditionID
+   *
+   * @return string
+   */
+  public function getFormattedExtraDataInputUrl(string $url, int $ruleConditionID): string {
+    return CRM_Utils_System::url($url, 'rule_condition_id=' . $ruleConditionID, FALSE, NULL, FALSE, FALSE, TRUE);
+  }
+
+  /**
    * Returns a user friendly text explaining the condition params
    * e.g. 'Older than 65'
    *
@@ -116,9 +126,9 @@ abstract class CRM_Civirules_Condition {
     $context['condition_label'] = CRM_Civirules_BAO_Condition::getConditionLabelWithId($this->ruleCondition['condition_id']);
     $context['condition_parameters'] = $this->userFriendlyConditionParams();
     $context['contact_id'] = $triggerData ? $triggerData->getContactId() : - 1;
-    $msg = "{condition_label} (ID: {rule_condition_id})\r\n\r\n{message}\r\n\r\nRule: '{rule_title}' with id {rule_id}";
+    $msg = "Rule: '{$context['rule_title']}' with id {$context['rule_id']}: Condition: {$context['condition_label']} with id {$context['rule_condition_id']}: {$message}";
     if ($context['contact_id'] > 0) {
-      $msg .= "\r\nFor contact: {contact_id}";
+      $msg .= ": For contact: {contact_id}";
     }
     CRM_Civirules_Utils_LoggerFactory::log($msg, $context, $level);
   }

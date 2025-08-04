@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.23.0 (2025-07-24)
+
+* [!73](https://lab.civicrm.org/extensions/emailapi/-/merge_requests/73) Fix sending to alternative address.
+* [!72](https://lab.civicrm.org/extensions/emailapi/-/merge_requests/72) Remove unused functions and outdated README tied to pre-token processor days.
+* Move insert actions to upgrade because it causes performance issues when called via managed.
+
 ## Version 2.22.0 (2024-04-30)
 
 * [!70](https://lab.civicrm.org/extensions/emailapi/-/merge_requests/70) Pass additional params to the message template so that its available in hook.

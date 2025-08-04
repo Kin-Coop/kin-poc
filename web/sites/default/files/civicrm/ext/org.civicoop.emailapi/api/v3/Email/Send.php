@@ -111,10 +111,10 @@ function civicrm_api3_email_send($params) {
   //   We could add a "context" param that takes an array of params instead (note that we can only support one of each entity currently).
   //   [['contact_id' => 1, 'activity_id' => 123, ..], ['contact_id' => 2, 'activity_id' => 456]]
   // @todo Perhaps we could use TokenProcessor if passed the context param and the "old" method otherwise?
-  if (!CRM_Utils_Type::validate($params['contact_id'], 'CommaSeparatedIntegers')) {
+  if (!CRM_Utils_Type::validate($params['contact_id'], 'CommaSeparatedIntegers') && !isset($params['alternative_receiver_address'])) {
     throw new CRM_Core_Exception('Parameter contact_id must be a unique id or a list of ids separated by comma');
   }
-  $params['contact_id'] = explode(',', $params['contact_id']);
+  $params['contact_id'] = explode(',', $params['contact_id'] ?? '');
   $locationTypeId = !empty($params['location_type_id']) ? $params['location_type_id'] : FALSE;
   $alternativeEmailAddress = !empty($params['alternative_receiver_address']) ? $params['alternative_receiver_address'] : FALSE;
 
