@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Advanced Log Filter module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function advanced_log_filter_requirements($phase) {
+  $requirements = [];
+
+  if ($phase == 'install' || $phase == 'runtime') {
+    // Check if dblog module is enabled
+    if (!\Drupal::moduleHandler()->moduleExists('dblog')) {
+      $requirements['advanced_log_filter_dblog'] = [
+        'title' => t('Advanced Log Filter'),
+        'description' => t('The Advanced Log Filter module requires the Database Logging (dblog) module to be enabled.'),
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
+    else {
+      $requirements['advanced_log_filter_dblog'] = [
+        'title' => t('Advanced Log Filter'),
+        'description' => t('Database Logging module is enabled.'),
+        'severity' => REQUIREMENT_OK,
+      ];
+    }
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implements hook_install().
+ */
+function advanced_log_filter_install() {
+  \Drupal::messenger()->addStatus(t('Advanced Log Filter module has been installed. You can now access advanced log filtering at <a href="@url">Admin > Reports > Advanced Log Messages</a>.', [
+    '@url' => \Drupal\Core\Url::fromRoute('advanced_log_filter.admin_dblog')->toString(),
+  ]));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function advanced_log_filter_uninstall() {
+  // Clean up any module-specific configuration or data if needed
+  \Drupal::messenger()->addStatus(t('Advanced Log Filter module has been uninstalled.'));
+}

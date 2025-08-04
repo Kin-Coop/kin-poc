@@ -1,0 +1,6 @@
+advanced_log_filter.admin_dblog:
+  title: 'Advanced Log Messages'
+  description: 'View log messages with advanced filtering options'
+  route_name: advanced_log_filter.admin_dblog
+  parent: system.admin_reports
+  weight: 6

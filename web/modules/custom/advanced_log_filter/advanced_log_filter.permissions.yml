@@ -1,0 +1,4 @@
+access advanced log filter:
+  title: 'Access advanced log filter'
+  description: 'Allow users to access the advanced log filtering interface'
+  restrict access: true

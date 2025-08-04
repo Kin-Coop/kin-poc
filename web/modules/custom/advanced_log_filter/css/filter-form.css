@@ -1,0 +1,81 @@
+/* Advanced Log Filter Form Styles */
+
+.advanced-log-filter-form .form-item {
+  margin-bottom: 1rem;
+}
+
+.advanced-log-filter-form .container-inline .form-item {
+  display: inline-block;
+  margin-right: 1rem;
+  vertical-align: top;
+}
+
+.advanced-log-filter-form .form-checkboxes {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  background: #fafafa;
+}
+
+.advanced-log-filter-form .form-checkboxes .form-item {
+  margin-bottom: 0.25rem;
+}
+
+.advanced-log-filter-form .form-actions {
+  margin-top: 1rem;
+}
+
+.advanced-log-filter-form .form-actions .button {
+  margin-right: 0.5rem;
+}
+
+/* Table improvements */
+#admin-dblog .icon {
+  width: 20px;
+  text-align: center;
+}
+
+#admin-dblog td {
+  vertical-align: top;
+}
+
+#admin-dblog .severity-icon {
+  font-size: 1.2em;
+}
+
+/* Filter summary */
+.filter-summary {
+  background: #e8f4fd;
+  border: 1px solid #b8daff;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+.filter-summary h4 {
+  margin: 0 0 0.5rem 0;
+  color: #0056b3;
+}
+
+.filter-summary ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.filter-summary .clear-filters {
+  margin-top: 0.5rem;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .advanced-log-filter-form .container-inline .form-item {
+    display: block;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .advanced-log-filter-form .form-checkboxes {
+    max-height: 150px;
+  }
+}

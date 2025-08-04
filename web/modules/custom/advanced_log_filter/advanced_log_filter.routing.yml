@@ -1,0 +1,7 @@
+advanced_log_filter.admin_dblog:
+  path: '/admin/reports/dblog/advanced'
+  defaults:
+    _controller: '\Drupal\advanced_log_filter\Controller\AdvancedLogController::overview'
+    _title: 'Advanced Log Messages'
+  requirements:
+    _permission: 'access site reports'
