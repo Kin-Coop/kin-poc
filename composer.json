@@ -71,7 +71,6 @@
         "drupal/pathauto": "^1.11",
         "drupal/prepopulate": "^2.5",
         "drupal/private_message": "^3.0",
-        "drupal/privatemsg": "^2.0@RC",
         "drupal/rabbit_hole": "^2.0@beta",
         "drupal/redirect": "^1.8",
         "drupal/reroute_email": "^2.3@RC",
