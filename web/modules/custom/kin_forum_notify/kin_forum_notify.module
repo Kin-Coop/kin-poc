@@ -7,9 +7,17 @@ function kin_forum_notify_cron() {
   $last_run = \Drupal::state()->get('kin_forum_notify_last_run', 0);
   $current_time = \Drupal::time()->getCurrentTime();
 
+
+  \Drupal::logger('my_module')->notice('<pre><code>@data</code></pre> <pre><code>@data1</code></pre> @data2', [
+    '@data' => $last_run,
+    '@data1' => $current_time,
+    '@data2' => $current_time - $last_run,
+  ]);
+
+
   // Skip if already run today (86400 seconds = 24 hours)
   if (($current_time - $last_run) < 86400) {
-    return;
+    //return;
   }
 
   try {
@@ -40,7 +48,7 @@ function kin_forum_notify_mail($key, &$message, $params) {
       $body_text = "Hi {$first_name},\n\n";
       $body_text .= "There have been {$params['comment_count']} new comments in the {$params['household']} forum today.\n\n";
       //$body_text .= "See the discussion at: {$params['node']->toUrl('canonical', ['absolute' => TRUE])->toString()}\n\n";
-      $body_text .= "See the discussion at: $host/members/group/{$params['household_contact_id']}/forum.\n\n";
+      $body_text .= "See the discussion at: $host/member/group/{$params['household_contact_id']}/forum.\n\n";
       $body_text .= "\nThe Kin Team";
 
       $message['body'][] = $body_text;

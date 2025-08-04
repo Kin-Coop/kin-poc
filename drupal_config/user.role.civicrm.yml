@@ -90,6 +90,7 @@ permissions:
   - 'view all contacts'
   - 'view all manual batches'
   - 'view all notes'
+  - 'view any group_forum content'
   - 'view any partners content'
   - 'view debug output'
   - 'view event info'
