@@ -5004,6 +5004,7 @@ display:
           required: true
           relationship_type:
             8: '8'
+            11: '11'
           relationship_state: 0
         contact_id_a:
           id: contact_id_a
