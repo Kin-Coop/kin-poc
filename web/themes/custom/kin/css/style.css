@@ -12880,6 +12880,10 @@ h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
   font-size: 1.1rem;
 }
 
+.btn-secondary {
+  font-size: 1.1rem;
+}
+
 h2, .h2 {
   font-size: 3.2rem;
   line-height: 1.5;
@@ -13143,10 +13147,11 @@ legend {
 .block .member-block a, main .block .content-block a {
   color: #2D4C9B;
 }
-.block .member-block a.btn-primary, .block .member-block .forum-teaser .more-link a, .forum-teaser .more-link .block .member-block a, main .block .content-block a.btn-primary, main .block .content-block .forum-teaser .more-link a, .forum-teaser .more-link main .block .content-block a {
+.block .member-block a.btn-primary, .block .member-block .forum-teaser .more-link a, .forum-teaser .more-link .block .member-block a, .block .member-block a.btn-secondary, main .block .content-block a.btn-primary, main .block .content-block .forum-teaser .more-link a, .forum-teaser .more-link main .block .content-block a, main .block .content-block a.btn-secondary {
   color: #fff;
+  border: none;
 }
-.block .member-block a.btn-primary:hover, .block .member-block .forum-teaser .more-link a:hover, .forum-teaser .more-link .block .member-block a:hover, main .block .content-block a.btn-primary:hover, main .block .content-block .forum-teaser .more-link a:hover, .forum-teaser .more-link main .block .content-block a:hover {
+.block .member-block a.btn-primary:hover, .block .member-block .forum-teaser .more-link a:hover, .forum-teaser .more-link .block .member-block a:hover, .block .member-block a.btn-secondary:hover, main .block .content-block a.btn-primary:hover, main .block .content-block .forum-teaser .more-link a:hover, .forum-teaser .more-link main .block .content-block a:hover, main .block .content-block a.btn-secondary:hover {
   color: #fff;
 }
 .block .member-block a:hover, main .block .content-block a:hover {
@@ -13638,6 +13643,10 @@ table td a, table th a {
 }
 .forum-teaser .more-link a:hover {
   color: #fff;
+}
+
+.view-member-recurring-contributions > .view-content {
+  margin: -0.8rem -0.8rem 0.8rem -0.8rem;
 }
 
 /*# sourceMappingURL=style.css.map */
