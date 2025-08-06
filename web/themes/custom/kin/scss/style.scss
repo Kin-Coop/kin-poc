@@ -47,6 +47,9 @@ h2, h3, h4, h5 {
   font-size: 1.1rem;
 }
 
+.btn-secondary {
+  font-size: 1.1rem;
+}
 
 
 h2 {
@@ -366,8 +369,9 @@ legend {
     a {
       color: $primary;
 
-      &.btn-primary {
+      &.btn-primary, &.btn-secondary {
         color: #fff;
+        border: none;
 
         &:hover {
           color: #fff;
@@ -1062,5 +1066,11 @@ table {
         color: #fff;
       }
     }
+  }
+}
+
+.view-member-recurring-contributions {
+  > .view-content {
+    margin: -0.8rem -0.8rem 0.8rem -0.8rem;
   }
 }
