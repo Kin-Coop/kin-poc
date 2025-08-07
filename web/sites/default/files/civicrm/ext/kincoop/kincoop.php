@@ -269,6 +269,13 @@ function getFromObjectOrArray($objectOrArray, $key) {
     return $array[$key] ?? null;
 }
 
+function kincoop_civicrm_pageRun($page): void {
+  $pageName = $page->getVar('_name');
+  if ($pageName == 'CRM_Admin_Page_Tag') {
+
+  }
+}
+
 /**
  * Implements hook_civicrm_buildForm().
  *
@@ -280,7 +287,94 @@ function getFromObjectOrArray($objectOrArray, $key) {
 function kincoop_civicrm_buildForm($formName, $form) {
     //Civi::log()->debug('Contents of $formName: ' . print_r($formName, TRUE));
     //Civi::log()->debug('Contents of $formName: ' . print_r($form, TRUE));
+  $groupid = CRM_Utils_Request::retrieve('groupid', 'Positive');
+
+  if($formName == 'CRM_Contribute_Form_Contribution_ThankYou') {
+    $groupid = null;
+
+    // Try to get from CiviCRM session first
+    $session = CRM_Core_Session::singleton();
+    $groupid = $session->get('contribution_groupid');
+
+    // Fallback to PHP session
+    if (!$groupid && isset($_SESSION['civicrm_groupid'])) {
+      $groupid = $_SESSION['civicrm_groupid'];
+    }
+
+    if ($groupid) {
+      $backUrl = "/member/group/{$groupid}";
+
+      CRM_Core_Resources::singleton()->addScript("
+        CRM.$(function($) {
+          // Remove any existing back buttons first
+          $('.civicrm-back-button').remove();
+
+          var backButton = '<div class=\"civicrm-back-button\" style=\"margin: 10px 0; text-align: left; padding: 15px;\">' +
+                          '<a href=\"{$backUrl}\" class=\"btn btn-secondary\" style=\"display: inline-block; color: white; padding: 10px 20px; text-decoration: none; font-weight: bold;\">' +
+                          '<i class=\"crm-i fa-arrow-left\" style=\"margin-right: 8px;\"></i> Return to Group Page' +
+                          '</a></div>';
+
+          // Try multiple insertion points for different CiviCRM versions/themes
+          var inserted = false;
+
+          // For thank you page
+          if ($('.crm-contribution-thankyou-form-block').length) {
+            $('.crm-contribution-thankyou-form-block').append(backButton);
+            inserted = true;
+          }
+          // For confirmation page
+          else if ($('.crm-contribution-confirm-form-block').length) {
+            $('.crm-contribution-confirm-form-block').append(backButton);
+            inserted = true;
+          }
+          // Generic fallbacks
+          else if ($('.crm-container .crm-form-block').length) {
+            $('.crm-container .crm-form-block').first().append(backButton);
+            inserted = true;
+          }
+          else if ($('#crm-container').length) {
+            $('#crm-container').append(backButton);
+            inserted = true;
+          }
+
+          // Last resort
+          if (!inserted) {
+            $('body').append(backButton);
+          }
+
+          // Clean up session after thank you page
+          if ('{$formName}' === 'CRM_Contribute_Form_Contribution_ThankYou') {
+            // Make AJAX call to clean up session
+            $.post('/civicrm/ajax/cleanup-groupid', {}, function() {
+              // Session cleaned up
+            });
+          }
+        });
+      ");
+
+      // Clean up session on thank you page
+      if ($formName == 'CRM_Contribute_Form_Contribution_ThankYou') {
+        $session->set('contribution_groupid', null);
+        unset($_SESSION['civicrm_groupid']);
+      }
+    }
+  }
+
     if ($formName === 'CRM_Contribute_Form_Contribution_Main') {
+
+      $groupid = CRM_Utils_Request::retrieve('groupid', 'Positive');
+      if ($groupid) {
+        // Store in CiviCRM session
+        $session = CRM_Core_Session::singleton();
+        $session->set('contribution_groupid', $groupid);
+
+        // Also store in PHP session as backup
+        if (session_status() == PHP_SESSION_NONE) {
+          session_start();
+        }
+        $_SESSION['civicrm_groupid'] = $groupid;
+      }
+
         if ($form->_id === 1) {
           if($form->getAction() == CRM_Core_Action::ADD) {
              if (isset($_GET['groupid']) && $_GET['me']) {
