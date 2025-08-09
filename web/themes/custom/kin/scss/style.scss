@@ -356,8 +356,9 @@ legend {
     background: #fff;
     color: #000;
 
-    .member-block {
-      //border: 1px solid #eee;
+    &.col-md-6, &.col-sm-6 {
+      margin-left: 1.5rem;
+      margin-right: 1.5rem;
     }
 
     &.lines .views-row {
