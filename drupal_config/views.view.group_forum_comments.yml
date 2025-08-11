@@ -908,10 +908,10 @@ display:
           plugin_id: civicrm_entity_civicrm_contact_user
           required: true
           domain_id: {  }
-      css_class: 'member-block forum-teaser col-6'
+      css_class: 'member-block forum-teaser col-md-6'
       use_more: true
       use_more_always: true
-      use_more_text: 'View more'
+      use_more_text: 'Go to chat'
       link_display: page_1
       link_url: ''
       header:
@@ -945,6 +945,9 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      defaults:
+        footer: false
+      footer: {  }
       display_extenders: {  }
       path: member/group/%id/forum
     cache_metadata:

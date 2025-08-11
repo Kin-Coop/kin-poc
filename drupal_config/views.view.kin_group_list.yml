@@ -3717,7 +3717,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '<a class="btn btn-primary vertical-space" href="/member/join-kin-group?cid2={{ id }}&destination=/&group={{ display_name }}">Join Group</a>'
+            text: '<a class="btn btn-primary my-3" href="/member/join-kin-group?cid2={{ id }}&destination=/&group={{ display_name }}">Join Group</a> <a class="btn btn-secondary my-3 mb-3 bi bi-arrow-left" href="/"> Go back</a>'
             make_link: false
             path: ''
             absolute: false
@@ -4390,7 +4390,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Make A Contribution\r\n    </h2>\r\n    <p>\r\n       Make a one-off or regular recurring contribution. See the <a href=\"/faqs?term=recurring\" target=\"_blank\">recurring contribution FAQ</a> for more information.\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=1&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Contribution</a>\r\n        &nbsp;&nbsp;&nbsp;\r\n       <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=7&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up Recurring Contribution</a>\r\n    </p>\r\n</div>"
+            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Make A Contribution\r\n    </h2>\r\n    <p>\r\n       Make a one-off or regular recurring contribution. See the <a href=\"/faqs?term=recurring\" target=\"_blank\">recurring contribution FAQ</a> for more information.\r\n    <p>\r\n        <a class=\"btn btn-primary mb-3\" href=\"/civicrm/contribute/transact?reset=1&id=1&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Contribution</a>\r\n <a class=\"btn btn-primary mb-3\" href=\"/civicrm/contribute/transact?reset=1&id=7&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up Recurring Contribution</a>\r\n    </p>\r\n</div>"
             format: full_html
           tokenize: true
         area_4:
