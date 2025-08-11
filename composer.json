@@ -91,7 +91,8 @@
         "drupal/webform": "^6.2",
         "drupal/webform_civicrm": "^6.2",
         "drush/drush": "*",
-        "kint-php/kint": "*"
+        "kint-php/kint": "*",
+        "twbs/bootstrap-icons": "^1.13"
     },
     "conflict": {
         "drupal/drupal": "*"
