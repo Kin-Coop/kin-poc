@@ -570,6 +570,7 @@ display:
           1: AND
       defaults:
         empty: false
+        css_class: false
         use_ajax: false
         exposed_form: false
         relationships: false
@@ -577,6 +578,7 @@ display:
         filters: false
         filter_groups: false
       relationships: {  }
+      css_class: 'member-block fix-filter-alert'
       use_ajax: true
       display_description: ''
       display_extenders: {  }
