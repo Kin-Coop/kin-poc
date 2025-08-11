@@ -4,6 +4,7 @@ use Drupal\views\ViewExecutable;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\comment\CommentInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;
@@ -166,6 +167,34 @@ function kin_forum_views_pre_render(ViewExecutable $view) {
 function kin_forum_form_comment_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Add custom submit handler.
   $form['actions']['submit']['#submit'][] = 'kin_forum_comment_edit_redirect';
+
+  if (!isset($form['actions']['#attributes']['class'])) {
+    $form['actions']['#attributes']['class'] = [];
+  }
+  $form['actions']['#attributes']['class'][] = 'd-flex justify-content-between';
+
+  $current_path = \Drupal::service('path.current')->getPath();
+  $path_args = explode('/', trim($current_path, '/'));
+
+  // Safety check: Expecting /member/group/[id]/forum
+  if (isset($path_args[2]) && is_numeric($path_args[2])) {
+    $group_id = $path_args[2];
+
+    // Create the link to /member/group/[id]
+    $url = Url::fromUserInput('/member/group/' . $group_id);
+    $link = Link::fromTextAndUrl(' Back to Group', $url)
+      ->toRenderable();
+    $link['#attributes'] = [
+      'class' => ['btn', 'btn-secondary', 'mb-3', 'bi bi-arrow-left'], // Make it look like a button
+    ];
+
+    // Add the link after the submit button
+    $form['actions']['back_to_group'] = [
+      '#type' => 'markup',
+      '#markup' => \Drupal::service('renderer')->render($link),
+      '#weight' => 20,
+    ];
+  }
 }
 
 /**
