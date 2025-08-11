@@ -123,7 +123,7 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
+          submit_button: Search
           reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
@@ -4477,20 +4477,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Make A Contribution\r\n    </h2>\r\n    <p>\r\n       Make a one-off or regular recurring contribution. See the <a href=\"/faqs?term=recurring\" target=\"_blank\">recurring contribution FAQ</a> for more information.\r\n    <p>\r\n        <a class=\"btn btn-primary mb-3\" href=\"/civicrm/contribute/transact?reset=1&id=1&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Contribution</a>\r\n <a class=\"btn btn-primary mb-3\" href=\"/civicrm/contribute/transact?reset=1&id=7&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up Recurring Contribution</a>\r\n    </p>\r\n</div>"
-            format: full_html
-          tokenize: true
-        area_4:
-          id: area_4
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: 'Contribution on behalf of'
-          plugin_id: text
-          empty: false
-          content:
-            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Contribute On Behalf Of\r\n    </h2>\r\n    <p>\r\n       Make a one-off contribution on behalf of another group member. You will need their kin email address.\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/contribute-onbehalfof/{{ id }}\">Contribute On Behalf Of</a>\r\n    </p>\r\n</div>"
+            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Make A Contribution\r\n    </h2>\r\n    <p>\r\n      See the <a href=\"/faq\" target=\"_blank\">contribution FAQ</a> for more information.\r\n    <p>\r\n        <a class=\"btn btn-primary mb-3\" href=\"/civicrm/contribute/transact?reset=1&id=1&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Contribution</a>\r\n <a class=\"btn btn-primary mb-3\" href=\"/civicrm/contribute/transact?reset=1&id=7&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up Recurring Contribution</a>\r\n        <a class=\"btn btn-primary mb-3\" href=\"/contribute-onbehalfof/{{ id }}\">Contribute On Behalf Of</a>\r\n    </p>\r\n</div>"
             format: full_html
           tokenize: true
         area_2:
