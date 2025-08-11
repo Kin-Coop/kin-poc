@@ -373,6 +373,24 @@ function kincoop_civicrm_buildForm($formName, $form) {
           session_start();
         }
         $_SESSION['civicrm_groupid'] = $groupid;
+
+        $backUrl = "/member/group/{$groupid}";
+
+        CRM_Core_Resources::singleton()->addScript("
+        CRM.$(function($) {
+          // Add back button to the confirmation page
+          var backButton = '<div class=\"crm-section back-button-section\" style=\"margin: 20px 0;\">' +
+                          '<a href=\"{$backUrl}\" class=\"btn btn-secondary\">' +
+                          '<i class=\"crm-i fa-arrow-left\"></i> Back to Group Page' +
+                          '</a></div>';
+
+          // Insert the button at the top of the form
+          //$('.crm-contribution-form-block').prepend(backButton);
+
+          // Or insert at the bottom
+          $('#footer_text').after(backButton);
+        });
+      ");
       }
 
         if ($form->_id === 1) {

@@ -13139,10 +13139,6 @@ legend {
   background: #fff;
   color: #000;
 }
-.block .member-block.col-md-6, .block .member-block.col-sm-6, main .block .content-block.col-md-6, main .block .content-block.col-sm-6 {
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-}
 .block .member-block.lines .views-row, main .block .content-block.lines .views-row {
   border-bottom: 1px solid #FDC652;
   padding: 0 0 0.3rem 0;

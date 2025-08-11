@@ -355,12 +355,7 @@ legend {
     margin-top: 1.4rem;
     background: #fff;
     color: #000;
-
-    &.col-md-6, &.col-sm-6 {
-      margin-left: 1.5rem;
-      margin-right: 1.5rem;
-    }
-
+    
     &.lines .views-row {
       border-bottom: 1px solid $yellow;
       padding: 0 0 .3rem 0;
