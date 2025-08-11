@@ -257,45 +257,6 @@ function kin_forum_comment_insert(\Drupal\comment\CommentInterface $comment) {
 }
 
 /**
- * Implements hook_form_alter().
- */
-function kinmod_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Check the view and display ID.
-  /** @var \Drupal\views\ViewExecutable $view */
-
-  // Get the View from the form state storage.
-  $view = $form_state->getStorage()['view'] ?? NULL;
-
-  if ($view && $view->id() === 'kin_group_list' && $view->current_display === 'block_1') {
-
-    // The exposed text filter machine name will look like 'field_my_field_value'.
-    if (isset($form['group_name'])) {
-      // Add HTML5 minlength attribute.
-      $form['group_name']['#attributes']['minlength'] = 2;
-
-      // Add custom validation.
-      $form['#validate'][] = 'kinmod_views_exposed_minlength_validate';
-    }
-  }
-}
-
-/**
- * Custom validation callback.
- */
-function kinmod_views_exposed_minlength_validate(&$form, FormStateInterface $form_state) {
-  $trigger = $form_state->getTriggeringElement();
-  if (!isset($trigger['#value']) || strtolower($trigger['#id']) == 'edit-submit-kin-group-list') {
-    return;
-  }
-
-  $value = $form_state->getValue('group_name');
-  if (empty($value) || strlen($value) < 2) {
-    $form_state->setErrorByName('group_name', t('Please enter at least 2 characters.'));
-  }
-}
-
-
-/**
  * Implements hook_entity_bundle_field_info_alter().
  */
 function xxxkin_forum_entity_bundle_field_info_alter(array &$fields, $entity_type, $bundle) {
