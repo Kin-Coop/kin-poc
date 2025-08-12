@@ -1,9 +1,9 @@
 <?php
-  
+
   namespace Drupal\kin_civi\Form;
-  
+
   \Drupal::service('civicrm')->initialize();
-  
+
   use Drupal\Core\Form\FormBase;
   use Drupal\Core\Form\FormStateInterface;
   use Drupal\Core\Url;
@@ -11,46 +11,47 @@
   use Civi\Api4\UFMatch;
   use CRM_Utils_Money;
   use Drupal\kin_civi\Service\Utils;
-  
+  use Drupal\Core\Link;
+
   /**
    * Provides a custom contribution form.
    */
   class OnBehalfOfForm extends FormBase {
-    
+
     /**
      * {@inheritdoc}
      */
     public function getFormId() {
       return 'on_behalf_of_form';
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function buildForm(array $form, FormStateInterface $form_state, ?Request $request = NULL) {
-      
+
       //$this->mySharedValue = 'Hello from buildForm';
       $utils = \Drupal::service('kin_civi.utils');
-      
+
       $user = \Drupal::currentUser();
       $uid = $user->id();
       $cid = $utils->kin_civi_get_contact_id($uid);
       $form_state->setValue('delegate_id', $cid);
 
-      
-      
+
+
       if(\Drupal::currentUser()->isAuthenticated() == FALSE) {
         throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
       }
-      
+
       $group_id = \Drupal::routeMatch()->getParameter('group_id');
       $group = \Drupal::service('kin_civi.utils')->kin_civi_check_group($group_id);
       $ref = $cid . '-' . date('mdi');
-      
+
       //dpm($cid);
       //dpm($form_state->getValue('delegate_id'));
       //dpm($form_state);
-      
+
       If($group == false) {
           $form = [
               '#markup' => $this->t('The group was not found. Please check and try again.'),
@@ -60,13 +61,6 @@
               '#markup' => $form_state->get('message')
           ];
       } else {
-        $form['intro'] = [
-          '#markup' => '<p>This form is to allow you to make a contribution on behalf of someone else in your group.
-                        Please ensure you have the correct email for the member.</p>
-                        <p>Once you have submitted this form, please make the bank transfer to Kin for the amount
-                        stated using the unique reference below.</p>',
-        ];
-        
         $form['group_id'] = [
           '#type'  => 'hidden',
           '#value' => $group_id,
@@ -76,14 +70,14 @@
               '#type'  => 'hidden',
               '#value' => $cid,
           ];
-        
+
         $form['email'] = [
           '#type'        => 'email',
           '#title'       => $this->t( 'Email Address' ),
           '#required'    => TRUE,
           '#description' => $this->t( 'The email address of the member you are making the contribution on behalf of.' ),
         ];
-        
+
         $form['amount'] = [
           '#type'        => 'number',
           '#title'       => $this->t( 'Contribution Amount' ),
@@ -92,14 +86,14 @@
           '#step'        => 0.01,
           '#description' => $this->t( 'Enter the amount you are contributing.' ),
         ];
-        
+
         $form['group'] = [
           '#type' => 'textfield',
           '#title' => $this->t('Group'),
           '#default_value' => $group['display_name'], // This is the preset value
           '#disabled' => TRUE, // Makes the field read-only
         ];
-        
+
         $form['reference'] = [
           '#type' => 'textfield',
           '#title' => $this->t('Reference'),
@@ -107,26 +101,42 @@
           '#disabled' => TRUE, // Makes the field read-only
           '#description' => $this->t('Please use this reference when making the bank transfer.'),
         ];
-        
+
         $form['note'] = [
           '#type' => 'textarea',
           '#title' => $this->t('Notes'),
           '#description' => $this->t( 'Enter any notes you want to give about this contribution.' ),
         ];
-        
+
         $form['actions'] = [
           '#type' => 'actions',
         ];
-        
+
         $form['actions']['submit'] = [
           '#type'  => 'submit',
           '#value' => $this->t( 'Submit Contribution' ),
+          '#button_type' => 'primary', // Drupal core style
+          '#attributes' => [
+            'class' => ['my-3', 'me-4'],
+          ],
+        ];
+
+        // Add a link styled as a button.
+        $url = Url::fromUserInput('/member/group/' . $group_id);
+        $link = Link::fromTextAndUrl($this->t(' Back to group'), $url)->toRenderable();
+        $link['#attributes']['class'] = ['btn', 'btn-secondary', 'bi', 'bi-arrow-left', 'my-3'];
+
+        // Add the link after the submit button.
+        $form['actions']['back'] = [
+          '#type' => 'markup',
+          '#markup' => \Drupal::service('renderer')->render($link),
+          '#weight' => 10,
         ];
       }
-      
+
       return $form;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -134,11 +144,11 @@
       $email = $form_state->getValue('email');
       $group_id = $form_state->getValue('group_id');
       $utils = \Drupal::service('kin_civi.utils');
-      
+
       if (!\Drupal::service('email.validator')->isValid($email)) {
         $form_state->setErrorByName('email', $this->t('Please enter a valid email address.'));
       }
-      
+
       $amount = $form_state->getValue('amount');
       if ($amount <= 0) {
         $form_state->setErrorByName('amount', $this->t('Please enter a positive amount.'));
@@ -150,15 +160,15 @@
       $form_state->setValue('on_behalf_of_id', $onbehalfof_id);
       //dpm($onbehalfof_id);
       //dpm($group_id);
-      
+
       // Check original contributor is in group
       $relationship = $utils->kin_civi_check_contact_in_group($onbehalfof_id, $group_id);
       if(!$relationship) {
         $form_state->setErrorByName('email', $this->t('This email does not match anyone in this group. Please try again.'));
       }
-      
+
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -181,19 +191,19 @@
         $ref = $form_state->getValue('reference');
         $onbehalfof_name = $utils->kin_civi_get_name($onbehalfof_id);
         $group_name = $utils->kin_civi_get_name($group_id);
-      
+
         $onBehalfOf = \Civi\Api4\Contact::get()
                      ->addSelect('custom.*','*','email_primary.email')
                      ->addWhere('id', '=', $onbehalfof_id)
                      ->execute()
                      ->first();
-      
+
       $delegate = \Civi\Api4\Contact::get()
                     ->addSelect('custom.*','*','email_primary.email')
                     ->addWhere('id', '=', $delegate_id)
                     ->execute()
                     ->first();
-      
+
       try {
 
         // Step 2: Create the contribution
@@ -206,7 +216,7 @@
                   ->addValue('Kin_Contributions.Delegated_Contributor', $delegate_id)
                   ->addValue('Unique_Contribution_ID.Unique_Contribution_Reference', $ref)
                   ->execute();
-        
+
         $contribution_id = $results->first()['id'];
 
         \Drupal::messenger()->addStatus($this->t('Contribution created successfully.'));
@@ -265,7 +275,7 @@
               ->addValue('source_contact_id', $onbehalfof_id)
               ->addValue('target_contact_id', $delegate_id)
               ->execute();
-        
+
 
 
           // Set a flag to indicate successful submission.
@@ -315,5 +325,4 @@
     }
 
   }
-  
-  
+

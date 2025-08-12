@@ -25,7 +25,7 @@ function kin_views_post_render(ViewExecutable $view) {
     if($view->id() == 'kin_group_list'  && $view->current_display == 'page_2'){
         //dpm($view->result[0]->civicrm_contact_display_name);
         //dpm($view->result[0]);
-        $title = $view->result[0]->civicrm_contact_display_name . " Group";
+        $title = $view->result[0]->civicrm_contact_display_name;
 
         // Set the view title.
         $view->setTitle($title);
