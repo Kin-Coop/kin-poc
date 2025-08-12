@@ -3905,7 +3905,7 @@ display:
     display_plugin: page
     position: 2
     display_options:
-      title: Group
+      title: ''
       fields:
         id:
           id: id
@@ -3984,7 +3984,7 @@ display:
           entity_field: display_name
           plugin_id: field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -4026,7 +4026,8 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: string
-          settings: {  }
+          settings:
+            link_to_entity: false
           group_column: value
           group_columns: {  }
           group_rows: true
