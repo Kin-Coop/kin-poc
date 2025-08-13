@@ -10,6 +10,15 @@
         };
     });
 
+    /*
+  document.addEventListener("DOMContentLoaded", function() {
+    const track = document.querySelector(".rosca-track");
+    track.innerHTML += track.innerHTML; // Duplicate items for looping
+  });
+
+     */
+
+
     $(document).ready(function() {
 
         p = window.location.pathname;
@@ -62,5 +71,4 @@
         })
 
     });
-//})(jQuery);
 })(jQuery, Drupal, drupalSettings);
