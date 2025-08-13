@@ -42,6 +42,7 @@
   {"name":"total_contributed_amount","label":"Total Contributed Amount","class_name":"CRM_CivirulesConditions_Contribution_TotalContributedAmount"},
   {"name":"contribution_recur_campaign","label":"Recurring Contribution is (not) in Campaign(s)","class_name":"CRM_CivirulesConditions_ContributionRecur_Campaign"},
   {"name":"contribution_recur_count","label":"xth Recurring Contribution Collection","class_name":"CRM_CivirulesConditions_ContributionRecur_Count"},
+  {"name":"contribution_recur_failurecount","label":"Recurring Contribution Faliure Count","class_name":"CRM_CivirulesConditions_ContributionRecur_FailureCount"},
   {"name":"contribution_recur_status","label":"Recurring Contribution Status is (not) one of","class_name":"CRM_CivirulesConditions_ContributionRecur_Status"},
   {"name":"contribution_recur_status_changed","label":"Compare Old Recurring Contribution Status to New Recurring Contribution Status","class_name":"CRM_CivirulesConditions_ContributionRecur_StatusChanged"},
   {"name":"contribution_recur_financial_type","label":"Recurring Contribution is (not) of Financial Type(s)","class_name":"CRM_CivirulesConditions_ContributionRecur_FinancialType"},

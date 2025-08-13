@@ -45,6 +45,7 @@ class CRM_Emailapi_CivirulesAction_Send extends CRM_CivirulesActions_Generic_Api
     }
     if (!empty($actionParameters['alternative_receiver_address'])) {
       $parameters['alternative_receiver_address'] = $actionParameters['alternative_receiver_address'];
+      $parameters['contact_id'] ??= 0;
     }
     if (!empty($actionParameters['file_on_case'])) {
       $case = $triggerData->getEntityData('Case');

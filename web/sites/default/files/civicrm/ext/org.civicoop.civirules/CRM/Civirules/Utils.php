@@ -596,6 +596,10 @@ class CRM_Civirules_Utils {
   public static function getObjectNameFromObject(\CRM_Core_DAO $object)
   {
     static $contact_types = []; // Array with contact ID and value the contact type.
+    $tableName = $object->getTableName();
+    if (empty($tableName)) {
+      return NULL;
+    }
     $objectName = CRM_Core_DAO_AllCoreTables::getEntityNameForTable($object->getTableName());
     if ($objectName == 'Contact' && isset($object->contact_type)) {
       $objectName = $object->contact_type;
@@ -616,6 +620,7 @@ class CRM_Civirules_Utils {
    * Method to check if Api4 is active in the current installation
    *
    * @return bool
+   * @deprecated
    */
   public static function isApi4Active() {
     if (function_exists('civicrm_api4')) {

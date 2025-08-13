@@ -14,13 +14,13 @@ bundle: private_message
 mode: default
 content:
   members:
-    weight: -100
+    weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
   message:
     type: text_textarea
-    weight: null
+    weight: 1
     region: content
     settings:
       rows: 5

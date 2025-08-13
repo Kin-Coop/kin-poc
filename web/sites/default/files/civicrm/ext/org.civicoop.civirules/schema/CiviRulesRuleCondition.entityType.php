@@ -11,6 +11,9 @@ return [
     'description' => E::ts('CiviRules Rule Conditions'),
     'log' => TRUE,
   ],
+  'getPaths' => fn() => [
+    'update' => 'civicrm/civirule/form/rule_condition?reset=1&action=update&rid=[id]',
+  ],
   'getFields' => fn() => [
     'id' => [
       'title' => E::ts('ID'),
@@ -34,8 +37,11 @@ return [
     'condition_link' => [
       'title' => E::ts('Condition Link'),
       'sql_type' => 'varchar(3)',
-      'input_type' => 'Text',
+      'input_type' => 'Select',
       'default' => NULL,
+      'pseudoconstant' => [
+        'callback' => ['CRM_Civirules_BAO_CiviRulesRuleCondition', 'getConditionLinkOptions'],
+      ],
     ],
     'condition_id' => [
       'title' => E::ts('Condition ID'),

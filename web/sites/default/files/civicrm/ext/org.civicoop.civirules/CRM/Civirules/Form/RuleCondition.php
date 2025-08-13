@@ -103,12 +103,16 @@ class CRM_Civirules_Form_RuleCondition extends CRM_Core_Form {
     $redirectUrl = $condition->getExtraDataInputUrl($ruleCondition['id']);
     if (empty($redirectUrl)) {
       $redirectUrl = CRM_Utils_System::url('civicrm/civirule/form/rule', 'action=update&id=' . $this->_submitValues['rule_id'], TRUE);
-      $session->setStatus('Condition added to CiviRule ' . CRM_Civirules_BAO_Rule::getRuleLabelWithId($this->_submitValues['rule_id']),
-        'Condition added', 'success');
+      if (empty($this->ruleConditionId)) {
+        $session->setStatus('Condition added to CiviRule ' . CRM_Civirules_BAO_Rule::getRuleLabelWithId($this->_submitValues['rule_id']),
+          'Condition added', 'success');
+      }
     } else {
-      $redirectUrl .= '&action=add';
+      // Redirect to action configuration (required to redirect popup without closing
+      CRM_Utils_System::redirect($redirectUrl);
     }
 
+    // This will allow popup to close
     $session->pushUserContext($redirectUrl);
   }
 
@@ -160,7 +164,7 @@ class CRM_Civirules_Form_RuleCondition extends CRM_Core_Form {
     /*
      * add select list only if it is not the first condition
      */
-    $linkList = ['AND' => 'AND', 'OR' =>'OR'];
+    $linkList = CRM_Civirules_BAO_CiviRulesRuleCondition::getConditionLinkOptions();
     $this->add('select', 'rule_condition_link_select', E::ts('Select Link Operator'), $linkList);
     $foundConditions = $this->buildConditionList();
     if (!empty($foundConditions)) {

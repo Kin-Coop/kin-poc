@@ -1,0 +1,18 @@
+uuid: ab637869-b34f-4842-a147-0ece1a7663c8
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+    - filter.format.plain_text
+template: group_forum_daily_digest
+label: 'Group Forum Daily Digest'
+description: 'Daily notification for new comments in group forum'
+text:
+  -
+    value: 'New comments in your household forum'
+    format: plain_text
+  -
+    value: 'There have been [message:field-comment-count] new comments in your household forum today. <a href="[message:field-forum-url]">View the discussion</a>'
+    format: full_html
+settings: {  }

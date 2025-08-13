@@ -3,6 +3,7 @@ global-styling:
     theme:
       css/style.css: {}
       css/kin_style.css: {}
+      bootstrap-icons/font/bootstrap-icons.css: {}
 global-scripts:
   version: 1.x
   js:

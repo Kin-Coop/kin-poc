@@ -64,8 +64,10 @@ class CRM_CivirulesConditions_Activity_HasTag extends CRM_Civirules_Condition {
    * @return bool|string
    */
   public function getExtraDataInputUrl($ruleConditionId) {
-    return CRM_Utils_System::url('civicrm/civirule/form/condition/entity_hastag/', 'rule_condition_id=' . $ruleConditionId
-      . '&tn=civicrm_activity');
+    return CRM_Utils_System::url('civicrm/civirule/form/condition/entity_hastag/',
+      'rule_condition_id=' . $ruleConditionId . '&tn=civicrm_activity',
+      FALSE, NULL, FALSE, FALSE, TRUE
+    );
   }
 
   /**

@@ -2436,7 +2436,7 @@ textarea.form-control-lg {
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
 }
-.btn-check[disabled] + .btn, .node-preview-container .btn-check[disabled] + .node-preview-backlink, .btn-check[disabled] + .button, .btn-check[disabled] + button.link, .btn-check:disabled + .btn, .node-preview-container .btn-check:disabled + .node-preview-backlink, .btn-check:disabled + .button, .btn-check:disabled + button.link {
+.btn-check[disabled] + .btn, .forum-teaser .more-link .btn-check[disabled] + a, .node-preview-container .btn-check[disabled] + .node-preview-backlink, .btn-check[disabled] + .button, .btn-check[disabled] + button.link, .btn-check:disabled + .btn, .forum-teaser .more-link .btn-check:disabled + a, .node-preview-container .btn-check:disabled + .node-preview-backlink, .btn-check:disabled + .button, .btn-check:disabled + button.link {
   pointer-events: none;
   filter: none;
   opacity: 0.65;
@@ -2635,11 +2635,11 @@ textarea.form-control-lg {
 .input-group > .form-floating:focus-within {
   z-index: 5;
 }
-.input-group .btn, .input-group .node-preview-container .node-preview-backlink, .node-preview-container .input-group .node-preview-backlink, .input-group .button, .input-group button.link {
+.input-group .btn, .input-group .forum-teaser .more-link a, .forum-teaser .more-link .input-group a, .input-group .node-preview-container .node-preview-backlink, .node-preview-container .input-group .node-preview-backlink, .input-group .button, .input-group button.link {
   position: relative;
   z-index: 2;
 }
-.input-group .btn:focus, .input-group .node-preview-container .node-preview-backlink:focus, .node-preview-container .input-group .node-preview-backlink:focus, .input-group .button:focus, .input-group button.link:focus {
+.input-group .btn:focus, .input-group .forum-teaser .more-link a:focus, .forum-teaser .more-link .input-group a:focus, .input-group .node-preview-container .node-preview-backlink:focus, .node-preview-container .input-group .node-preview-backlink:focus, .input-group .button:focus, .input-group button.link:focus {
   z-index: 5;
 }
 
@@ -2662,6 +2662,7 @@ textarea.form-control-lg {
 .input-group-lg > .form-select,
 .input-group-lg > .input-group-text,
 .input-group-lg > .btn,
+.forum-teaser .more-link .input-group-lg > a,
 .node-preview-container .input-group-lg > .node-preview-backlink,
 .input-group-lg > .button,
 .input-group-lg > button.link {
@@ -2674,6 +2675,7 @@ textarea.form-control-lg {
 .input-group-sm > .form-select,
 .input-group-sm > .input-group-text,
 .input-group-sm > .btn,
+.forum-teaser .more-link .input-group-sm > a,
 .node-preview-container .input-group-sm > .node-preview-backlink,
 .input-group-sm > .button,
 .input-group-sm > button.link {
@@ -2892,7 +2894,7 @@ textarea.form-control-lg {
   z-index: 4;
 }
 
-.btn, .node-preview-container .node-preview-backlink, a.button, .button, button.link {
+.btn, .forum-teaser .more-link a, .node-preview-container .node-preview-backlink, a.button, .button, button.link {
   --bs-btn-padding-x: 0.75rem;
   --bs-btn-padding-y: 0.375rem;
   --bs-btn-font-family: ;
@@ -2926,44 +2928,44 @@ textarea.form-control-lg {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .btn, .node-preview-container .node-preview-backlink, a.button, .button, button.link {
+  .btn, .forum-teaser .more-link a, .node-preview-container .node-preview-backlink, a.button, .button, button.link {
     transition: none;
   }
 }
-.btn:hover, .node-preview-container .node-preview-backlink:hover, .button:hover, button.link:hover {
+.btn:hover, .forum-teaser .more-link a:hover, .node-preview-container .node-preview-backlink:hover, .button:hover, button.link:hover {
   color: var(--bs-btn-hover-color);
   background-color: var(--bs-btn-hover-bg);
   border-color: var(--bs-btn-hover-border-color);
 }
-.btn-check + .btn:hover, .node-preview-container .btn-check + .node-preview-backlink:hover, .btn-check + .button:hover, .btn-check + button.link:hover {
+.btn-check + .btn:hover, .forum-teaser .more-link .btn-check + a:hover, .node-preview-container .btn-check + .node-preview-backlink:hover, .btn-check + .button:hover, .btn-check + button.link:hover {
   color: var(--bs-btn-color);
   background-color: var(--bs-btn-bg);
   border-color: var(--bs-btn-border-color);
 }
-.btn:focus-visible, .node-preview-container .node-preview-backlink:focus-visible, .button:focus-visible, button.link:focus-visible {
+.btn:focus-visible, .forum-teaser .more-link a:focus-visible, .node-preview-container .node-preview-backlink:focus-visible, .button:focus-visible, button.link:focus-visible {
   color: var(--bs-btn-hover-color);
   background-color: var(--bs-btn-hover-bg);
   border-color: var(--bs-btn-hover-border-color);
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-.btn-check:focus-visible + .btn, .node-preview-container .btn-check:focus-visible + .node-preview-backlink, .btn-check:focus-visible + .button, .btn-check:focus-visible + button.link {
+.btn-check:focus-visible + .btn, .forum-teaser .more-link .btn-check:focus-visible + a, .node-preview-container .btn-check:focus-visible + .node-preview-backlink, .btn-check:focus-visible + .button, .btn-check:focus-visible + button.link {
   border-color: var(--bs-btn-hover-border-color);
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-.btn-check:checked + .btn, .node-preview-container .btn-check:checked + .node-preview-backlink, .btn-check:checked + .button, .btn-check:checked + button.link, :not(.btn-check) + .btn:active, .node-preview-container :not(.btn-check) + .node-preview-backlink:active, :not(.btn-check) + .button:active, :not(.btn-check) + button.link:active, .btn:first-child:active, .node-preview-container .node-preview-backlink:first-child:active, .button:first-child:active, button.link:first-child:active, .btn.active, .media-library-view--widget .view-header a.btn.is-active, .node-preview-container .active.node-preview-backlink, .node-preview-container .media-library-view--widget .view-header a.node-preview-backlink.is-active, .media-library-view--widget .view-header .node-preview-container a.node-preview-backlink.is-active, .active.button, .media-library-view--widget .view-header a.button.is-active, button.active.link, .btn.show, .node-preview-container .show.node-preview-backlink, .show.button, button.show.link {
+.btn-check:checked + .btn, .forum-teaser .more-link .btn-check:checked + a, .node-preview-container .btn-check:checked + .node-preview-backlink, .btn-check:checked + .button, .btn-check:checked + button.link, :not(.btn-check) + .btn:active, .forum-teaser .more-link :not(.btn-check) + a:active, .node-preview-container :not(.btn-check) + .node-preview-backlink:active, :not(.btn-check) + .button:active, :not(.btn-check) + button.link:active, .btn:first-child:active, .forum-teaser .more-link a:first-child:active, .node-preview-container .node-preview-backlink:first-child:active, .button:first-child:active, button.link:first-child:active, .btn.active, .forum-teaser .more-link a.active, .media-library-view--widget .view-header a.btn.is-active, .media-library-view--widget .view-header .forum-teaser .more-link a.is-active, .forum-teaser .more-link .media-library-view--widget .view-header a.is-active, .node-preview-container .active.node-preview-backlink, .node-preview-container .media-library-view--widget .view-header a.node-preview-backlink.is-active, .media-library-view--widget .view-header .node-preview-container a.node-preview-backlink.is-active, .active.button, .media-library-view--widget .view-header a.button.is-active, button.active.link, .btn.show, .forum-teaser .more-link a.show, .node-preview-container .show.node-preview-backlink, .show.button, button.show.link {
   color: var(--bs-btn-active-color);
   background-color: var(--bs-btn-active-bg);
   border-color: var(--bs-btn-active-border-color);
 }
-.btn-check:checked + .btn:focus-visible, .node-preview-container .btn-check:checked + .node-preview-backlink:focus-visible, .btn-check:checked + .button:focus-visible, .btn-check:checked + button.link:focus-visible, :not(.btn-check) + .btn:active:focus-visible, .node-preview-container :not(.btn-check) + .node-preview-backlink:active:focus-visible, :not(.btn-check) + .button:active:focus-visible, :not(.btn-check) + button.link:active:focus-visible, .btn:first-child:active:focus-visible, .node-preview-container .node-preview-backlink:first-child:active:focus-visible, .button:first-child:active:focus-visible, button.link:first-child:active:focus-visible, .btn.active:focus-visible, .media-library-view--widget .view-header a.btn.is-active:focus-visible, .node-preview-container .active.node-preview-backlink:focus-visible, .node-preview-container .media-library-view--widget .view-header a.node-preview-backlink.is-active:focus-visible, .media-library-view--widget .view-header .node-preview-container a.node-preview-backlink.is-active:focus-visible, .active.button:focus-visible, .media-library-view--widget .view-header a.button.is-active:focus-visible, button.active.link:focus-visible, .btn.show:focus-visible, .node-preview-container .show.node-preview-backlink:focus-visible, .show.button:focus-visible, button.show.link:focus-visible {
+.btn-check:checked + .btn:focus-visible, .forum-teaser .more-link .btn-check:checked + a:focus-visible, .node-preview-container .btn-check:checked + .node-preview-backlink:focus-visible, .btn-check:checked + .button:focus-visible, .btn-check:checked + button.link:focus-visible, :not(.btn-check) + .btn:active:focus-visible, .forum-teaser .more-link :not(.btn-check) + a:active:focus-visible, .node-preview-container :not(.btn-check) + .node-preview-backlink:active:focus-visible, :not(.btn-check) + .button:active:focus-visible, :not(.btn-check) + button.link:active:focus-visible, .btn:first-child:active:focus-visible, .forum-teaser .more-link a:first-child:active:focus-visible, .node-preview-container .node-preview-backlink:first-child:active:focus-visible, .button:first-child:active:focus-visible, button.link:first-child:active:focus-visible, .btn.active:focus-visible, .forum-teaser .more-link a.active:focus-visible, .media-library-view--widget .view-header a.btn.is-active:focus-visible, .media-library-view--widget .view-header .forum-teaser .more-link a.is-active:focus-visible, .forum-teaser .more-link .media-library-view--widget .view-header a.is-active:focus-visible, .node-preview-container .active.node-preview-backlink:focus-visible, .node-preview-container .media-library-view--widget .view-header a.node-preview-backlink.is-active:focus-visible, .media-library-view--widget .view-header .node-preview-container a.node-preview-backlink.is-active:focus-visible, .active.button:focus-visible, .media-library-view--widget .view-header a.button.is-active:focus-visible, button.active.link:focus-visible, .btn.show:focus-visible, .forum-teaser .more-link a.show:focus-visible, .node-preview-container .show.node-preview-backlink:focus-visible, .show.button:focus-visible, button.show.link:focus-visible {
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-.btn-check:checked:focus-visible + .btn, .node-preview-container .btn-check:checked:focus-visible + .node-preview-backlink, .btn-check:checked:focus-visible + .button, .btn-check:checked:focus-visible + button.link {
+.btn-check:checked:focus-visible + .btn, .forum-teaser .more-link .btn-check:checked:focus-visible + a, .node-preview-container .btn-check:checked:focus-visible + .node-preview-backlink, .btn-check:checked:focus-visible + .button, .btn-check:checked:focus-visible + button.link {
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-.btn:disabled, .node-preview-container .node-preview-backlink:disabled, .button:disabled, button.link:disabled, .btn.disabled, .node-preview-container .disabled.node-preview-backlink, .disabled.button, button.disabled.link, fieldset:disabled .btn, fieldset:disabled .node-preview-container .node-preview-backlink, .node-preview-container fieldset:disabled .node-preview-backlink, fieldset:disabled .button, fieldset:disabled button.link {
+.btn:disabled, .forum-teaser .more-link a:disabled, .node-preview-container .node-preview-backlink:disabled, .button:disabled, button.link:disabled, .btn.disabled, .forum-teaser .more-link a.disabled, .node-preview-container .disabled.node-preview-backlink, .disabled.button, button.disabled.link, fieldset:disabled .btn, fieldset:disabled .forum-teaser .more-link a, .forum-teaser .more-link fieldset:disabled a, fieldset:disabled .node-preview-container .node-preview-backlink, .node-preview-container fieldset:disabled .node-preview-backlink, fieldset:disabled .button, fieldset:disabled button.link {
   color: var(--bs-btn-disabled-color);
   pointer-events: none;
   background-color: var(--bs-btn-disabled-bg);
@@ -2971,7 +2973,7 @@ textarea.form-control-lg {
   opacity: var(--bs-btn-disabled-opacity);
 }
 
-.btn-primary {
+.btn-primary, .forum-teaser .more-link a {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2D4C9B;
   --bs-btn-border-color: #2D4C9B;
@@ -3265,14 +3267,14 @@ textarea.form-control-lg {
   color: var(--bs-btn-hover-color);
 }
 
-.btn-lg, .btn-group-lg > .btn, .node-preview-container .btn-group-lg > .node-preview-backlink, .btn-group-lg > .button, .btn-group-lg > button.link {
+.btn-lg, .btn-group-lg > .btn, .forum-teaser .more-link .btn-group-lg > a, .node-preview-container .btn-group-lg > .node-preview-backlink, .btn-group-lg > .button, .btn-group-lg > button.link {
   --bs-btn-padding-y: 0.5rem;
   --bs-btn-padding-x: 1rem;
   --bs-btn-font-size: 1.25rem;
   --bs-btn-border-radius: var(--bs-border-radius-lg);
 }
 
-.btn-sm, .btn-group-sm > .btn, .node-preview-container .btn-group-sm > .node-preview-backlink, .btn-group-sm > .button, .btn-group-sm > button.link {
+.btn-sm, .btn-group-sm > .btn, .forum-teaser .more-link .btn-group-sm > a, .node-preview-container .btn-group-sm > .node-preview-backlink, .btn-group-sm > .button, .btn-group-sm > button.link {
   --bs-btn-padding-y: 0.25rem;
   --bs-btn-padding-x: 0.5rem;
   --bs-btn-font-size: 0.875rem;
@@ -3639,33 +3641,41 @@ textarea.form-control-lg {
   display: inline-flex;
   vertical-align: middle;
 }
-.btn-group > .btn, .node-preview-container .btn-group > .node-preview-backlink, .btn-group > .button, .btn-group > button.link,
+.btn-group > .btn, .forum-teaser .more-link .btn-group > a, .node-preview-container .btn-group > .node-preview-backlink, .btn-group > .button, .btn-group > button.link,
 .btn-group-vertical > .btn,
+.forum-teaser .more-link .btn-group-vertical > a,
 .node-preview-container .btn-group-vertical > .node-preview-backlink,
 .btn-group-vertical > .button,
 .btn-group-vertical > button.link {
   position: relative;
   flex: 1 1 auto;
 }
-.btn-group > .btn-check:checked + .btn, .node-preview-container .btn-group > .btn-check:checked + .node-preview-backlink, .btn-group > .btn-check:checked + .button, .btn-group > .btn-check:checked + button.link,
+.btn-group > .btn-check:checked + .btn, .forum-teaser .more-link .btn-group > .btn-check:checked + a, .node-preview-container .btn-group > .btn-check:checked + .node-preview-backlink, .btn-group > .btn-check:checked + .button, .btn-group > .btn-check:checked + button.link,
 .btn-group > .btn-check:focus + .btn,
+.forum-teaser .more-link .btn-group > .btn-check:focus + a,
 .node-preview-container .btn-group > .btn-check:focus + .node-preview-backlink,
 .btn-group > .btn-check:focus + .button,
 .btn-group > .btn-check:focus + button.link,
 .btn-group > .btn:hover,
+.forum-teaser .more-link .btn-group > a:hover,
 .node-preview-container .btn-group > .node-preview-backlink:hover,
 .btn-group > .button:hover,
 .btn-group > button.link:hover,
 .btn-group > .btn:focus,
+.forum-teaser .more-link .btn-group > a:focus,
 .node-preview-container .btn-group > .node-preview-backlink:focus,
 .btn-group > .button:focus,
 .btn-group > button.link:focus,
 .btn-group > .btn:active,
+.forum-teaser .more-link .btn-group > a:active,
 .node-preview-container .btn-group > .node-preview-backlink:active,
 .btn-group > .button:active,
 .btn-group > button.link:active,
 .btn-group > .btn.active,
+.forum-teaser .more-link .btn-group > a.active,
 .media-library-view--widget .view-header .btn-group > a.btn.is-active,
+.media-library-view--widget .view-header .forum-teaser .more-link .btn-group > a.is-active,
+.forum-teaser .more-link .media-library-view--widget .view-header .btn-group > a.is-active,
 .node-preview-container .btn-group > .active.node-preview-backlink,
 .node-preview-container .media-library-view--widget .view-header .btn-group > a.node-preview-backlink.is-active,
 .media-library-view--widget .view-header .node-preview-container .btn-group > a.node-preview-backlink.is-active,
@@ -3673,27 +3683,35 @@ textarea.form-control-lg {
 .media-library-view--widget .view-header .btn-group > a.button.is-active,
 .btn-group > button.active.link,
 .btn-group-vertical > .btn-check:checked + .btn,
+.forum-teaser .more-link .btn-group-vertical > .btn-check:checked + a,
 .node-preview-container .btn-group-vertical > .btn-check:checked + .node-preview-backlink,
 .btn-group-vertical > .btn-check:checked + .button,
 .btn-group-vertical > .btn-check:checked + button.link,
 .btn-group-vertical > .btn-check:focus + .btn,
+.forum-teaser .more-link .btn-group-vertical > .btn-check:focus + a,
 .node-preview-container .btn-group-vertical > .btn-check:focus + .node-preview-backlink,
 .btn-group-vertical > .btn-check:focus + .button,
 .btn-group-vertical > .btn-check:focus + button.link,
 .btn-group-vertical > .btn:hover,
+.forum-teaser .more-link .btn-group-vertical > a:hover,
 .node-preview-container .btn-group-vertical > .node-preview-backlink:hover,
 .btn-group-vertical > .button:hover,
 .btn-group-vertical > button.link:hover,
 .btn-group-vertical > .btn:focus,
+.forum-teaser .more-link .btn-group-vertical > a:focus,
 .node-preview-container .btn-group-vertical > .node-preview-backlink:focus,
 .btn-group-vertical > .button:focus,
 .btn-group-vertical > button.link:focus,
 .btn-group-vertical > .btn:active,
+.forum-teaser .more-link .btn-group-vertical > a:active,
 .node-preview-container .btn-group-vertical > .node-preview-backlink:active,
 .btn-group-vertical > .button:active,
 .btn-group-vertical > button.link:active,
 .btn-group-vertical > .btn.active,
+.forum-teaser .more-link .btn-group-vertical > a.active,
 .media-library-view--widget .view-header .btn-group-vertical > a.btn.is-active,
+.media-library-view--widget .view-header .forum-teaser .more-link .btn-group-vertical > a.is-active,
+.forum-teaser .more-link .media-library-view--widget .view-header .btn-group-vertical > a.is-active,
 .node-preview-container .btn-group-vertical > .active.node-preview-backlink,
 .node-preview-container .media-library-view--widget .view-header .btn-group-vertical > a.node-preview-backlink.is-active,
 .media-library-view--widget .view-header .node-preview-container .btn-group-vertical > a.node-preview-backlink.is-active,
@@ -3715,28 +3733,32 @@ textarea.form-control-lg {
 .btn-group {
   border-radius: var(--bs-border-radius);
 }
-.btn-group > :not(.btn-check:first-child) + .btn, .node-preview-container .btn-group > :not(.btn-check:first-child) + .node-preview-backlink, .btn-group > :not(.btn-check:first-child) + .button, .btn-group > :not(.btn-check:first-child) + button.link,
+.btn-group > :not(.btn-check:first-child) + .btn, .forum-teaser .more-link .btn-group > :not(.btn-check:first-child) + a, .node-preview-container .btn-group > :not(.btn-check:first-child) + .node-preview-backlink, .btn-group > :not(.btn-check:first-child) + .button, .btn-group > :not(.btn-check:first-child) + button.link,
 .btn-group > .btn-group:not(:first-child) {
   margin-left: calc(-1 * var(--bs-border-width));
 }
-.btn-group > .btn:not(:last-child):not(.dropdown-toggle), .node-preview-container .btn-group > .node-preview-backlink:not(:last-child):not(.dropdown-toggle), .btn-group > .button:not(:last-child):not(.dropdown-toggle), .btn-group > button.link:not(:last-child):not(.dropdown-toggle),
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle), .forum-teaser .more-link .btn-group > a:not(:last-child):not(.dropdown-toggle), .node-preview-container .btn-group > .node-preview-backlink:not(:last-child):not(.dropdown-toggle), .btn-group > .button:not(:last-child):not(.dropdown-toggle), .btn-group > button.link:not(:last-child):not(.dropdown-toggle),
 .btn-group > .btn.dropdown-toggle-split:first-child,
+.forum-teaser .more-link .btn-group > a.dropdown-toggle-split:first-child,
 .node-preview-container .btn-group > .dropdown-toggle-split.node-preview-backlink:first-child,
 .btn-group > .dropdown-toggle-split.button:first-child,
 .btn-group > button.dropdown-toggle-split.link:first-child,
 .btn-group > .btn-group:not(:last-child) > .btn,
+.forum-teaser .more-link .btn-group > .btn-group:not(:last-child) > a,
 .node-preview-container .btn-group > .btn-group:not(:last-child) > .node-preview-backlink,
 .btn-group > .btn-group:not(:last-child) > .button,
 .btn-group > .btn-group:not(:last-child) > button.link {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.btn-group > .btn:nth-child(n+3), .node-preview-container .btn-group > .node-preview-backlink:nth-child(n+3), .btn-group > .button:nth-child(n+3), .btn-group > button.link:nth-child(n+3),
+.btn-group > .btn:nth-child(n+3), .forum-teaser .more-link .btn-group > a:nth-child(n+3), .node-preview-container .btn-group > .node-preview-backlink:nth-child(n+3), .btn-group > .button:nth-child(n+3), .btn-group > button.link:nth-child(n+3),
 .btn-group > :not(.btn-check) + .btn,
+.forum-teaser .more-link .btn-group > :not(.btn-check) + a,
 .node-preview-container .btn-group > :not(.btn-check) + .node-preview-backlink,
 .btn-group > :not(.btn-check) + .button,
 .btn-group > :not(.btn-check) + button.link,
 .btn-group > .btn-group:not(:first-child) > .btn,
+.forum-teaser .more-link .btn-group > .btn-group:not(:first-child) > a,
 .node-preview-container .btn-group > .btn-group:not(:first-child) > .node-preview-backlink,
 .btn-group > .btn-group:not(:first-child) > .button,
 .btn-group > .btn-group:not(:first-child) > button.link {
@@ -3755,12 +3777,12 @@ textarea.form-control-lg {
   margin-right: 0;
 }
 
-.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .node-preview-container .btn-group-sm > .node-preview-backlink + .dropdown-toggle-split, .btn-group-sm > .button + .dropdown-toggle-split, .btn-group-sm > button.link + .dropdown-toggle-split {
+.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .forum-teaser .more-link .btn-group-sm > a + .dropdown-toggle-split, .node-preview-container .btn-group-sm > .node-preview-backlink + .dropdown-toggle-split, .btn-group-sm > .button + .dropdown-toggle-split, .btn-group-sm > button.link + .dropdown-toggle-split {
   padding-right: 0.375rem;
   padding-left: 0.375rem;
 }
 
-.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .node-preview-container .btn-group-lg > .node-preview-backlink + .dropdown-toggle-split, .btn-group-lg > .button + .dropdown-toggle-split, .btn-group-lg > button.link + .dropdown-toggle-split {
+.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .forum-teaser .more-link .btn-group-lg > a + .dropdown-toggle-split, .node-preview-container .btn-group-lg > .node-preview-backlink + .dropdown-toggle-split, .btn-group-lg > .button + .dropdown-toggle-split, .btn-group-lg > button.link + .dropdown-toggle-split {
   padding-right: 0.75rem;
   padding-left: 0.75rem;
 }
@@ -3770,28 +3792,31 @@ textarea.form-control-lg {
   align-items: flex-start;
   justify-content: center;
 }
-.btn-group-vertical > .btn, .node-preview-container .btn-group-vertical > .node-preview-backlink, .btn-group-vertical > .button, .btn-group-vertical > button.link,
+.btn-group-vertical > .btn, .forum-teaser .more-link .btn-group-vertical > a, .node-preview-container .btn-group-vertical > .node-preview-backlink, .btn-group-vertical > .button, .btn-group-vertical > button.link,
 .btn-group-vertical > .btn-group {
   width: 100%;
 }
-.btn-group-vertical > .btn:not(:first-child), .node-preview-container .btn-group-vertical > .node-preview-backlink:not(:first-child), .btn-group-vertical > .button:not(:first-child), .btn-group-vertical > button.link:not(:first-child),
+.btn-group-vertical > .btn:not(:first-child), .forum-teaser .more-link .btn-group-vertical > a:not(:first-child), .node-preview-container .btn-group-vertical > .node-preview-backlink:not(:first-child), .btn-group-vertical > .button:not(:first-child), .btn-group-vertical > button.link:not(:first-child),
 .btn-group-vertical > .btn-group:not(:first-child) {
   margin-top: calc(-1 * var(--bs-border-width));
 }
-.btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle), .node-preview-container .btn-group-vertical > .node-preview-backlink:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .button:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > button.link:not(:last-child):not(.dropdown-toggle),
+.btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle), .forum-teaser .more-link .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle), .node-preview-container .btn-group-vertical > .node-preview-backlink:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .button:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > button.link:not(:last-child):not(.dropdown-toggle),
 .btn-group-vertical > .btn-group:not(:last-child) > .btn,
+.forum-teaser .more-link .btn-group-vertical > .btn-group:not(:last-child) > a,
 .node-preview-container .btn-group-vertical > .btn-group:not(:last-child) > .node-preview-backlink,
 .btn-group-vertical > .btn-group:not(:last-child) > .button,
 .btn-group-vertical > .btn-group:not(:last-child) > button.link {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.btn-group-vertical > .btn:nth-child(n+3), .node-preview-container .btn-group-vertical > .node-preview-backlink:nth-child(n+3), .btn-group-vertical > .button:nth-child(n+3), .btn-group-vertical > button.link:nth-child(n+3),
+.btn-group-vertical > .btn:nth-child(n+3), .forum-teaser .more-link .btn-group-vertical > a:nth-child(n+3), .node-preview-container .btn-group-vertical > .node-preview-backlink:nth-child(n+3), .btn-group-vertical > .button:nth-child(n+3), .btn-group-vertical > button.link:nth-child(n+3),
 .btn-group-vertical > :not(.btn-check) + .btn,
+.forum-teaser .more-link .btn-group-vertical > :not(.btn-check) + a,
 .node-preview-container .btn-group-vertical > :not(.btn-check) + .node-preview-backlink,
 .btn-group-vertical > :not(.btn-check) + .button,
 .btn-group-vertical > :not(.btn-check) + button.link,
 .btn-group-vertical > .btn-group:not(:first-child) > .btn,
+.forum-teaser .more-link .btn-group-vertical > .btn-group:not(:first-child) > a,
 .node-preview-container .btn-group-vertical > .btn-group:not(:first-child) > .node-preview-backlink,
 .btn-group-vertical > .btn-group:not(:first-child) > .button,
 .btn-group-vertical > .btn-group:not(:first-child) > button.link {
@@ -4854,7 +4879,7 @@ main > .fluid .navbar > .field--name-body,
   display: none;
 }
 
-.btn .badge, .node-preview-container .node-preview-backlink .badge, .button .badge, button.link .badge {
+.btn .badge, .forum-teaser .more-link a .badge, .node-preview-container .node-preview-backlink .badge, .button .badge, button.link .badge {
   position: relative;
   top: -1px;
 }
@@ -6808,7 +6833,7 @@ main > .fluid .navbar > .field--name-body,
   background-color: currentcolor;
   opacity: 0.5;
 }
-.placeholder.btn::before, .node-preview-container .placeholder.node-preview-backlink::before, .placeholder.button::before, button.placeholder.link::before {
+.placeholder.btn::before, .forum-teaser .more-link a.placeholder::before, .node-preview-container .placeholder.node-preview-backlink::before, .placeholder.button::before, button.placeholder.link::before {
   display: inline-block;
   content: "";
 }
@@ -12040,10 +12065,10 @@ a.button.button--small {
   --bs-btn-border-radius: var(--bs-border-radius-sm);
 }
 
-.btn-primary a {
+.btn-primary a, .forum-teaser .more-link a a {
   color: #fff;
 }
-.btn-primary a:hover {
+.btn-primary a:hover, .forum-teaser .more-link a a:hover {
   color: #fff;
   text-decoration: none;
 }
@@ -12168,20 +12193,20 @@ a.button.button--small {
   text-decoration: none;
 }
 
-.btn, .node-preview-container .node-preview-backlink, button.link,
+.btn, .forum-teaser .more-link a, .node-preview-container .node-preview-backlink, button.link,
 .button, a.button {
   margin: 0 0.5rem;
 }
-.btn:first-child, .node-preview-container .node-preview-backlink:first-child, button.link:first-child,
+.btn:first-child, .forum-teaser .more-link a:first-child, .node-preview-container .node-preview-backlink:first-child, button.link:first-child,
 .button:first-child {
   margin-left: 0;
 }
-.btn:last-child, .node-preview-container .node-preview-backlink:last-child, button.link:last-child,
+.btn:last-child, .forum-teaser .more-link a:last-child, .node-preview-container .node-preview-backlink:last-child, button.link:last-child,
 .button:last-child {
   margin-right: 0;
 }
 
-.btn-group .btn, .btn-group .node-preview-container .node-preview-backlink, .node-preview-container .btn-group .node-preview-backlink, .btn-group button.link,
+.btn-group .btn, .btn-group .forum-teaser .more-link a, .forum-teaser .more-link .btn-group a, .btn-group .node-preview-container .node-preview-backlink, .node-preview-container .btn-group .node-preview-backlink, .btn-group button.link,
 .btn-group .button {
   margin: 0;
 }
@@ -12284,7 +12309,7 @@ td > .form-item {
   font-weight: 700;
 }
 
-.paragraphs-dropdown-action.button.btn-primary {
+.paragraphs-dropdown-action.button.btn-primary, .forum-teaser .more-link a.paragraphs-dropdown-action.button {
   background-color: #2D4C9B;
 }
 .paragraphs-dropdown-action.button.btn-danger {
@@ -12602,11 +12627,11 @@ tr.region-title td {
   line-height: 20px;
   padding: 0.1em 0.5em;
 }
-.views-admin .dropbutton .dropbutton-action .btn-primary {
+.views-admin .dropbutton .dropbutton-action .btn-primary, .views-admin .dropbutton .dropbutton-action .forum-teaser .more-link a, .forum-teaser .more-link .views-admin .dropbutton .dropbutton-action a {
   color: #2D4C9B;
   text-decoration: underline;
 }
-.views-admin .dropbutton .dropbutton-action .btn-primary:hover {
+.views-admin .dropbutton .dropbutton-action .btn-primary:hover, .views-admin .dropbutton .dropbutton-action .forum-teaser .more-link a:hover, .forum-teaser .more-link .views-admin .dropbutton .dropbutton-action a:hover {
   color: rgb(36, 60.8, 124);
   text-decoration: none;
 }
@@ -12854,7 +12879,7 @@ h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
   font-style: normal;
 }
 
-.btn-primary {
+.btn-primary, .forum-teaser .more-link a {
   background-color: #E6460F;
   color: #fff;
   border: none;
@@ -12867,6 +12892,10 @@ h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
 }
 .bg-warning-subtle a {
   color: #2D4C9B;
+}
+
+.btn-secondary {
+  font-size: 1.1rem;
 }
 
 h2, .h2 {
@@ -12936,7 +12965,7 @@ a:hover {
   margin-left: 0;
 }
 
-.btn-lg, .btn-group-lg > .btn, .btn-group-lg > button.link, .btn-group-lg > .button, .node-preview-container .btn-group-lg > .node-preview-backlink {
+.btn-lg, .btn-group-lg > .btn, .forum-teaser .more-link .btn-group-lg > a, .btn-group-lg > button.link, .btn-group-lg > .button, .node-preview-container .btn-group-lg > .node-preview-backlink {
   font-size: 1.5rem;
 }
 
@@ -13132,10 +13161,11 @@ legend {
 .block .member-block a, main .block .content-block a {
   color: #2D4C9B;
 }
-.block .member-block a.btn-primary, main .block .content-block a.btn-primary {
+.block .member-block a.btn-primary, .block .member-block .forum-teaser .more-link a, .forum-teaser .more-link .block .member-block a, .block .member-block a.btn-secondary, main .block .content-block a.btn-primary, main .block .content-block .forum-teaser .more-link a, .forum-teaser .more-link main .block .content-block a, main .block .content-block a.btn-secondary {
   color: #fff;
+  border: none;
 }
-.block .member-block a.btn-primary:hover, main .block .content-block a.btn-primary:hover {
+.block .member-block a.btn-primary:hover, .block .member-block .forum-teaser .more-link a:hover, .forum-teaser .more-link .block .member-block a:hover, .block .member-block a.btn-secondary:hover, main .block .content-block a.btn-primary:hover, main .block .content-block .forum-teaser .more-link a:hover, .forum-teaser .more-link main .block .content-block a:hover, main .block .content-block a.btn-secondary:hover {
   color: #fff;
 }
 .block .member-block a:hover, main .block .content-block a:hover {
@@ -13185,6 +13215,12 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 .alert-success {
   background-color: #FDC652;
   color: #000;
+}
+.alert-success a {
+  color: var(--bs-link-color) !important;
+}
+.alert-success a:hover {
+  color: #fff !important;
 }
 
 #civicrm-footer {
@@ -13410,7 +13446,7 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 .gift-details .views-field-id-2 {
   display: inline-block;
 }
-.gift-details .views-field-id-2 .btn-primary {
+.gift-details .views-field-id-2 .btn-primary, .gift-details .views-field-id-2 .forum-teaser .more-link a, .forum-teaser .more-link .gift-details .views-field-id-2 a {
   margin: 1rem 0;
 }
 .gift-details .views-field-nothing {
@@ -13639,16 +13675,20 @@ table td a, table th a {
   height: auto;
 }
 
-/*
-@keyframes rosca-scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+.forum-teaser .view-content {
+  display: flex;
+  flex-direction: column-reverse;
 }
- */
+.forum-teaser .view-content .views-field-comment-body p {
+  margin-bottom: 0.1rem;
+}
+.forum-teaser .more-link a {
+  color: #fff;
+}
+.forum-teaser .more-link a:hover {
+  color: #fff;
+}
+
 @keyframes rosca-scroll {
   0% {
     transform: translateX(100%);
@@ -13659,6 +13699,13 @@ table td a, table th a {
   100% {
     transform: translateX(-200%); /* hold here briefly */
   }
+}
+.view-member-recurring-contributions > .view-content {
+  margin: -0.8rem -0.8rem 0.8rem -0.8rem;
+}
+
+.fix-filter-alert .alert {
+  margin: 0 0 1.5rem;
 }
 
 /*# sourceMappingURL=style.css.map */

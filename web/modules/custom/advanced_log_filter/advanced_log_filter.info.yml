@@ -1,0 +1,9 @@
+name: Advanced Log Filter
+type: module
+description: 'Adds advanced filtering capabilities to the log messages page including date, user, category exclusion, and text search filters.'
+core_version_requirement: ^10
+package: Custom
+dependencies:
+  - drupal:dblog
+  - drupal:user
+  - drupal:system

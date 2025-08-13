@@ -1,0 +1,7 @@
+text:
+  -
+    value: 'New comments in your household forum'
+    format: plain_text
+  -
+    value: 'There have been [message:field-comment-count] new comments in your household forum today. <a href="[message:field-forum-url]">View the discussion</a>'
+    format: full_html

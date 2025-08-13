@@ -3,3 +3,8 @@ services:
     class: Drupal\kin_forum\EventSubscriber\CommentLastPageRedirectSubscriber
     tags:
       - { name: event_subscriber }
+  kin_forum.group_forum_redirect:
+    class: Drupal\kin_forum\EventSubscriber\GroupForumRedirectSubscriber
+    arguments: [ '@entity_type.manager' ]
+    tags:
+      - { name: event_subscriber }

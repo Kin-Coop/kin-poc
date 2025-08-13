@@ -1,0 +1,9 @@
+filter-form:
+  css:
+    theme:
+      css/filter-form.css: {}
+  js:
+    js/filter-form.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

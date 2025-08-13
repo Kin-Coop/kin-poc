@@ -32,7 +32,6 @@ h1 {
   font-style: normal;
 }
 
-
 h2, h3, h4, h5 {
   font-family: "Montserrat", serif;
   font-optical-sizing: auto;
@@ -56,6 +55,9 @@ h2, h3, h4, h5 {
   }
 }
 
+.btn-secondary {
+  font-size: 1.1rem;
+}
 
 h2 {
   font-size: 3.2rem;
@@ -178,6 +180,7 @@ nav.navbar {
 .region-breadcrumb {
   #block-kin-views-block-messages-block-2 {
     margin-top: 1rem;
+
     a {
       display: block;
       background-color: lighten($yellow, 20%);
@@ -271,9 +274,7 @@ form {
 
 
 footer.footer {
-
   margin-top: 40px;
-
 
   .region-footer {
     flex-direction: row;
@@ -295,8 +296,6 @@ footer.footer {
       }
     }
   }
-
-
 }
 
 #block-kin-page-title {
@@ -368,10 +367,6 @@ legend {
     background: #fff;
     color: #000;
 
-    .member-block {
-      //border: 1px solid #eee;
-    }
-
     &.lines .views-row {
       border-bottom: 1px solid $yellow;
       padding: 0 0 .3rem 0;
@@ -381,8 +376,9 @@ legend {
     a {
       color: $primary;
 
-      &.btn-primary {
+      &.btn-primary, &.btn-secondary {
         color: #fff;
+        border: none;
 
         &:hover {
           color: #fff;
@@ -444,7 +440,6 @@ table {
       }
     }
   }
-
 }
 
 .vertical-space {
@@ -458,6 +453,14 @@ table {
 .alert-success {
   background-color: $yellow;
   color: #000;
+
+  a {
+    color: var(--bs-link-color) !important;
+
+    &:hover {
+      color: #fff !important;
+    }
+  }
 }
 
 #civicrm-footer {
@@ -465,7 +468,6 @@ table {
 }
 
 #crm-container.crm-public {
-
   a {
     color: #fff;
   }
@@ -790,7 +792,6 @@ table {
 }
 
 table {
-
   td, th {
     a {
       color: $primary;
@@ -847,6 +848,7 @@ table {
       }
     }
   }
+
   .field--name-private-messages {
     .private-message {
       border: none !important;
@@ -871,6 +873,7 @@ table {
 
 #block-kin-privatemessageactions {
   margin: 0 0 1.6rem 0;
+
   a:first-child {
     display: inline-block;
     padding: .2rem .7rem;
@@ -1045,7 +1048,6 @@ table {
   margin-left: 0;
 }
 
-
 .rosca-scroller {
   overflow: hidden;
   width: 100%;
@@ -1082,16 +1084,32 @@ table {
     }
   }
 }
-/*
-@keyframes rosca-scroll {
-  0% {
-    transform: translateX(0);
+
+.forum-teaser {
+  .view-content {
+    display: flex;
+    flex-direction: column-reverse;
+
+    .views-field-comment-body {
+      p {
+        margin-bottom: .1rem;
+      }
+    }
   }
-  100% {
-    transform: translateX(-50%);
+
+  .more-link {
+    a {
+      @extend .btn;
+      @extend .btn-primary;
+      color: #fff;
+
+      &:hover {
+        color: #fff;
+
+      }
+    }
   }
 }
- */
 
 @keyframes rosca-scroll {
   0% {
@@ -1102,5 +1120,17 @@ table {
   }
   100% {
     transform: translateX(-200%); /* hold here briefly */
+  }
+}
+
+.view-member-recurring-contributions {
+  > .view-content {
+    margin: -0.8rem -0.8rem 0.8rem -0.8rem;
+  }
+}
+
+.fix-filter-alert {
+  .alert {
+    margin: 0 0 1.5rem;
   }
 }

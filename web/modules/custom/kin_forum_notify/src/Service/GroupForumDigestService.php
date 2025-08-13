@@ -93,6 +93,11 @@ class GroupForumDigestService {
 
     $comment_count = count($comment_ids);
 
+    // Get all comment authors for the new comments
+    $comment_authors = $this->getCommentAuthors($comment_ids);
+
+    $author_count = count($comment_authors);
+
     // Get household contact ID from entity reference field
     $household_contact_id = $node->get('field_group')->target_id;
 
@@ -105,15 +110,53 @@ class GroupForumDigestService {
 
     $emails_sent = FALSE;
 
-    foreach ($household_members as $contact_id) {
-      $user = $this->getUserFromCiviContact($contact_id);
-      if ($user) {
-        $this->sendDigestToUser($user, $node, $comment_count, $household_contact_id);
-        $emails_sent = TRUE;
+    // Only send a notification email to everyone if there is more than one comment author
+    // If there is only one comment author for new comments then don't send a notification email to that author
+    if ($author_count > 1) {
+      foreach ($household_members as $contact_id) {
+        $user = $this->getUserFromCiviContact($contact_id);
+        if ($user) {
+          $this->sendDigestToUser($user, $node, $comment_count, $household_contact_id);
+          $emails_sent = TRUE;
+        }
+      }
+    } elseif ($author_count == 1) {
+      foreach ($household_members as $contact_id) {
+        $user = $this->getUserFromCiviContact($contact_id);
+        if ($user) {
+          // Check if this user is one of the comment authors
+          if (!in_array($user->id(), $comment_authors)) {
+            $this->sendDigestToUser($user, $node, $comment_count, $household_contact_id);
+            $emails_sent = TRUE;
+          }
+          // If user is a comment author, skip sending them the notification
+        }
       }
     }
 
     return $emails_sent; // Return whether any emails were actually sent
+  }
+
+  /**
+   * Get all unique user IDs who authored the comments.
+   */
+  protected function getCommentAuthors($comment_ids) {
+    if (empty($comment_ids)) {
+      return [];
+    }
+
+    $comment_storage = $this->entityTypeManager->getStorage('comment');
+    $comments = $comment_storage->loadMultiple($comment_ids);
+
+    $authors = [];
+    foreach ($comments as $comment) {
+      $author_id = $comment->getOwnerId();
+      if ($author_id && !in_array($author_id, $authors)) {
+        $authors[] = $author_id;
+      }
+    }
+
+    return $authors;
   }
 
   protected function getHouseholdMembers($household_contact_id) {

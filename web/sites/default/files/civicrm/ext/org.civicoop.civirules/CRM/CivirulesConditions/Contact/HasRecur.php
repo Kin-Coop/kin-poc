@@ -95,7 +95,9 @@ class CRM_CivirulesConditions_Contact_HasRecur extends CRM_CivirulesConditions_G
         'rule_condition_id' => $ruleConditionId,
         'entity' => $this->getEntity(),
         'condition_name' => $this->getConditionName(),
-      ]);
+      ],
+      FALSE, NULL, FALSE, FALSE, TRUE
+    );
   }
 
   /**

@@ -11,7 +11,7 @@ return [
       'version' => 4,
       'values' => [
         'name' => 'Civi_Rules_Rule_Action_Search',
-        'label' => E::ts('Civi Rules Rule Actions'),
+        'label' => E::ts('CiviRules Rule Actions'),
         'api_entity' => 'CiviRulesRuleAction',
         'api_params' => [
           'version' => 4,

@@ -31,7 +31,7 @@ return [
     'label' => [
       'title' => E::ts('Label'),
       'sql_type' => 'varchar(128)',
-      'input_type' => 'Select',
+      'input_type' => 'Text',
       'default' => NULL,
     ],
     'class_name' => [

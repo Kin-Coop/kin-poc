@@ -13,9 +13,8 @@ class CRM_CivirulesActions_Relationship_Add extends CRM_CivirulesActions_Generic
    * @return bool|string
    * $access public
    */
-  public function getExtraDataInputUrl($ruleActionId)
-  {
-    return CRM_Utils_System::url('civicrm/civirule/form/action/relationship_add', "rule_action_id=$ruleActionId");
+  public function getExtraDataInputUrl($ruleActionId) {
+    return $this->getFormattedExtraDataInputUrl('civicrm/civirule/form/action/relationship_add', $ruleActionId);
   }
 
   /**

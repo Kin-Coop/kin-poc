@@ -5,7 +5,6 @@ return [
   'type' => 'search',
   'title' => E::ts('Rule Actions'),
   'icon' => 'fa-list-alt',
-  'server_route' => 'civicrm/testruleaction',
   'permission' => [
     'administer CiviRules',
   ],

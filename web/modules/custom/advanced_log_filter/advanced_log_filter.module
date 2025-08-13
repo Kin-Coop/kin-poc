@@ -1,0 +1,77 @@
+<?php
+
+/**
+ * @file
+ * Advanced Log Filter module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function advanced_log_filter_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.advanced_log_filter':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Advanced Log Filter module extends Drupal\'s standard log messages page with advanced filtering capabilities.') . '</p>';
+      $output .= '<h3>' . t('Features') . '</h3>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('<strong>Date Range Filtering:</strong> Filter log messages by date range using from/to date fields.') . '</li>';
+      $output .= '<li>' . t('<strong>User Filtering:</strong> Filter messages by specific user ID or username.') . '</li>';
+      $output .= '<li>' . t('<strong>Category Exclusion:</strong> Exclude specific log categories from results.') . '</li>';
+      $output .= '<li>' . t('<strong>Text Search:</strong> Search for specific text within log messages.') . '</li>';
+      $output .= '<li>' . t('<strong>Severity Filtering:</strong> Filter by log message severity levels.') . '</li>';
+      $output .= '<li>' . t('<strong>Enhanced UI:</strong> Improved interface with visual severity indicators.') . '</li>';
+      $output .= '</ul>';
+      $output .= '<h3>' . t('Usage') . '</h3>';
+      $output .= '<p>' . t('Access the advanced log filtering interface at <em>Administration » Reports » Advanced Log Messages</em>.') . '</p>';
+      $output .= '<p>' . t('Use the filter form to narrow down log messages based on your criteria. Filters can be combined for more precise results.') . '</p>';
+      return $output;
+
+    case 'advanced_log_filter.admin_dblog':
+      return '<p>' . t('Use the filters below to narrow down the log messages. You can filter by date range, user, exclude categories, search message text, and filter by severity level.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function advanced_log_filter_theme() {
+  return [
+    'advanced_log_filter_table' => [
+      'variables' => [
+        'header' => [],
+        'rows' => [],
+        'attributes' => [],
+        'empty' => '',
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function advanced_log_filter_preprocess_page(&$variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+
+  if ($route_name == 'advanced_log_filter.admin_dblog') {
+    $variables['#attached']['library'][] = 'advanced_log_filter/filter-form';
+
+    // Add breadcrumb modification
+    if (isset($variables['breadcrumb'])) {
+      $variables['breadcrumb']['#cache']['contexts'][] = 'route';
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function advanced_log_filter_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'advanced_log_filter_form') {
+    $form['#attributes']['class'][] = 'advanced-log-filter-form';
+  }
+}

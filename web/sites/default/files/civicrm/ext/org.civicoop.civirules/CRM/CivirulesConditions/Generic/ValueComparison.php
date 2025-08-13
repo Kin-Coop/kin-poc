@@ -146,7 +146,8 @@ abstract class CRM_CivirulesConditions_Generic_ValueComparison extends CRM_Civir
         if (!isset($field['name'])) {
           continue;
         }
-        switch( $field['type'] ) {
+        // Certain fields don't have types (eg. Contact group/tag).
+        switch($field['type'] ?? '') {
           case $dateType:
           case $timeType:
           case $dateTimeType:
@@ -417,7 +418,7 @@ abstract class CRM_CivirulesConditions_Generic_ValueComparison extends CRM_Civir
    * @return bool|string
    */
   public function getExtraDataInputUrl($ruleConditionId) {
-    return CRM_Utils_System::url('civicrm/civirule/form/condition/datacomparison/', 'rule_condition_id='.$ruleConditionId);
+    return $this->getFormattedExtraDataInputUrl('civicrm/civirule/form/condition/datacomparison', $ruleConditionId);
   }
 
   /**

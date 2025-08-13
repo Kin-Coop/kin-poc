@@ -5,3 +5,10 @@ kin_forum.debug_constraints:
     _title: 'Constraint Debug'
   requirements:
     _permission: 'administer site configuration'
+kin_forum.check_comments:
+  path: '/kin-forum/check-new-comments'
+  defaults:
+    _controller: '\Drupal\kin_forum\Controller\CommentNotifyController::checkNewComments'
+  requirements:
+    _permission: 'access content'
+  methods: [GET]

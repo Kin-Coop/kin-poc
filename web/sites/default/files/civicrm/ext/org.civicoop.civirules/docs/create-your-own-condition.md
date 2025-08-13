@@ -309,8 +309,7 @@ Method `getExtraDataInputUrl` is used if you have additional forms for your cond
  * @abstract
  */
 public function getExtraDataInputUrl($ruleConditionId) {
-  return CRM_Utils_System::url('civicrm/civirule/form/condition/membershiptype', 'rule_condition_id='
-    .$ruleConditionId);
+  return $this->getFormattedExtraDataInputUrl('civicrm/civirule/form/condition/membershiptype', $ruleConditionId);
 }
 ```
 

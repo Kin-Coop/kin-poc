@@ -37,7 +37,7 @@ class CRM_CivirulesConditions_GroupContact_GroupId extends CRM_Civirules_Conditi
    * @abstract
    */
   public function getExtraDataInputUrl($ruleConditionId) {
-    return CRM_Utils_System::url('civicrm/civirule/form/condition/groupcontact/groupid/', 'rule_condition_id='.$ruleConditionId);
+    return $this->getFormattedExtraDataInputUrl('civicrm/civirule/form/condition/groupcontact/groupid', $ruleConditionId);
   }
 
   /**

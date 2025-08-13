@@ -42,21 +42,20 @@ function emailapi_civicrm_enable() {
 }
 
 /**
- * Implements hook_civicrm_managed().
+ * @param string $op the type of operation being performed; 'check' or 'enqueue'
+ * @param \CRM_Queue_Queue|NULL $queue (for 'enqueue') the modifiable list of pending up upgrade tasks
  *
- * Generate a list of entities to create/deactivate/delete when this module
- * is installed, disabled, uninstalled.
- *
- * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_managed
+ * @return void
+ *   For 'check' operations, return array(bool) (TRUE if an upgrade is required)
+ *   For 'enqueue' operations, return void
  */
-function emailapi_civicrm_managed(&$entities)
-{
-    // Load the triggers when civirules is installed.
-    if (!empty(\Civi\Api4\Extension::get(FALSE)
-        ->addWhere('file', '=', 'civirules')
-        ->addWhere('status:name', '=', 'installed')
-        ->execute()
-        ->first())) {
-        CRM_Civirules_Utils_Upgrader::insertActionsFromJson(E::path('civirules/actions.json'));
-    }
+function emailapi_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
+  if ($op === 'enqueue') {
+    $task = new CRM_Queue_Task(
+      ['CRM_Emailapi_Upgrader', 'postUpgrade'],
+      [],
+      'Update EmailAPI Actions'
+    );
+    return $queue->createItem($task);
+  }
 }
