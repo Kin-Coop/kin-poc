@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.paragraph.paragraph_sign_up
-    - field.field.paragraph.block.field_background_colour
     - field.field.paragraph.block.field_block
     - field.field.paragraph.block.paragraph_view_mode
     - paragraphs.paragraphs_type.block
@@ -41,5 +40,4 @@ content:
     weight: 1
     region: content
 hidden:
-  field_background_colour: true
   paragraph_view_mode: true
