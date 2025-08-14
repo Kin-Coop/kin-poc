@@ -8,8 +8,8 @@ dependencies:
     - field.field.node.page.field_paragraphs
     - node.type.page
   module:
+    - manage_display
     - text
-    - user
 _core:
   default_config_hash: 8BgdRtLbtQ0F__o0FHSH0Mx5fvXOra9tfT1GmNKbRYw
 id: node.page.teaser
@@ -28,6 +28,18 @@ content:
   links:
     weight: 101
     region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: -49
+    region: content
 hidden:
+  created: true
   field_paragraphs: true
   langcode: true
+  private_message_link: true
+  uid: true

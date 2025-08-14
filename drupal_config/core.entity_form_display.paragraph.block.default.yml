@@ -3,6 +3,7 @@ langcode: en-gb
 status: true
 dependencies:
   config:
+    - field.field.paragraph.block.field_background_colour
     - field.field.paragraph.block.field_block
     - field.field.paragraph.block.paragraph_view_mode
     - paragraphs.paragraphs_type.block
@@ -14,6 +15,14 @@ targetEntityType: paragraph
 bundle: block
 mode: default
 content:
+  field_background_colour:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_block:
     type: block_field_default
     weight: 0
