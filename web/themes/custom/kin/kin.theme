@@ -20,6 +20,10 @@ function kin_views_pre_render(&$view){
 }
 */
 
+function kin_preprocess_image(&$variables) {
+    $variables['attributes']['loading'] = [];
+}
+
 function kin_preprocess_html(&$variables) {
 
     $route = \Drupal::routeMatch();
