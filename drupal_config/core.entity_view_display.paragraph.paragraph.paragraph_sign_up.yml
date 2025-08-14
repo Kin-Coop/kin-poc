@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.paragraph.paragraph_sign_up
     - field.field.paragraph.paragraph.field_paragraph
+    - field.field.paragraph.paragraph.field_style
     - paragraphs.paragraphs_type.paragraph
   module:
     - entity_reference_revisions
@@ -22,4 +23,5 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-hidden: {  }
+hidden:
+  field_style: true

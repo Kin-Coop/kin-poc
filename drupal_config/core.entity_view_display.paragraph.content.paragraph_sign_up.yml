@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.paragraph.paragraph_sign_up
     - field.field.paragraph.content.field_body
+    - field.field.paragraph.content.field_style
     - field.field.paragraph.content.field_title
     - paragraphs.paragraphs_type.content
   module:
@@ -39,4 +40,5 @@ content:
         fences_label_classes: ''
     weight: 0
     region: content
-hidden: {  }
+hidden:
+  field_style: true

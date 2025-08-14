@@ -10,4 +10,6 @@ weight: -8
 is_admin: null
 permissions:
   - 'view any partners content'
+  - 'view any rosca content'
   - 'view own partners content'
+  - 'view own rosca content'
