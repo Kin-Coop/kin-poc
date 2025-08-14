@@ -3,7 +3,7 @@ _core:
 theme: current
 defaults:
   sender: maillog
-  formatter: php_mail
+  formatter: symfony_mailer
 modules:
   webform:
     none:

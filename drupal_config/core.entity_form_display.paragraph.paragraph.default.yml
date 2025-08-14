@@ -3,6 +3,7 @@ langcode: en-gb
 status: true
 dependencies:
   config:
+    - field.field.paragraph.paragraph.field_background_colour
     - field.field.paragraph.paragraph.field_paragraph
     - paragraphs.paragraphs_type.paragraph
   module:
@@ -12,6 +13,14 @@ targetEntityType: paragraph
 bundle: paragraph
 mode: default
 content:
+  field_background_colour:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_paragraph:
     type: paragraphs
     weight: 0
