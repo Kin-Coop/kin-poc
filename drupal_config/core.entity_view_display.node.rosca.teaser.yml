@@ -1,0 +1,35 @@
+uuid: 03faabcf-9f08-443a-b900-724b45f91081
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.rosca.field_country
+    - node.type.rosca
+  module:
+    - manage_display
+id: node.rosca.teaser
+targetEntityType: node
+bundle: rosca
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: -49
+    region: content
+hidden:
+  created: true
+  field_country: true
+  langcode: true
+  private_message_link: true
+  uid: true

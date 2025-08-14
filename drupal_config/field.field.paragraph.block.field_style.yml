@@ -1,0 +1,19 @@
+uuid: e85c8c54-3d94-4346-8e15-f6407cbf4bbe
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_style
+    - paragraphs.paragraphs_type.block
+id: paragraph.block.field_style
+field_name: field_style
+entity_type: paragraph
+bundle: block
+label: Style
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

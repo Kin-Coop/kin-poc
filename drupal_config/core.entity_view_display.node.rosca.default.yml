@@ -1,0 +1,41 @@
+uuid: 20342bb1-4269-40c8-aafa-8458287963c7
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.field.node.rosca.field_country
+    - node.type.rosca
+  module:
+    - manage_display
+id: node.rosca.default
+targetEntityType: node
+bundle: rosca
+mode: default
+content:
+  field_country:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: -49
+    region: content
+hidden:
+  created: true
+  langcode: true
+  private_message_link: true
+  uid: true

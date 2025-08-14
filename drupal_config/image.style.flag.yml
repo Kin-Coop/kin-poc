@@ -1,0 +1,15 @@
+uuid: 6d5007e3-b873-48c0-95bf-5c49acd3ba4b
+langcode: en-gb
+status: true
+dependencies: {  }
+name: flag
+label: Flag
+effects:
+  adb311ed-b655-4e5c-81d4-cd0a6d6de2ea:
+    uuid: adb311ed-b655-4e5c-81d4-cd0a6d6de2ea
+    id: image_scale
+    weight: 1
+    data:
+      width: 300
+      height: null
+      upscale: false
