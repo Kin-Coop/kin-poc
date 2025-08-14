@@ -1,3 +1,4 @@
+
 // Sub theme styling.
 @import 'variables_drupal';
 
@@ -31,7 +32,6 @@ h1 {
   font-style: normal;
 }
 
-
 h2, h3, h4, h5 {
   font-family: "Montserrat", serif;
   font-optical-sizing: auto;
@@ -47,10 +47,17 @@ h2, h3, h4, h5 {
   font-size: 1.1rem;
 }
 
+.bg-warning-subtle {
+  color: #000;
+
+  a {
+    color: $primary;
+  }
+}
+
 .btn-secondary {
   font-size: 1.1rem;
 }
-
 
 h2 {
   font-size: 3.2rem;
@@ -101,6 +108,13 @@ strong {
 
 .hide {
   display: none;
+}
+
+main > .fluid {
+  #block-kin-page-title,
+  .field--name-body {
+    @extend .container;
+  }
 }
 
 a {
@@ -166,6 +180,7 @@ nav.navbar {
 .region-breadcrumb {
   #block-kin-views-block-messages-block-2 {
     margin-top: 1rem;
+
     a {
       display: block;
       background-color: lighten($yellow, 20%);
@@ -259,9 +274,7 @@ form {
 
 
 footer.footer {
-
   margin-top: 40px;
-
 
   .region-footer {
     flex-direction: row;
@@ -283,8 +296,6 @@ footer.footer {
       }
     }
   }
-
-
 }
 
 #block-kin-page-title {
@@ -429,7 +440,6 @@ table {
       }
     }
   }
-
 }
 
 .vertical-space {
@@ -458,7 +468,6 @@ table {
 }
 
 #crm-container.crm-public {
-
   a {
     color: #fff;
   }
@@ -783,7 +792,6 @@ table {
 }
 
 table {
-
   td, th {
     a {
       color: $primary;
@@ -840,6 +848,7 @@ table {
       }
     }
   }
+
   .field--name-private-messages {
     .private-message {
       border: none !important;
@@ -864,6 +873,7 @@ table {
 
 #block-kin-privatemessageactions {
   margin: 0 0 1.6rem 0;
+
   a:first-child {
     display: inline-block;
     padding: .2rem .7rem;
@@ -1031,13 +1041,48 @@ table {
       }
     }
   }
-
-
 }
 
 #edit-submit {
   margin-bottom: 1rem;
   margin-left: 0;
+}
+
+.rosca-scroller {
+  overflow: hidden;
+  width: 100%;
+  height: 240px;
+
+  .rosca-track {
+    display: flex;
+    gap: 2rem;
+    height: 240px;
+    animation: rosca-scroll 35s linear infinite;
+
+    .rosca-item {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      margin: 0 1.5rem;
+
+      .rosca-name {
+        font-weight: bold;
+        margin: 0 0 0.5rem;
+      }
+
+      .country-name {
+        margin: 0.5rem 0 0;
+        text-align: center;
+      }
+
+      .country-flag {
+        img {
+          width: 110px;
+          height: auto;
+        }
+      }
+    }
+  }
 }
 
 .forum-teaser {
@@ -1060,8 +1105,21 @@ table {
 
       &:hover {
         color: #fff;
+
       }
     }
+  }
+}
+
+@keyframes rosca-scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  98% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(-200%); /* hold here briefly */
   }
 }
 
