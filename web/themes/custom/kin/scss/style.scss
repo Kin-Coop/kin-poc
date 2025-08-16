@@ -55,6 +55,12 @@ h2, h3, h4, h5 {
   }
 }
 
+.bg-white {
+  h2 {
+    color: #000;
+  }
+}
+
 .btn-secondary {
   font-size: 1.1rem;
 }
@@ -93,6 +99,27 @@ th {
   font-weight: 500;
 }
 
+@include media-breakpoint-down(sm) {
+  img {
+    max-width: 100%;
+    height: auto;
+
+    &.align-left, &.align-right {
+      float: none;
+      display: block;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+  }
+
+  .align-left, .align-right {
+    float: none;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
 button[type="submit"], .crm-container button[type="submit"].crm-button {
   margin-bottom: 2rem;
 }
@@ -111,7 +138,8 @@ strong {
 }
 
 nav.navbar > div,
-footer.footer > div {
+footer.footer > div,
+.block-local-tasks-block {
   @extend .container;
 }
 
@@ -122,6 +150,14 @@ main > .fluid {
   }
 }
 
+iframe {
+  max-width: 100%;
+  height: auto;
+
+  &.youtube {
+    aspect-ratio: 16 / 9;
+  }
+}
 
 a {
   color: #fff;
@@ -1141,5 +1177,13 @@ table {
 .fix-filter-alert {
   .alert {
     margin: 0 0 1.5rem;
+  }
+}
+
+.field--name-field-paragraphs-2 {
+  h2 {
+    margin: 0 0 .5rem;
+    line-height: 1.2;
+    font-size: 1.8rem;
   }
 }
