@@ -1,0 +1,18 @@
+# English, British translation of Link Attributes widget (2.1.1)
+# Copyright (c) 2024 by the English, British translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Link Attributes widget (2.1.1)\n"
+"POT-Creation-Date: 2024-07-19 11:06+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: English, British\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Enabled"
+msgstr "Enabled"
+msgid "About"
+msgstr "About"

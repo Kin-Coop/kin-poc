@@ -20,6 +20,8 @@ function kin_views_pre_render(&$view){
 }
 */
 
+
+
 // Remove lazy loading
 function kin_preprocess_image(&$variables) {
     $variables['attributes']['loading'] = [];
