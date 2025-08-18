@@ -55,11 +55,38 @@ h2, h3, h4, h5 {
   }
 }
 
+.bg-primary {
+  color: $yellow;
+
+  p {
+    color: $yellow;
+  }
+
+  a {
+    color: #fff;
+
+    &:hover {
+      color: $yellow;
+    }
+  }
+}
+
+.btn-danger {
+  color: #fff !important;
+
+  &:hover {
+    color: #000 !important;
+  }
+}
+
 .bg-white {
+  color: #000;
+
   h2 {
     color: #000;
   }
 }
+
 
 .btn-secondary {
   font-size: 1.1rem;
@@ -323,12 +350,6 @@ footer.footer {
     flex-wrap: wrap;
 
     a {
-      color: #fff;
-
-      &:hover {
-        color: $yellow;
-      }
-
       &.nav-link {
         color: #fff;
 
@@ -399,7 +420,7 @@ legend {
   text-transform: lowercase;
 }
 
-.block {
+.block:not(.no-style) {
   .member-block, main & .content-block {
     padding: .8rem;
     border: 1px solid $primary;
@@ -1158,13 +1179,13 @@ table {
 
 @keyframes rosca-scroll {
   0% {
-    transform: translateX(100%);
+    transform: translateX(10%);
   }
   98% {
-    transform: translateX(-270%);
+    transform: translateX(-300%);
   }
   100% {
-    transform: translateX(-270%); /* hold here briefly */
+    transform: translateX(-300%); /* hold here briefly */
   }
 }
 
@@ -1185,5 +1206,39 @@ table {
     margin: 0 0 .5rem;
     line-height: 1.2;
     font-size: 1.8rem;
+  }
+}
+
+#block-views-block-partners-block-1 {
+  h2 {
+    @extend .container;
+  }
+}
+
+div.block.vertical {
+  position: fixed;
+  right: 0;
+  top: 36%;
+  //writing-mode: vertical-rl;
+  //text-orientation: upright;
+
+  .field--name-body {
+    padding: 0;
+    margin: 0;
+
+    p {
+      margin: 0;
+
+      .btn {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+      }
+    }
+  }
+}
+
+.page---community-saving-history {
+  #block-kin-content {
+    //padding-right: 54px;
   }
 }

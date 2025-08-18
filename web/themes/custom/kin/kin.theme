@@ -20,6 +20,7 @@ function kin_views_pre_render(&$view){
 }
 */
 
+// Remove lazy loading
 function kin_preprocess_image(&$variables) {
     $variables['attributes']['loading'] = [];
 }
@@ -58,7 +59,7 @@ function kin_preprocess_page(&$variables) {
   $alias = \Drupal::service('path_alias.manager')->getAliasByPath($path);
 
   // Define aliases to match exactly. Ensure leading slashes to match Drupal aliases.
-  $paths = ['/test-0', '/community-saving'];
+  $paths = ['/test-0', '/community-saving-history', '/home'];
 
   // Example 1: For a specific alias (exact match).
   if (in_array($alias, $paths, true)) {

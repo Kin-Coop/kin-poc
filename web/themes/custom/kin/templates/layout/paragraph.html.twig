@@ -48,6 +48,7 @@
     paragraph.parent_type.value == 'paragraph' ? 'container mx-auto' : 'row'
   ]
 %}
+{{ dump() }}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
