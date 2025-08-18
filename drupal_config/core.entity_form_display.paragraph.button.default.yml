@@ -7,19 +7,29 @@ dependencies:
     - field.field.paragraph.button.field_style
     - paragraphs.paragraphs_type.button
   module:
-    - link
+    - link_attributes
 id: paragraph.button.default
 targetEntityType: paragraph
 bundle: button
 mode: default
 content:
   field_link:
-    type: link_default
+    type: link_attributes
     weight: 0
     region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
+      widget_default_open: expandIfValuesSet
     third_party_settings: {  }
   field_style:
     type: string_textfield
