@@ -10,6 +10,7 @@ dependencies:
     - exclude_node_title
     - file
     - filter
+    - google_analytics
     - media
     - node_view_permissions
     - search
@@ -33,6 +34,7 @@ permissions:
   - 'edit contributions'
   - 'edit my contact'
   - 'make online contributions'
+  - 'opt-in or out of google analytics tracking'
   - 'profile create'
   - 'profile edit'
   - 'profile listings'

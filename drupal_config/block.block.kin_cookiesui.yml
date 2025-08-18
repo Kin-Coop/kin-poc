@@ -1,0 +1,34 @@
+uuid: c4fdd574-8577-4aef-a612-4441353afebe
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - block_classes
+    - block_visibility_groups
+    - cookies
+    - user
+  theme:
+    - kin
+id: kin_cookiesui
+theme: kin
+region: footer
+weight: -13
+provider: null
+plugin: cookies_ui_block
+settings:
+  id: cookies_ui_block
+  label: 'Cookies UI'
+  label_display: '0'
+  provider: cookies
+visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      anonymous: anonymous
