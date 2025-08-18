@@ -23,6 +23,7 @@ settings:
       - removeFormat
       - '|'
       - link
+      - imce_link
       - '|'
       - bulletedList
       - numberedList
@@ -32,6 +33,7 @@ settings:
       - '|'
       - blockQuote
       - drupalInsertImage
+      - imce_image
       - insertTable
       - drupalMedia
       - horizontalLine
@@ -108,6 +110,13 @@ settings:
       multiBlock: true
     ckeditor5_sourceEditing:
       allowed_tags: {  }
+    editor_advanced_image_image:
+      disable_balloon: false
+      default_class: ''
+      enabled_attributes:
+        - class
+        - id
+        - title
     editor_advanced_link_link:
       enabled_attributes:
         - class

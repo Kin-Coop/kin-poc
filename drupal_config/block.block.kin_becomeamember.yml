@@ -1,0 +1,39 @@
+uuid: 347b46d2-67d5-4bf4-8db9-67952ba1d9b7
+langcode: en-gb
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:d3f42a4c-0689-4f1d-a3d3-0d4c0ef04f90'
+  module:
+    - block_classes
+    - block_content
+    - block_visibility_groups
+    - system
+  theme:
+    - kin
+third_party_settings:
+  block_classes:
+    block_class: 'no-style vertical'
+id: kin_becomeamember
+theme: kin
+region: content
+weight: 0
+provider: null
+plugin: 'block_content:d3f42a4c-0689-4f1d-a3d3-0d4c0ef04f90'
+settings:
+  id: 'block_content:d3f42a4c-0689-4f1d-a3d3-0d4c0ef04f90'
+  label: 'Become a Member'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: default
+visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/community*'

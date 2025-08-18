@@ -4,16 +4,17 @@ status: true
 dependencies:
   module:
     - block_classes
+    - block_visibility_groups
     - masquerade
   theme:
     - kin
 third_party_settings:
   block_classes:
-    block_class: col-sm-12
+    block_class: 'col-sm-12 mt-4'
 id: kin_masquerade
 theme: kin
 region: footer
-weight: -7
+weight: -8
 provider: null
 plugin: masquerade
 settings:
@@ -22,4 +23,8 @@ settings:
   label_display: '0'
   provider: masquerade
   show_unmasquerade_link: true
-visibility: {  }
+visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''

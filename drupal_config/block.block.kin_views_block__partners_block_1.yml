@@ -1,6 +1,6 @@
 uuid: eb86e4d5-0479-4c55-8e30-7f062cb620a0
 langcode: en-gb
-status: true
+status: false
 dependencies:
   config:
     - views.view.partners
@@ -16,7 +16,7 @@ third_party_settings:
 id: kin_views_block__partners_block_1
 theme: kin
 region: footer
-weight: -11
+weight: -7
 provider: null
 plugin: 'views_block:partners-block_1'
 settings:

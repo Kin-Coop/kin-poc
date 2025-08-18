@@ -23,7 +23,7 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: col-sm-6
+        fences_field_classes: col-md-6
         fences_field_items_wrapper_tag: div
         fences_field_items_wrapper_classes: ''
         fences_field_item_tag: div
@@ -41,7 +41,7 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: col-sm-6
+        fences_field_classes: col-md-6
         fences_field_items_wrapper_tag: div
         fences_field_items_wrapper_classes: ''
         fences_field_item_tag: div
