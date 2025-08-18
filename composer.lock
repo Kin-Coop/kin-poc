@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27e8fb6642d8438755c6eae6c4a026f9",
+    "content-hash": "207cded528be84cb3ef398ab066ad866",
     "packages": [
         {
             "name": "adrienrn/php-mimetyper",
@@ -3946,6 +3946,75 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/ckeditor_font",
                 "issues": "http://drupal.org/project/issues/ckeditor_font"
+            }
+        },
+        {
+            "name": "drupal/cookies",
+            "version": "2.0.0-alpha5",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/cookies.git",
+                "reference": "2.0.0-alpha5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/cookies-2.0.0-alpha5.zip",
+                "reference": "2.0.0-alpha5",
+                "shasum": "cb8b96623ae54f657d81b89ff2f562b4a3709448"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11",
+                "jfeltkamp/cookiesjsr": "^2"
+            },
+            "require-dev": {
+                "drupal/asset_injector": "^2",
+                "drupal/facebook_pixel": "^2",
+                "drupal/google_analytics": "^4",
+                "drupal/google_tag": "^2",
+                "drupal/ivw_integration": "^2",
+                "drupal/matomo": "^2",
+                "drupal/media_entity_instagram": "^4",
+                "drupal/media_entity_twitter": "^2",
+                "drupal/recaptcha": "^3.4"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.0-alpha5",
+                    "datestamp": "1753290609",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "anybody",
+                    "homepage": "https://www.drupal.org/user/291091"
+                },
+                {
+                    "name": "grevil",
+                    "homepage": "https://www.drupal.org/user/3668491"
+                },
+                {
+                    "name": "jfeltkamp",
+                    "homepage": "https://www.drupal.org/user/2471686"
+                },
+                {
+                    "name": "thomas.frobieter",
+                    "homepage": "https://www.drupal.org/user/409335"
+                }
+            ],
+            "description": "Cookie consent tool.",
+            "homepage": "https://www.drupal.org/project/cookies",
+            "support": {
+                "source": "http://cgit.drupalcode.org/cookies",
+                "issues": "https://www.drupal.org/project/issues/cookies"
             }
         },
         {
@@ -8986,6 +9055,64 @@
                 "source": "https://github.com/mtibben/html2text/tree/4.3.2"
             },
             "time": "2024-08-20T02:43:29+00:00"
+        },
+        {
+            "name": "jfeltkamp/cookiesjsr",
+            "version": "2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jfeltkamp/cookiesjsr.git",
+                "reference": "52b0a05555e6d94ce4a0ea6fc6781cbdbdca829f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jfeltkamp/cookiesjsr/zipball/52b0a05555e6d94ce4a0ea6fc6781cbdbdca829f",
+                "reference": "52b0a05555e6d94ce4a0ea6fc6781cbdbdca829f",
+                "shasum": ""
+            },
+            "type": "drupal-library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Joachim Feltkamp",
+                    "homepage": "https://www.drupal.org/u/jfeltkamp"
+                },
+                {
+                    "name": "Jan Stöckler",
+                    "homepage": "https://www.drupal.org/u/janstoeckler"
+                }
+            ],
+            "description": "COOKiES JSR is a consent management tool and provides UI and API to manage 3rd party services within the GDPR.",
+            "homepage": "https://github.com/jfeltkamp/cookiesjsr",
+            "keywords": [
+                "CCPA",
+                "Europe",
+                "Personal Information",
+                "Third Party",
+                "compliance tool",
+                "consent",
+                "cookie compliance",
+                "cookies",
+                "data privacy",
+                "data protection",
+                "dsgvo",
+                "eu",
+                "gdpr",
+                "legal",
+                "lgpd",
+                "onetrust",
+                "open source",
+                "personal data",
+                "user"
+            ],
+            "support": {
+                "issues": "https://github.com/jfeltkamp/cookiesjsr/issues",
+                "source": "https://github.com/jfeltkamp/cookiesjsr"
+            },
+            "time": "2025-01-18T10:43:04+00:00"
         },
         {
             "name": "kint-php/kint",
@@ -16019,6 +16146,7 @@
         "drupal/block_field": 5,
         "drupal/civicrm_entity": 10,
         "drupal/ckeditor_font": 10,
+        "drupal/cookies": 15,
         "drupal/field_group": 15,
         "drupal/front": 15,
         "drupal/gin": 5,
