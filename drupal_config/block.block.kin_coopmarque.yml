@@ -12,7 +12,7 @@ dependencies:
 id: kin_coopmarque
 theme: kin
 region: footer
-weight: -6
+weight: -5
 provider: null
 plugin: 'block_content:ba826fe0-b0ec-4864-a9fb-907a9626a191'
 settings:

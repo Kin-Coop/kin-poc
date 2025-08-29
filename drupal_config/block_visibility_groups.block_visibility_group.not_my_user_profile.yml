@@ -1,0 +1,17 @@
+uuid: fc3e952a-1735-4028-ac9d-dac6dbc6f09b
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - system
+id: not_my_user_profile
+label: 'Not my user profile'
+logic: and
+conditions:
+  24704072-3d2a-47f3-8eed-9313d308578f:
+    id: request_path
+    negate: false
+    uuid: 24704072-3d2a-47f3-8eed-9313d308578f
+    context_mapping: {  }
+    pages: '/user/*'
+allow_other_conditions: false

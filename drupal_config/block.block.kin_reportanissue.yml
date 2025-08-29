@@ -16,7 +16,7 @@ third_party_settings:
 id: kin_reportanissue
 theme: kin
 region: footer
-weight: -10
+weight: -9
 provider: null
 plugin: 'block_content:12bcad50-5080-4d08-af4e-cc23234a694e'
 settings:

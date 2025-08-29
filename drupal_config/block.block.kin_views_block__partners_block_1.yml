@@ -16,7 +16,7 @@ third_party_settings:
 id: kin_views_block__partners_block_1
 theme: kin
 region: footer
-weight: -7
+weight: -6
 provider: null
 plugin: 'views_block:partners-block_1'
 settings:

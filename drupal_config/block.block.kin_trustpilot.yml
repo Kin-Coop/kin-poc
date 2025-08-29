@@ -1,27 +1,28 @@
-uuid: 8c20623d-c663-47c3-9f87-b5ce45a37d42
+uuid: fa669061-6572-4d13-ba88-dd993a596306
 langcode: en-gb
 status: true
 dependencies:
   content:
-    - 'block_content:basic:5a7b321b-ea6c-4728-ad6c-62289ccad8f8'
+    - 'block_content:basic:e011f927-cf96-4dd5-bf2f-ad25ccb4308a'
   module:
     - block_classes
     - block_content
     - block_visibility_groups
+    - system
   theme:
     - kin
 third_party_settings:
   block_classes:
-    block_class: 'col-sm-12 mt-2'
-id: kin_kindetails
+    block_class: col-sm-4
+id: kin_trustpilot
 theme: kin
 region: footer
-weight: -8
+weight: -10
 provider: null
-plugin: 'block_content:5a7b321b-ea6c-4728-ad6c-62289ccad8f8'
+plugin: 'block_content:e011f927-cf96-4dd5-bf2f-ad25ccb4308a'
 settings:
-  id: 'block_content:5a7b321b-ea6c-4728-ad6c-62289ccad8f8'
-  label: 'Kin Details'
+  id: 'block_content:e011f927-cf96-4dd5-bf2f-ad25ccb4308a'
+  label: 'Trust Pilot'
   label_display: '0'
   provider: block_content
   status: true
@@ -32,3 +33,7 @@ visibility:
     id: condition_group
     negate: false
     block_visibility_group: ''
+  request_path:
+    id: request_path
+    negate: true
+    pages: '/admin*'
