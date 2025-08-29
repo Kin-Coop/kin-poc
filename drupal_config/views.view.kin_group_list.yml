@@ -18,6 +18,7 @@ dependencies:
     - other_view_filter
     - user
     - views_conditional
+    - views_field_view
 id: kin_group_list
 label: 'Kin Group List'
 module: views
@@ -204,13 +205,14 @@ display:
         type: default
         options:
           grouping: {  }
-          row_class: ''
+          row_class: mb-3
           default_row_class: true
       row:
         type: fields
         options:
           default_field_elements: true
-          inline: {  }
+          inline:
+            view: view
           separator: ''
           hide_empty: true
       query:
@@ -1044,6 +1046,58 @@ display:
           or: member
           or_translate: true
           strip_tags: false
+        view:
+          id: view
+          table: views
+          field: view
+          relationship: none
+          group_type: group
+          admin_label: 'Group Total'
+          plugin_id: view
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          view: contributions
+          display: block_7
+          arguments: '{{ raw_fields.id }}'
         views_conditional_field_1:
           id: views_conditional_field_1
           table: views_conditional
@@ -1098,7 +1152,7 @@ display:
           equalto: pending
           then: '{{ display_name }} <span class="no-caps">({{ relationship_status_40 }})</span>'
           then_translate: true
-          or: '<a href="/member/group/{{ id }}">{{ display_name }} ({{ views_conditional_field }})</a>'
+          or: '<a href="/member/group/{{ id }}">{{ display_name }} ({{ views_conditional_field }})</a> {{ view }}'
           or_translate: true
           strip_tags: false
       empty:
@@ -1154,6 +1208,7 @@ display:
       defaults:
         empty: false
         title: false
+        css_class: false
         relationships: false
         fields: false
         arguments: false
@@ -1206,6 +1261,7 @@ display:
           entity_field: relationship_type_id
           plugin_id: standard
           required: true
+      css_class: 'member-block my-groups'
       display_description: ''
       header:
         area:

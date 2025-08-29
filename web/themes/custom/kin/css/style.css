@@ -13786,4 +13786,8 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   border-top-right-radius: 0;
 }
 
+.my-groups .views-field-views-conditional-field-1 div {
+  color: rgb(65.8552631579, 165.1447368421, 156.0263157895);
+}
+
 /*# sourceMappingURL=style.css.map */
