@@ -1,0 +1,9 @@
+name: Household Access Control
+type: module
+description: 'Provides household-based access control for CiviCRM integrated views'
+package: Custom
+version: 1.0.0
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:views
+  - civicrm:civicrm
