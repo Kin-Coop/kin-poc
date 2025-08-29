@@ -1120,7 +1120,7 @@ table {
     display: flex;
     gap: 2rem;
     height: 240px;
-    animation: rosca-scroll 45s linear infinite;
+    animation: rosca-scroll 80s linear infinite;
 
     .rosca-item {
       flex: 0 0 auto;
@@ -1182,10 +1182,10 @@ table {
     transform: translateX(10%);
   }
   98% {
-    transform: translateX(-300%);
+    transform: translateX(-500%);
   }
   100% {
-    transform: translateX(-300%); /* hold here briefly */
+    transform: translateX(-505%); /* hold here briefly */
   }
 }
 

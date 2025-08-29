@@ -97,3 +97,18 @@ function kinmod_views_exposed_minlength_validate(&$form, FormStateInterface $for
     $form_state->setErrorByName('group_name', t('Please enter at least 2 characters.'));
   }
 }
+
+/**
+ * Implements hook_page_attachments().
+ */
+function kinmod_page_attachments(array &$attachments) {
+    $route_name = \Drupal::routeMatch()->getRouteName();
+    
+    // Skip admin pages (backend UI).
+    if (\Drupal::service('router.admin_context')->isAdminRoute()) {
+        return;
+    }
+    
+    // Attach Trustpilot library on public pages only.
+    $attachments['#attached']['library'][] = 'kinmod/trustpilot';
+}

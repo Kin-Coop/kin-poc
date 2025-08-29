@@ -1,0 +1,3 @@
+trustpilot:
+  js:
+    //widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js: { type: external, attributes: { async: true } }
