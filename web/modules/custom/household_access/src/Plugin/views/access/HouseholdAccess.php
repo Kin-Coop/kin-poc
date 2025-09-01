@@ -8,7 +8,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\views\Plugin\views\access\AccessPluginBase;
 use Symfony\Component\Routing\Route;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Access plugin for household-based view access control.
@@ -23,8 +22,6 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  */
 class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInterface {
 
-  use StringTranslationTrait;
-
   /**
    * {@inheritdoc}
    */
@@ -32,8 +29,6 @@ class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInt
     $options = parent::defineOptions();
     $options['household_argument'] = ['default' => 'arg_0'];
     $options['bypass_permission'] = ['default' => 'administer civicrm'];
-    $options['relationship_types'] = ['default' => ''];
-    $options['check_active_only'] = ['default' => TRUE];
     return $options;
   }
 
@@ -41,13 +36,18 @@ class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInt
    * {@inheritdoc}
    */
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
+    \Drupal::logger('household_access')->notice('buildOptionsForm called');
     parent::buildOptionsForm($form, $form_state);
 
     $form['household_argument'] = [
       '#type' => 'select',
       '#title' => $this->t('Household ID argument'),
       '#description' => $this->t('Select which contextual filter contains the household ID.'),
-      '#options' => $this->getContextualFilterOptions(),
+      '#options' => [
+        'arg_0' => $this->t('First argument (arg_0)'),
+        'arg_1' => $this->t('Second argument (arg_1)'),
+        'arg_2' => $this->t('Third argument (arg_2)'),
+      ],
       '#default_value' => $this->options['household_argument'],
       '#required' => TRUE,
     ];
@@ -60,49 +60,21 @@ class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInt
       '#size' => 40,
       '#maxlength' => 255,
     ];
-
-    $form['relationship_types'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Allowed relationship types'),
-      '#description' => $this->t('Comma-separated list of CiviCRM relationship type IDs. Leave empty to allow all relationship types.'),
-      '#default_value' => $this->options['relationship_types'],
-      '#size' => 40,
-      '#maxlength' => 255,
-    ];
-
-    $form['check_active_only'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Check active relationships only'),
-      '#description' => $this->t('If checked, only active relationships will be considered for access control.'),
-      '#default_value' => $this->options['check_active_only'],
-    ];
   }
 
   /**
-   * Get available contextual filter options.
+   * {@inheritdoc}
    */
-  protected function getContextualFilterOptions() {
-    $options = [];
+  public function validateOptionsForm(&$form, FormStateInterface $form_state) {
+    parent::validateOptionsForm($form, $form_state);
+  }
 
-    // Get arguments from the view
-    $arguments = $this->view->display_handler->getHandlers('argument');
-
-    if (empty($arguments)) {
-      $options['arg_0'] = $this->t('First argument (arg_0)');
-      $options['arg_1'] = $this->t('Second argument (arg_1)');
-      $options['arg_2'] = $this->t('Third argument (arg_2)');
-    } else {
-      $i = 0;
-      foreach ($arguments as $id => $argument) {
-        $options['arg_' . $i] = $this->t('Argument @num: @title', [
-          '@num' => $i,
-          '@title' => $argument->adminLabel(),
-        ]);
-        $i++;
-      }
-    }
-
-    return $options;
+  /**
+   * {@inheritdoc}
+   */
+  public function submitOptionsForm(&$form, FormStateInterface $form_state) {
+    $this->options['household_argument'] = $form_state->getValue('household_argument');
+    $this->options['bypass_permission'] = $form_state->getValue('bypass_permission');
   }
 
   /**
@@ -178,41 +150,27 @@ class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInt
     try {
       civicrm_initialize();
 
-      // Build base API parameters
-      $params = [
+      // Check contact_id_a -> contact_id_b relationship
+      $result = civicrm_api3('Relationship', 'get', [
+        'contact_id_a' => $contact_id,
+        'contact_id_b' => $household_id,
+        'is_active' => 1,
         'sequential' => 1,
         'options' => ['limit' => 1],
-      ];
-
-      // Add relationship type filter if specified
-      if (!empty($this->options['relationship_types'])) {
-        $relationship_types = array_map('trim', explode(',', $this->options['relationship_types']));
-        $relationship_types = array_filter($relationship_types, 'is_numeric');
-        if (!empty($relationship_types)) {
-          $params['relationship_type_id'] = ['IN' => $relationship_types];
-        }
-      }
-
-      // Add active relationship filter if specified
-      if ($this->options['check_active_only']) {
-        $params['is_active'] = 1;
-      }
-
-      // Check contact_id_a -> contact_id_b relationship
-      $params['contact_id_a'] = $contact_id;
-      $params['contact_id_b'] = $household_id;
-
-      $result = civicrm_api3('Relationship', 'get', $params);
+      ]);
 
       if (!empty($result['values'])) {
         return TRUE;
       }
 
-      // Check reverse relationship contact_id_b -> contact_id_a
-      $params['contact_id_a'] = $household_id;
-      $params['contact_id_b'] = $contact_id;
-
-      $result = civicrm_api3('Relationship', 'get', $params);
+      // Check reverse relationship
+      $result = civicrm_api3('Relationship', 'get', [
+        'contact_id_a' => $household_id,
+        'contact_id_b' => $contact_id,
+        'is_active' => 1,
+        'sequential' => 1,
+        'options' => ['limit' => 1],
+      ]);
 
       return !empty($result['values']);
 
@@ -222,13 +180,6 @@ class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInt
       ]);
       return FALSE;
     }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function alterRouteDefinition(Route $route) {
-    $route->setRequirement('_household_access_check', 'TRUE');
   }
 
   /**
@@ -256,29 +207,11 @@ class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInt
    * {@inheritdoc}
    */
   public function summaryTitle() {
-    $count = 0;
-    $title_parts = [];
-
-    if (!empty($this->options['bypass_permission'])) {
-      $title_parts[] = $this->t('Bypass: @perm', ['@perm' => $this->options['bypass_permission']]);
-      $count++;
-    }
-
-    if (!empty($this->options['relationship_types'])) {
-      $title_parts[] = $this->t('Relationship types: @types', ['@types' => $this->options['relationship_types']]);
-      $count++;
-    }
-
-    if ($this->options['check_active_only']) {
-      $title_parts[] = $this->t('Active only');
-      $count++;
-    }
-
-    if (empty($title_parts)) {
-      return $this->t('Household access');
-    }
-
-    return $this->t('Household access: @settings', ['@settings' => implode(', ', $title_parts)]);
+    return $this->t('Household access');
   }
 
+  public function alterRouteDefinition(Route $route)
+  {
+    // TODO: Implement alterRouteDefinition() method.
+  }
 }
