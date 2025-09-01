@@ -52,6 +52,7 @@ module:
   help: 0
   history: 0
   honeypot: 0
+  household_access: 0
   image: 0
   imce: 0
   js_cookie: 0

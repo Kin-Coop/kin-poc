@@ -4277,6 +4277,11 @@ display:
         options:
           offset: 0
           items_per_page: 1
+      access:
+        type: role
+        options:
+          role:
+            authenticated: authenticated
       arguments:
         id:
           id: id
@@ -4449,6 +4454,7 @@ display:
         groups:
           1: AND
       defaults:
+        access: false
         title: false
         css_class: false
         pager: false
