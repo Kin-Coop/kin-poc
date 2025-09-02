@@ -36,7 +36,6 @@ class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInt
    * {@inheritdoc}
    */
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
-    \Drupal::logger('household_access')->notice('buildOptionsForm called');
     parent::buildOptionsForm($form, $form_state);
 
     $form['household_argument'] = [
@@ -210,8 +209,11 @@ class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInt
     return $this->t('Household access');
   }
 
-  public function alterRouteDefinition(Route $route)
-  {
-    // TODO: Implement alterRouteDefinition() method.
+  /**
+   * {@inheritdoc}
+   */
+  public function alterRouteDefinition(Route $route) {
+    // No route alterations needed for this access plugin
   }
+
 }
