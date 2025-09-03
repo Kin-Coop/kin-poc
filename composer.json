@@ -75,7 +75,7 @@
         "drupal/prepopulate": "^2.5",
         "drupal/private_message": "^4.0@alpha",
         "drupal/rabbit_hole": "^2.0@beta",
-        "drupal/redirect": "^1.8",
+        "drupal/redirect": "1.11.0",
         "drupal/reroute_email": "^2.3@RC",
         "drupal/riddler": "^3.0",
         "drupal/scn": "^2.0",
