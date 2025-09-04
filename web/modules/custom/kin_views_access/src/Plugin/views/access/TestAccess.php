@@ -3,9 +3,11 @@
   namespace Drupal\kin_views_access\Plugin\views\access;
 
   use Drupal\Core\Form\FormStateInterface;
+  use Drupal\Core\Session\AccountInterface;
   use Drupal\views\Plugin\views\access\AccessPluginBase;
   use Drupal\views\ViewExecutable;
   use Drupal\views\Plugin\views\display\DisplayPluginBase;
+  use Symfony\Component\Routing\Route;
 
   /**
    * @ViewsAccess(
@@ -19,8 +21,11 @@
     /**
      * {@inheritdoc}
      */
-    public function access($account) {
-      // For now always allow access.
+    public function usesOptions() {
+      return TRUE;
+    }
+
+    public function access(AccountInterface $account) {
       return TRUE;
     }
 
@@ -52,4 +57,9 @@
       $options['test_message'] = ['default' => 'Hello world!'];
       return $options;
     }
+
+    public function alterRouteDefinition(Route $route) {
+      // No route alterations needed for this access plugin
+    }
   }
+

@@ -18,6 +18,10 @@
    */
   class SimpleHousehold extends AccessPluginBase {
 
+    public function usesOptions() {
+      return TRUE;
+    }
+
     /**
      * {@inheritdoc}
      */

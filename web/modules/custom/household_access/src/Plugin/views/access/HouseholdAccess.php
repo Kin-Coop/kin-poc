@@ -22,6 +22,10 @@ use Symfony\Component\Routing\Route;
  */
 class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInterface {
 
+  public function usesOptions() {
+    return TRUE;
+  }
+
   /**
    * {@inheritdoc}
    */
@@ -110,9 +114,10 @@ class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInt
   protected function getHouseholdIdFromArgument() {
     $argument_key = $this->options['household_argument'];
     $argument_index = (int) str_replace('arg_', '', $argument_key);
-
-    if (isset($this->view->args[$argument_index])) {
-      return (int) $this->view->args[$argument_index];
+    //$this->view->element["#arguments"][0]
+    //if (isset($this->view->args[$argument_index])) {
+    if (isset($this->view->element["#arguments"][$argument_index])) {
+      return (int) $this->view->element["#arguments"][$argument_index];
     }
 
     return NULL;
@@ -123,7 +128,7 @@ class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInt
    */
   protected function getContactIdFromUser(AccountInterface $account) {
     try {
-      civicrm_initialize();
+      \Drupal::service('civicrm')->initialize();
 
       $result = civicrm_api3('UFMatch', 'get', [
         'uf_id' => $account->id(),
@@ -147,7 +152,7 @@ class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInt
    */
   protected function contactBelongsToHousehold($contact_id, $household_id) {
     try {
-      civicrm_initialize();
+      \Drupal::service('civicrm')->initialize();
 
       // Check contact_id_a -> contact_id_b relationship
       $result = civicrm_api3('Relationship', 'get', [
@@ -214,6 +219,7 @@ class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInt
    */
   public function alterRouteDefinition(Route $route) {
     // No route alterations needed for this access plugin
+    $route->setRequirement('_access', 'TRUE') ;
   }
 
 }
