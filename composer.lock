@@ -387,16 +387,16 @@
         },
         {
             "name": "civicrm/civicrm-core",
-            "version": "6.5.0",
+            "version": "6.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-core.git",
-                "reference": "6ccd39bd3bf650443ce939d340eeb6bcf7ecbbdd"
+                "reference": "ebecdd1d4162f49c8aa0fc25f0a256be867093a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/civicrm/civicrm-core/zipball/6ccd39bd3bf650443ce939d340eeb6bcf7ecbbdd",
-                "reference": "6ccd39bd3bf650443ce939d340eeb6bcf7ecbbdd",
+                "url": "https://api.github.com/repos/civicrm/civicrm-core/zipball/ebecdd1d4162f49c8aa0fc25f0a256be867093a1",
+                "reference": "ebecdd1d4162f49c8aa0fc25f0a256be867093a1",
                 "shasum": ""
             },
             "require": {
@@ -429,7 +429,7 @@
                 "league/oauth2-google": "^4.0",
                 "marcj/topsort": "~1.1",
                 "pear/auth_sasl": "1.2.0",
-                "pear/db": "~1.12.1",
+                "pear/db": "~1.12.2",
                 "pear/log": "1.14.5",
                 "pear/mail": "^2.0",
                 "pear/mail_mime": "~1.10",
@@ -472,7 +472,7 @@
             "extra": {
                 "patches": {
                     "pear/db": {
-                        "Apply CiviCRM Customisations for the pear:db package": "https://download.civicrm.org/patches/83a3d0dd9f8e555a474ee433c453ff741a4dedf1983bad8b3566136e90f9c46b/pear_db_civicrm_changes.patch",
+                        "Apply CiviCRM Customisations for the pear:db package": "https://download.civicrm.org/patches/47e125fec0c789b095880fa65c6037210b01179290d5727b22b70fa77333496b/pear_db_civicrm_changes.patch",
                         "Ensure that error messages about MySQL-SSL connections are reported": "https://download.civicrm.org/patches/a6e31a769218801fb1fb3d679ff72d3d8a7c5637d3bb7b78680cd7809552e0c6/mysqli-ssl.patch"
                     },
                     "pear/mail": {
@@ -893,7 +893,7 @@
             ],
             "description": "Open source constituent relationship management for non-profits, NGOs and advocacy organizations.",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-core/tree/6.5.0"
+                "source": "https://github.com/civicrm/civicrm-core/tree/6.6.0"
             },
             "funding": [
                 {
@@ -901,11 +901,11 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-08-07T02:25:16+00:00"
+            "time": "2025-09-04T04:59:14+00:00"
         },
         {
             "name": "civicrm/civicrm-drupal-8",
-            "version": "6.5.0",
+            "version": "6.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-drupal-8.git",
@@ -954,7 +954,7 @@
             ],
             "description": "Open source constituent relationship management for non-profits, NGOs and advocacy organizations.",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-drupal-8/tree/6.5.0"
+                "source": "https://github.com/civicrm/civicrm-drupal-8/tree/6.6.0"
             },
             "funding": [
                 {
@@ -966,7 +966,7 @@
         },
         {
             "name": "civicrm/civicrm-packages",
-            "version": "6.5.0",
+            "version": "6.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-packages.git",
@@ -982,7 +982,7 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Legacy third party dependencies for CiviCRM",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-packages/tree/6.5.0"
+                "source": "https://github.com/civicrm/civicrm-packages/tree/6.6.0"
             },
             "time": "2025-05-30T06:28:12+00:00"
         },
@@ -10961,16 +10961,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "2.4.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "3a3cad86101a77019eb2fc693aab1a8c11b18b94"
+                "reference": "096ae6faf94b49b2cf53e92a0073133c941e1f57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/3a3cad86101a77019eb2fc693aab1a8c11b18b94",
-                "reference": "3a3cad86101a77019eb2fc693aab1a8c11b18b94",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/096ae6faf94b49b2cf53e92a0073133c941e1f57",
+                "reference": "096ae6faf94b49b2cf53e92a0073133c941e1f57",
                 "shasum": ""
             },
             "require": {
@@ -11060,9 +11060,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/2.4.0"
+                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/2.4.1"
             },
-            "time": "2025-08-10T06:45:13+00:00"
+            "time": "2025-09-01T18:41:37+00:00"
         },
         {
             "name": "phpoffice/phpword",
