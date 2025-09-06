@@ -1,0 +1,5 @@
+services:
+  household_access.route_subscriber:
+    class: Drupal\household_access\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

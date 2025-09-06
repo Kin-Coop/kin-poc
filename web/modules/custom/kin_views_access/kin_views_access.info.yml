@@ -1,0 +1,7 @@
+name: 'Kin Views Access'
+type: module
+description: 'Provides a custom Views access plugin with a test options form.'
+core_version_requirement: ^10 || ^11
+package: Custom
+dependencies:
+  - drupal:views
