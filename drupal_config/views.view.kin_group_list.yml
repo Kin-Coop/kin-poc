@@ -14,6 +14,7 @@ dependencies:
     - better_exposed_filters
     - civicrm_entity
     - datetime
+    - household_access
     - options
     - other_view_filter
     - user
@@ -1212,6 +1213,11 @@ display:
           or: '<a href="/member/group/{{ id }}">{{ display_name }} ({{ views_conditional_field }})</a> {{ views_conditional_field_2 }}'
           or_translate: true
           strip_tags: false
+      access:
+        type: household_access
+        options:
+          household_argument: arg_0
+          bypass_permission: 'administer civicrm'
       empty:
         area:
           id: area
@@ -1264,6 +1270,7 @@ display:
           not: false
       defaults:
         empty: false
+        access: false
         title: false
         css_class: false
         relationships: false
@@ -1344,7 +1351,6 @@ display:
         - url
         - url.query_args
         - user
-        - user.roles
       tags: {  }
   block_3:
     id: block_3
@@ -4334,11 +4340,6 @@ display:
         options:
           offset: 0
           items_per_page: 1
-      access:
-        type: role
-        options:
-          role:
-            authenticated: authenticated
       arguments:
         id:
           id: id
@@ -4511,7 +4512,6 @@ display:
         groups:
           1: AND
       defaults:
-        access: false
         title: false
         css_class: false
         pager: false
