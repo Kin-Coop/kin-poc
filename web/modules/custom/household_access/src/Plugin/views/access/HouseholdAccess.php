@@ -1,228 +1,238 @@
 <?php
 
-namespace Drupal\household_access\Plugin\views\access;
+  namespace Drupal\household_access\Plugin\views\access;
 
-use Drupal\Core\Cache\Cache;
-use Drupal\Core\Cache\CacheableDependencyInterface;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Session\AccountInterface;
-use Drupal\views\Plugin\views\access\AccessPluginBase;
-use Symfony\Component\Routing\Route;
-
-/**
- * Access plugin for household-based view access control.
- *
- * @ingroup views_access_plugins
- *
- * @ViewsAccess(
- *   id = "household_access",
- *   title = @Translation("Household Access"),
- *   help = @Translation("Access will be granted to users who belong to the household specified in the view's contextual filter.")
- * )
- */
-class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInterface {
-
-  public function usesOptions() {
-    return TRUE;
-  }
+  use Drupal\Core\Cache\Cache;
+  use Drupal\Core\Cache\CacheableDependencyInterface;
+  use Drupal\Core\Form\FormStateInterface;
+  use Drupal\Core\Session\AccountInterface;
+  use Drupal\views\Plugin\views\access\AccessPluginBase;
+  use Symfony\Component\Routing\Route;
 
   /**
-   * {@inheritdoc}
+   * Access plugin for household-based view access control.
+   *
+   * @ingroup views_access_plugins
+   *
+   * @ViewsAccess(
+   *   id = "household_access",
+   *   title = @Translation("Household Access"),
+   *   help = @Translation("Access will be granted to users who belong to the household specified in the view's contextual filter.")
+   * )
    */
-  protected function defineOptions() {
-    $options = parent::defineOptions();
-    $options['household_argument'] = ['default' => 'arg_0'];
-    $options['bypass_permission'] = ['default' => 'administer civicrm'];
-    return $options;
-  }
+  class HouseholdAccess extends AccessPluginBase implements CacheableDependencyInterface {
 
-  /**
-   * {@inheritdoc}
-   */
-  public function buildOptionsForm(&$form, FormStateInterface $form_state) {
-    parent::buildOptionsForm($form, $form_state);
-
-    $form['household_argument'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Household ID argument'),
-      '#description' => $this->t('Select which contextual filter contains the household ID.'),
-      '#options' => [
-        'arg_0' => $this->t('First argument (arg_0)'),
-        'arg_1' => $this->t('Second argument (arg_1)'),
-        'arg_2' => $this->t('Third argument (arg_2)'),
-      ],
-      '#default_value' => $this->options['household_argument'],
-      '#required' => TRUE,
-    ];
-
-    $form['bypass_permission'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Bypass permission'),
-      '#description' => $this->t('Users with this permission will have full access regardless of household membership.'),
-      '#default_value' => $this->options['bypass_permission'],
-      '#size' => 40,
-      '#maxlength' => 255,
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validateOptionsForm(&$form, FormStateInterface $form_state) {
-    parent::validateOptionsForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitOptionsForm(&$form, FormStateInterface $form_state) {
-    $this->options['household_argument'] = $form_state->getValue('household_argument');
-    $this->options['bypass_permission'] = $form_state->getValue('bypass_permission');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function access(AccountInterface $account) {
-    // Check bypass permission first
-    return TRUE;
-    
-
-    if (!empty($this->options['bypass_permission']) &&
-      $account->hasPermission($this->options['bypass_permission'])) {
+    public function usesOptions() {
       return TRUE;
     }
 
-    // Get household ID from the specified argument
-    $household_id = $this->getHouseholdIdFromArgument();
-
-    if (!$household_id) {
-      return FALSE;
+    /**
+     * {@inheritdoc}
+     */
+    protected function defineOptions() {
+      $options = parent::defineOptions();
+      $options['household_argument'] = ['default' => 'arg_0'];
+      $options['bypass_permission'] = ['default' => 'administer civicrm'];
+      return $options;
     }
 
-    // Get CiviCRM contact ID for the current user
-    $contact_id = $this->getContactIdFromUser($account);
+    /**
+     * {@inheritdoc}
+     */
+    public function buildOptionsForm(&$form, FormStateInterface $form_state) {
+      parent::buildOptionsForm($form, $form_state);
 
-    if (!$contact_id) {
-      return FALSE;
+      $form['household_argument'] = [
+        '#type' => 'select',
+        '#title' => $this->t('Household ID argument'),
+        '#description' => $this->t('Select which contextual filter contains the household ID.'),
+        '#options' => [
+          'arg_0' => $this->t('First argument (arg_0)'),
+          'arg_1' => $this->t('Second argument (arg_1)'),
+          'arg_2' => $this->t('Third argument (arg_2)'),
+        ],
+        '#default_value' => $this->options['household_argument'],
+        '#required' => TRUE,
+      ];
+
+      $form['bypass_permission'] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Bypass permission'),
+        '#description' => $this->t('Users with this permission will have full access regardless of household membership.'),
+        '#default_value' => $this->options['bypass_permission'],
+        '#size' => 40,
+        '#maxlength' => 255,
+      ];
     }
 
-    // Check if contact belongs to the household
-    return $this->contactBelongsToHousehold($contact_id, $household_id);
-  }
-
-  /**
-   * Get household ID from the view's contextual filter.
-   */
-  protected function getHouseholdIdFromArgument() {
-    $argument_key = $this->options['household_argument'];
-    $argument_index = (int) str_replace('arg_', '', $argument_key);
-    //$this->view->element["#arguments"][0]
-    //if (isset($this->view->args[$argument_index])) {
-    if (isset($this->view->element["#arguments"][$argument_index])) {
-      return (int) $this->view->element["#arguments"][$argument_index];
+    /**
+     * {@inheritdoc}
+     */
+    public function validateOptionsForm(&$form, FormStateInterface $form_state) {
+      parent::validateOptionsForm($form, $form_state);
     }
 
-    return NULL;
-  }
-
-  /**
-   * Get CiviCRM contact ID from Drupal user account.
-   */
-  protected function getContactIdFromUser(AccountInterface $account) {
-    try {
-      \Drupal::service('civicrm')->initialize();
-
-      $result = civicrm_api3('UFMatch', 'get', [
-        'uf_id' => $account->id(),
-        'sequential' => 1,
-      ]);
-
-      if (!empty($result['values'][0]['contact_id'])) {
-        return (int) $result['values'][0]['contact_id'];
-      }
-    } catch (\Exception $e) {
-      \Drupal::logger('household_access')->error('Error getting contact ID: @error', [
-        '@error' => $e->getMessage()
-      ]);
+    /**
+     * {@inheritdoc}
+     */
+    public function submitOptionsForm(&$form, FormStateInterface $form_state) {
+      $this->options['household_argument'] = $form_state->getValue('household_argument');
+      $this->options['bypass_permission'] = $form_state->getValue('bypass_permission');
     }
 
-    return FALSE;
-  }
-
-  /**
-   * Check if a contact belongs to a specific household.
-   */
-  protected function contactBelongsToHousehold($contact_id, $household_id) {
-    try {
-      \Drupal::service('civicrm')->initialize();
-
-      // Check contact_id_a -> contact_id_b relationship
-      $result = civicrm_api3('Relationship', 'get', [
-        'contact_id_a' => $contact_id,
-        'contact_id_b' => $household_id,
-        'is_active' => 1,
-        'sequential' => 1,
-        'options' => ['limit' => 1],
-      ]);
-
-      if (!empty($result['values'])) {
+    /**
+     * {@inheritdoc}
+     */
+    public function access(AccountInterface $account) {
+      // Check bypass permission first
+      if (!empty($this->options['bypass_permission']) &&
+          $account->hasPermission($this->options['bypass_permission'])) {
         return TRUE;
       }
 
-      // Check reverse relationship
-      $result = civicrm_api3('Relationship', 'get', [
-        'contact_id_a' => $household_id,
-        'contact_id_b' => $contact_id,
-        'is_active' => 1,
-        'sequential' => 1,
-        'options' => ['limit' => 1],
-      ]);
+      // Get household ID from the specified argument
+      $household_id = $this->getHouseholdIdFromArgument();
 
-      return !empty($result['values']);
+      if (!$household_id) {
+        return FALSE;
+      }
 
-    } catch (\Exception $e) {
-      \Drupal::logger('household_access')->error('Error checking household relationship: @error', [
-        '@error' => $e->getMessage()
-      ]);
+      // Get CiviCRM contact ID for the current user
+      $contact_id = $this->getContactIdFromUser($account);
+
+      if (!$contact_id) {
+        return FALSE;
+      }
+
+      // Check if contact belongs to the household
+      return $this->contactBelongsToHousehold($contact_id, $household_id);
+    }
+
+    /**
+     * Get household ID from the view's contextual filter.
+     */
+    protected function getHouseholdIdFromArgument() {
+      $argument_key = $this->options['household_argument'];
+      $argument_index = (int) str_replace('arg_', '', $argument_key);
+
+      // Try multiple ways to get the argument
+      if (isset($this->view->element["#arguments"][$argument_index])) {
+        return (int) $this->view->element["#arguments"][$argument_index];
+      }
+
+      if (isset($this->view->args[$argument_index])) {
+        return (int) $this->view->args[$argument_index];
+      }
+
+      return NULL;
+    }
+
+    /**
+     * Get CiviCRM contact ID from Drupal user account.
+     */
+    protected function getContactIdFromUser(AccountInterface $account) {
+      try {
+        \Drupal::service('civicrm')->initialize();
+
+        $result = civicrm_api3('UFMatch', 'get', [
+          'uf_id' => $account->id(),
+          'sequential' => 1,
+        ]);
+
+        if (!empty($result['values'][0]['contact_id'])) {
+          return (int) $result['values'][0]['contact_id'];
+        }
+      } catch (\Exception $e) {
+        \Drupal::logger('household_access')->error('Error getting contact ID: @error', [
+          '@error' => $e->getMessage()
+        ]);
+      }
+
       return FALSE;
     }
-  }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getCacheMaxAge() {
-    return Cache::PERMANENT;
-  }
+    /**
+     * Check if a contact belongs to a specific household.
+     */
+    protected function contactBelongsToHousehold($contact_id, $household_id) {
+      try {
+        \Drupal::service('civicrm')->initialize();
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getCacheContexts() {
-    return ['user'];
-  }
+        // Check contact_id_a -> contact_id_b relationship
+        $result = civicrm_api3('Relationship', 'get', [
+          'contact_id_a' => $contact_id,
+          'contact_id_b' => $household_id,
+          'is_active' => 1,
+          'sequential' => 1,
+          'options' => ['limit' => 1],
+        ]);
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getCacheTags() {
-    return [];
-  }
+        if (!empty($result['values'])) {
+          return TRUE;
+        }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function summaryTitle() {
-    return $this->t('Household access');
-  }
+        // Check reverse relationship
+        $result = civicrm_api3('Relationship', 'get', [
+          'contact_id_a' => $household_id,
+          'contact_id_b' => $contact_id,
+          'is_active' => 1,
+          'sequential' => 1,
+          'options' => ['limit' => 1],
+        ]);
 
-  /**
-   * {@inheritdoc}
-   */
-  public function alterRouteDefinition(Route $route) {
-    // No route alterations needed for this access plugin
-    $route->setRequirement('_access', 'TRUE') ;
-  }
+        return !empty($result['values']);
 
-}
+      } catch (\Exception $e) {
+        \Drupal::logger('household_access')->error('Error checking household relationship: @error', [
+          '@error' => $e->getMessage()
+        ]);
+        return FALSE;
+      }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCacheMaxAge() {
+      return Cache::PERMANENT;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCacheContexts() {
+      return ['user', 'route'];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCacheTags() {
+      return [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function summaryTitle() {
+      return $this->t('Household access');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function alterRouteDefinition(Route $route) {
+      // Option 1: Remove this method entirely (recommended for most cases)
+      // Views access plugins typically don't need to alter routes
+
+      // Option 2: If you want to add a custom access check at the route level:
+       $route->setRequirement('_custom_access', '\Drupal\household_access\Access\HouseholdAccessCheck::access');
+
+      // Option 3: If you want to ensure authenticated users only:
+      // $route->setRequirement('_user_is_logged_in', 'TRUE');
+
+      // Current implementation that causes issues - REMOVE THIS:
+      // $route->setRequirement('_access', 'TRUE');
+    }
+
+  }
