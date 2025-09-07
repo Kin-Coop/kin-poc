@@ -85,6 +85,8 @@
      */
     public function access(AccountInterface $account) {
       // Check bypass permission first
+      //return TRUE;
+
       if (!empty($this->options['bypass_permission']) &&
           $account->hasPermission($this->options['bypass_permission'])) {
         return TRUE;
@@ -93,8 +95,12 @@
       // Get household ID from the specified argument
       $household_id = $this->getHouseholdIdFromArgument();
 
+      //\Drupal::logger('Household Access')->notice('<pre><code>@data</code></pre>', ['@data' => $account->id()]);
+      //\Drupal::logger('Household Access')->notice('<pre><code>@data</code></pre>', ['@data' => $household_id]);
+      //\Drupal::logger('kin_forum_notify')->error('Error fetching household name: @message', ['@message' => $e->getMessage()]);
+
       if (!$household_id) {
-        return FALSE;
+        return TRUE;
       }
 
       // Get CiviCRM contact ID for the current user
