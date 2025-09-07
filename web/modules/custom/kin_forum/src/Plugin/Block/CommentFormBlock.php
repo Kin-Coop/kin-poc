@@ -5,10 +5,13 @@
   use Drupal\Core\Block\BlockBase;
   use Drupal\Core\Form\FormBuilderInterface;
   use Drupal\comment\Entity\Comment;
+  use Drupal\field_group_migrate\Plugin\migrate\source\d6\FieldGroup;
   use Drupal\node\Entity\Node;
   use Symfony\Component\DependencyInjection\ContainerInterface;
   use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
   use Drupal\Core\Form\FormState;
+  use Drupal\kin_civi\Service\Utils;
+  use Drupal\Core\Session\AccountInterface;
 
   /**
    * Provides a Comment Form block.
@@ -37,6 +40,19 @@
 
       if (!empty($args[3])) {
         $group_id = (int) $args[3];
+
+        // Need to check if the user has access to this forum page before loading the comment form.
+        $utils = new Utils();
+        $current_user = \Drupal::currentUser();
+        $uid = $current_user->id();
+        $cid = $utils->kin_civi_get_contact_id($uid);
+
+        \Drupal::logger('Household Access')->notice('<pre><code>@data</code></pre>', ['@data' => $utils->kin_civi_check_contact_in_group($cid, $group_id)]);
+
+        if(!$utils->kin_civi_check_contact_in_group($cid, $group_id)) {
+          return FALSE;
+        }
+        
 
         $nids = \Drupal::entityTypeManager()
           ->getStorage('node')

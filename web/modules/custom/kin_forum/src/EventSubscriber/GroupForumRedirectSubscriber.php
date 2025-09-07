@@ -25,6 +25,7 @@ class GroupForumRedirectSubscriber implements EventSubscriberInterface {
   public function onRequest(RequestEvent $event) {
     $request = $event->getRequest();
     $path = $request->getPathInfo();
+    //$path = "";
 
     // Check if this is a node path
     if (preg_match('/^\/node\/(\d+)$/', $path, $matches)) {

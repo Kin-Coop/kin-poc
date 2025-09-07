@@ -95,7 +95,7 @@
       // Get household ID from the specified argument
       $household_id = $this->getHouseholdIdFromArgument();
 
-      //\Drupal::logger('Household Access')->notice('<pre><code>@data</code></pre>', ['@data' => $account->id()]);
+      \Drupal::logger('Household Access')->notice('<pre><code>@data</code></pre>', ['@data' => $account->id()]);
       //\Drupal::logger('Household Access')->notice('<pre><code>@data</code></pre>', ['@data' => $household_id]);
       //\Drupal::logger('kin_forum_notify')->error('Error fetching household name: @message', ['@message' => $e->getMessage()]);
 

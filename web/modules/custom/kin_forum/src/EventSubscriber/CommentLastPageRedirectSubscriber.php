@@ -9,6 +9,8 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Drupal\views\Views;
 use Drupal\comment\Entity\Comment;
 use Drupal\node\Entity\Node;
+use Drupal\kin_civi\Service\Utils;
+use Drupal\Core\Session\AccountInterface;
 
 class CommentLastPageRedirectSubscriber implements EventSubscriberInterface {
 
@@ -26,6 +28,19 @@ class CommentLastPageRedirectSubscriber implements EventSubscriberInterface {
     // Only apply to your specific view path.
     if (preg_match('#^/member/group/(\d+)/forum$#', $path, $matches)) {
       $group_id = $matches[1];
+
+      // Need to check if the user has access to this forum page before redirecting.
+      $utils = new Utils();
+      $current_user = \Drupal::currentUser();
+      $uid = $current_user->id();
+      $cid = $utils->kin_civi_get_contact_id($uid);
+
+      //\Drupal::logger('Household Access')->notice('<pre><code>@data</code></pre>', ['@data' => $utils->kin_civi_check_contact_in_group($cid, $group_id)]);
+
+      if(!$utils->kin_civi_check_contact_in_group($cid, $group_id)) {
+        return;
+      }
+
 
       $nids = \Drupal::entityTypeManager()
         ->getStorage('node')
@@ -54,6 +69,7 @@ class CommentLastPageRedirectSubscriber implements EventSubscriberInterface {
         $view->execute();
 
         $total_rows = $view->total_rows;
+        //$total_rows = 0;
         $pager = $view->pager;
         $items_per_page = $pager ? $pager->getItemsPerPage() : 0;
 
