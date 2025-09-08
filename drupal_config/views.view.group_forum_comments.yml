@@ -8,6 +8,7 @@ dependencies:
   module:
     - civicrm_entity
     - comment
+    - household_access
     - kin_forum
     - node
     - text
@@ -945,7 +946,13 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      access:
+        type: household_access
+        options:
+          household_argument: arg_0
+          bypass_permission: 'administer civicrm'
       defaults:
+        access: false
         footer: false
       footer: {  }
       display_extenders: {  }
@@ -955,7 +962,8 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - route
         - url
         - url.query_args
-        - user.permissions
+        - user
       tags: {  }

@@ -1348,6 +1348,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - route
         - url
         - url.query_args
         - user
@@ -4340,6 +4341,11 @@ display:
         options:
           offset: 0
           items_per_page: 1
+      access:
+        type: household_access
+        options:
+          household_argument: arg_0
+          bypass_permission: 'administer civicrm'
       arguments:
         id:
           id: id
@@ -4512,6 +4518,7 @@ display:
         groups:
           1: AND
       defaults:
+        access: false
         title: false
         css_class: false
         pager: false
@@ -4666,9 +4673,9 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - route
         - url
         - user
-        - user.roles
       tags: {  }
   page_3:
     id: page_3
