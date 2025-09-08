@@ -2,6 +2,7 @@
 
 use Drupal\views\ViewExecutable;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
 
 function kinmod_form_private_message_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   //dpm($form);
@@ -103,12 +104,121 @@ function kinmod_views_exposed_minlength_validate(&$form, FormStateInterface $for
  */
 function kinmod_page_attachments(array &$attachments) {
     $route_name = \Drupal::routeMatch()->getRouteName();
-    
+
     // Skip admin pages (backend UI).
     if (\Drupal::service('router.admin_context')->isAdminRoute()) {
         return;
     }
-    
+
     // Attach Trustpilot library on public pages only.
     $attachments['#attached']['library'][] = 'kinmod/trustpilot';
+}
+
+
+/**
+ * @file
+ * Custom validation for group agreement content type.
+ *
+ * Create this as: modules/custom/group_agreement_validation/group_agreement_validation.module
+ */
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function kinmod_form_node_group_agreement_form_alter(&$form, FormStateInterface $form_state, $form_id)
+{
+  // Add custom validation for the node form
+  $form['#validate'][] = 'kinmod_node_form_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function kinmod_form_node_group_agreement_edit_form_alter(&$form, FormStateInterface $form_state, $form_id)
+{
+  // Add custom validation for the node edit form
+  $form['#validate'][] = 'kinmod_node_form_validate';
+}
+
+/**
+ * Custom validation function for group agreement node forms.
+ */
+function kinmod_node_form_validate($form, FormStateInterface $form_state)
+{
+  $household_field_name = 'field_civi_group'; // Replace with your actual field name
+
+  // Get the household reference value
+  $household_values = $form_state->getValue($household_field_name);
+
+  if (!empty($household_values) && !empty($household_values[0]['target_id'])) {
+    $household_id = $household_values[0]['target_id'];
+
+    // Get the current node ID if editing
+    $current_node_id = NULL;
+    $node = $form_state->getFormObject()->getEntity();
+    if ($node instanceof NodeInterface && !$node->isNew()) {
+      $current_node_id = $node->id();
+    }
+
+    // Check if a group agreement already exists for this household
+    $query = \Drupal::entityQuery('node')
+      ->accessCheck(FALSE)
+      ->condition('type', 'group_agreement')
+      ->condition($household_field_name, $household_id);
+
+    // Exclude the current node if editing
+    if ($current_node_id) {
+      $query->condition('nid', $current_node_id, '!=');
+    }
+
+    $existing_nodes = $query->execute();
+
+    if (!empty($existing_nodes)) {
+      $existing_node_id = reset($existing_nodes);
+      $existing_node = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->load($existing_node_id);
+
+      $form_state->setErrorByName($household_field_name, t(
+        'A group agreement already exists for this household. Please <a href="@edit_url">edit the existing agreement</a> instead.',
+        ['@edit_url' => $existing_node->toUrl('edit-form')->toString()]
+      ));
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ *
+ * Additional safety check before saving.
+ */
+function kinmod_entity_presave(NodeInterface $entity)
+{
+  if ($entity->bundle() !== 'group_agreement') {
+    return;
+  }
+
+  $household_field_name = 'field_civi_group'; // Replace with your actual field name
+
+  if ($entity->hasField($household_field_name) && !$entity->get($household_field_name)->isEmpty()) {
+    $household_id = $entity->get($household_field_name)->target_id;
+
+    // Check if a group agreement already exists for this household
+    $query = \Drupal::entityQuery('node')
+      ->accessCheck(FALSE)
+      ->condition('type', 'group_agreement')
+      ->condition($household_field_name, $household_id);
+
+    // Exclude the current node if it has an ID (editing existing)
+    if (!$entity->isNew()) {
+      $query->condition('nid', $entity->id(), '!=');
+    }
+
+    $existing_nodes = $query->execute();
+
+    if (!empty($existing_nodes)) {
+      throw new \Exception(t('A group agreement already exists for this household.'));
+    }
+  }
 }
