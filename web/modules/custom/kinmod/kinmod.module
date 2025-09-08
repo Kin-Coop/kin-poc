@@ -137,6 +137,10 @@ function kinmod_form_node_group_agreement_form_alter(&$form, FormStateInterface 
  * Implements hook_form_FORM_ID_alter().
  */
 function kinmod_form_node_group_agreement_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (isset($form['title'])) {
+    // Hide the title field.
+    $form['title']['#access'] = FALSE;
+  }
   // Add custom validation for the node edit form
   $form['#validate'][] = 'kinmod_node_form_validate';
 }
@@ -145,13 +149,15 @@ function kinmod_form_node_group_agreement_edit_form_alter(&$form, FormStateInter
  * Custom validation function for group agreement node forms.
  */
 function kinmod_node_form_validate($form, FormStateInterface $form_state) {
-  $household_field_name = 'field_civi_group'; // Replace with your actual field name
+  $household_field_name = 'field_civi_group';
 
   // Get the household reference value
   $household_values = $form_state->getValue($household_field_name);
 
-  if (!empty($household_values) && !empty($household_values[0]['target_id'])) {
-    $household_id = $household_values[0]['target_id'];
+  $request = \Drupal::requestStack()->getCurrentRequest();
+  $gid = $request->query->get('gid');
+
+  if ($gid) {
 
     // Get the current node ID if editing
     $current_node_id = NULL;
@@ -164,7 +170,7 @@ function kinmod_node_form_validate($form, FormStateInterface $form_state) {
     $query = \Drupal::entityQuery('node')
       ->accessCheck(FALSE)
       ->condition('type', 'group_agreement')
-      ->condition($household_field_name, $household_id);
+      ->condition($household_field_name, $gid);
 
     // Exclude the current node if editing
     if ($current_node_id) {
@@ -179,10 +185,11 @@ function kinmod_node_form_validate($form, FormStateInterface $form_state) {
         ->getStorage('node')
         ->load($existing_node_id);
 
-      $form_state->setErrorByName($household_field_name, t(
+      $form_state->setErrorByName('', t(
         'A group agreement already exists for this household. Please <a href="@edit_url">edit the existing agreement</a> instead.',
         ['@edit_url' => $existing_node->toUrl('edit-form')->toString()]
       ));
+
     }
   }
 }
