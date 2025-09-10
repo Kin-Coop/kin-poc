@@ -146,6 +146,122 @@ function kinmod_form_node_group_agreement_edit_form_alter(&$form, FormStateInter
 }
 
 /**
+ * Implements hook_form_alter().
+ *
+ * Replace your existing function with this improved version.
+ */
+function kinmod_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // Only target the group agreement node form
+  if ($form_id !== 'node_group_agreement_form') {
+    return;
+  }
+
+  $request = \Drupal::request();
+  $gid = $request->query->get('gid');
+
+  if (empty($gid)) {
+    // Show user-friendly error message
+    \Drupal::messenger()->addError(t('A group ID is required to create a group agreement. Please access this form through the proper link.'));
+
+    // Disable the form
+    $form['#disabled'] = TRUE;
+
+    // Create homepage URL properly
+    $homepage_url = \Drupal\Core\Url::fromRoute('<front>');
+
+    /*
+    // Add explanatory text using render array instead of raw HTML
+    $form['gid_error'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['messages', 'messages--error']],
+      '#weight' => -100,
+      'heading' => [
+        '#markup' => '<h3>' . t('Missing Required Parameter') . '</h3>',
+      ],
+      'description' => [
+        '#markup' => '<p>' . t('This form requires a group ID (gid) parameter to function properly. Please contact your administrator or access this form through the appropriate link.') . '</p>',
+      ],
+      'back_link' => [
+        '#type' => 'link',
+        '#title' => t('Return to homepage'),
+        '#url' => $homepage_url,
+        '#attributes' => ['class' => ['button']],
+        '#prefix' => '<p>',
+        '#suffix' => '</p>',
+      ],
+    ];
+    */
+
+    // Hide submit buttons
+    if (isset($form['actions']['submit'])) {
+      $form['actions']['submit']['#access'] = FALSE;
+    }
+    if (isset($form['actions']['preview'])) {
+      $form['actions']['preview']['#access'] = FALSE;
+    }
+
+    return;
+  }
+
+  // Validate that gid is numeric
+  if (!is_numeric($gid)) {
+    \Drupal::messenger()->addError(t('The group ID must be a valid number.'));
+    $form['#disabled'] = TRUE;
+    return;
+  }
+
+  // Optional: Validate that the group exists in CiviCRM
+  if (!kinmod_validate_group_exists($gid)) {
+    \Drupal::messenger()->addError(t('The specified group does not exist or is not accessible.'));
+    $form['#disabled'] = TRUE;
+    return;
+  }
+
+  // Optional: Pre-populate the group field if it exists
+  if (isset($form['field_civi_group'])) {
+    $form['field_civi_group']['widget']['#default_value'] = $gid;
+    // Make it read-only so user can't change it
+    $form['field_civi_group']['#disabled'] = TRUE;
+
+    // Add a helpful message
+    \Drupal::messenger()->addStatus(t('Creating group agreement for group ID: @gid', ['@gid' => $gid]));
+  }
+}
+
+/**
+ * Helper function to validate if a group exists in CiviCRM.
+ *
+ * @param int $gid
+ *   The group ID to validate.
+ *
+ * @return bool
+ *   TRUE if the group exists, FALSE otherwise.
+ */
+function kinmod_validate_group_exists($gid) {
+  try {
+    // Initialize CiviCRM
+    \Drupal::service('civicrm')->initialize();
+
+    // Check if group exists
+    $result = civicrm_api3('contact', 'get', [
+      'id' => $gid,
+      'sequential' => 1,
+      'contact_type' => "Household",
+      'options' => ['limit' => 1],
+    ]);
+
+    return !empty($result['values']);
+
+  } catch (\Exception $e) {
+    // Log the error and return false
+    \Drupal::logger('kinmod')->error('Error validating group existence: @error', [
+      '@error' => $e->getMessage()
+    ]);
+    return FALSE;
+  }
+}
+
+/**
  * Custom validation function for group agreement node forms.
  */
 function kinmod_node_form_validate($form, FormStateInterface $form_state) {
@@ -199,7 +315,12 @@ function kinmod_node_form_validate($form, FormStateInterface $form_state) {
  *
  * Additional safety check before saving - only logs if validation was bypassed.
  */
-function kinmod_entity_presave(NodeInterface $entity) {
+function kinmod_entity_presave(\Drupal\Core\Entity\EntityInterface $entity) {
+  // Only process node entities
+  if (!$entity instanceof \Drupal\node\NodeInterface) {
+    return;
+  }
+
   if ($entity->bundle() !== 'group_agreement') {
     return;
   }
