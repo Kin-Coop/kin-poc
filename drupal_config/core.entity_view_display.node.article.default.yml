@@ -4,16 +4,14 @@ status: true
 dependencies:
   config:
     - field.field.node.article.body
-    - field.field.node.article.field_add_your_collective
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
     - image.style.wide
     - node.type.article
   module:
     - image
-    - opencollective_api_fields
+    - manage_display
     - text
-    - user
 _core:
   default_config_hash: br6izr-iGEu--JvNbCJNtOBpRnxpFLXfoV5y61U9Nqc
 id: node.article.default
@@ -27,14 +25,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 0
-    region: content
-  field_add_your_collective:
-    type: opencollective_api_events
-    label: above
-    settings:
-      event_properties: 'id slug name imageUrl backgroundImageUrl'
-    third_party_settings: {  }
-    weight: 101
     region: content
   field_image:
     type: image
@@ -60,5 +50,17 @@ content:
     third_party_settings: {  }
     weight: 100
     region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: -49
+    region: content
 hidden:
+  created: true
   langcode: true
+  private_message_link: true
+  uid: true

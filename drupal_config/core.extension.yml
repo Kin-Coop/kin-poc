@@ -80,11 +80,6 @@ module:
   mysql: 0
   node: 0
   node_view_permissions: 0
-  opencollective: 0
-  opencollective_api: 0
-  opencollective_api_fields: 0
-  opencollective_fields: 0
-  opencollective_webhooks: 0
   options: 0
   other_view_filter: 0
   page_cache: 0

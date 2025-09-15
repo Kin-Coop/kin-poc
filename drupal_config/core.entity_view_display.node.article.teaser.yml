@@ -5,15 +5,14 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.article.body
-    - field.field.node.article.field_add_your_collective
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
     - image.style.medium
     - node.type.article
   module:
     - image
+    - manage_display
     - text
-    - user
 _core:
   default_config_hash: O8PxzfG8DOHHRu6M23kwR6TDPq_MNfYQ10Mp367ICUQ
 id: node.article.teaser
@@ -51,6 +50,17 @@ content:
   links:
     weight: 100
     region: content
+  title:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: -49
+    region: content
 hidden:
-  field_add_your_collective: true
+  created: true
   langcode: true
+  private_message_link: true
+  uid: true
