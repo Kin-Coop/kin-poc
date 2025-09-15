@@ -5,6 +5,11 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;
 use Drupal\civicrm_entity\Entity\CivicrmEntity;
+use Drupal\Core\Render\AttachmentsInterface;
+
+/**
+ * Implements hook_page_attachments().
+ */
 
 function kinmod_form_private_message_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   //dpm($form);
@@ -114,6 +119,7 @@ function kinmod_page_attachments(array &$attachments) {
 
     // Attach Trustpilot library on public pages only.
     $attachments['#attached']['library'][] = 'kinmod/trustpilot';
+    $attachments['#attached']['library'][] = 'kinmod/woopra';
 }
 
 

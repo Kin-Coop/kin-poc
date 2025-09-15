@@ -22,4 +22,3 @@ woopra.config({
 });
 
 woopra.track();
-ú
