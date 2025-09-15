@@ -6,6 +6,7 @@ dependencies:
     - user.role.authenticated
     - views.view.civi_admins
     - views.view.contributions
+    - views.view.group_agreement
     - views.view.group_forum_comments
   content:
     - 'block_content:basic:41334e37-b9fd-451e-b87f-7a87359c0831'
@@ -4620,6 +4621,17 @@ display:
             value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Request Money\r\n    </h2>\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=3&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Request</a>\r\n    </p>\r\n</div>"
             format: full_html
           tokenize: true
+        view_5:
+          id: view_5
+          table: views
+          field: view
+          relationship: none
+          group_type: group
+          admin_label: 'Group Agreement'
+          plugin_id: view
+          empty: false
+          view_to_insert: 'group_agreement:block_1'
+          inherit_arguments: true
         view_4:
           id: view_4
           table: views

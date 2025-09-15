@@ -1,0 +1,22 @@
+uuid: 329832b7-c633-41bf-9659-b1b89a74a47b
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - node
+id: group_agreement
+label: 'Group Agreement'
+type: 'canonical_entities:node'
+pattern: '/member/group/[node:field_civi_group:target_id]/group-agreement'
+selection_criteria:
+  1acca5f3-8674-4032-a605-109c39c56270:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 1acca5f3-8674-4032-a605-109c39c56270
+    context_mapping:
+      node: node
+    bundles:
+      group_agreement: group_agreement
+selection_logic: and
+weight: -5
+relationships: {  }

@@ -3,6 +3,7 @@ langcode: en-gb
 status: true
 dependencies:
   config:
+    - node.type.group_agreement
     - node.type.post
   module:
     - comment
@@ -17,13 +18,16 @@ is_admin: null
 permissions:
   - 'access comments'
   - 'access user profiles'
+  - 'create group_agreement content'
   - 'create post content'
+  - 'edit any group_agreement content'
   - 'edit own comments'
   - 'edit own post content'
   - 'overview messages'
   - 'post comments'
   - 'skip comment approval'
   - 'use private messaging system'
+  - 'view any group_agreement content'
   - 'view any partners content'
   - 'view any post content'
   - 'view any rosca content'

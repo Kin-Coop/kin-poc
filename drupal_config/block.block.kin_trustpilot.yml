@@ -2,11 +2,8 @@ uuid: fa669061-6572-4d13-ba88-dd993a596306
 langcode: en-gb
 status: true
 dependencies:
-  content:
-    - 'block_content:basic:e011f927-cf96-4dd5-bf2f-ad25ccb4308a'
   module:
     - block_classes
-    - block_content
     - block_visibility_groups
     - system
   theme:

@@ -62,6 +62,7 @@ permissions:
   - 'use exclude node title'
   - 'use private messaging system'
   - 'view all revisions'
+  - 'view any group_agreement content'
   - 'view any partners content'
   - 'view any post content'
   - 'view any rosca content'
