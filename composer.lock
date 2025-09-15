@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "50b189505cc74685d82ba6fa77ba78c4",
+    "content-hash": "aca891ec0e6817f3696da9e79c0e940c",
     "packages": [
         {
             "name": "adrienrn/php-mimetyper",
@@ -6647,60 +6647,6 @@
                 "source": "https://git.drupalcode.org/project/nouislider_js/-/tree/15.8.0"
             },
             "time": "2025-01-03T10:53:20+00:00"
-        },
-        {
-            "name": "drupal/opencollective",
-            "version": "1.0.0-alpha1",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/opencollective.git",
-                "reference": "1.0.0-alpha1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/opencollective-1.0.0-alpha1.zip",
-                "reference": "1.0.0-alpha1",
-                "shasum": "af009300732e3ec58b9a51a033ad1946f90461a1"
-            },
-            "require": {
-                "drupal/core": "^9.2 || ^10"
-            },
-            "require-dev": {
-                "drupal/commerce": "*",
-                "drupal/commerce_checkout": "*",
-                "drupal/commerce_order": "*",
-                "drupal/commerce_payment": "*",
-                "drupal/funding": "*",
-                "drupal/opencollective_api": "*",
-                "drupal/opencollective_fields": "*",
-                "drupal/openid_connect": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "1.0.0-alpha1",
-                    "datestamp": "1683060155",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "daggerhart",
-                    "homepage": "https://www.drupal.org/user/167806"
-                }
-            ],
-            "description": "Open Collective integrations for Drupal.",
-            "homepage": "https://www.drupal.org/project/opencollective",
-            "support": {
-                "source": "https://git.drupalcode.org/project/opencollective"
-            }
         },
         {
             "name": "drupal/other_view_filter",
@@ -16212,7 +16158,6 @@
         "drupal/gin_toolbar": 5,
         "drupal/login_destination": 10,
         "drupal/masquerade": 5,
-        "drupal/opencollective": 15,
         "drupal/private_message": 15,
         "drupal/rabbit_hole": 10,
         "drupal/reroute_email": 5,
