@@ -45,7 +45,7 @@
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     paragraph.field_style.value ? paragraph.field_style.value,
     not paragraph.isPublished() ? 'paragraph--unpublished',
-    paragraph.parent_type.value == 'paragraph' ? 'container mx-auto' : 'row'
+    paragraph.parent_type.value == 'paragraph' ? 'xcontainer xmx-auto' : 'row'
   ]
 %}
 {% block paragraph %}
