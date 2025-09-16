@@ -381,3 +381,37 @@ function kinmod_node_presave(Node $node) {
     }
   }
 }
+
+/**
+ * Implements hook_node_access().
+ *
+ * Add this to your kinmod.module file.
+ */
+function kinmod_node_access(\Drupal\node\NodeInterface $node, $op, \Drupal\Core\Session\AccountInterface $account) {
+  // Only apply to group_agreement content type and view operation
+  if ($node->bundle() !== 'group_agreement' || $op !== 'view') {
+    return \Drupal\Core\Access\AccessResult::neutral();
+  }
+
+  // Use our custom access checker
+  $access_checker = \Drupal::service('kinmod.group_agreement_view_access');
+  $route_match = \Drupal::routeMatch();
+
+  return $access_checker->access($account, $route_match);
+}
+
+/**
+ * Alternative: Implements hook_route_alter() to apply access check at route level.
+ *
+ * Use this INSTEAD of hook_node_access if you prefer route-level access control.
+ * This approach works better with caching and is more performant.
+ */
+function kinmod_route_alter_for_view_access(&$collection) {
+  // Apply to the canonical node view route
+  if ($route = $collection->get('entity.node.canonical')) {
+    // Add our custom access requirement
+    $requirements = $route->getRequirements();
+    $requirements['_custom_access'] = 'kinmod.group_agreement_view_access::access';
+    $route->setRequirements($requirements);
+  }
+}

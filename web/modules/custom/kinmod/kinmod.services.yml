@@ -1,0 +1,6 @@
+services:
+  kinmod.group_agreement_access_check:
+    class: Drupal\kinmod\Access\GroupAgreementAccessCheck
+    arguments: ['@request_stack']
+  kinmod.group_agreement_view_access:
+    class: Drupal\kinmod\Access\GroupAgreementViewAccess
