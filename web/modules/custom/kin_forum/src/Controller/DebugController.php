@@ -17,7 +17,7 @@ class DebugController extends ControllerBase {
     //dd(array_keys($manager->getDefinitions()));
 
     $violations = \Drupal::service('validator')->validate($node->field_group);
-    dd($violations);
+    //dd($violations);
 
 
 

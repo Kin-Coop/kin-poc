@@ -147,7 +147,7 @@ class Utils
                 'tplParams' => $params,
             ];
 
-            dpm($apiParams);
+            //dpm($apiParams);
 
             if ($contributionId) {
                 $apiParams['contribution_id'] = $contributionId;
