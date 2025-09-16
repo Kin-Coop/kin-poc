@@ -12,6 +12,6 @@ name: 'Group Agreement'
 type: group_agreement
 description: 'Used for groups to create their agreement'
 help: null
-new_revision: true
+new_revision: false
 preview_mode: 0
 display_submitted: true
