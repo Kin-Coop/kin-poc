@@ -135,7 +135,10 @@ function kinmod_form_node_group_agreement_form_alter(&$form, FormStateInterface 
     // Hide the title field.
     $form['title']['#access'] = FALSE;
   }
+
+  $form['body']['widget'][0]['#title_display'] = 'invisible';
   // Add custom validation for the node form
+  dpm($form['body']);
   $form['#validate'][] = 'kinmod_node_form_validate';
 }
 
