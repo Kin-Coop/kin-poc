@@ -155,7 +155,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<p><a href=\"{{ view_node }}\" class=\"btn btn-primary\">Open group agreement</a></p>\r\n<p><a href=\"/faq?term=agreements\">Read our FAQ</a> about group agreements</p>"
+            text: "<p> See the <a href=\"/faq\">group agreements FAQ.</a> </p>\r\n<p><a href=\"{{ view_node }}\" class=\"btn btn-primary\">Open group agreement</a></p>"
             make_link: false
             path: ''
             absolute: false
@@ -378,7 +378,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<p> See the <a href=\"/faqs/group-agreements\">group agreements FAQ</a> for more information.</p>\r\n<p class=\"mt-1\">A group agreement has not been created yet. <a href=\"/node/add/group_agreement?gid={{ raw_arguments.field_civi_group_target_id }}\" class=\"btn btn-primary my-2\">Create Group Agreement</a></p>"
+            value: "<p> See the <a href=\"/faq\">group agreements FAQ.</a> </p>\r\n<p class=\"mt-1\">A group agreement has not been created yet. <a href=\"/node/add/group_agreement?gid={{ raw_arguments.field_civi_group_target_id }}\" class=\"btn btn-primary my-2\">Create Group Agreement</a></p>"
             format: full_html
           tokenize: true
       defaults:
