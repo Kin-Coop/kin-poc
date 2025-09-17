@@ -18,6 +18,18 @@ Config.IDS.ini
 /web/modules/contrib/fpa/*
 !/web/modules/contrib/fpa/fpa.info.yml
 
+!/web/modules/contrib/google_analytics/
+/web/modules/contrib/google_analytics/*
+!/web/modules/contrib/google_analytics/google_analytics.info.yml
+
+!/web/modules/contrib/paragraph_view_mode/
+/web/modules/contrib/paragraph_view_mode/*
+!/web/modules/contrib/paragraph_view_mode/paragraph_view_mode.info.yml
+
+!/web/modules/contrib/riddler/
+/web/modules/contrib/riddler/*
+!/web/modules/contrib/riddler/riddler.info.yml
+
 # Ignore configuration files that may contain sensitive information
 /web/sites/*/*settings*.php
 /web/sites/*/*services*.yml
