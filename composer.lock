@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7b1b6acdb618bf1075b728395a283b8",
+    "content-hash": "a0e50bf03cc2e1778b406ad8b6da0d7b",
     "packages": [
         {
             "name": "adrienrn/php-mimetyper",
@@ -387,16 +387,16 @@
         },
         {
             "name": "civicrm/civicrm-core",
-            "version": "6.6.1",
+            "version": "6.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-core.git",
-                "reference": "e8b015fe86d535fb082f41aca0fa9e4e90eddc1b"
+                "reference": "3a19f168329cc9711af417e9f633c93e55da8bdf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/civicrm/civicrm-core/zipball/e8b015fe86d535fb082f41aca0fa9e4e90eddc1b",
-                "reference": "e8b015fe86d535fb082f41aca0fa9e4e90eddc1b",
+                "url": "https://api.github.com/repos/civicrm/civicrm-core/zipball/3a19f168329cc9711af417e9f633c93e55da8bdf",
+                "reference": "3a19f168329cc9711af417e9f633c93e55da8bdf",
                 "shasum": ""
             },
             "require": {
@@ -893,7 +893,7 @@
             ],
             "description": "Open source constituent relationship management for non-profits, NGOs and advocacy organizations.",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-core/tree/6.6.1"
+                "source": "https://github.com/civicrm/civicrm-core/tree/6.6.2"
             },
             "funding": [
                 {
@@ -901,11 +901,11 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-09-07T17:57:52+00:00"
+            "time": "2025-09-16T19:23:22+00:00"
         },
         {
             "name": "civicrm/civicrm-drupal-8",
-            "version": "6.6.1",
+            "version": "6.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-drupal-8.git",
@@ -954,7 +954,7 @@
             ],
             "description": "Open source constituent relationship management for non-profits, NGOs and advocacy organizations.",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-drupal-8/tree/6.6.1"
+                "source": "https://github.com/civicrm/civicrm-drupal-8/tree/6.6.2"
             },
             "funding": [
                 {
@@ -966,7 +966,7 @@
         },
         {
             "name": "civicrm/civicrm-packages",
-            "version": "6.6.1",
+            "version": "6.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-packages.git",
@@ -982,7 +982,7 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "Legacy third party dependencies for CiviCRM",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-packages/tree/6.6.1"
+                "source": "https://github.com/civicrm/civicrm-packages/tree/6.6.2"
             },
             "time": "2025-05-30T06:28:12+00:00"
         },
@@ -5518,8 +5518,20 @@
             ],
             "authors": [
                 {
-                    "name": "Dave Reid",
+                    "name": "anybody",
+                    "homepage": "https://www.drupal.org/user/291091"
+                },
+                {
+                    "name": "dave reid",
                     "homepage": "https://www.drupal.org/user/53892"
+                },
+                {
+                    "name": "grevil",
+                    "homepage": "https://www.drupal.org/user/3668491"
+                },
+                {
+                    "name": "jan kellermann",
+                    "homepage": "https://www.drupal.org/user/371731"
                 }
             ],
             "description": "Provides the js-cookie library as a dependency.",
@@ -7827,68 +7839,6 @@
                 "issues": "https://www.drupal.org/project/issues/webform?version=8.x",
                 "docs": "https://www.drupal.org/docs/8/modules/webform",
                 "forum": "https://drupal.stackexchange.com/questions/tagged/webform"
-            }
-        },
-        {
-            "name": "drupal/webform_civicrm",
-            "version": "6.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/webform_civicrm.git",
-                "reference": "6.3.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/webform_civicrm-6.3.1.zip",
-                "reference": "6.3.1",
-                "shasum": "b153a585c4672e4eb226b180a57e8569b3bb0018"
-            },
-            "require": {
-                "civicrm/civicrm-drupal-8": "*",
-                "drupal/core": "^9.4 || ^10",
-                "drupal/webform": "^6.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "6.3.1",
-                    "datestamp": "1748980961",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "colemanw",
-                    "homepage": "https://www.drupal.org/user/639856"
-                },
-                {
-                    "name": "demeritcowboy",
-                    "homepage": "https://www.drupal.org/user/109289"
-                },
-                {
-                    "name": "jitendrapurohit",
-                    "homepage": "https://www.drupal.org/user/2810707"
-                },
-                {
-                    "name": "karing",
-                    "homepage": "https://www.drupal.org/user/787114"
-                }
-            ],
-            "description": "CiviCRM and Webform integration",
-            "homepage": "https://www.drupal.org/project/webform_civicrm",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "http://cgit.drupalcode.org/webform_civicrm",
-                "issues": "https://www.drupal.org/project/issues/webform_civicrm"
             }
         },
         {
@@ -11087,16 +11037,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.26",
+            "version": "2.1.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "b13345001a8553ec405b7741be0c6b8d7f8b5bf5"
+                "reference": "25da374959afa391992792691093550b3098ef1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b13345001a8553ec405b7741be0c6b8d7f8b5bf5",
-                "reference": "b13345001a8553ec405b7741be0c6b8d7f8b5bf5",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/25da374959afa391992792691093550b3098ef1e",
+                "reference": "25da374959afa391992792691093550b3098ef1e",
                 "shasum": ""
             },
             "require": {
@@ -11141,7 +11091,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-09-16T11:33:46+00:00"
+            "time": "2025-09-17T09:55:13+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",

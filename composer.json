@@ -89,7 +89,6 @@
         "drupal/views_field_view": "^1.0@beta",
         "drupal/views_fieldsets": "^4.0",
         "drupal/webform": "^6.3@beta",
-        "drupal/webform_civicrm": "^6.2",
         "drush/drush": "*",
         "kint-php/kint": "*",
         "twbs/bootstrap-icons": "^1.13"
