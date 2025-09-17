@@ -14,8 +14,7 @@ Config.IDS.ini
 /web/libraries/*
 
 # Issues updating fpa for D11 so need to add the info.yml file to git
-!/modules/contrib/fpa/
-!/modules/contrib/fpa/fpa.info.yml
+!/web/modules/contrib/fpa/fpa.info.yml
 
 # Ignore configuration files that may contain sensitive information
 /web/sites/*/*settings*.php
