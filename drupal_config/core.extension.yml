@@ -66,7 +66,6 @@ module:
   login_destination: 0
   mail_login: 0
   mailer_transport: 0
-  maillog: 0
   mailsystem: 0
   manage_display: 0
   masquerade: 0

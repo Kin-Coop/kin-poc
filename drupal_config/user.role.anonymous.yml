@@ -6,7 +6,6 @@ dependencies:
     - filter.format.restricted_html
   module:
     - civicrm
-    - exclude_node_title
     - filter
     - media
     - node_view_permissions
@@ -29,7 +28,6 @@ permissions:
   - 'profile view'
   - 'register for events'
   - 'search content'
-  - 'use exclude node title'
   - 'use text format restricted_html'
   - 'view any article content'
   - 'view any page content'

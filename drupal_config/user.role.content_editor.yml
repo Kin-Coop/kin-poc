@@ -11,7 +11,6 @@ dependencies:
     - comment
     - contextual
     - environment_indicator
-    - exclude_node_title
     - file
     - message
     - node
@@ -59,7 +58,6 @@ permissions:
   - 'revert all revisions'
   - 'revert post revisions'
   - 'skip comment approval'
-  - 'use exclude node title'
   - 'use private messaging system'
   - 'view all revisions'
   - 'view any group_agreement content'

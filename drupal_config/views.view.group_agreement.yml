@@ -378,7 +378,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<p class=\"mt-1\">A group agreement has not been created yet. <a href=\"/node/add/group_agreement?gid={{ raw_arguments.field_civi_group_target_id }}\" class=\"btn btn-primary my-2\">Create Group Agreement</a></p>\r\n<p><a href=\"/faq?term=agreements\">Read our FAQ</a> about group agreements</p>"
+            value: "<p> See the <a href=\"/faqs/group-agreements\">group agreements FAQ</a> for more information.</p>\r\n<p class=\"mt-1\">A group agreement has not been created yet. <a href=\"/node/add/group_agreement?gid={{ raw_arguments.field_civi_group_target_id }}\" class=\"btn btn-primary my-2\">Create Group Agreement</a></p>"
             format: full_html
           tokenize: true
       defaults:
