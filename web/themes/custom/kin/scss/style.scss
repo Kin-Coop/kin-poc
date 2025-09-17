@@ -1263,3 +1263,10 @@ div.block.vertical {
   }
 }
 
+.page-node-type-group-agreement {
+  .node-group-agreement-edit-form {
+    .vertical-tabs {
+      display: none;
+    }
+  }
+}
