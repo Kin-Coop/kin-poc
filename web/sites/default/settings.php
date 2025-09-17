@@ -887,6 +887,8 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  * Keep this code block at the end of this file to take full effect.
  */
 
+$settings['extension_discovery_scan_tests'] = TRUE;
+$settings['extension_discovery_scan_composer'] = TRUE;
 $settings['config_sync_directory'] = '../drupal_config';
 
 
