@@ -57,7 +57,6 @@
         "drupal/link_attributes": "^2.1",
         "drupal/login_destination": "^2.0@beta",
         "drupal/mail_login": "^4.0",
-        "drupal/maillog": "^1.1",
         "drupal/mailsystem": "^4.4",
         "drupal/manage_display": "^3.0",
         "drupal/masquerade": "^2.0@RC",
