@@ -549,12 +549,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              pending_member: '0'
-              member: '0'
-              content_editor: '0'
-              civicrm: '0'
-              administrator: '0'
             placeholder: 'Search groups'
           is_grouped: false
           group_info:
@@ -2072,6 +2066,7 @@ display:
           empty_table: false
           caption: ''
           description: ''
+          class: ''
       row:
         type: fields
         options:
@@ -5772,6 +5767,7 @@ display:
           empty_table: false
           caption: ''
           description: ''
+          class: ''
       row:
         type: fields
         options:
