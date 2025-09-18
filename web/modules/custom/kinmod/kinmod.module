@@ -120,6 +120,7 @@ function kinmod_page_attachments(array &$attachments) {
     // Attach Trustpilot library on public pages only.
     $attachments['#attached']['library'][] = 'kinmod/trustpilot';
     $attachments['#attached']['library'][] = 'kinmod/woopra';
+    $attachments['#attached']['library'][] = 'kinmod/google';
 }
 
 

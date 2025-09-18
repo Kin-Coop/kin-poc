@@ -4,3 +4,6 @@ trustpilot:
 woopra:
   js:
     js/woopra.js: {}
+google:
+  js:
+    js/google.js: { attributes: { defer: true } }
