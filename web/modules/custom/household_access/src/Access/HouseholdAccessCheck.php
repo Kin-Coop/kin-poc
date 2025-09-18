@@ -28,8 +28,9 @@ class HouseholdAccessCheck implements AccessInterface {
     // This is just a placeholder for the route requirement
     $current_user = \Drupal::currentUser();
     $group_id = 0;
+    $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 
-    $path_args = explode('/', trim($_SERVER["REQUEST_URI"], '/'));
+    $path_args = explode('/', trim($url, '/'));
 
     // Safety check: Expecting /member/group/[id]
     if (isset($path_args[2]) && is_numeric($path_args[2])) {
