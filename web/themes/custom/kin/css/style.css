@@ -13226,6 +13226,9 @@ legend {
   padding: 0 0 0.3rem 0;
   margin: 0.3rem 0 0 0;
 }
+.block:not(.no-style) .member-block .is-active a, main .block:not(.no-style) .content-block .is-active a {
+  color: #fff;
+}
 .block:not(.no-style) .member-block a, main .block:not(.no-style) .content-block a {
   color: #2D4C9B;
 }
@@ -13812,6 +13815,9 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   display: none;
 }
 
+.accordion-header {
+  margin-bottom: 0.8rem !important;
+}
 .accordion-header:after {
   font-family: "bootstrap-icons";
   display: block;

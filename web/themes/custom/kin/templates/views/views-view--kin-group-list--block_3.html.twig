@@ -62,8 +62,12 @@
   {% endif %}
 
   {% if rows %}
-    <div class="view-content collapse custom-class" id="groupMembersCollapse">
+    <div class="view-content custom-class" id="groupMembersCollapse">
       {{ rows }}
+
+      {% if pager %}
+        {{ pager }}
+      {% endif %}
     </div>
   {% elseif empty %}
     <div class="view-empty">
@@ -71,9 +75,7 @@
     </div>
   {% endif %}
 
-  {% if pager %}
-    {{ pager }}
-  {% endif %}
+
   {% if attachment_after %}
     <div class="attachment attachment-after">
       {{ attachment_after }}

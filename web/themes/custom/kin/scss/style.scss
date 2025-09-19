@@ -447,6 +447,12 @@ legend {
       margin: .3rem 0 0 0;
     }
 
+    .is-active {
+      a {
+        color: #fff;
+      }
+    }
+
     a {
       color: $primary;
 
@@ -1272,11 +1278,14 @@ div.block.vertical {
 }
 
 .accordion-header {
+  margin-bottom: .8rem !important;
+
   &:after {
     font-family: "bootstrap-icons";
     display: block;
     float: right;
     content: "\f235";
+
   }
   &.collapsed {
     margin-bottom: -.8rem !important;

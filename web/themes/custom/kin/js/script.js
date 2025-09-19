@@ -1,5 +1,26 @@
 //(function($) {
 (($, Drupal, drupalSettings) => {
+
+  //Accordion for group members - always show when viewing page 2++
+  Drupal.behaviors.bootstrapAccordionView = {
+    attach: function (context, settings) {
+      once('bootstrap-accordion-view', '.view', context).forEach(function (el) {
+        var $view = $(el);
+        var urlParams = new URLSearchParams(window.location.search);
+        var hasPage = urlParams.has('page');
+        var $content = $view.find('.view-content.custom-class').first();
+
+        if (hasPage) {
+          $content.addClass('show'); // expanded by default
+        } else {
+          $content.removeClass('show'); // collapsed by default
+          $content.addClass('collapse');
+          $('.accordion-header').addClass('collapsed');
+        }
+      });
+    }
+  };
+
     function to_position(divid){
         $('html, body').animate({scrollTop:$(divid).position().top - 50 }, 'slow');
     }
