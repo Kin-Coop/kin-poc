@@ -2146,10 +2146,15 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<h2>Group Members</h2>'
-            format: basic_html
+            value: "<button class=\"btn btn-link\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#groupMembersCollapse\" aria-expanded=\"false\" aria-controls=\"groupMembersCollapse\">\r\n<h2>Group Members</h2>\r\n</button>"
+            format: full_html
           tokenize: false
-      display_extenders: {  }
+      display_extenders:
+        attributes:
+          attributes:
+            id:
+              value: collapseOne
+              weight: 100
       block_description: 'Group Members'
     cache_metadata:
       max-age: -1
