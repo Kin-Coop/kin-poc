@@ -2146,7 +2146,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<button class=\"btn btn-link\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#groupMembersCollapse\" aria-expanded=\"false\" aria-controls=\"groupMembersCollapse\">\r\n<h2>Group Members</h2>\r\n</button>"
+            value: '<h2 class="accordion-header collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#groupMembersCollapse" aria-expanded="false" aria-controls="groupMembersCollapse">Group Members</h2>'
             format: full_html
           tokenize: false
       display_extenders:

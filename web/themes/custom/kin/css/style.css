@@ -13812,4 +13812,19 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   display: none;
 }
 
+.accordion-header:after {
+  font-family: "bootstrap-icons";
+  display: block;
+  float: right;
+  content: "\f235";
+}
+.accordion-header.collapsed {
+  margin-bottom: -0.8rem !important;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.accordion-header.collapsed:after {
+  content: "\f229";
+}
+
 /*# sourceMappingURL=style.css.map */

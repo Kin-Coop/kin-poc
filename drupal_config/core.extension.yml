@@ -89,6 +89,7 @@ module:
   rabbit_hole: 0
   redirect: 0
   reroute_email: 0
+  reroute_email_symfony_mailer: 0
   riddler: 0
   search: 0
   shortcut: 0
