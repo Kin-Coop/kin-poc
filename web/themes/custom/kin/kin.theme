@@ -101,3 +101,12 @@ function kin_preprocess_node(array &$variables) {
     'd/m/Y H:i'
   );
 }
+
+function kin_preprocess_views_view(&$variables) {
+  
+  if ($variables['view']->id() === 'kin_group_list1' && $variables['view']->current_display === 'block_3') {
+    $variables['attributes']['id'] = 'groupMembersCollapse';
+    $variables['attributes']['class'][] = 'collapse';
+    $variables['attributes']['class'][] = 'custom-class';
+  }
+}

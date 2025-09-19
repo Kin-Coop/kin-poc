@@ -82,6 +82,7 @@
         "drupal/twig_tweak": "^3.2",
         "drupal/upgrade_status": "^4.3",
         "drupal/user_redirect": "^2.0",
+        "drupal/views_attributes": "^1.0",
         "drupal/views_bulk_operations": "^4.3",
         "drupal/views_conditional": "^1.9",
         "drupal/views_display_union": "^1.1",
