@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45f048fe5b966abb61b037eb222b81df",
+    "content-hash": "716132227d60e885fb20b6d9afbd6e78",
     "packages": [
         {
             "name": "adrienrn/php-mimetyper",
@@ -7286,6 +7286,212 @@
             }
         },
         {
+            "name": "drupal/ui_patterns",
+            "version": "2.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ui_patterns.git",
+                "reference": "2.0.9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ui_patterns-2.0.9.zip",
+                "reference": "2.0.9",
+                "shasum": "324ba62ed0c69c343ab2d7a9b6694a2bf69a36f8"
+            },
+            "require": {
+                "drupal/core": "^10.3.4 || ^11",
+                "justinrainbow/json-schema": "^5.2 || ^6.3"
+            },
+            "require-dev": {
+                "drupal/ui_patterns_library": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.9",
+                    "datestamp": "1757091215",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "ademarco",
+                    "homepage": "https://www.drupal.org/user/186696"
+                },
+                {
+                    "name": "bircher",
+                    "homepage": "https://www.drupal.org/user/1344166"
+                },
+                {
+                    "name": "christian.wiedemann",
+                    "homepage": "https://www.drupal.org/user/861002"
+                },
+                {
+                    "name": "duaelfr",
+                    "homepage": "https://www.drupal.org/user/931394"
+                },
+                {
+                    "name": "g4mbini",
+                    "homepage": "https://www.drupal.org/user/2533498"
+                },
+                {
+                    "name": "grimreaper",
+                    "homepage": "https://www.drupal.org/user/2388214"
+                },
+                {
+                    "name": "just_like_good_vibes",
+                    "homepage": "https://www.drupal.org/user/792018"
+                },
+                {
+                    "name": "pdureau",
+                    "homepage": "https://www.drupal.org/user/1903334"
+                },
+                {
+                    "name": "pescetti",
+                    "homepage": "https://www.drupal.org/user/436244"
+                }
+            ],
+            "description": "Define and expose self-contained UI components and use them seamlessly in development and site-building.",
+            "homepage": "https://www.drupal.org/project/ui_patterns",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ui_patterns"
+            }
+        },
+        {
+            "name": "drupal/ui_styles",
+            "version": "1.17.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ui_styles.git",
+                "reference": "8.x-1.17"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ui_styles-8.x-1.17.zip",
+                "reference": "8.x-1.17",
+                "shasum": "f80e526aba30a434e9d922bd19b1063d464a1600"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11",
+                "php": ">=8.3",
+                "sabberworm/php-css-parser": "^8.6"
+            },
+            "require-dev": {
+                "drupal/ui_patterns": "^2.0",
+                "drupal/ui_skins": "^1.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.17",
+                    "datestamp": "1756980254",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "patches": {
+                    "sabberworm/php-css-parser": {
+                        "1 - Fix/css4 rgb parsing - https://www.drupal.org/project/ui_styles/issues/3453784#comment-15719087": "https://www.drupal.org/files/issues/2024-08-08/sabberworm-php-css-parser-202.patch"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "grimreaper",
+                    "homepage": "https://www.drupal.org/user/2388214"
+                },
+                {
+                    "name": "pdureau",
+                    "homepage": "https://www.drupal.org/user/1903334"
+                }
+            ],
+            "description": "Define styles from modules and themes.",
+            "homepage": "https://www.drupal.org/project/ui_styles",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ui_styles"
+            }
+        },
+        {
+            "name": "drupal/ui_suite_bootstrap",
+            "version": "5.2.0-beta4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ui_suite_bootstrap.git",
+                "reference": "5.2.0-beta4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ui_suite_bootstrap-5.2.0-beta4.zip",
+                "reference": "5.2.0-beta4",
+                "shasum": "80bc772bf7d5eecb6a2ed1a54ec7bfde5f9c13ff"
+            },
+            "require": {
+                "drupal/core": "^11.2",
+                "drupal/ui_patterns": "^2.0",
+                "drupal/ui_styles": "^1.7"
+            },
+            "require-dev": {
+                "drupal/sdc_devel": "^1.0",
+                "drupal/ui_icons": "^1.1",
+                "drupal/ui_skins": "^1.0"
+            },
+            "suggest": {
+                "drupal/entity_vdts": "Allows to remove entity template wrappers.",
+                "drupal/fences": "Allows to control wrapping markup and classes of fields.",
+                "drupal/ui_examples": "Allows to have examples pages.",
+                "drupal/ui_icons": "Allows to handle icons.",
+                "drupal/ui_skins": "Allows to switch between themes and to override CSS variables."
+            },
+            "type": "drupal-theme",
+            "extra": {
+                "drupal": {
+                    "version": "5.2.0-beta4",
+                    "datestamp": "1758123701",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\ui_suite_bootstrap\\": "src"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "grimreaper",
+                    "homepage": "https://www.drupal.org/user/2388214"
+                },
+                {
+                    "name": "pdureau",
+                    "homepage": "https://www.drupal.org/user/1903334"
+                }
+            ],
+            "description": "A site-builder friendly Bootstrap theme, using the UI Suite modules.",
+            "homepage": "https://www.drupal.org/project/ui_suite_bootstrap",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ui_suite_bootstrap"
+            }
+        },
+        {
             "name": "drupal/upgrade_status",
             "version": "4.3.8",
             "source": {
@@ -8689,6 +8895,81 @@
             "time": "2025-01-18T10:43:04+00:00"
         },
         {
+            "name": "justinrainbow/json-schema",
+            "version": "6.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jsonrainbow/json-schema.git",
+                "reference": "ac0d369c09653cf7af561f6d91a705bc617a87b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/ac0d369c09653cf7af561f6d91a705bc617a87b8",
+                "reference": "ac0d369c09653cf7af561f6d91a705bc617a87b8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "marc-mabe/php-enum": "^4.0",
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "3.3.0",
+                "json-schema/json-schema-test-suite": "^23.2",
+                "marc-mabe/php-enum-phpstan": "^2.0",
+                "phpspec/prophecy": "^1.19",
+                "phpstan/phpstan": "^1.12",
+                "phpunit/phpunit": "^8.5"
+            },
+            "bin": [
+                "bin/validate-json"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JsonSchema\\": "src/JsonSchema/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bruno Prieto Reis",
+                    "email": "bruno.p.reis@gmail.com"
+                },
+                {
+                    "name": "Justin Rainbow",
+                    "email": "justin.rainbow@gmail.com"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Robert Schönthal",
+                    "email": "seroscho@googlemail.com"
+                }
+            ],
+            "description": "A library to validate a json schema.",
+            "homepage": "https://github.com/jsonrainbow/json-schema",
+            "keywords": [
+                "json",
+                "schema"
+            ],
+            "support": {
+                "issues": "https://github.com/jsonrainbow/json-schema/issues",
+                "source": "https://github.com/jsonrainbow/json-schema/tree/6.5.2"
+            },
+            "time": "2025-09-09T09:42:27+00:00"
+        },
+        {
             "name": "kint-php/kint",
             "version": "6.0.1",
             "source": {
@@ -9308,6 +9589,79 @@
                 }
             ],
             "time": "2025-07-17T11:15:13+00:00"
+        },
+        {
+            "name": "marc-mabe/php-enum",
+            "version": "v4.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marc-mabe/php-enum.git",
+                "reference": "bb426fcdd65c60fb3638ef741e8782508fda7eef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marc-mabe/php-enum/zipball/bb426fcdd65c60fb3638ef741e8782508fda7eef",
+                "reference": "bb426fcdd65c60fb3638ef741e8782508fda7eef",
+                "shasum": ""
+            },
+            "require": {
+                "ext-reflection": "*",
+                "php": "^7.1 | ^8.0"
+            },
+            "require-dev": {
+                "phpbench/phpbench": "^0.16.10 || ^1.0.4",
+                "phpstan/phpstan": "^1.3.1",
+                "phpunit/phpunit": "^7.5.20 | ^8.5.22 | ^9.5.11",
+                "vimeo/psalm": "^4.17.0 | ^5.26.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-3.x": "3.2-dev",
+                    "dev-master": "4.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MabeEnum\\": "src/"
+                },
+                "classmap": [
+                    "stubs/Stringable.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Marc Bennewitz",
+                    "email": "dev@mabe.berlin",
+                    "homepage": "https://mabe.berlin/",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Simple and fast implementation of enumerations with native PHP",
+            "homepage": "https://github.com/marc-mabe/php-enum",
+            "keywords": [
+                "enum",
+                "enum-map",
+                "enum-set",
+                "enumeration",
+                "enumerator",
+                "enummap",
+                "enumset",
+                "map",
+                "set",
+                "type",
+                "type-hint",
+                "typehint"
+            ],
+            "support": {
+                "issues": "https://github.com/marc-mabe/php-enum/issues",
+                "source": "https://github.com/marc-mabe/php-enum/tree/v4.7.2"
+            },
+            "time": "2025-09-14T11:18:39+00:00"
         },
         {
             "name": "marcj/topsort",
@@ -16147,6 +16501,7 @@
         "drupal/private_message": 15,
         "drupal/rabbit_hole": 10,
         "drupal/reroute_email": 5,
+        "drupal/ui_suite_bootstrap": 10,
         "drupal/views_field_view": 10,
         "drupal/webform": 10
     },
