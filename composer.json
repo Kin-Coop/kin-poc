@@ -10,11 +10,49 @@
     },
     "repositories": [
         {
+            "type": "package",
+            "package": {
+                "name": "asset/bootstrap",
+                "version": "5.3.8",
+                "type": "drupal-library",
+                "extra": {
+                    "installer-name": "bootstrap"
+                },
+                "dist": {
+                    "type": "zip",
+                    "url": "https://api.github.com/repos/twbs/bootstrap/zipball/25aa8cc0b32f0d1a54be575347e6d84b70b1acd7",
+                    "reference": "25aa8cc0b32f0d1a54be575347e6d84b70b1acd7"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "asset/bootstrap-icons",
+                "version": "1.13.1",
+                "type": "drupal-library",
+                "extra": {
+                    "installer-name": "bootstrap-icons"
+                },
+                "dist": {
+                    "type": "zip",
+                    "url": "https://api.github.com/repos/twbs/icons/zipball/ce0e49dd063243118a115f17ad1fe1fe7576d552",
+                    "reference": "ce0e49dd063243118a115f17ad1fe1fe7576d552"
+                }
+            }
+        },
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        },
+        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         }
     ],
     "require": {
+        "asset/bootstrap": "5.3.8",
+        "asset/bootstrap-icons": "1.13.1",
         "civicrm/civicrm-core": "^6.00",
         "civicrm/civicrm-drupal-8": "^6.00",
         "civicrm/civicrm-packages": "^6.00",
@@ -81,6 +119,7 @@
         "drupal/token_filter": "^2.2",
         "drupal/twig_tweak": "^3.2",
         "drupal/ui_patterns": "^2.0",
+        "drupal/ui_patterns_paragraphs": "^1.0@alpha",
         "drupal/ui_styles": "^1.17",
         "drupal/ui_suite_bootstrap": "^5.2@beta",
         "drupal/upgrade_status": "^4.3",
@@ -94,6 +133,7 @@
         "drupal/webform": "^6.3@beta",
         "drush/drush": "*",
         "kint-php/kint": "*",
+        "oomphinc/composer-installers-extender": "2.*",
         "twbs/bootstrap-icons": "^1.13"
     },
     "conflict": {
@@ -103,16 +143,17 @@
     "prefer-stable": true,
     "config": {
         "allow-plugins": {
+            "civicrm/civicrm-asset-plugin": true,
+            "civicrm/composer-compile-plugin": true,
+            "civicrm/composer-downloads-plugin": true,
             "composer/installers": true,
+            "cweagans/composer-patches": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
-            "phpstan/extension-installer": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "oomphinc/composer-installers-extender": true,
             "php-http/discovery": true,
-            "civicrm/civicrm-asset-plugin": true,
-            "cweagans/composer-patches": true,
-            "civicrm/composer-downloads-plugin": true,
-            "civicrm/composer-compile-plugin": true
+            "phpstan/extension-installer": true
         },
         "sort-packages": true
     },
@@ -127,7 +168,9 @@
                 "type:drupal-core"
             ],
             "web/libraries/{$name}": [
-                "type:drupal-library"
+                "type:drupal-library",
+                "type:bower-asset",
+                "type:npm-asset"
             ],
             "web/modules/contrib/{$name}": [
                 "type:drupal-module"
@@ -151,6 +194,10 @@
                 "type:drupal-custom-theme"
             ]
         },
+        "installer-types": [
+            "bower-asset",
+            "npm-asset"
+        ],
         "drupal-core-project-message": {
             "include-keys": [
                 "homepage",

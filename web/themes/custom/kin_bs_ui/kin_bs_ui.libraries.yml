@@ -1,0 +1,9 @@
+framework:
+  css:
+    theme:
+      assets/css/style.css: {}
+
+form:
+  css:
+    component:
+      assets/css/form/form-required.css: {}

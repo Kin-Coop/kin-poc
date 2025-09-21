@@ -1,0 +1,28 @@
+name: kin_bs_ui
+type: theme
+description: ''
+core_version_requirement: ^11
+'base theme': ui_suite_bootstrap
+regions:
+  navigation: Navigation
+  navigation_collapsible: 'Navigation (Collapsible)'
+  header: 'Top Bar'
+  highlighted: Highlighted
+  help: Help
+  content: Content
+  sidebar_first: Primary
+  sidebar_second: Secondary
+  footer: Footer
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+ckeditor5-stylesheets:
+  - assets/css/ckeditor5.css
+libraries:
+  - kin_bs_ui/framework
+libraries-extend:
+  ui_suite_bootstrap/form:
+    - kin_bs_ui/form
+version: 1.0.0
+project: ui_suite_bootstrap
+datestamp: 1758123703
+generator: 'ui_suite_bootstrap_starterkit:5.2.0-beta4'
