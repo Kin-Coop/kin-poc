@@ -1,0 +1,26 @@
+uuid: 9248aab4-3041-473f-9e1f-b305bf0fd74e
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - system
+active_version: 555013928f7c9471
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: system_branding_block
+        label: 'Site branding'
+        label_display: '0'
+        provider: system
+        use_site_logo: true
+        use_site_name: true
+        use_site_slogan: true
+    fallback_metadata:
+      slot_definitions: null
+label: 'Site branding'
+id: block.system_branding_block
+provider: system
+source: block
+source_local_id: system_branding_block
+category: System

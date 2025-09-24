@@ -1,0 +1,89 @@
+uuid: e3e20d3e-5937-4f49-802e-c8273d0983d8
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - display_builder.display_builder.default
+    - system.menu.account
+    - system.menu.footer
+    - system.menu.main
+  module:
+    - block_visibility_groups
+    - system
+    - ui_patterns
+  theme:
+    - ui_suite_bootstrap
+id: test
+label: Test
+weight: 0
+conditions:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: /test
+display_builder: default
+sources:
+  -
+    source_id: block
+    source:
+      plugin_id: system_branding_block
+      system_branding_block:
+        id: system_branding_block
+        label: 'Site branding'
+        label_display: ''
+        provider: system
+        use_site_logo: false
+        use_site_name: true
+        use_site_slogan: false
+    _instance_id: 68d2b6cb9cf23
+  -
+    source_id: page_title
+    source: {  }
+    _instance_id: 68d2b6cb9cf25
+  -
+    source_id: block
+    source:
+      plugin_id: 'system_menu_block:main'
+    _instance_id: 68d2b6cb9cf26
+  -
+    source_id: block
+    source:
+      plugin_id: 'system_menu_block:account'
+    _instance_id: 68d2b6cb9cf27
+  -
+    _instance_id: 68d2b7ce67879
+    source_id: component
+    source:
+      component:
+        component_id: 'ui_suite_bootstrap:button'
+  -
+    source_id: block
+    source:
+      plugin_id: system_breadcrumb_block
+    _instance_id: 68d2b6cb9cf28
+  -
+    source_id: local_tasks
+    source: {  }
+    _instance_id: 68d2b6cb9cf29
+  -
+    source_id: local_actions
+    source: {  }
+    _instance_id: 68d2b6cb9cf2a
+  -
+    source_id: main_page_content
+    source: {  }
+    _instance_id: 68d2b6cb9cf2b
+  -
+    source_id: block
+    source:
+      plugin_id: 'system_menu_block:footer'
+    _instance_id: 68d2b6cb9cf2c
+  -
+    source_id: block
+    source:
+      plugin_id: system_powered_by_block
+    _instance_id: 68d2b6cb9cf2d

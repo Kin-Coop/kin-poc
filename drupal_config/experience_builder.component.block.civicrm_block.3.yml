@@ -1,0 +1,23 @@
+uuid: e7caa4b9-df91-429c-a0d0-abde0241814d
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - civicrm
+active_version: fdb7df9bd47da115
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'civicrm_block:3'
+        label: 'Contact Dashboard'
+        label_display: '0'
+        provider: civicrm
+    fallback_metadata:
+      slot_definitions: null
+label: 'Contact Dashboard'
+id: block.civicrm_block.3
+provider: civicrm
+source: block
+source_local_id: 'civicrm_block:3'
+category: Civicrm

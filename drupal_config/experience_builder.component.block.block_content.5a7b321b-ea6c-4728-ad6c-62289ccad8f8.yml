@@ -1,0 +1,28 @@
+uuid: fc981c94-01ca-4b1e-b39d-2614feaaad74
+langcode: en-gb
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:5a7b321b-ea6c-4728-ad6c-62289ccad8f8'
+  module:
+    - block_content
+active_version: 599c45f4393b8d35
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'block_content:5a7b321b-ea6c-4728-ad6c-62289ccad8f8'
+        label: 'Kin Details'
+        label_display: '0'
+        provider: block_content
+        status: true
+        info: ''
+        view_mode: full
+    fallback_metadata:
+      slot_definitions: null
+label: 'Kin Details'
+id: block.block_content.5a7b321b-ea6c-4728-ad6c-62289ccad8f8
+provider: block_content
+source: block
+source_local_id: 'block_content:5a7b321b-ea6c-4728-ad6c-62289ccad8f8'
+category: 'Content block'

@@ -1,0 +1,23 @@
+uuid: 09bbc7ec-9dce-4d9c-860b-c889c1136d3b
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - system
+active_version: 17d2566566c2e207
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: system_clear_cache_block
+        label: 'Clear cache'
+        label_display: '0'
+        provider: system
+    fallback_metadata:
+      slot_definitions: null
+label: 'Clear cache'
+id: block.system_clear_cache_block
+provider: system
+source: block
+source_local_id: system_clear_cache_block
+category: System

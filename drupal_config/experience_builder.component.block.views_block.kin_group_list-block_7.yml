@@ -1,0 +1,27 @@
+uuid: 10436f19-278c-4a50-bb4e-b63ae0432763
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.kin_group_list
+  module:
+    - views
+active_version: 7880bf332ac66728
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:kin_group_list-block_7'
+        label: 'One Off Members'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'One Off Members'
+id: block.views_block.kin_group_list-block_7
+provider: views
+source: block
+source_local_id: 'views_block:kin_group_list-block_7'
+category: 'Lists (Views)'

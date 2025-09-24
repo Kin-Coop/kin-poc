@@ -1,0 +1,27 @@
+uuid: a535e3cd-307e-4c68-bb6a-afc71fb2c01f
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.forum
+  module:
+    - views
+active_version: dc26928c1d204d5f
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:forum-block_1'
+        label: Forum
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: Forum
+id: block.views_block.forum-block_1
+provider: views
+source: block
+source_local_id: 'views_block:forum-block_1'
+category: 'Lists (Views)'

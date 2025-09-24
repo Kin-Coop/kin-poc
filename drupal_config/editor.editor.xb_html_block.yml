@@ -1,0 +1,33 @@
+uuid: c9ce529a-0152-4e20-97d6-7c261baf6ef7
+langcode: en
+status: false
+dependencies:
+  config:
+    - filter.format.xb_html_block
+  module:
+    - ckeditor5
+  enforced:
+    module:
+      - experience_builder
+_core:
+  default_config_hash: tAG_drZFmOpmv07s5tYB80Z8mGh5GT3jZ1pSNb0N0fY
+format: xb_html_block
+editor: ckeditor5
+settings:
+  toolbar:
+    items:
+      - bold
+      - italic
+      - underline
+      - link
+      - '|'
+      - bulletedList
+      - numberedList
+  plugins:
+    ckeditor5_list:
+      properties:
+        reversed: false
+        startIndex: false
+      multiBlock: false
+image_upload:
+  status: false

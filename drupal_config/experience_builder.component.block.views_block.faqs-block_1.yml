@@ -1,0 +1,27 @@
+uuid: 3fa7c784-2822-4b67-b4b5-a12533b04912
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.faqs
+  module:
+    - views
+active_version: 689071de879499ab
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:faqs-block_1'
+        label: 'FAQs: Children Terms Block'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'FAQs: Children Terms Block'
+id: block.views_block.faqs-block_1
+provider: views
+source: block
+source_local_id: 'views_block:faqs-block_1'
+category: 'Lists (Views)'

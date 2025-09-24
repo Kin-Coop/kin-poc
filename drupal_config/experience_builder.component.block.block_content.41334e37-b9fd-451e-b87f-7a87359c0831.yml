@@ -1,0 +1,28 @@
+uuid: c38fc460-7cf1-4de3-b260-1954b5b6fa15
+langcode: en-gb
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:41334e37-b9fd-451e-b87f-7a87359c0831'
+  module:
+    - block_content
+active_version: 13e1310d501b7516
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'block_content:41334e37-b9fd-451e-b87f-7a87359c0831'
+        label: 'Recurring Donation Advert'
+        label_display: '0'
+        provider: block_content
+        status: true
+        info: ''
+        view_mode: full
+    fallback_metadata:
+      slot_definitions: null
+label: 'Recurring Donation Advert'
+id: block.block_content.41334e37-b9fd-451e-b87f-7a87359c0831
+provider: block_content
+source: block
+source_local_id: 'block_content:41334e37-b9fd-451e-b87f-7a87359c0831'
+category: 'Content block'

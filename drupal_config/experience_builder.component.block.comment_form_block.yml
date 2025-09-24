@@ -1,0 +1,23 @@
+uuid: 73a0705d-4a63-41f0-a924-8283cf4f24e4
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - kin_forum
+active_version: 0e9fcc1b5b0dc112
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: comment_form_block
+        label: 'Comment Form Block'
+        label_display: '0'
+        provider: kin_forum
+    fallback_metadata:
+      slot_definitions: null
+label: 'Comment Form Block'
+id: block.comment_form_block
+provider: kin_forum
+source: block
+source_local_id: comment_form_block
+category: 'Kin Forum'

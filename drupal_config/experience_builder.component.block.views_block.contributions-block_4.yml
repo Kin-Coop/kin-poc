@@ -1,0 +1,27 @@
+uuid: b3a686fe-6e60-4df4-b1d3-ae67e38b5402
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.contributions
+  module:
+    - views
+active_version: f079e4d37b76eba0
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:contributions-block_4'
+        label: 'Member Recurring Contributions'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Member Recurring Contributions'
+id: block.views_block.contributions-block_4
+provider: views
+source: block
+source_local_id: 'views_block:contributions-block_4'
+category: 'Lists (Views)'

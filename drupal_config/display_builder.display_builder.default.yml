@@ -1,0 +1,101 @@
+uuid: 56e4082d-21d6-43b9-827c-556de50dca3a
+langcode: en-gb
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: fLdTRaz-N0Nrcs3r-BOa8ZQ0gN5ozWrHIp6OwcbOJfI
+id: default
+label: Default
+description: 'With sensible configuration, for the common usage.'
+library: cdn
+debug: false
+islands:
+  component_library:
+    enable: true
+    weight: -10
+  block_library:
+    enable: true
+    weight: -9
+  preset_library:
+    enable: true
+    weight: -8
+  builder:
+    enable: true
+    weight: -7
+    region: main
+  layers:
+    enable: true
+    weight: -6
+    region: main
+  preview:
+    enable: true
+    weight: -5
+    region: main
+  library:
+    enable: true
+    weight: -10
+    region: sidebar
+  tree:
+    enable: true
+    weight: -9
+    region: sidebar
+  logs:
+    enable: true
+    weight: -8
+    region: sidebar
+  history:
+    display_clear_button: false
+    enable: true
+    weight: -9
+  state:
+    enable: true
+    weight: -10
+  toggle_highlight:
+    enable: true
+    weight: -8
+  toggle_fullscreen:
+    enable: true
+    weight: -7
+  keyboard_help:
+    enable: true
+    weight: -5
+  theme_mode:
+    enable: false
+    weight: -2
+  instance_form:
+    enable: true
+    weight: -10
+  ui_styles:
+    enable: true
+    weight: -9
+  ui_skins:
+    enable: true
+    weight: -8
+  visibility_conditions:
+    enable: true
+    weight: -7
+  menu:
+    enable: true
+    weight: -10
+  menu_preset:
+    enable: true
+    weight: -9
+  menu_delete:
+    enable: true
+    weight: -8
+  collaboration:
+    enable: false
+    weight: -4
+  viewport:
+    enable: false
+    weight: -3
+  parent_display:
+    enable: true
+    weight: -6
+  operation:
+    enable: false
+    weight: -1
+  reset:
+    enable: false
+    weight: 0
+weight: 0

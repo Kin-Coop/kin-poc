@@ -8,12 +8,7 @@ features:
   favicon: true
   node_user_picture: true
 logo:
-  path: 'public://KIN.coop_0824_logo_Brandmark - full colour-1.png'
-  use_default: false
-container: container
-library:
-  js_loading: ui_suite_bootstrap/framework_js
-  css_loading: ''
+  use_default: true
 ui_styles_entity_status_unpublished:
   selected:
     colors_background_color: bg-danger-subtle
@@ -26,3 +21,7 @@ ui_styles_regions:
     selected:
       colors_background_color: bg-light
       spacing_padding: p-3
+container: container
+library:
+  js_loading: ui_suite_bootstrap/framework_js
+  css_loading: kin_bs_ui/framework

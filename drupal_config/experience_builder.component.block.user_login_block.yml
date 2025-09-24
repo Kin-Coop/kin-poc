@@ -1,0 +1,23 @@
+uuid: 4829f592-1157-4ba2-960b-4c8c33d1ff24
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - user
+active_version: b97f14973683123f
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: user_login_block
+        label: 'User login'
+        label_display: '0'
+        provider: user
+    fallback_metadata:
+      slot_definitions: null
+label: 'User login'
+id: block.user_login_block
+provider: user
+source: block
+source_local_id: user_login_block
+category: Forms

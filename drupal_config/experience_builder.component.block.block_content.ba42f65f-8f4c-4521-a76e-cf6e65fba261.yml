@@ -1,0 +1,28 @@
+uuid: 1d37a403-5aef-4872-879c-11d88ff45914
+langcode: en-gb
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:ba42f65f-8f4c-4521-a76e-cf6e65fba261'
+  module:
+    - block_content
+active_version: 1d501f2e0ec79712
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'block_content:ba42f65f-8f4c-4521-a76e-cf6e65fba261'
+        label: 'Cooperatives UK Member'
+        label_display: '0'
+        provider: block_content
+        status: true
+        info: ''
+        view_mode: full
+    fallback_metadata:
+      slot_definitions: null
+label: 'Cooperatives UK Member'
+id: block.block_content.ba42f65f-8f4c-4521-a76e-cf6e65fba261
+provider: block_content
+source: block
+source_local_id: 'block_content:ba42f65f-8f4c-4521-a76e-cf6e65fba261'
+category: 'Content block'

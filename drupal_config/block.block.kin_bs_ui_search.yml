@@ -1,0 +1,36 @@
+uuid: c656238f-8478-4ec0-8176-22552f6c072f
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - search
+    - ui_styles
+  theme:
+    - kin_bs_ui
+third_party_settings:
+  ui_styles:
+    block:
+      selected: {  }
+      extra: ''
+    title:
+      selected:
+        visually_hidden: visually-hidden
+      extra: ''
+    content:
+      selected: {  }
+      extra: ''
+_core:
+  default_config_hash: 5gGvOGcJN5bFRNBLR0Q2oRUqhXzFAvSZ3_zQ0X0GYAI
+id: kin_bs_ui_search
+theme: kin_bs_ui
+region: sidebar_first
+weight: -1
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: Search
+  label_display: visible
+  provider: search
+  page_id: null
+visibility: {  }

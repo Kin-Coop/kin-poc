@@ -1,0 +1,23 @@
+uuid: bfd62c7a-afd1-420c-ace8-aacc07506337
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - private_message
+active_version: 4d116d59ef301a74
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: private_message_actions_block
+        label: 'Private Message Actions'
+        label_display: '0'
+        provider: private_message
+    fallback_metadata:
+      slot_definitions: null
+label: 'Private Message Actions'
+id: block.private_message_actions_block
+provider: private_message
+source: block
+source_local_id: private_message_actions_block
+category: 'Private Message'

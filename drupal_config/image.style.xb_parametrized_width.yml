@@ -1,0 +1,18 @@
+uuid: 738455f3-a902-430c-a340-f8d66f0ba01c
+langcode: en-gb
+status: true
+dependencies:
+  enforced:
+    module:
+      - experience_builder
+_core:
+  default_config_hash: O-snb7g5GpQP7OLkDGdWavOyW50o-vHtlxE9OcgNFxM
+name: xb_parametrized_width
+label: 'Experience Builder parametrized width'
+effects:
+  249b8926-f421-4d60-8453-fb5d9265c731:
+    uuid: 249b8926-f421-4d60-8453-fb5d9265c731
+    id: image_convert
+    weight: 1000
+    data:
+      extension: webp

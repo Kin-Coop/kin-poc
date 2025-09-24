@@ -1,0 +1,27 @@
+uuid: 659eb222-6648-4949-8fd3-d6943921a736
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.kin_group_list
+  module:
+    - views
+active_version: 266a635310b28a5e
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:kin_group_list-block_6'
+        label: 'Pending Members'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Pending Members'
+id: block.views_block.kin_group_list-block_6
+provider: views
+source: block
+source_local_id: 'views_block:kin_group_list-block_6'
+category: 'Lists (Views)'

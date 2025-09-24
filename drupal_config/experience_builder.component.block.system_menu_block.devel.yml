@@ -1,0 +1,28 @@
+uuid: 958755e1-9e77-45c6-8d55-2963f961bcbd
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - system.menu.devel
+  module:
+    - system
+active_version: 019cdc0180a01a2c
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'system_menu_block:devel'
+        label: Development
+        label_display: '0'
+        provider: system
+        level: 1
+        depth: null
+        expand_all_items: false
+    fallback_metadata:
+      slot_definitions: null
+label: Development
+id: block.system_menu_block.devel
+provider: system
+source: block
+source_local_id: 'system_menu_block:devel'
+category: Menus

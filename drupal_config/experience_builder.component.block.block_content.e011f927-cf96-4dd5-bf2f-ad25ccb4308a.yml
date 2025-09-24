@@ -1,0 +1,28 @@
+uuid: fbd3a284-2a98-43be-89bd-9291d217199d
+langcode: en-gb
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:e011f927-cf96-4dd5-bf2f-ad25ccb4308a'
+  module:
+    - block_content
+active_version: 7c87056da1c32045
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'block_content:e011f927-cf96-4dd5-bf2f-ad25ccb4308a'
+        label: 'Trust Pilot'
+        label_display: '0'
+        provider: block_content
+        status: true
+        info: ''
+        view_mode: full
+    fallback_metadata:
+      slot_definitions: null
+label: 'Trust Pilot'
+id: block.block_content.e011f927-cf96-4dd5-bf2f-ad25ccb4308a
+provider: block_content
+source: block
+source_local_id: 'block_content:e011f927-cf96-4dd5-bf2f-ad25ccb4308a'
+category: 'Content block'

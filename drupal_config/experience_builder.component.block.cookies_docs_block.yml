@@ -1,0 +1,24 @@
+uuid: 48f8e130-59b9-496f-b57b-54d556770dca
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - cookies
+active_version: 9b39e24507719303
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: cookies_docs_block
+        label: 'Cookies Documentation'
+        label_display: '0'
+        provider: cookies
+        show_cookies_settings_button: {  }
+    fallback_metadata:
+      slot_definitions: null
+label: 'Cookies Documentation'
+id: block.cookies_docs_block
+provider: cookies
+source: block
+source_local_id: cookies_docs_block
+category: COOKiES

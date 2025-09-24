@@ -1,0 +1,28 @@
+uuid: aded43ec-1a01-4179-a6d3-d72f55f46aea
+langcode: en-gb
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:d3f42a4c-0689-4f1d-a3d3-0d4c0ef04f90'
+  module:
+    - block_content
+active_version: d1cef44a8368d8c0
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'block_content:d3f42a4c-0689-4f1d-a3d3-0d4c0ef04f90'
+        label: 'Become a Member'
+        label_display: '0'
+        provider: block_content
+        status: true
+        info: ''
+        view_mode: full
+    fallback_metadata:
+      slot_definitions: null
+label: 'Become a Member'
+id: block.block_content.d3f42a4c-0689-4f1d-a3d3-0d4c0ef04f90
+provider: block_content
+source: block
+source_local_id: 'block_content:d3f42a4c-0689-4f1d-a3d3-0d4c0ef04f90'
+category: 'Content block'

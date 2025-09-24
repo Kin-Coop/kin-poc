@@ -1,0 +1,23 @@
+uuid: ec861897-3033-43c0-aa8a-d3fae46ec616
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - help
+active_version: 2165fa6a5b572ec9
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: help_block
+        label: Help
+        label_display: '0'
+        provider: help
+    fallback_metadata:
+      slot_definitions: null
+label: Help
+id: block.help_block
+provider: help
+source: block
+source_local_id: help_block
+category: Help

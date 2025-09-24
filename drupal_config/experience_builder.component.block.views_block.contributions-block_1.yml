@@ -1,0 +1,27 @@
+uuid: 24611a27-2657-4f6e-a380-c10b67928cd1
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.contributions
+  module:
+    - views
+active_version: f1e274632fa3586f
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:contributions-block_1'
+        label: 'Group Contributions'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Group Contributions'
+id: block.views_block.contributions-block_1
+provider: views
+source: block
+source_local_id: 'views_block:contributions-block_1'
+category: 'Lists (Views)'

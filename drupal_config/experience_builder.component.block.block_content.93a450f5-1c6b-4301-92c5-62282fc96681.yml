@@ -1,0 +1,28 @@
+uuid: ab235b79-c827-4788-a6f6-20433de99c78
+langcode: en-gb
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:93a450f5-1c6b-4301-92c5-62282fc96681'
+  module:
+    - block_content
+active_version: f8847c21b6208cc5
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'block_content:93a450f5-1c6b-4301-92c5-62282fc96681'
+        label: 'Pending Member Welcome'
+        label_display: '0'
+        provider: block_content
+        status: true
+        info: ''
+        view_mode: full
+    fallback_metadata:
+      slot_definitions: null
+label: 'Pending Member Welcome'
+id: block.block_content.93a450f5-1c6b-4301-92c5-62282fc96681
+provider: block_content
+source: block
+source_local_id: 'block_content:93a450f5-1c6b-4301-92c5-62282fc96681'
+category: 'Content block'

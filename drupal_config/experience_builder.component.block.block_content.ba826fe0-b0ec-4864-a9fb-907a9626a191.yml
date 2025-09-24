@@ -1,0 +1,28 @@
+uuid: 949a16a1-7da8-4d02-b912-188f15783637
+langcode: en-gb
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:ba826fe0-b0ec-4864-a9fb-907a9626a191'
+  module:
+    - block_content
+active_version: 96ea0d2241564ad6
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'block_content:ba826fe0-b0ec-4864-a9fb-907a9626a191'
+        label: 'Coop Marque'
+        label_display: '0'
+        provider: block_content
+        status: true
+        info: ''
+        view_mode: full
+    fallback_metadata:
+      slot_definitions: null
+label: 'Coop Marque'
+id: block.block_content.ba826fe0-b0ec-4864-a9fb-907a9626a191
+provider: block_content
+source: block
+source_local_id: 'block_content:ba826fe0-b0ec-4864-a9fb-907a9626a191'
+category: 'Content block'

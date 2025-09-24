@@ -1,0 +1,27 @@
+uuid: 17539400-8ebf-4153-84fc-6acff46fd020
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.contributions
+  module:
+    - views
+active_version: 458f8c3926926f9f
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:contributions-block_3'
+        label: 'Money Requests Needing Approval'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Money Requests Needing Approval'
+id: block.views_block.contributions-block_3
+provider: views
+source: block
+source_local_id: 'views_block:contributions-block_3'
+category: 'Lists (Views)'

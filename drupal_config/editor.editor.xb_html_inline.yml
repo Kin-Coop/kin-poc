@@ -1,0 +1,25 @@
+uuid: f56e6867-17ab-4286-b4a5-b8cc557378e0
+langcode: en
+status: false
+dependencies:
+  config:
+    - filter.format.xb_html_inline
+  module:
+    - ckeditor5
+  enforced:
+    module:
+      - experience_builder
+_core:
+  default_config_hash: 1w6ke8ZXLVr5hLSRdY_ZkT4WEniKYS_Qxyh7LgDoHfs
+format: xb_html_inline
+editor: ckeditor5
+settings:
+  toolbar:
+    items:
+      - bold
+      - italic
+      - underline
+      - link
+  plugins: {  }
+image_upload:
+  status: false

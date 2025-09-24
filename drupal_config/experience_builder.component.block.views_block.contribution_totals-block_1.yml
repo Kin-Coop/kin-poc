@@ -1,0 +1,27 @@
+uuid: 06227ab5-c469-4529-9d5f-e37a9cf079f3
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.contribution_totals
+  module:
+    - views
+active_version: c9d689def0fed090
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:contribution_totals-block_1'
+        label: 'Contribution Totals'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Contribution Totals'
+id: block.views_block.contribution_totals-block_1
+provider: views
+source: block
+source_local_id: 'views_block:contribution_totals-block_1'
+category: 'Lists (Views)'

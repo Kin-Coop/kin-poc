@@ -1,0 +1,27 @@
+uuid: fc9104dd-6d46-43ad-86c3-62350f723003
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.contribution_totals
+  module:
+    - views
+active_version: f8b76c3fb789f615
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:contribution_totals-block_2'
+        label: 'Request Totals'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Request Totals'
+id: block.views_block.contribution_totals-block_2
+provider: views
+source: block
+source_local_id: 'views_block:contribution_totals-block_2'
+category: 'Lists (Views)'

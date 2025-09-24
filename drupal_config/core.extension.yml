@@ -19,6 +19,7 @@ module:
   breakpoint: 0
   captcha: 0
   civicrm: 0
+  civicrm_drush: 0
   civicrmtheme: 0
   ckeditor5: 0
   ckeditor_font: 0
@@ -30,6 +31,10 @@ module:
   datetime: 0
   dblog: 0
   devel: 0
+  display_builder: 0
+  display_builder_page_layout: 0
+  display_builder_ui: 0
+  display_builder_views: 0
   dynamic_page_cache: 0
   editor: 0
   editor_advanced_image: 0
@@ -38,6 +43,7 @@ module:
   environment_indicator: 0
   epp: 0
   exclude_node_title: 0
+  experience_builder: 0
   fences: 0
   field: 0
   field_group: 0
@@ -59,6 +65,8 @@ module:
   kin_forum_notify: 0
   kinmod: 0
   language: 0
+  layout_builder: 0
+  layout_discovery: 0
   link: 0
   link_attributes: 0
   locale: 0
@@ -102,16 +110,11 @@ module:
   toolbar: 0
   twig_tweak: 0
   ui_patterns: 0
-  ui_patterns_blocks: 0
-  ui_patterns_field: 0
-  ui_patterns_field_formatters: 0
+  ui_patterns_layouts: 0
   ui_patterns_library: 0
-  ui_patterns_paragraphs: 0
-  ui_patterns_ui: 0
+  ui_patterns_views: 0
   ui_skins: 0
   ui_styles: 0
-  ui_styles_ckeditor5: 0
-  ui_styles_ui_patterns: 0
   update: 0
   upgrade_status: 0
   user: 0
@@ -139,4 +142,5 @@ theme:
   kin: 0
   ui_suite_bootstrap: 0
   kin_bs_ui: 0
+  xb_stark: 0
 profile: standard

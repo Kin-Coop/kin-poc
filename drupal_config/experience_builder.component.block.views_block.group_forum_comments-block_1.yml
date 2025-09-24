@@ -1,0 +1,27 @@
+uuid: 6318982a-747d-4ed5-af3f-e36b9b570da7
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.group_forum_comments
+  module:
+    - views
+active_version: c9adf2a2e217a3e8
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:group_forum_comments-block_1'
+        label: 'Forum Teaser'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Forum Teaser'
+id: block.views_block.group_forum_comments-block_1
+provider: views
+source: block
+source_local_id: 'views_block:group_forum_comments-block_1'
+category: 'Lists (Views)'

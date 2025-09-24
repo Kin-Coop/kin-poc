@@ -1,0 +1,27 @@
+uuid: 970ce3b2-f948-406c-a569-dabcf1ffcfd8
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.kin_group_list
+  module:
+    - views
+active_version: bc93914e1c131eb2
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:kin_group_list-block_5'
+        label: 'Group Members Admin'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Group Members Admin'
+id: block.views_block.kin_group_list-block_5
+provider: views
+source: block
+source_local_id: 'views_block:kin_group_list-block_5'
+category: 'Lists (Views)'

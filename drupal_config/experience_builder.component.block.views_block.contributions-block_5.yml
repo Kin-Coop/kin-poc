@@ -1,0 +1,27 @@
+uuid: fb16f357-9a09-4492-ae0f-23c0030c5509
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.contributions
+  module:
+    - views
+active_version: bcc6c34acb27fbec
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:contributions-block_5'
+        label: 'Member First Contribution'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Member First Contribution'
+id: block.views_block.contributions-block_5
+provider: views
+source: block
+source_local_id: 'views_block:contributions-block_5'
+category: 'Lists (Views)'

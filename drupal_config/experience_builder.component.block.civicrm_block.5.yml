@@ -1,0 +1,23 @@
+uuid: 0f251b8e-cb63-410e-a260-0f348435e72a
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - civicrm
+active_version: 6d13214af65f445f
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'civicrm_block:5'
+        label: 'Language Switcher'
+        label_display: '0'
+        provider: civicrm
+    fallback_metadata:
+      slot_definitions: null
+label: 'Language Switcher'
+id: block.civicrm_block.5
+provider: civicrm
+source: block
+source_local_id: 'civicrm_block:5'
+category: Civicrm

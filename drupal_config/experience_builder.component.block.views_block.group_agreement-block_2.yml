@@ -1,0 +1,27 @@
+uuid: e071cf4e-b022-4546-a7a1-334e7c3fd383
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.group_agreement
+  module:
+    - views
+active_version: 6c411d49133416dd
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:group_agreement-block_2'
+        label: 'Group Agreement Back Button'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'Group Agreement Back Button'
+id: block.views_block.group_agreement-block_2
+provider: views
+source: block
+source_local_id: 'views_block:group_agreement-block_2'
+category: 'Lists (Views)'

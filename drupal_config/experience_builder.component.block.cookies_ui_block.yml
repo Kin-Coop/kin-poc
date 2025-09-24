@@ -1,0 +1,23 @@
+uuid: 51211ea4-a8af-41ea-9276-f1a7d4039dc3
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - cookies
+active_version: 841294f3ae4b02f6
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: cookies_ui_block
+        label: 'Cookies UI'
+        label_display: '0'
+        provider: cookies
+    fallback_metadata:
+      slot_definitions: null
+label: 'Cookies UI'
+id: block.cookies_ui_block
+provider: cookies
+source: block
+source_local_id: cookies_ui_block
+category: COOKiES
