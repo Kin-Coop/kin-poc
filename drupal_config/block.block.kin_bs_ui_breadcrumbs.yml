@@ -1,0 +1,37 @@
+uuid: a308d656-864c-45e1-a371-54ecdb30e0a0
+langcode: en-gb
+status: false
+dependencies:
+  module:
+    - system
+    - ui_styles
+  theme:
+    - kin_bs_ui
+third_party_settings:
+  ui_styles:
+    block:
+      selected:
+        colors_background_color: bg-light
+        spacing_padding_end: pe-2
+        spacing_padding_start: ps-2
+      extra: ''
+    title:
+      selected: {  }
+      extra: ''
+    content:
+      selected: {  }
+      extra: ''
+_core:
+  default_config_hash: UugluH-UNk3v4Cqrup6mGODGUWUqdAP0jMERSqlA440
+id: kin_bs_ui_breadcrumbs
+theme: kin_bs_ui
+region: header
+weight: -100
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

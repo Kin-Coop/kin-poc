@@ -1,0 +1,22 @@
+uuid: 07b30e36-6e6a-4a15-b831-f8f0bbeb73fc
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - kin_bs_ui
+_core:
+  default_config_hash: Nmr20mDgPYrT1wruUw8Z46cljxqMNRmp0TNFYFdzmx8
+id: kin_bs_ui_content
+theme: kin_bs_ui
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

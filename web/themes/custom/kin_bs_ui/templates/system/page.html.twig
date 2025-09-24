@@ -96,7 +96,7 @@
   page.help,
   {
     '#type': 'html_tag',
-    '#tag': 'div',
+    '#tag': 'main',
     '#attributes': {
       'id': 'main-content',
     },
@@ -151,14 +151,16 @@
     },
   }, with_context: false) }}
 {% else %}
-  {{ include('ui_suite_bootstrap:grid_row_1', {
-    container: container,
-    col_xs: 12,
-    col_1_content: main_content,
-    col_attributes: {
-      role: 'main',
-    },
-  }, with_context: false) }}
+  <main>
+    {{ include('kin_bs_ui:grid_row_1', {
+      container: container,
+      col_xs: 12,
+      col_1_content: main_content,
+      col_attributes: {
+        role: 'main',
+      },
+    }, with_context: false) }}
+  </main>
 {% endif %}
 
 {% if page.footer %}

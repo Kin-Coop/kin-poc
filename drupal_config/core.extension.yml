@@ -101,6 +101,17 @@ module:
   token_filter: 0
   toolbar: 0
   twig_tweak: 0
+  ui_patterns: 0
+  ui_patterns_blocks: 0
+  ui_patterns_field: 0
+  ui_patterns_field_formatters: 0
+  ui_patterns_library: 0
+  ui_patterns_paragraphs: 0
+  ui_patterns_ui: 0
+  ui_skins: 0
+  ui_styles: 0
+  ui_styles_ckeditor5: 0
+  ui_styles_ui_patterns: 0
   update: 0
   upgrade_status: 0
   user: 0
@@ -114,6 +125,7 @@ module:
   webform_civicrm: 0
   webform_ui: 0
   civicrm_entity: 1
+  htmx: 1
   pathauto: 1
   views: 10
   paragraphs: 11
@@ -125,4 +137,6 @@ theme:
   stable9: 0
   bootstrap5: 0
   kin: 0
+  ui_suite_bootstrap: 0
+  kin_bs_ui: 0
 profile: standard

@@ -1,0 +1,22 @@
+uuid: 830f4ab6-c4d3-4680-80af-caa4dac6caf7
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - kin_bs_ui
+_core:
+  default_config_hash: UBdnQiSRDqOSw-BDCIVb5mxNexzYcSjS1-Pd-hs2mOQ
+id: kin_bs_ui_messages
+theme: kin_bs_ui
+region: header
+weight: -50
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

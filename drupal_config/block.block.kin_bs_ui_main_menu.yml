@@ -1,0 +1,27 @@
+uuid: eb910ac6-66d2-4fbb-9bf0-12311935b1be
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - kin_bs_ui
+_core:
+  default_config_hash: WeQoxDiKc8mSNDRpCwI8slLJGnhcFwnd-FkWtc7VcJU
+id: kin_bs_ui_main_menu
+theme: kin_bs_ui
+region: navigation_collapsible
+weight: 10
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 2
+  expand_all_items: false
+visibility: {  }

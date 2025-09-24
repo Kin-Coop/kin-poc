@@ -722,8 +722,7 @@ progress {
   color: var(--bs-secondary-color);
 }
 
-.container, #block-views-block-partners-block-1 h2, #block-views-block-partners-block-1 .h2, main > .fluid #block-kin-page-title,
-main > .fluid .field--name-body, nav.navbar > div,
+.container, #block-views-block-partners-block-1 h2, #block-views-block-partners-block-1 .h2, article.page > div > .field--name-body, nav.navbar > div,
 footer.footer > div,
 .block-local-tasks-block,
 .container-fluid,
@@ -742,40 +741,35 @@ footer.footer > div,
 }
 
 @media (min-width: 576px) {
-  .container-sm, .container, #block-views-block-partners-block-1 h2, #block-views-block-partners-block-1 .h2, main > .fluid #block-kin-page-title,
-  main > .fluid .field--name-body, nav.navbar > div,
+  .container-sm, .container, #block-views-block-partners-block-1 h2, #block-views-block-partners-block-1 .h2, article.page > div > .field--name-body, nav.navbar > div,
   footer.footer > div,
   .block-local-tasks-block {
     max-width: 540px;
   }
 }
 @media (min-width: 768px) {
-  .container-md, .container-sm, .container, #block-views-block-partners-block-1 h2, #block-views-block-partners-block-1 .h2, main > .fluid #block-kin-page-title,
-  main > .fluid .field--name-body, nav.navbar > div,
+  .container-md, .container-sm, .container, #block-views-block-partners-block-1 h2, #block-views-block-partners-block-1 .h2, article.page > div > .field--name-body, nav.navbar > div,
   footer.footer > div,
   .block-local-tasks-block {
     max-width: 720px;
   }
 }
 @media (min-width: 992px) {
-  .container-lg, .container-md, .container-sm, .container, #block-views-block-partners-block-1 h2, #block-views-block-partners-block-1 .h2, main > .fluid #block-kin-page-title,
-  main > .fluid .field--name-body, nav.navbar > div,
+  .container-lg, .container-md, .container-sm, .container, #block-views-block-partners-block-1 h2, #block-views-block-partners-block-1 .h2, article.page > div > .field--name-body, nav.navbar > div,
   footer.footer > div,
   .block-local-tasks-block {
     max-width: 960px;
   }
 }
 @media (min-width: 1200px) {
-  .container-xl, .container-lg, .container-md, .container-sm, .container, #block-views-block-partners-block-1 h2, #block-views-block-partners-block-1 .h2, main > .fluid #block-kin-page-title,
-  main > .fluid .field--name-body, nav.navbar > div,
+  .container-xl, .container-lg, .container-md, .container-sm, .container, #block-views-block-partners-block-1 h2, #block-views-block-partners-block-1 .h2, article.page > div > .field--name-body, nav.navbar > div,
   footer.footer > div,
   .block-local-tasks-block {
     max-width: 1140px;
   }
 }
 @media (min-width: 1400px) {
-  .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container, #block-views-block-partners-block-1 h2, #block-views-block-partners-block-1 .h2, main > .fluid #block-kin-page-title,
-  main > .fluid .field--name-body, nav.navbar > div,
+  .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container, #block-views-block-partners-block-1 h2, #block-views-block-partners-block-1 .h2, article.page > div > .field--name-body, nav.navbar > div,
   footer.footer > div,
   .block-local-tasks-block {
     max-width: 1320px;
@@ -3956,8 +3950,7 @@ textarea.form-control-lg {
   padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
   background-image: var(--bs-gradient);
 }
-.navbar > .container, #block-views-block-partners-block-1 .navbar > h2, #block-views-block-partners-block-1 .navbar > .h2, main > .fluid .navbar > #block-kin-page-title,
-main > .fluid .navbar > .field--name-body, nav.navbar > div,
+.navbar > .container, #block-views-block-partners-block-1 .navbar > h2, #block-views-block-partners-block-1 .navbar > .h2, article.page > div.navbar > .field--name-body, nav.navbar > div,
 footer.navbar.footer > div,
 .navbar > .block-local-tasks-block,
 .navbar > .container-fluid,
@@ -12669,6 +12662,10 @@ footer.navbar.footer > div,
     display: none !important;
   }
 }
+:root {
+  --bs-gradient: none;
+}
+
 body {
   background: #5CBEB5;
   color: #fff;

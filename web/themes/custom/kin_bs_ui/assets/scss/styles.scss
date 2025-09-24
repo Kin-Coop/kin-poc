@@ -4,6 +4,14 @@
 // Bootstrap Framework.
 @import 'bootstrap';
 
+// bootstrap_ui
+
+:root {
+  --bs-gradient: none;
+}
+
+// end boostrap_ui
+
 body {
   background: $secondary;
   color: #fff;
@@ -165,10 +173,11 @@ footer.footer > div,
   @extend .container;
 }
 
-main > .fluid {
-  #block-kin-page-title,
-  .field--name-body {
-    @extend .container;
+article.page {
+  > div {
+    > .field--name-body {
+      @extend .container;
+    }
   }
 }
 

@@ -1,0 +1,22 @@
+uuid: e4201d2d-567d-40b2-a07b-4068bd37f019
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - kin_bs_ui
+_core:
+  default_config_hash: ASoU20GuMa3PneN3oi4s0ywZMcfWQvNOxarO1iT_K3I
+id: kin_bs_ui_powered
+theme: kin_bs_ui
+region: footer
+weight: -10
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  label_display: '0'
+  provider: system
+visibility: {  }

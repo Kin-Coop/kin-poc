@@ -1,0 +1,40 @@
+uuid: 4cb8f18d-78c3-4c2d-a996-baad1a94881d
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - system
+    - ui_styles
+  theme:
+    - kin_bs_ui
+third_party_settings:
+  ui_styles:
+    block:
+      selected:
+        spacing_margin_start: ms-auto
+      extra: ''
+    title:
+      selected: {  }
+      extra: ''
+    content:
+      selected: {  }
+      extra: ''
+_core:
+  default_config_hash: ImUzCtfONpV8Qr120yW8nn-c1PtNiQqngalWEA1sy2A
+id: kin_bs_ui_account_menu
+theme: kin_bs_ui
+region: navigation_collapsible
+weight: 11
+provider: null
+plugin: 'system_menu_block:account'
+settings:
+  id: 'system_menu_block:account'
+  label: 'User account menu'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 2
+  expand_all_items: false
+visibility: {  }

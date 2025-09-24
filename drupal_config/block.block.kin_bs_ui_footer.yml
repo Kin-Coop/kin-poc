@@ -1,0 +1,27 @@
+uuid: 40a90efe-ddc0-4853-8e88-e0f23a52c582
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - system.menu.footer
+  module:
+    - system
+  theme:
+    - kin_bs_ui
+_core:
+  default_config_hash: WskLkEvfVBa5mx6zgHF6GpPM4j516lK_zp1XCTUAwd0
+id: kin_bs_ui_footer
+theme: kin_bs_ui
+region: footer
+weight: 0
+provider: null
+plugin: 'system_menu_block:footer'
+settings:
+  id: 'system_menu_block:footer'
+  label: 'Footer menu'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

@@ -1,0 +1,103 @@
+<?php
+
+/**
+ * @file
+ * Kin theme file.
+ */
+
+use Drupal\Core\Url;
+
+/*
+function kin_bs_ui_views_pre_render(&$view){
+    //echo '<pre>';
+    print 'HELLO ' . $view->name;
+    //echo '</pre>'
+  //if($view->name == 'view_contributions_block_1'){
+    if(empty($view->result) && isset($view->exposed_widgets)){
+        $view->exposed_widgets = FALSE;
+      }
+  //}
+}
+*/
+
+
+
+// Remove lazy loading
+function kin_bs_ui_preprocess_image(&$variables) {
+  $variables['attributes']['loading'] = [];
+}
+
+function kin_bs_ui_preprocess_html(&$variables) {
+
+  $route = \Drupal::routeMatch();
+  $user = \Drupal::currentUser();
+
+  //$route_parts = explode('.', $route->getRouteName());
+  $route_parts = explode('/', \Drupal::requestStack()->getCurrentRequest()->getPathInfo());
+
+  $is_front = \Drupal::service('path.matcher')->isFrontPage();
+
+  $variables['attributes']['class'][] = $is_front ? 'frontpage' : 'not-frontpage';
+
+  if (in_array('taxonomy_term', $route_parts)) {
+    $variables['attributes']['class'][] = 'taxonomy-term--page';
+  }
+
+  if (in_array('node', $route_parts)) {
+    $variables['attributes']['class'][] = 'node--page';
+  }
+
+  $variables['attributes']['class'][] = 'page--' . implode('-', $route_parts);
+
+  $variables['attributes']['class'][] = $user->id() ? 'user-authenticated' : 'user-anonymous';
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function kin_bs_ui_preprocess_page(&$variables) {
+  // Get current path.
+  $path = \Drupal::service('path.current')->getPath();
+  $alias = \Drupal::service('path_alias.manager')->getAliasByPath($path);
+
+  // Define aliases to match exactly. Ensure leading slashes to match Drupal aliases.
+  $paths = ['/test-0', '/community-saving-history', '/home'];
+
+  // Example 1: For a specific alias (exact match).
+  if (in_array($alias, $paths, true)) {
+    $variables["b5_top_container"] = "fluid";
+  }
+  // Note: For wildcard pattern matching (e.g., '/community-saving/*'), consider:
+  // if (\Drupal::service('path.matcher')->matchPath($alias, "/community-saving/*\n/test-0")) { ... }
+
+  // Example 2: For a specific content type.
+  if (!empty($variables['node']) && $variables['node']->bundle() === 'landing_page') {
+    $variables['theme']->setSetting('container', 'container-lg px-4');
+  }
+}
+
+function xxxkin_bs_ui_preprocess_comment(array &$variables) {
+  /** @var \Drupal\comment\CommentInterface $comment */
+  $comment = $variables['comment'];
+
+  // Format the changed date (last updated)
+  $variables['date'] = \Drupal::service('date.formatter')->format(
+    $comment->getChangedTime(),
+    'custom',
+    'd/m/Y H:i'
+  );
+
+  // Optional: log to confirm it's using changed date
+  //\Drupal::logger('kin_bs_ui')->notice('Overriding comment date to changed date: @date', ['@date' => $variables['date']]);
+}
+
+function kin_bs_ui_preprocess_node(array &$variables) {
+  $node = $variables['node'];
+
+  // Expose the changed date in a formatted way
+  $variables['changed_date'] = \Drupal::service('date.formatter')->format(
+    $node->getChangedTime(),
+    'custom',
+    'd/m/Y H:i'
+  );
+}

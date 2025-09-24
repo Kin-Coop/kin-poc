@@ -1,0 +1,27 @@
+uuid: 6c6255a9-76fa-4f15-a722-82111f0626ea
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - system
+  theme:
+    - ui_suite_bootstrap
+_core:
+  default_config_hash: pjrsCJk8LUt4Xq7NUSxrRfXyRL9xnQSTdKEMY32ZyRw
+id: ui_suite_bootstrap_account_menu
+theme: ui_suite_bootstrap
+region: navigation_collapsible
+weight: 11
+provider: null
+plugin: 'system_menu_block:account'
+settings:
+  id: 'system_menu_block:account'
+  label: 'User account menu'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 2
+  expand_all_items: false
+visibility: {  }

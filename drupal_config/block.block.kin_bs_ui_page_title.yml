@@ -1,0 +1,20 @@
+uuid: c4789238-1261-4079-a8bb-d6649d35d396
+langcode: en-gb
+status: true
+dependencies:
+  theme:
+    - kin_bs_ui
+_core:
+  default_config_hash: f22HRWh_P42bdkJ77rMecnfqPnUon7Dg62PuyWL4SK4
+id: kin_bs_ui_page_title
+theme: kin_bs_ui
+region: header
+weight: 0
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

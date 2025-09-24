@@ -1,0 +1,25 @@
+uuid: 0b87ca47-ccd8-4d59-88c1-452c239191e6
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - kin_bs_ui
+_core:
+  default_config_hash: WAALTshUqCqsINQwTGgKnpnpNuBA926W6mwB6E_SFXM
+id: kin_bs_ui_branding
+theme: kin_bs_ui
+region: navigation
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }
