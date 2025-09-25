@@ -162,7 +162,7 @@ settings:
   form_open_message: ''
   form_close_message: ''
   form_exception_message: ''
-  form_previous_submissions: true
+  form_previous_submissions: false
   form_confidential: false
   form_confidential_message: ''
   form_disable_remote_addr: false
@@ -181,9 +181,9 @@ settings:
   form_autofocus: false
   form_details_toggle: false
   form_reset: false
-  form_access_denied: default
-  form_access_denied_title: ''
-  form_access_denied_message: ''
+  form_access_denied: page
+  form_access_denied_title: 'Join Kin Group'
+  form_access_denied_message: '<p>This is an invitation to join the Kin Group. Please see details below.</p>'
   form_access_denied_attributes: {  }
   form_file_limit: ''
   form_attributes: {  }
@@ -214,7 +214,7 @@ settings:
   autofill: false
   autofill_message: ''
   autofill_excluded_elements: {  }
-  wizard_progress_bar: true
+  wizard_progress_bar: false
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_progress_link: false

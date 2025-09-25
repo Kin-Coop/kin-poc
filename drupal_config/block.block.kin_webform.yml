@@ -1,0 +1,45 @@
+uuid: 991cca71-b697-4409-bf5b-05a133cf93c8
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - webform.webform.sign_up
+  module:
+    - block_classes
+    - block_visibility_groups
+    - system
+    - user
+    - webform
+  theme:
+    - kin
+id: kin_webform
+theme: kin
+region: content
+weight: 0
+provider: null
+plugin: webform_block
+settings:
+  id: webform_block
+  label: Webform
+  label_display: '0'
+  provider: webform
+  webform_id: sign_up
+  default_data: ''
+  redirect: false
+  lazy: false
+visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: /member/join-kin-group
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      anonymous: anonymous

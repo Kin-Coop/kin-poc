@@ -1,0 +1,44 @@
+uuid: aa047de2-4282-41c3-ae27-9a8b449b6cac
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.public_join_group
+  module:
+    - block_classes
+    - block_visibility_groups
+    - system
+    - user
+    - views
+  theme:
+    - kin
+id: kin_views_block__public_join_group_block_1
+theme: kin
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:public_join_group-block_1'
+settings:
+  id: 'views_block:public_join_group-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: null
+visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: /member/join-kin-group
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      anonymous: anonymous
