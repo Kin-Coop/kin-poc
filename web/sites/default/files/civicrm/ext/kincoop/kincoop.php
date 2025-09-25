@@ -146,8 +146,31 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef) {
         }
       }
     }
-  } elseif($objectName === 'Individual' && $op === 'create') {
-    
+  } elseif($objectName === 'Contact' && $op === 'create') {
+    if ($objectRef->contact_type === 'Individual') {
+      // Load the custom field value. Replace "custom_group_72" with the actual column name.
+      // You can check the custom field name in Administer > Custom Data > Custom Fields.
+      $householdId = civicrm_api3('Contact', 'getvalue', [
+        'id' => $objectId,
+        'return' => ["custom_71", "custom_72"],
+      ]);
+
+      if (!empty($householdId)) {
+        try {
+          // Create the relationship (Individual is a member of Household).
+          civicrm_api3('Relationship', 'create', [
+            'contact_id_a' => $objectId,       // the new Individual
+            'contact_id_b' => $householdId,    // the Household
+            'relationship_type_id' => 'Household Member of', // or the ID of your relationship type
+            'is_active' => 1,
+            'custom_41' => "example",
+          ]);
+        }
+        catch (CiviCRM_API3_Exception $e) {
+          \Civi::log()->error('kincoop: Failed to create relationship: ' . $e->getMessage());
+        }
+      }
+    }
   }
 }
 
