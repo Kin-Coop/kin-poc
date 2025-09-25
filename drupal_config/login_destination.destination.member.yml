@@ -14,5 +14,7 @@ language: ''
 roles:
   pending_member: pending_member
   member: member
+  content_editor: content_editor
+  administrator: administrator
 weight: 0
 enabled: true
