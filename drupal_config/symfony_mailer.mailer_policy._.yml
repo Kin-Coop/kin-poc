@@ -1,7 +1,9 @@
 uuid: f3a1eb82-2c29-45d2-b787-4dd0164bd73a
 langcode: en-gb
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - reroute_email_symfony_mailer
 _core:
   default_config_hash: oUtf135g-IPzmggtfsOOX5ZINxbSe5Kno64BN2NUKn0
 id: _
@@ -13,3 +15,5 @@ configuration:
     swiftmailer: false
   email_theme:
     theme: _active_fallback
+  reroute_email:
+    use_global: true

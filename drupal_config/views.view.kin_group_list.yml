@@ -549,12 +549,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              pending_member: '0'
-              member: '0'
-              content_editor: '0'
-              civicrm: '0'
-              administrator: '0'
             placeholder: 'Search groups'
           is_grouped: false
           group_info:
@@ -2072,6 +2066,7 @@ display:
           empty_table: false
           caption: ''
           description: ''
+          class: ''
       row:
         type: fields
         options:
@@ -2083,6 +2078,7 @@ display:
       defaults:
         title: false
         css_class: false
+        use_ajax: false
         pager: false
         style: false
         row: false
@@ -2139,6 +2135,7 @@ display:
           required: true
           domain_id: {  }
       css_class: 'member-block col-sm-6 no-table'
+      use_ajax: true
       display_description: ''
       header:
         area:
@@ -2151,10 +2148,15 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<h2>Group Members</h2>'
-            format: basic_html
+            value: '<h2 class="accordion-header" type="button" data-bs-toggle="collapse" data-bs-target="#groupMembersCollapse" aria-expanded="false" aria-controls="groupMembersCollapse">Group Members</h2>'
+            format: full_html
           tokenize: false
-      display_extenders: {  }
+      display_extenders:
+        attributes:
+          attributes:
+            id:
+              value: collapseOne
+              weight: 100
       block_description: 'Group Members'
     cache_metadata:
       max-age: -1
@@ -5772,6 +5774,7 @@ display:
           empty_table: false
           caption: ''
           description: ''
+          class: ''
       row:
         type: fields
         options:
