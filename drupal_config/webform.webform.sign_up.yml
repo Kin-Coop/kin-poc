@@ -131,6 +131,34 @@ elements: |-
     '#parent': civicrm_1_contact_1_fieldset_fieldset
     '#title': 'Phone Number'
     '#required': true
+  civicrm_1_contact_1_cg27_custom_72:
+    '#type': hidden
+    '#title': Group
+    '#default_value': '[current-page:query:cid2]'
+    '#disabled': true
+    '#counter_type': character
+    '#counter_maximum': '255'
+    '#counter_maximum_message': ' '
+    '#data_type': Int
+    '#form_key': civicrm_1_contact_1_cg27_custom_72
+    '#extra':
+      width: 20
+    '#parent': civicrm_1_contact_1_cg27_fieldset
+  civicrm_1_contact_1_cg27_custom_71:
+    '#type': textarea
+    '#title': 'Please give some details about why you would like to join this group'
+    '#states':
+      visible:
+        ':input[name="civicrm_1_contact_1_cg27_custom_72"]':
+          value:
+            greater: '0'
+    '#data_type': Memo
+    '#extra':
+      cols: '60'
+      rows: '4'
+    '#form_key': civicrm_1_contact_1_cg27_custom_71
+    '#parent': civicrm_1_contact_1_cg27_fieldset
+    '#required': true
   civicrm_1_contact_1_other_group:
     '#type': civicrm_options
     '#title': 'I would like to receive updates from Kin Cooperative'
@@ -453,6 +481,10 @@ handlers:
       civicrm_1_contact_1_cg3_custom_57: 0
       civicrm_1_contact_1_cg3_custom_58: 0
       civicrm_1_contact_1_cg3_custom_59: 0
+      contact_1_number_of_cg27: '1'
+      contact_1_settings_dynamic_custom_cg27: 0
+      civicrm_1_contact_1_cg27_custom_71: create_civicrm_webform_element
+      civicrm_1_contact_1_cg27_custom_72: create_civicrm_webform_element
       contact_1_number_of_other: '1'
       civicrm_1_contact_1_other_group:
         create_civicrm_webform_element: create_civicrm_webform_element
@@ -600,6 +632,8 @@ handlers:
             matching_rule: '4'
             number_of_cg3: '1'
             dynamic_custom_cg3: 0
+            number_of_cg27: '1'
+            dynamic_custom_cg27: 0
             number_of_other: '1'
             number_of_address: '1'
             number_of_phone: '1'

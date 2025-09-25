@@ -146,6 +146,8 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef) {
         }
       }
     }
+  } elseif($objectName === 'Individual' && $op === 'create') {
+    
   }
 }
 
