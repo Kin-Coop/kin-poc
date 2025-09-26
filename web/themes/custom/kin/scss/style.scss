@@ -1296,5 +1296,25 @@ div.block.vertical {
       content: "\f229";
     }
   }
+}
 
+.kin-accordion {
+  margin-bottom: .8rem !important;
+
+  &:after {
+    font-family: "bootstrap-icons";
+    display: block;
+    float: right;
+    content: "\f235";
+
+  }
+  &.collapsed {
+    margin-bottom: -.8rem !important;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+
+    &:after {
+      content: "\f229";
+    }
+  }
 }
