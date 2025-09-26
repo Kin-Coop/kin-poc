@@ -134,7 +134,7 @@ elements: |-
   civicrm_1_contact_1_cg27_custom_72:
     '#type': hidden
     '#title': Group
-    '#default_value': '[current-page:query:cid2]'
+    '#default_value': '[current-page:query:cid2:clear]'
     '#disabled': true
     '#counter_type': character
     '#counter_maximum': '255'

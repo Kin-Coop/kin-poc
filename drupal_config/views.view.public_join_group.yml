@@ -34,7 +34,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<h2>Join {{ display_name }}</h2>\r\n<p>To join {{ display_name }} please fill in your details below.</p>"
+            text: "<h2>Join {{ display_name }}</h2>\r\n<p>To join {{ display_name }} please fill in your details.  If you are already a member of Kin please <a href=\"/user/login?current=/member/join-kin-group?cid2=477\" class=\"btn btn-primary\">Login</a></p>"
             make_link: false
             path: ''
             absolute: false

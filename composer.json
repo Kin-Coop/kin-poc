@@ -90,6 +90,7 @@
         "drupal/views_fieldsets": "^4.0",
         "drupal/webform": "^6.3@beta",
         "drush/drush": "*",
+        "justinrainbow/json-schema": "^5.2",
         "kint-php/kint": "*",
         "twbs/bootstrap-icons": "^1.13"
     },
