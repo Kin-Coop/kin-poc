@@ -4,6 +4,7 @@ use Drupal\views\ViewExecutable;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;
+use Drupal\Core\Access\AccessResult;
 use Drupal\civicrm_entity\Entity\CivicrmEntity;
 use Drupal\Core\Render\AttachmentsInterface;
 
@@ -415,4 +416,44 @@ function kinmod_route_alter_for_view_access(&$collection) {
     $requirements['_custom_access'] = 'kinmod.group_agreement_view_access::access';
     $route->setRequirements($requirements);
   }
+}
+
+// check user is not already in the group for the joining form
+function kinmod_webform_access(\Drupal\webform\WebformInterface $webform, $operation, \Drupal\Core\Session\AccountInterface $account) {
+  if ($webform->id() === 'join_kin_group') {
+    $group = \Drupal::request()->query->get('cid2');
+
+    // Load your kin_civi Utils service.
+    /** @var \Drupal\kin_civi\Service\Utils $utils */
+    $utils = \Drupal::service('kin_civi.utils');
+
+    // Civi contact id.
+    $cid = $utils->kin_civi_get_contact_id($account->id());
+
+    if (empty($group) || !$cid) {
+      //\Drupal::messenger()->addError(t('You must use a valid group link to access this form.'));
+      $webform->setSetting('form_access_denied_title', 'Access denied');
+      $webform->setSetting('form_access_denied_message', 'You must use a valid group link to access this form.');
+
+      //\Drupal::messenger()->addError(t('You are already in this group.'));
+      return AccessResult::forbidden();
+    }
+
+    // check they are in group
+    if($utils->kin_civi_check_contact_in_group($cid, $group)) {
+      // They are already in the group so don't want to join again!
+
+      $webform->setSetting('form_access_denied_title', 'Access denied');
+      $webform->setSetting('form_access_denied_message', 'You are already in this group.');
+
+      //\Drupal::messenger()->addError(t('You are already in this group.'));
+      return AccessResult::forbidden();
+      //return FALSE;
+    } else {
+      return AccessResult::allowed();
+      //return TRUE;
+    }
+  }
+
+  return AccessResult::neutral();
 }
