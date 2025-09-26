@@ -13851,4 +13851,14 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   content: "\f229";
 }
 
+.page---member-join-kin-group.user-anonymous #block-kin-page-title {
+  display: none;
+}
+.page---member-join-kin-group.user-anonymous #block-kin-content {
+  display: none;
+}
+.page---member-join-kin-group.user-anonymous h2, .page---member-join-kin-group.user-anonymous .h2 {
+  margin-top: 1.5rem;
+}
+
 /*# sourceMappingURL=style.css.map */

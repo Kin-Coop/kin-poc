@@ -31,57 +31,56 @@ class GroupAgreementViewAccess implements AccessInterface {
    * @return \Drupal\Core\Access\AccessResultInterface
    *   The access result.
    */
-  public function access(AccountInterface $account, RouteMatchInterface $route_match) {
+  public function access(AccountInterface $account, RouteMatchInterface $route_match)
+  {
     // Get the node from the route
     $node = $route_match->getParameter('node');
 
-    // Make sure it's a node and specifically a group_agreement
-    if (!$node instanceof NodeInterface || $node->bundle() !== 'group_agreement') {
-      return AccessResult::neutral();
-    }
+    if ($node instanceof NodeInterface && $node->bundle() == 'group_agreement') {
+      // Check if user has bypass permission (like administrators)
+      if ($account->hasPermission('administer nodes') ||
+        $account->hasPermission('bypass node access')) {
+        return AccessResult::allowed()->cachePerPermissions();
+      }
 
-    // Check if user has bypass permission (like administrators)
-    if ($account->hasPermission('administer nodes') ||
-      $account->hasPermission('bypass node access') ||
-      $account->hasPermission('view any group_agreement content')) {
-      return AccessResult::allowed()->cachePerPermissions();
-    }
+      // Check if the user is the author of the node
+      if ($node->getOwnerId() == $account->id()) {
+        return AccessResult::allowed()
+          ->cachePerPermissions()
+          ->cachePerUser()
+          ->addCacheableDependency($node);
+      }
 
-    // Check if the user is the author of the node
-    if ($node->getOwnerId() == $account->id()) {
-      return AccessResult::allowed()
-        ->cachePerPermissions()
+      // Get the household ID from the node's field
+      if (!$node->hasField('field_civi_group') || $node->get('field_civi_group')->isEmpty()) {
+        return AccessResult::forbidden('No household associated with this group agreement.')
+          ->addCacheableDependency($node);
+      }
+
+      $household_id = $node->get('field_civi_group')->target_id;
+
+      // Get CiviCRM contact ID for the current user
+      $contact_id = $this->getContactIdFromUser($account);
+
+      if (!$contact_id) {
+        return AccessResult::forbidden('User account not linked to CiviCRM contact.')
+          ->cachePerUser();
+      }
+
+      // Check if contact belongs to the household
+      if ($this->contactBelongsToHousehold($contact_id, $household_id)) {
+        return AccessResult::allowed()
+          ->cachePerUser()
+          ->addCacheableDependency($node);
+      }
+
+      // Access denied - user doesn't belong to this household
+      return AccessResult::forbidden('You do not have permission to view this group agreement.')
         ->cachePerUser()
         ->addCacheableDependency($node);
     }
 
-    // Get the household ID from the node's field
-    if (!$node->hasField('field_civi_group') || $node->get('field_civi_group')->isEmpty()) {
-      return AccessResult::forbidden('No household associated with this group agreement.')
-        ->addCacheableDependency($node);
-    }
-
-    $household_id = $node->get('field_civi_group')->target_id;
-
-    // Get CiviCRM contact ID for the current user
-    $contact_id = $this->getContactIdFromUser($account);
-
-    if (!$contact_id) {
-      return AccessResult::forbidden('User account not linked to CiviCRM contact.')
-        ->cachePerUser();
-    }
-
-    // Check if contact belongs to the household
-    if ($this->contactBelongsToHousehold($contact_id, $household_id)) {
-      return AccessResult::allowed()
-        ->cachePerUser()
-        ->addCacheableDependency($node);
-    }
-
-    // Access denied - user doesn't belong to this household
-    return AccessResult::forbidden('You do not have permission to view this group agreement.')
-      ->cachePerUser()
-      ->addCacheableDependency($node);
+    return AccessResult::neutral();
   }
 
   /**

@@ -1318,3 +1318,17 @@ div.block.vertical {
     }
   }
 }
+
+.page---member-join-kin-group.user-anonymous {
+  #block-kin-page-title {
+    display: none;
+  }
+
+  #block-kin-content {
+    display: none;
+  }
+
+  h2 {
+    margin-top: 1.5rem;
+  }
+}
