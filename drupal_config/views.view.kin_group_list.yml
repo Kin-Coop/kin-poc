@@ -8,6 +8,7 @@ dependencies:
     - views.view.contributions
     - views.view.group_agreement
     - views.view.group_forum_comments
+    - views.view.public_join_group
   content:
     - 'block_content:basic:41334e37-b9fd-451e-b87f-7a87359c0831'
     - 'block_content:basic:93a450f5-1c6b-4301-92c5-62282fc96681'
@@ -4575,6 +4576,17 @@ display:
       display_description: ''
       header: {  }
       footer:
+        view_6:
+          id: view_6
+          table: views
+          field: view
+          relationship: none
+          group_type: group
+          admin_label: 'Join Group Link'
+          plugin_id: view
+          empty: false
+          view_to_insert: 'public_join_group:block_2'
+          inherit_arguments: true
         view_3:
           id: view_3
           table: views
