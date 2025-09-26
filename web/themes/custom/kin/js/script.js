@@ -21,6 +21,33 @@
     }
   };
 
+  Drupal.behaviors.kinAccordion = {
+    attach: function (context, settings) {
+      // once() returns DOM elements not wrapped in jQuery.
+      once('kin-accordion', '.kin-accordion', context).forEach(function (el) {
+        var $header = $(el);
+        // .view-header is the header wrapper; .view-content is its sibling.
+        var $content = $header.closest('.view-header').nextAll();
+
+        // If there is no matching content, do nothing.
+        if (!$content.length) {
+          return;
+        }
+
+        // Start hidden.
+        $content.hide();
+        $header.addClass('kin-accordion-closed');
+
+        // Toggle when header is clicked
+        $header.on('click', function (e) {
+          e.preventDefault();
+          $content.slideToggle(200);
+          $header.toggleClass('kin-accordion-open kin-accordion-closed');
+        });
+      });
+    }
+  };
+
     function to_position(divid){
         $('html, body').animate({scrollTop:$(divid).position().top - 50 }, 'slow');
     }
@@ -41,7 +68,6 @@
 
 
     $(document).ready(function() {
-
         p = window.location.pathname;
 
         // Set faq to automatically open for selected faq from query string

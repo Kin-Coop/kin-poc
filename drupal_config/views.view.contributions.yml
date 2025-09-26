@@ -1979,9 +1979,9 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: '<h2>Total</h2>'
-            format: basic_html
-          tokenize: false
+            value: '<h2 class="kin-accordion">Total: {{ total_amount }}</h2>'
+            format: full_html
+          tokenize: true
       footer:
         area:
           id: area
