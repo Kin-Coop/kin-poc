@@ -1,6 +1,6 @@
 uuid: 584a1b8e-85f2-4740-a519-a80dbefff376
 langcode: en-gb
-status: true
+status: false
 dependencies:
   module:
     - system
@@ -10,7 +10,7 @@ _core:
   default_config_hash: N-CaqKZI8Wvor8LFKE4j7j8TN-zeZPviMFr9wRc0rvY
 id: ui_suite_bootstrap_content
 theme: ui_suite_bootstrap
-region: content
+region: navigation
 weight: 0
 provider: null
 plugin: system_main_block

@@ -1,9 +1,9 @@
-uuid: 56e4082d-21d6-43b9-827c-556de50dca3a
+uuid: dbbb1412-c300-460c-a68b-5a49568480f1
 langcode: en-gb
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: fLdTRaz-N0Nrcs3r-BOa8ZQ0gN5ozWrHIp6OwcbOJfI
+  default_config_hash: zzastdweUm802JcSuPxHLiGdZJSiPJ2X-WOsJ_EA67I
 id: default
 label: Default
 description: 'With sensible configuration, for the common usage.'
@@ -11,9 +11,19 @@ library: cdn
 debug: false
 islands:
   component_library:
+    exclude: {  }
+    status:
+      experimental: experimental
+      deprecated: '0'
+      obsolete: '0'
+    include_no_ui: false
+    show_grouped: true
+    show_variants: true
+    show_mosaic: true
     enable: true
     weight: -10
   block_library:
+    exclude: {  }
     enable: true
     weight: -9
   preset_library:
@@ -50,19 +60,14 @@ islands:
   state:
     enable: true
     weight: -10
-  toggle_highlight:
+  controls:
+    toggle_highlight: true
+    toggle_fullscreen: true
+    keyboard_help: true
+    theme_mode: false
     enable: true
     weight: -8
-  toggle_fullscreen:
-    enable: true
-    weight: -7
-  keyboard_help:
-    enable: true
-    weight: -5
-  theme_mode:
-    enable: false
-    weight: -2
-  instance_form:
+  contextual_form:
     enable: true
     weight: -10
   ui_styles:
@@ -87,9 +92,10 @@ islands:
     enable: false
     weight: -4
   viewport:
+    exclude: {  }
     enable: false
     weight: -3
-  parent_display:
+  back:
     enable: true
     weight: -6
   operation:

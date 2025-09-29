@@ -1,6 +1,6 @@
 uuid: c656238f-8478-4ec0-8176-22552f6c072f
 langcode: en-gb
-status: true
+status: false
 dependencies:
   module:
     - search
@@ -23,7 +23,7 @@ _core:
   default_config_hash: 5gGvOGcJN5bFRNBLR0Q2oRUqhXzFAvSZ3_zQ0X0GYAI
 id: kin_bs_ui_search
 theme: kin_bs_ui
-region: sidebar_first
+region: navigation
 weight: -1
 provider: null
 plugin: search_form_block

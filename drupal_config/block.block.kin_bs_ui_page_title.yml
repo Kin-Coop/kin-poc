@@ -1,6 +1,6 @@
 uuid: 970d91a8-1111-457f-8561-e32453c7a083
 langcode: en-gb
-status: true
+status: false
 dependencies:
   theme:
     - kin_bs_ui
@@ -8,7 +8,7 @@ _core:
   default_config_hash: f22HRWh_P42bdkJ77rMecnfqPnUon7Dg62PuyWL4SK4
 id: kin_bs_ui_page_title
 theme: kin_bs_ui
-region: header
+region: navigation
 weight: 0
 provider: null
 plugin: page_title_block

@@ -1,9 +1,0 @@
-uuid: 7c3fd289-95a5-451a-a373-c73d6b26648e
-langcode: en-gb
-status: true
-dependencies: {  }
-id: test_preset
-label: 'Test Preset'
-description: ''
-group: ''
-sources: {  }

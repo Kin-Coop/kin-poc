@@ -1,6 +1,6 @@
 uuid: 8723d873-5d9d-4e30-b6a3-5b927a648f78
 langcode: en-gb
-status: true
+status: false
 dependencies:
   config:
     - system.menu.tools
@@ -12,7 +12,7 @@ _core:
   default_config_hash: '--ndQX_y4k6XHtM7Q_KzzfOo3m_rKOlfU8EPTUt9OgM'
 id: kin_bs_ui_tools
 theme: kin_bs_ui
-region: sidebar_first
+region: navigation
 weight: 0
 provider: null
 plugin: 'system_menu_block:tools'

@@ -1,6 +1,6 @@
 uuid: 686385db-9514-4bd2-b15a-42c64c7f867a
 langcode: en-gb
-status: true
+status: false
 dependencies:
   config:
     - system.menu.main
@@ -12,7 +12,7 @@ _core:
   default_config_hash: LadoId96Gn4tLoNqpVmAZLY0eeXzIwabIQIw_1D6keg
 id: ui_suite_bootstrap_main_menu
 theme: ui_suite_bootstrap
-region: navigation_collapsible
+region: navigation
 weight: 10
 provider: null
 plugin: 'system_menu_block:main'

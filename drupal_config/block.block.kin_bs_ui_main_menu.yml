@@ -1,6 +1,6 @@
 uuid: b3eab066-94d3-4bf2-9673-3fb57edc7fab
 langcode: en-gb
-status: true
+status: false
 dependencies:
   config:
     - system.menu.main
@@ -12,7 +12,7 @@ _core:
   default_config_hash: WeQoxDiKc8mSNDRpCwI8slLJGnhcFwnd-FkWtc7VcJU
 id: kin_bs_ui_main_menu
 theme: kin_bs_ui
-region: navigation_collapsible
+region: navigation
 weight: 10
 provider: null
 plugin: 'system_menu_block:main'

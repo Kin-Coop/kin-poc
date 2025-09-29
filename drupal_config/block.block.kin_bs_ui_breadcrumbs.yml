@@ -1,6 +1,6 @@
 uuid: ac77c3a4-89da-4750-ba00-3a4312e5fc1e
 langcode: en-gb
-status: true
+status: false
 dependencies:
   module:
     - system
@@ -25,7 +25,7 @@ _core:
   default_config_hash: UugluH-UNk3v4Cqrup6mGODGUWUqdAP0jMERSqlA440
 id: kin_bs_ui_breadcrumbs
 theme: kin_bs_ui
-region: header
+region: navigation
 weight: -100
 provider: null
 plugin: system_breadcrumb_block

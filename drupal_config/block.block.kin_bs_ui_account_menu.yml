@@ -1,6 +1,6 @@
 uuid: 1a4de5a2-88c6-478c-a3f6-b07cda48adf9
 langcode: en-gb
-status: true
+status: false
 dependencies:
   config:
     - system.menu.account
@@ -25,7 +25,7 @@ _core:
   default_config_hash: ImUzCtfONpV8Qr120yW8nn-c1PtNiQqngalWEA1sy2A
 id: kin_bs_ui_account_menu
 theme: kin_bs_ui
-region: navigation_collapsible
+region: navigation
 weight: 11
 provider: null
 plugin: 'system_menu_block:account'

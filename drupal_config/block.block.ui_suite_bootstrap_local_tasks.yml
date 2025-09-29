@@ -1,6 +1,6 @@
 uuid: c9e30aa3-6578-4793-ae2d-2f7ae3fa1308
 langcode: en-gb
-status: true
+status: false
 dependencies:
   theme:
     - ui_suite_bootstrap
@@ -8,7 +8,7 @@ _core:
   default_config_hash: szvmVxniDaKCyvBUO_n7Gr0DqxXTDVVPOyTS2I3V8VI
 id: ui_suite_bootstrap_local_tasks
 theme: ui_suite_bootstrap
-region: header
+region: navigation
 weight: 10
 provider: null
 plugin: local_tasks_block

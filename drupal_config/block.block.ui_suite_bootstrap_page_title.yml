@@ -1,6 +1,6 @@
 uuid: 8e905e36-6971-4b84-bdf8-bdd90ac4fa61
 langcode: en-gb
-status: true
+status: false
 dependencies:
   theme:
     - ui_suite_bootstrap
@@ -8,7 +8,7 @@ _core:
   default_config_hash: ehyyJuUDY-IMoYinuKwOgv7nkh4aoHmklamY-PyFxwE
 id: ui_suite_bootstrap_page_title
 theme: ui_suite_bootstrap
-region: header
+region: navigation
 weight: 0
 provider: null
 plugin: page_title_block

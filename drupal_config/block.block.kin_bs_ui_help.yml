@@ -1,6 +1,6 @@
 uuid: b0e7907d-45c4-46a0-90b8-eac3599b3a48
 langcode: en-gb
-status: true
+status: false
 dependencies:
   module:
     - help
@@ -10,7 +10,7 @@ _core:
   default_config_hash: fNWaqffnZ783R8NIWbvoJ6JQkUWJRdfIiAQFG9uVcnk
 id: kin_bs_ui_help
 theme: kin_bs_ui
-region: help
+region: navigation
 weight: -30
 provider: null
 plugin: help_block

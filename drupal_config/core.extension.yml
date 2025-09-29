@@ -32,9 +32,6 @@ module:
   dblog: 0
   devel: 0
   display_builder: 0
-  display_builder_page_layout: 0
-  display_builder_ui: 0
-  display_builder_views: 0
   dynamic_page_cache: 0
   editor: 0
   editor_advanced_image: 0

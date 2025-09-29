@@ -1,6 +1,6 @@
 uuid: 1decd48e-03ab-480b-8ea5-3d3ce682dc1a
 langcode: en-gb
-status: true
+status: false
 dependencies:
   config:
     - system.menu.footer
@@ -12,7 +12,7 @@ _core:
   default_config_hash: WskLkEvfVBa5mx6zgHF6GpPM4j516lK_zp1XCTUAwd0
 id: kin_bs_ui_footer
 theme: kin_bs_ui
-region: footer
+region: navigation
 weight: 0
 provider: null
 plugin: 'system_menu_block:footer'

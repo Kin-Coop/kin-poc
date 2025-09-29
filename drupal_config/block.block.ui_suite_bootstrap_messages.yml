@@ -1,6 +1,6 @@
 uuid: 93a25283-2f14-4233-984d-bbaff17b62bc
 langcode: en-gb
-status: true
+status: false
 dependencies:
   module:
     - system
@@ -10,7 +10,7 @@ _core:
   default_config_hash: eGMtu_tn-04a7x0BhaXKifpmVrVSgCMBM2q4QqHkkjE
 id: ui_suite_bootstrap_messages
 theme: ui_suite_bootstrap
-region: header
+region: navigation
 weight: -50
 provider: null
 plugin: system_messages_block

@@ -1,6 +1,6 @@
 uuid: 23531ecd-8e9d-4638-ab00-6e590a87c50b
 langcode: en-gb
-status: true
+status: false
 dependencies:
   module:
     - system
@@ -10,7 +10,7 @@ _core:
   default_config_hash: UBdnQiSRDqOSw-BDCIVb5mxNexzYcSjS1-Pd-hs2mOQ
 id: kin_bs_ui_messages
 theme: kin_bs_ui
-region: header
+region: navigation
 weight: -50
 provider: null
 plugin: system_messages_block

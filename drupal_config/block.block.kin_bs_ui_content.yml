@@ -1,6 +1,6 @@
 uuid: 4a0b6cef-be6a-4996-81df-8ca7de8ff287
 langcode: en-gb
-status: true
+status: false
 dependencies:
   module:
     - system
@@ -10,7 +10,7 @@ _core:
   default_config_hash: Nmr20mDgPYrT1wruUw8Z46cljxqMNRmp0TNFYFdzmx8
 id: kin_bs_ui_content
 theme: kin_bs_ui
-region: content
+region: navigation
 weight: 0
 provider: null
 plugin: system_main_block

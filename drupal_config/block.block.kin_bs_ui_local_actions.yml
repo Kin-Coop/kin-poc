@@ -1,6 +1,6 @@
 uuid: 55cbb8c7-58d4-40dc-a880-a74cfd7eff37
 langcode: en-gb
-status: true
+status: false
 dependencies:
   theme:
     - kin_bs_ui
@@ -8,7 +8,7 @@ _core:
   default_config_hash: 3zlDxgiXaMx3l5em9xdS3MDSKIEPIBPWLYzhmntN6Fk
 id: kin_bs_ui_local_actions
 theme: kin_bs_ui
-region: header
+region: navigation
 weight: 20
 provider: null
 plugin: local_actions_block

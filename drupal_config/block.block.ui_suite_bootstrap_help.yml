@@ -1,6 +1,6 @@
 uuid: e121149b-e5aa-454c-878e-76f4a5209556
 langcode: en-gb
-status: true
+status: false
 dependencies:
   module:
     - help
@@ -10,7 +10,7 @@ _core:
   default_config_hash: ydOOEE5pEU9zqP0LxCrg60MldEUHnXSoYM5wMNYwUis
 id: ui_suite_bootstrap_help
 theme: ui_suite_bootstrap
-region: help
+region: navigation
 weight: -30
 provider: null
 plugin: help_block

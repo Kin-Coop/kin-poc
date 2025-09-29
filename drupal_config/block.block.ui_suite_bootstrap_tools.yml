@@ -1,6 +1,6 @@
 uuid: 7fe38363-1dd8-41b9-bd6d-ee533fa0c359
 langcode: en-gb
-status: true
+status: false
 dependencies:
   config:
     - system.menu.tools
@@ -12,7 +12,7 @@ _core:
   default_config_hash: TU1nNcyubN2biGFYospGEpgUJ3f2U8Du38FxNYJkBN4
 id: ui_suite_bootstrap_tools
 theme: ui_suite_bootstrap
-region: sidebar_first
+region: navigation
 weight: 0
 provider: null
 plugin: 'system_menu_block:tools'

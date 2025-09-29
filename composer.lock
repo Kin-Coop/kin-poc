@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "03026782e63aa53c94e460f083ecea19",
+    "content-hash": "a50d2a8478f48f0052660a6602b8141b",
     "packages": [
         {
             "name": "adrienrn/php-mimetyper",
@@ -4478,17 +4478,11 @@
         },
         {
             "name": "drupal/display_builder",
-            "version": "1.0.0-alpha5",
+            "version": "dev-1.0.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/display_builder.git",
-                "reference": "1.0.0-alpha5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/display_builder-1.0.0-alpha5.zip",
-                "reference": "1.0.0-alpha5",
-                "shasum": "6127cd0097e0027ed926f5473d040db1a62a5675"
+                "reference": "d48f965bb366bb43c80c01b5aee931cc8f446a6b"
             },
             "require": {
                 "drupal/core": "^11.2",
@@ -4510,9 +4504,12 @@
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-1.0.x": "1.0.x-dev"
+                },
                 "drupal": {
-                    "version": "1.0.0-alpha5",
-                    "datestamp": "1757108057",
+                    "version": "1.0.0-alpha5+40-dev",
+                    "datestamp": "1758908750",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -16965,7 +16962,7 @@
         "drupal/civicrm_entity": 10,
         "drupal/ckeditor_font": 10,
         "drupal/cookies": 15,
-        "drupal/display_builder": 15,
+        "drupal/display_builder": 20,
         "drupal/experience_builder": 15,
         "drupal/field_group": 15,
         "drupal/front": 15,

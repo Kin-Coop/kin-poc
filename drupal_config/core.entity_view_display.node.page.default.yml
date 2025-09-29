@@ -81,6 +81,65 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 3
             additional: {  }
+          c045591d-edf8-4bc4-b6df-848912a87b9f:
+            uuid: c045591d-edf8-4bc4-b6df-848912a87b9f
+            region: content
+            configuration:
+              id: 'field_block:node:page:title'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: title
+                label: hidden
+                settings:
+                  link_to_entity: true
+                  tag: h2
+                third_party_settings: {  }
+            weight: 4
+            additional: {  }
+          e9536db6-a443-440c-b62e-6f8629dfe470:
+            uuid: e9536db6-a443-440c-b62e-6f8629dfe470
+            region: content
+            configuration:
+              id: 'field_block:node:page:body'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 5
+            additional: {  }
+          eb90721c-7a50-41b3-82d4-91d7ea7e9dce:
+            uuid: eb90721c-7a50-41b3-82d4-91d7ea7e9dce
+            region: content
+            configuration:
+              id: 'extra_field_block:node:page:links'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+            weight: 6
+            additional: {  }
+          12804ea8-55fb-40f7-a521-86954cc2c2b8:
+            uuid: 12804ea8-55fb-40f7-a521-86954cc2c2b8
+            region: content
+            configuration:
+              id: 'field_block:node:page:field_paragraphs'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                  link: ''
+                third_party_settings: {  }
+            weight: 7
+            additional: {  }
         third_party_settings: {  }
 _core:
   default_config_hash: M_Y8L5tfmhx7DR143E05YyZSpvgil6VFvqcfBWykalg
@@ -122,5 +181,6 @@ content:
 hidden:
   created: true
   langcode: true
+  layout_builder__layout: true
   private_message_link: true
   uid: true

@@ -1,6 +1,6 @@
 uuid: 9742bc60-aa5a-4c03-b9fe-210945c4a418
 langcode: en-gb
-status: true
+status: false
 dependencies:
   module:
     - system
@@ -10,7 +10,7 @@ _core:
   default_config_hash: 9T36XTVpV-1odS7KolTHKSgVOSElp46vafzAg9Ytlic
 id: ui_suite_bootstrap_powered
 theme: ui_suite_bootstrap
-region: footer
+region: navigation
 weight: -10
 provider: null
 plugin: system_powered_by_block
