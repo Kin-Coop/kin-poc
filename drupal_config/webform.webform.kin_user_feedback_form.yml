@@ -1,6 +1,6 @@
 uuid: c0637133-6b5c-479f-81b7-01d6734a6e07
 langcode: en-gb
-status: closed
+status: open
 dependencies: {  }
 weight: 0
 open: null
@@ -19,33 +19,126 @@ elements: |-
   how_easy_and_intuitive_is_it_to_make_a_one_off_contribution:
     '#type': webform_rating
     '#title': 'How easy and intuitive is it to make a one-off contribution? '
+    '#required': true
   how_have_you_found_it_setting_up_standing_orders_via_your_bank:
     '#type': webform_rating
     '#title': 'For recurring contributions, how easy is it to set up a standing order via your bank? '
   how_do_you_find_kin_cooperative_s_confirmation_emails_when_you_m:
     '#type': webform_rating
-    '#title': 'How useful do you find Kin Cooperative’s confirmation emails (for example, when you commit to contribute or confirming a contribution has been received)? '
+    '#title': 'How useful do you find confirmation emails from Kin (for example, when you commit to contribute or confirming a contribution has been received)? '
+    '#required': true
   contribution_process:
     '#type': textarea
     '#title': 'How could we improve the contribution experience? Have you encountered any issues? '
+    '#required': true
   markup_01:
     '#type': webform_markup
     '#markup': '<h2><meta charset="utf-8">Membership</h2>'
-  joining:
-    '#type': checkboxes
-    '#title': 'Before you signed up, did you understand that you were joining Kin Cooperative as a member as well as Kin being a space to set up your own kin groups?'
+  can:
+    '#type': radios
+    '#title': 'Before you signed up, did you understand that you were joining Kin Cooperative as a member as well as your community group?'
     '#options':
       'Yes': 'Yes'
       'No': 'No'
+    '#required': true
+  how_could_we_make_this_clear:
+    '#type': textarea
+    '#title': 'How could we make this clearer?'
+    '#states':
+      visible:
+        ':input[name="can"]':
+          value: 'No'
+  radiohave_you_you_have_emailed_or_whatsapped_the_kin_team:
+    '#type': radios
+    '#title': 'Have you emailed or WhatsApped the Kin team for support or generally? '
+    '#options':
+      'Yes': 'Yes'
+      'No': 'No'
+    '#required': true
+  how_would_you_rate_the_speed_and_usefulness_of_the_team_s_respon:
+    '#type': webform_rating
+    '#title': "How would you rate the speed and usefulness of the team's responses?"
+    '#states':
+      visible:
+        ':input[name="radiohave_you_you_have_emailed_or_whatsapped_the_kin_team"]':
+          value: 'Yes'
   how_easy_was_it_to_become_a_member:
     '#type': webform_rating
     '#title': 'How easy was it to become a member? '
+    '#required': true
   how_do_you_find_the_updates_from_kin_cooperative_about_events_ne:
     '#type': webform_rating
     '#title': 'How do you find the updates from Kin Cooperative about events, new features and fundraising? '
+    '#required': true
   how_can_we_improve_the_membership_process_and_experience_are_mem:
     '#type': textarea
     '#title': 'How can we improve the membership process and experience? Are member emails too frequent / rare? What do you think of their tone?'
+    '#required': true
+  markup_02:
+    '#type': webform_markup
+    '#markup': '<h2><meta charset="utf-8">Features</h2>'
+  used_the_private_message_or_group_chat_functions_on_kin:
+    '#type': radios
+    '#title': 'Have you used the private message or group chat functions on Kin?'
+    '#options':
+      'Yes': 'Yes'
+      'No': 'No'
+    '#required': true
+  what_would_make_you_more_to_use_them:
+    '#type': textarea
+    '#title': 'What would make you more likely to use them? '
+    '#states':
+      visible:
+        ':input[name="used_the_private_message_or_group_chat_functions_on_kin"]':
+          value: 'No'
+  how_did_you_find_them:
+    '#type': webform_rating
+    '#title': 'How did you find them?'
+    '#states':
+      visible:
+        ':input[name="used_the_private_message_or_group_chat_functions_on_kin"]':
+          value: 'Yes'
+  how_do_you_find_kin_s_features_eg_group_chat_private_messaging_g:
+    '#type': webform_rating
+    '#title': "How intuitive do you find Kin's features (eg. group chat, private messaging, group agreements, contribution history)?"
+    '#required': true
+  what_other_features_would_you_like_to_see_developed:
+    '#type': textarea
+    '#title': "How can Kin's features be improved and what other features would you like to see developed? "
+    '#required': true
+  markup_03:
+    '#type': webform_markup
+    '#markup': '<h2><meta charset="utf-8">General</h2>'
+  how_would_you_rate_kin_s_mission_and_ethos:
+    '#type': webform_rating
+    '#title': "How would you rate Kin's mission and ethos?"
+    '#required': true
+  do_you_tell_others_about_kin:
+    '#type': radios
+    '#title': 'Do you tell others about Kin? '
+    '#options':
+      'Yes': 'Yes'
+      'No': 'No'
+    '#required': true
+  markup_04:
+    '#type': webform_markup
+    '#states':
+      visible:
+        ':input[name="do_you_tell_others_about_kin"]':
+          value: 'Yes'
+    '#markup': '<h4><meta charset="utf-8">Thank you!</h4>'
+  what_would_make_you_more_likely_to_share_kin_with_others:
+    '#type': textarea
+    '#title': 'What would make you more likely to share Kin with others? '
+    '#states':
+      visible:
+        ':input[name="do_you_tell_others_about_kin"]':
+          value: 'No'
+  any_other_feedback:
+    '#type': textarea
+    '#title': 'Any other feedback?'
+  captcha:
+    '#type': captcha
 css: ''
 javascript: ''
 settings:
@@ -58,7 +151,7 @@ settings:
   page_submit_path: ''
   page_confirm_path: ''
   page_theme_name: ''
-  form_title: both
+  form_title: source_entity_webform
   form_submit_once: false
   form_open_message: ''
   form_close_message: ''
@@ -153,7 +246,7 @@ settings:
   confirmation_type: page
   confirmation_url: ''
   confirmation_title: ''
-  confirmation_message: ''
+  confirmation_message: '<p>Thank you for your feedback!&nbsp;<br><br>Can you leave us a public review on Trustpilot? It will take just one more minute!&nbsp;<br><br><a class="btn btn-primary" href="https://uk.trustpilot.com/review/kin.coop">GO TO TRUSTPILOT</a></p>'
   confirmation_attributes: {  }
   confirmation_back: true
   confirmation_back_label: ''
@@ -229,5 +322,42 @@ access:
     roles: {  }
     users: {  }
     permissions: {  }
-handlers: {  }
+handlers:
+  email:
+    id: email
+    handler_id: email
+    label: 'Admin Notification'
+    notes: ''
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      states:
+        - completed
+      to_mail: _default
+      to_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: Kin
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      subject: 'Kin Feedback Form Confirmation'
+      body: '<p>Submitted on [webform_submission:created]</p><p>Submitted by: [webform_submission:user]</p><p>Submitted values are:</p><p>[webform_submission:values]</p>'
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      parameters: {  }
+      debug: false
 variants: {  }

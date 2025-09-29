@@ -415,7 +415,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<p>Copy the link below and share to invite people to the group.</p>\r\n<p><a href=\"/member/join-kin-group?cid2={{ id }}\">https://kin.coop/member/join-kin-group?cid2={{ id }}</a></p>"
+            text: "<p>Share this link to invite friends to the group.</p>\r\n<p><a href=\"/member/join-kin-group?cid2={{ id }}\">https://kin.coop/member/join-kin-group?cid2={{ id }}</a></p>"
             make_link: false
             path: ''
             absolute: false
