@@ -588,7 +588,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<p>New member and money requests will appear here. <a href="https://wa.me/447985022771?" target="_blank">WhatsApp Kin (faster)</a> or <a href="mailto:?subject=Help;">contact Kin</a> to change group admins.</p>'
+            value: '<p>New member and money requests will appear here. <a href="https://wa.me/447985022771?" target="_blank">WhatsApp Kin (faster)</a> or <a href="mailto:info@kin.coop?subject=Help">contact Kin</a> to change group admins.</p>'
             format: full_html
           tokenize: false
       footer: {  }
