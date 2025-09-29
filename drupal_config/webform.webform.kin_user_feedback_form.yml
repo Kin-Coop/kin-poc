@@ -175,9 +175,9 @@ settings:
   form_autofocus: false
   form_details_toggle: false
   form_reset: false
-  form_access_denied: default
-  form_access_denied_title: ''
-  form_access_denied_message: ''
+  form_access_denied: page
+  form_access_denied_title: 'Please login to access the feedback form'
+  form_access_denied_message: '<p><a class="btn btn-primary" href="/user/login?current=/form/kin-user-feedback-form">Login</a></p>'
   form_access_denied_attributes: {  }
   form_file_limit: ''
   form_attributes: {  }
@@ -278,7 +278,6 @@ settings:
 access:
   create:
     roles:
-      - anonymous
       - authenticated
     users: {  }
     permissions: {  }
