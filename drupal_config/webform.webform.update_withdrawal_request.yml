@@ -157,7 +157,7 @@ elements: |-
   civicrm_2_contact_1_relationship_end_date:
     '#type': date
     '#title': 'End Date'
-    '#default_value': today
+    '#default_value': yesterday
     '#access': false
     '#extra':
       start_date: '-50 years'
