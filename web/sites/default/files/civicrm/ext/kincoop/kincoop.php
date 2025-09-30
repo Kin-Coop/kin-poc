@@ -165,9 +165,11 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef) {
     $contribution = $objectRef;
 
     // Debug code
-    Civi::log()->info('Post commit: New contribution created', [
-      'contribution' => $contribution,
-    ]);
+    if (!empty($contribution->contribution_recur_id) && $contribution->contribution_recur_id > 0) {
+      Civi::log()->info('Post commit: New recurring contribution created', [
+        'contribution' => $contribution,
+      ]);
+    }
 
     // Check if it's from a contribution page
     if (!empty($contribution->contribution_page_id) && $contribution->contribution_page_id == 7) {
