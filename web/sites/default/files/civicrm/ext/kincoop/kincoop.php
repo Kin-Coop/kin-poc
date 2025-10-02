@@ -3,6 +3,7 @@
 require_once 'kincoop.civix.php';
 
 use CRM_Kincoop_ExtensionUtil as E;
+use Civi\Api4\Relationship;
 
 const GIFT_FT_NAME = 'Gift';
 
@@ -120,6 +121,34 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
 }
 
 function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$objectRef) {
+
+  if ($objectName == 'Relationship' && $op == 'edit') {
+
+    try {
+      // Fetch relationship with custom fields
+      $rel = Relationship::get(FALSE)
+        ->addSelect('id', 'Household.Relationship_Status', 'is_active')
+        ->addWhere('id', '=', $objectId)
+        ->addWhere('is_active', '=', TRUE)
+        ->addWhere('Household.Relationship_Status', '=', 'withdrawal approved')
+        ->execute()
+        ->first();
+
+      // If status is set to "withdrawal approved", disable the relationship
+      if ($rel && $rel['Household.Relationship_Status'] === 'withdrawal approved') {
+        Relationship::update(FALSE)
+          ->addWhere('id', '=', $objectId)
+          ->addValue('is_active', 0)
+          ->execute();
+
+        \Civi::log()->info("Relationship {$objectId} disabled (withdrawal approved).");
+      }
+    }
+    catch (\Exception $e) {
+      \Civi::log()->error("Error in kincoop_civicrm_post for Relationship $objectId: " . $e->getMessage());
+    }
+  }
+
 
   if($objectName === 'Individual' && $op === 'create') {
     //add hidden relationship to household
