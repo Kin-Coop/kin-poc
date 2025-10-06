@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b660a4d42074bfe98301558cd5d8dfd",
+    "content-hash": "845aa5e7bddafa73d48119eb43134249",
     "packages": [
         {
             "name": "adrienrn/php-mimetyper",
@@ -6101,6 +6101,52 @@
             }
         },
         {
+            "name": "drupal/mercury_editor_live_edit",
+            "version": "dev-1.0.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/mercury_editor_live_edit.git",
+                "reference": "2bc50c1757a374a07618aa1a98cb4ea2b472cdf5"
+            },
+            "require": {
+                "drupal/core": "^10 || ^11",
+                "drupal/mercury_editor": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.0.x": "1.0.x-dev"
+                },
+                "drupal": {
+                    "version": "1.0.x-dev",
+                    "datestamp": "1738685825",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "droath",
+                    "homepage": "https://www.drupal.org/user/718562"
+                },
+                {
+                    "name": "justin2pin",
+                    "homepage": "https://www.drupal.org/user/278450"
+                }
+            ],
+            "description": "Allow editors to make live edits to fields within the Mercury UI.",
+            "homepage": "https://www.drupal.org/project/mercury_editor_live_edit",
+            "support": {
+                "source": "https://git.drupalcode.org/project/mercury_editor_live_edit"
+            }
+        },
+        {
             "name": "drupal/message",
             "version": "1.8.0",
             "source": {
@@ -7468,6 +7514,403 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/twig_tweak",
                 "issues": "https://www.drupal.org/project/issues/twig_tweak"
+            }
+        },
+        {
+            "name": "drupal/ui_icons",
+            "version": "1.1.0-beta6",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ui_icons.git",
+                "reference": "1.1.0-beta6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ui_icons-1.1.0-beta6.zip",
+                "reference": "1.1.0-beta6",
+                "shasum": "59ba3122f33d8beb7b64bf19c9b8c6c8a7526dc9"
+            },
+            "require": {
+                "drupal/core": "^11.1"
+            },
+            "require-dev": {
+                "drupal/link_attributes": "^2.0",
+                "drupal/linkit": "^7.0",
+                "drupal/linkit_attributes": "*",
+                "drupal/ui_icons_field": "*",
+                "drupal/ui_icons_field-ui_icons_field": "*",
+                "drupal/ui_icons_field_linkit": "*",
+                "drupal/ui_icons_picker": "*",
+                "drupal/ui_icons_text": "*",
+                "drupal/ui_patterns": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.0-beta6",
+                    "datestamp": "1750427882",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "mogtofu33",
+                    "homepage": "https://www.drupal.org/user/278510"
+                },
+                {
+                    "name": "pdureau",
+                    "homepage": "https://www.drupal.org/user/1903334"
+                }
+            ],
+            "description": "The UI Icons module is a generic icon manager for Drupal.",
+            "homepage": "https://www.drupal.org/project/ui_icons",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ui_icons"
+            }
+        },
+        {
+            "name": "drupal/ui_icons_patterns",
+            "version": "1.1.0-beta6",
+            "require": {
+                "drupal/core": "^10.3 || ^11.0",
+                "drupal/ui_icons": "*",
+                "drupal/ui_patterns": "*"
+            },
+            "type": "metapackage",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.0-beta6",
+                    "datestamp": "1750427882",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "mogtofu33",
+                    "homepage": "https://www.drupal.org/user/278510"
+                },
+                {
+                    "name": "pdureau",
+                    "homepage": "https://www.drupal.org/user/1903334"
+                }
+            ],
+            "description": "Icons integration with UI Patterns 1.x and UI Patterns 2.x.",
+            "homepage": "https://www.drupal.org/project/ui_icons",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ui_icons"
+            }
+        },
+        {
+            "name": "drupal/ui_patterns",
+            "version": "2.0.10",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ui_patterns.git",
+                "reference": "2.0.10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ui_patterns-2.0.10.zip",
+                "reference": "2.0.10",
+                "shasum": "5b9a988fcc9b2d18118387e7fb3296e24c540961"
+            },
+            "require": {
+                "drupal/core": "^10.3.4 || ^11",
+                "justinrainbow/json-schema": "^5.2 || ^6.3"
+            },
+            "require-dev": {
+                "drupal/ui_patterns_library": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.10",
+                    "datestamp": "1759236614",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "ademarco",
+                    "homepage": "https://www.drupal.org/user/186696"
+                },
+                {
+                    "name": "bircher",
+                    "homepage": "https://www.drupal.org/user/1344166"
+                },
+                {
+                    "name": "christian.wiedemann",
+                    "homepage": "https://www.drupal.org/user/861002"
+                },
+                {
+                    "name": "duaelfr",
+                    "homepage": "https://www.drupal.org/user/931394"
+                },
+                {
+                    "name": "g4mbini",
+                    "homepage": "https://www.drupal.org/user/2533498"
+                },
+                {
+                    "name": "grimreaper",
+                    "homepage": "https://www.drupal.org/user/2388214"
+                },
+                {
+                    "name": "just_like_good_vibes",
+                    "homepage": "https://www.drupal.org/user/792018"
+                },
+                {
+                    "name": "pdureau",
+                    "homepage": "https://www.drupal.org/user/1903334"
+                },
+                {
+                    "name": "pescetti",
+                    "homepage": "https://www.drupal.org/user/436244"
+                }
+            ],
+            "description": "Define and expose self-contained UI components and use them seamlessly in development and site-building.",
+            "homepage": "https://www.drupal.org/project/ui_patterns",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ui_patterns"
+            }
+        },
+        {
+            "name": "drupal/ui_skins",
+            "version": "1.1.0-alpha5",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ui_skins.git",
+                "reference": "1.1.0-alpha5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ui_skins-1.1.0-alpha5.zip",
+                "reference": "1.1.0-alpha5",
+                "shasum": "bd0745cde32d75c52fa629ee5cf2354065fa459f"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11",
+                "php": ">=8.3"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.0-alpha5",
+                    "datestamp": "1757425852",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "grimreaper",
+                    "homepage": "https://www.drupal.org/user/2388214"
+                },
+                {
+                    "name": "pdureau",
+                    "homepage": "https://www.drupal.org/user/1903334"
+                }
+            ],
+            "description": "Allow handle some theme settings like CSS variables.",
+            "homepage": "https://www.drupal.org/project/ui_skins",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ui_skins"
+            }
+        },
+        {
+            "name": "drupal/ui_styles",
+            "version": "1.17.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ui_styles.git",
+                "reference": "8.x-1.17"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ui_styles-8.x-1.17.zip",
+                "reference": "8.x-1.17",
+                "shasum": "f80e526aba30a434e9d922bd19b1063d464a1600"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11",
+                "php": ">=8.3",
+                "sabberworm/php-css-parser": "^8.6"
+            },
+            "require-dev": {
+                "drupal/ui_patterns": "^2.0",
+                "drupal/ui_skins": "^1.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.17",
+                    "datestamp": "1756980254",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "patches": {
+                    "sabberworm/php-css-parser": {
+                        "1 - Fix/css4 rgb parsing - https://www.drupal.org/project/ui_styles/issues/3453784#comment-15719087": "https://www.drupal.org/files/issues/2024-08-08/sabberworm-php-css-parser-202.patch"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "grimreaper",
+                    "homepage": "https://www.drupal.org/user/2388214"
+                },
+                {
+                    "name": "pdureau",
+                    "homepage": "https://www.drupal.org/user/1903334"
+                }
+            ],
+            "description": "Define styles from modules and themes.",
+            "homepage": "https://www.drupal.org/project/ui_styles",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ui_styles"
+            }
+        },
+        {
+            "name": "drupal/ui_styles_paragraphs",
+            "version": "1.1.0-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ui_styles_paragraphs.git",
+                "reference": "1.1.0-alpha2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ui_styles_paragraphs-1.1.0-alpha2.zip",
+                "reference": "1.1.0-alpha2",
+                "shasum": "82510ea78984738d97fda2d93f45218f3c118ff6"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10 || ^11",
+                "drupal/paragraphs": "^1.0",
+                "drupal/ui_styles": "^1.6"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.0-alpha2",
+                    "datestamp": "1725288659",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Sharique A Farooqui",
+                    "homepage": "https://www.drupal.org/user/1903334",
+                    "email": "37896-sharique@users.noreply.drupalcode.org"
+                },
+                {
+                    "name": "Pierre Dureau",
+                    "homepage": "https://www.drupal.org/user/73545",
+                    "email": "31905-pdureau@users.noreply.drupalcode.org"
+                }
+            ],
+            "description": "Allow to use UI Styles with the paragraphs.",
+            "homepage": "https://www.drupal.org/project/ui_styles_paragraphs",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/ui_styles_paragraphs"
+            }
+        },
+        {
+            "name": "drupal/ui_suite_daisyui",
+            "version": "5.0.0-alpha4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ui_suite_daisyui.git",
+                "reference": "5.0.0-alpha4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ui_suite_daisyui-5.0.0-alpha4.zip",
+                "reference": "5.0.0-alpha4",
+                "shasum": "dd28371b2bef8e11c6b7701fb1a0f1877e9fa3fe"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11",
+                "drupal/ui_icons": "^1.1",
+                "drupal/ui_icons_patterns": "*",
+                "drupal/ui_patterns": "^2.0",
+                "drupal/ui_skins": "^1.1",
+                "drupal/ui_styles": "^1.11"
+            },
+            "suggest": {
+                "drupal/ui_examples": "Allows to write example pages in YML format."
+            },
+            "type": "drupal-theme",
+            "extra": {
+                "drupal": {
+                    "version": "5.0.0-alpha4",
+                    "datestamp": "1756891731",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "christian.wiedemann",
+                    "homepage": "https://www.drupal.org/user/861002"
+                },
+                {
+                    "name": "g4mbini",
+                    "homepage": "https://www.drupal.org/user/2533498"
+                }
+            ],
+            "description": "A site-builder friendly DaisyUI theme, using the UI Suite modules.",
+            "homepage": "https://www.drupal.org/project/ui_suite_daisyui",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ui_suite_daisyui"
             }
         },
         {
@@ -16380,7 +16823,7 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "drupal/block_field": 5,
         "drupal/civicrm_entity": 10,
@@ -16392,10 +16835,13 @@
         "drupal/gin_toolbar": 5,
         "drupal/login_destination": 10,
         "drupal/masquerade": 5,
+        "drupal/mercury_editor_live_edit": 20,
         "drupal/other_view_filter": 20,
         "drupal/private_message": 15,
         "drupal/rabbit_hole": 10,
         "drupal/reroute_email": 5,
+        "drupal/ui_styles_paragraphs": 15,
+        "drupal/ui_suite_daisyui": 15,
         "drupal/views_field_view": 10,
         "drupal/webform": 10
     },

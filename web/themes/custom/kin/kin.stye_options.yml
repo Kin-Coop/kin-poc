@@ -1,0 +1,9 @@
+options:
+  kin_class:
+    plugin: css_class
+    label: 'custom classes'
+    multiple: true
+    options:
+      -
+        label: Style 1
+        class: style_1
