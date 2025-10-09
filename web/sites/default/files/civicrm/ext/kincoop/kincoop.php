@@ -463,7 +463,7 @@ function kincoop_civicrm_buildForm($formName, $form) {
         if ($form->_id === 1) {
           if($form->getAction() == CRM_Core_Action::ADD) {
              if (isset($_GET['groupid']) && $_GET['me']) {
-                    $ref = $_GET['me'] . '-' . date('mdi');
+                    $ref = $_GET['me'] . '-' . $_GET['groupid'];
                     $defaults['custom_25'] = $_GET['groupid'];
                     $defaults['custom_61'] = $ref;
                     //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
@@ -487,7 +487,7 @@ function kincoop_civicrm_buildForm($formName, $form) {
             if (isset($_GET['groupid']) && $_GET['me']) {
                 $cid = CRM_Core_Session::singleton()->getLoggedInContactID();
                 $cid = $cid ? $cid : 'K';
-                $ref = $cid . '-' . date('mdi');
+                $ref = $cid . '-' . $_GET['groupid'];
                 $defaults['custom_25'] = $_GET['groupid'];
                 $defaults['custom_61'] = $ref;
                 $form->setDefaults($defaults);
@@ -500,7 +500,7 @@ function kincoop_civicrm_buildForm($formName, $form) {
         } elseif ($form->_id === 7) {
           if($form->getAction() == CRM_Core_Action::ADD) {
             if (isset($_GET['groupid']) && $_GET['me']) {
-              $ref = $_GET['me'] . '-' . date('mdi');
+              $ref = $_GET['me'] . '-' . $_GET['groupid'];
               $defaults['custom_25'] = $_GET['groupid'];
               $defaults['custom_61'] = $ref;
               $defaults['frequency_unit'] = "month";
