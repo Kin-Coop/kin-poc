@@ -46,6 +46,7 @@
         "drupal/exclude_node_title": "^2.0",
         "drupal/fences": "^3.0",
         "drupal/field_group": "^4.0@alpha",
+        "drupal/fitvids": "^2.1",
         "drupal/fpa": "^4.0.1",
         "drupal/front": "^10.0@alpha",
         "drupal/gin": "^3.0@rc",
