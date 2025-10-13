@@ -79,6 +79,7 @@
         "drupal/riddler": "^3.0",
         "drupal/simplify": "^2.1",
         "drupal/social_media_links": "^2.9",
+        "drupal/style_options": "^1.1",
         "drupal/symfony_mailer": "^1.5",
         "drupal/token": "^1.11",
         "drupal/token_filter": "^2.2",
