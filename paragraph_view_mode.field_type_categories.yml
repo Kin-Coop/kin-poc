@@ -1,0 +1,6 @@
+manage_display:
+  label: 'Manage display'
+  description: 'Fields used to configure entity display settings.'
+  weight: -20
+  libraries:
+    - options/drupal.options-icon
