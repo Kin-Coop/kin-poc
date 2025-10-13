@@ -13866,4 +13866,16 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   margin-top: 1.5rem;
 }
 
+.fancy-box {
+  border: 2px solid #007bff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: #f9f9f9;
+}
+
+.highlight-text {
+  background-color: yellow;
+  font-weight: bold;
+}
+
 /*# sourceMappingURL=style.css.map */
