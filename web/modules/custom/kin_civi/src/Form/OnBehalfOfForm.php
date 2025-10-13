@@ -46,7 +46,7 @@
 
       $group_id = \Drupal::routeMatch()->getParameter('group_id');
       $group = \Drupal::service('kin_civi.utils')->kin_civi_check_group($group_id);
-      $ref = $cid . '-' . date('mdi');
+      $ref = $cid . '-' . $group_id;
 
       //dpm($cid);
       //dpm($form_state->getValue('delegate_id'));
