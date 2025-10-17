@@ -39,6 +39,10 @@ h2, h3, h4, h5 {
   font-style: normal;
 }
 
+ol li {
+  margin-bottom: .6rem;
+}
+
 .btn-primary {
   background-color: $red;
   color: #fff;
@@ -1206,9 +1210,20 @@ table {
   }
 }
 
-.view-member-recurring-contributions {
+.no-header-gap {
   > .view-content {
     margin: -0.8rem -0.8rem 0.8rem -0.8rem;
+  }
+}
+
+.pending-contributions {
+  padding-bottom: 0 !important;
+  > .view-footer {
+    margin: -0.8rem -0.8rem 0 -0.8rem;
+    padding: .8rem .8rem .8rem .8rem;
+    background: #ccc;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
   }
 }
 
@@ -1218,7 +1233,21 @@ table {
   }
 }
 
-.field--name-field-paragraphs-2 {
+.paragraph--type--_-columns > div {
+  > .field__items {
+    height: 100%;
+
+    > .field__item {
+      height: 100%;
+
+      > .paragraph--type--content {
+        height: 100%;
+      }
+    }
+  }
+}
+
+.field--name-field-paragraphs-2 .sub-title {
   h2 {
     margin: 0 0 .5rem;
     line-height: 1.2;
