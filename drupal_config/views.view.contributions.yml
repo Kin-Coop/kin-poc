@@ -3329,6 +3329,7 @@ display:
         groups: {  }
       defaults:
         title: false
+        css_class: false
         relationships: false
         fields: false
         sorts: false
@@ -3380,8 +3381,13 @@ display:
           plugin_id: civicrm_entity_civicrm_contact_user
           required: true
           domain_id: {  }
+      css_class: member-block
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        attributes: {  }
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
       block_description: 'Member Recurring Contributions'
     cache_metadata:
       max-age: -1
