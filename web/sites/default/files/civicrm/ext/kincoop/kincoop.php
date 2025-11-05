@@ -500,7 +500,8 @@ function kincoop_civicrm_buildForm($formName, $form) {
         } elseif ($form->_id === 7) {
           if($form->getAction() == CRM_Core_Action::ADD) {
             if (isset($_GET['groupid']) && $_GET['me']) {
-              $ref = $_GET['me'] . '-' . $_GET['groupid'];
+              //Include the R suffix on the unique contribution reference to denote recurring contributions
+              $ref = $_GET['me'] . '-' . $_GET['groupid'] . 'R';
               $defaults['custom_25'] = $_GET['groupid'];
               $defaults['custom_61'] = $ref;
               $defaults['frequency_unit'] = "month";
