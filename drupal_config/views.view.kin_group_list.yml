@@ -5183,7 +5183,7 @@ display:
           plugin_id: civicrm_entity_civicrm_contact_user
           required: true
           domain_id: {  }
-      css_class: ''
+      css_class: member-home
       group_by: false
       display_description: ''
       header: {  }
@@ -5304,7 +5304,11 @@ display:
             value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Leave Group\r\n    </h2>\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/members/leave-group?cid2={{ id }}&group={{ display_name }}&destination=/\">Leave Group</a>\r\n    </p>\r\n</div>"
             format: full_html
           tokenize: true
-      display_extenders: {  }
+      display_extenders:
+        attributes: {  }
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
       path: member/group/%
     cache_metadata:
       max-age: -1

@@ -13888,4 +13888,19 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   font-weight: bold;
 }
 
+.member-home {
+  /*
+  > .view-footer {
+    @extend .d-flex;
+    @extend .flex-wrap;
+    @extend .justify-content-between;
+
+    > * {
+      margin-right: 2%;
+    }
+  }
+
+   */
+}
+
 /*# sourceMappingURL=style.css.map */

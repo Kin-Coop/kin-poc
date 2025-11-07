@@ -55,6 +55,18 @@ elements: |-
       rows: '4'
     '#form_key': civicrm_2_contact_1_cg1_custom_33
     '#parent': civicrm_2_contact_1_cg1_fieldset
+  civicrm_2_contact_1_cg1_custom_74:
+    '#type': textarea
+    '#title': 'Group purpose'
+    '#description': "<p><em>This will not be visible to anyone except the Kin Cooperative team who are required to ensure every group's activities align with Kin's policies, code of conduct, and principles of mutual aid. Please describe your group's intended purpose, including how members will make decisions and what funds are likely to be used for.</em></p>"
+    '#description_display': before
+    '#required': true
+    '#data_type': Memo
+    '#extra':
+      cols: '60'
+      rows: '4'
+    '#form_key': civicrm_2_contact_1_cg1_custom_74
+    '#parent': civicrm_2_contact_1_cg1_fieldset
   civicrm_2_contact_1_relationship_start_date:
     '#type': date
     '#title': 'Relationship to Individual Start Date'
@@ -311,8 +323,8 @@ handlers:
       civicrm_1_contact_1_contact_is_deceased: 0
       civicrm_1_contact_1_contact_deceased_date: 0
       contact_1_settings_matching_rule: Unsupervised
-      contact_1_number_of_cg2: '0'
       contact_1_number_of_cg3: '0'
+      contact_1_number_of_cg27: '0'
       contact_1_number_of_other: '0'
       contact_1_number_of_address: '0'
       contact_1_number_of_phone: '0'
@@ -320,6 +332,7 @@ handlers:
       contact_1_number_of_website: '0'
       contact_1_number_of_im: '0'
       contact_1_number_of_cg1: '0'
+      contact_1_number_of_cg18: '0'
       2_contact_type: household
       2_webform_label: Household
       civicrm_2_contact_1_contact_contact_sub_type: {  }
@@ -351,10 +364,15 @@ handlers:
       civicrm_2_contact_1_relationship_start_date: create_civicrm_webform_element
       civicrm_2_contact_1_relationship_end_date: 0
       civicrm_2_contact_1_relationship_description: 0
+      civicrm_2_contact_1_relationship_custom_40: 0
+      civicrm_2_contact_1_relationship_custom_41: 0
+      civicrm_2_contact_1_relationship_custom_42: 0
       contact_2_number_of_cg1: '1'
       contact_2_settings_dynamic_custom_cg1: 0
       civicrm_2_contact_1_cg1_custom_1: create_civicrm_webform_element
       civicrm_2_contact_1_cg1_custom_33: create_civicrm_webform_element
+      civicrm_2_contact_1_cg1_custom_74: create_civicrm_webform_element
+      contact_2_number_of_cg18: '0'
       prefix_known: ''
       prefix_unknown: ''
       toggle_message: 0
@@ -395,8 +413,8 @@ handlers:
                 contact_sub_type: {  }
                 webform_label: Individual
             matching_rule: Unsupervised
-            number_of_cg2: '0'
             number_of_cg3: '0'
+            number_of_cg27: '0'
             number_of_other: '0'
             number_of_address: '0'
             number_of_phone: '0'
@@ -404,6 +422,7 @@ handlers:
             number_of_website: '0'
             number_of_im: '0'
             number_of_cg1: '0'
+            number_of_cg18: '0'
           2:
             contact:
               1:
@@ -420,6 +439,7 @@ handlers:
             number_of_relationship: '1'
             number_of_cg1: '1'
             dynamic_custom_cg1: 0
+            number_of_cg18: '0'
             relationship:
               1:
                 relationship_type_id:
