@@ -53,6 +53,8 @@
         "drupal/gin_toolbar": "^1.0@rc",
         "drupal/gutenberg": "^3.0",
         "drupal/honeypot": "^2.2",
+        "drupal/hook_event_dispatcher": "^4.2",
+        "drupal/image_widget_crop": "^3.0",
         "drupal/imce": "^3.1",
         "drupal/layout_paragraphs": "^2.1",
         "drupal/link_attributes": "^2.1",
@@ -106,6 +108,9 @@
     },
     "conflict": {
         "drupal/drupal": "*"
+    },
+    "replace": {
+        "drupal/hook_event_dispatcher": "*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
