@@ -1,0 +1,18 @@
+uuid: e70af17e-9030-4650-9001-3718c260b7aa
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - crop.type.square
+  module:
+    - crop
+name: profile
+label: Profile
+effects:
+  caabbfdf-1c87-4460-b15f-327099a7f2f8:
+    uuid: caabbfdf-1c87-4460-b15f-327099a7f2f8
+    id: crop_crop
+    weight: 1
+    data:
+      crop_type: square
+      automatic_crop_provider: null
