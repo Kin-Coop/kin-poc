@@ -472,7 +472,7 @@ display:
         css_class: false
         fields: false
         header: false
-      css_class: 'member-block col-sm-6'
+      css_class: 'member-block col-md-6'
       display_description: ''
       header:
         area:
@@ -490,6 +490,9 @@ display:
           tokenize: false
       display_extenders:
         attributes: {  }
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
       block_description: 'Public Group Link'
     cache_metadata:
       max-age: -1

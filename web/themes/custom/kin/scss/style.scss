@@ -1375,16 +1375,26 @@ div.block.vertical {
 }
 
 .member-home {
-  /*
   > .view-footer {
     @extend .d-flex;
+    @extend .align-items-start;
     @extend .flex-wrap;
     @extend .justify-content-between;
 
-    > * {
-      margin-right: 2%;
+    @include media-breakpoint-up(md) {
+      > * {
+        margin-right: 4%;
+
+        &.col-md-6 {
+          width: 46%;
+        }
+      }
     }
   }
-  
-   */
+}
+
+.field--name-user-picture {
+  img {
+    border-radius: 50%;
+  }
 }
