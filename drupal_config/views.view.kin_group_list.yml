@@ -2137,7 +2137,7 @@ display:
           plugin_id: civicrm_entity_civicrm_contact_user
           required: true
           domain_id: {  }
-      css_class: 'member-block col-sm-6 no-table'
+      css_class: 'member-block col-md-6 no-table'
       use_ajax: true
       display_description: ''
       header:
@@ -2160,6 +2160,9 @@ display:
             id:
               value: collapseOne
               weight: 100
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
       block_description: 'Group Members'
     cache_metadata:
       max-age: -1
@@ -5231,7 +5234,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Make A Contribution\r\n    </h2>\r\n    <p>\r\n      See the <a href=\"/faq\" target=\"_blank\">contributions FAQ.</a>\r\n    <p>\r\n        <a class=\"btn btn-primary mb-3\" href=\"/civicrm/contribute/transact?reset=1&id=1&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Contribution</a>\r\n <a class=\"btn btn-primary mb-3\" href=\"/civicrm/contribute/transact?reset=1&id=7&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up Recurring Contribution</a>\r\n        <a class=\"btn btn-primary mb-3\" href=\"/contribute-onbehalfof/{{ id }}\">Contribute On Behalf Of</a>\r\n    </p>\r\n</div>"
+            value: "<div class=\"member-block col-md-6\">\r\n    <h2>\r\n        Make A Contribution\r\n    </h2>\r\n    <p>\r\n      See the <a href=\"/faq\" target=\"_blank\">contributions FAQ.</a>\r\n    <p>\r\n        <a class=\"btn btn-primary mb-3\" href=\"/civicrm/contribute/transact?reset=1&id=1&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Contribution</a>\r\n <a class=\"btn btn-primary mb-3\" href=\"/civicrm/contribute/transact?reset=1&id=7&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up Recurring Contribution</a>\r\n        <a class=\"btn btn-primary mb-3\" href=\"/contribute-onbehalfof/{{ id }}\">Contribute On Behalf Of</a>\r\n    </p>\r\n</div>"
             format: full_html
           tokenize: true
         area_2:
@@ -5244,20 +5247,9 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Request Money\r\n    </h2>\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=3&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Request</a>\r\n    </p>\r\n</div>"
+            value: "<div class=\"member-block col-md-6\">\r\n    <h2>\r\n        Request Money\r\n    </h2>\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=3&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Request</a>\r\n    </p>\r\n</div>"
             format: full_html
           tokenize: true
-        view_5:
-          id: view_5
-          table: views
-          field: view
-          relationship: none
-          group_type: group
-          admin_label: 'Group Agreement'
-          plugin_id: view
-          empty: false
-          view_to_insert: 'group_agreement:block_1'
-          inherit_arguments: true
         view_4:
           id: view_4
           table: views
@@ -5268,6 +5260,17 @@ display:
           plugin_id: view
           empty: false
           view_to_insert: 'group_forum_comments:block_1'
+          inherit_arguments: true
+        view_5:
+          id: view_5
+          table: views
+          field: view
+          relationship: none
+          group_type: group
+          admin_label: 'Group Agreement'
+          plugin_id: view
+          empty: false
+          view_to_insert: 'group_agreement:block_1'
           inherit_arguments: true
         view:
           id: view
@@ -5301,7 +5304,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Leave Group\r\n    </h2>\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/members/leave-group?cid2={{ id }}&group={{ display_name }}&destination=/\">Leave Group</a>\r\n    </p>\r\n</div>"
+            value: "<div class=\"member-block col-md-6\">\r\n    <h2>\r\n        Leave Group\r\n    </h2>\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/members/leave-group?cid2={{ id }}&group={{ display_name }}&destination=/\">Leave Group</a>\r\n    </p>\r\n</div>"
             format: full_html
           tokenize: true
       display_extenders:

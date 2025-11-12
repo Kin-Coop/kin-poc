@@ -329,7 +329,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      css_class: 'member-block col-sm-6'
+      css_class: 'member-block col-md-6'
       header:
         area:
           id: area
@@ -385,7 +385,11 @@ display:
         empty: false
         access: false
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        attributes: {  }
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
       block_description: 'Group Agreement'
     cache_metadata:
       max-age: -1
