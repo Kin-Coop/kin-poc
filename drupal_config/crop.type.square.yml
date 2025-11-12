@@ -6,7 +6,7 @@ label: Square
 id: square
 description: ''
 aspect_ratio: '1:1'
-soft_limit_width: 400
-soft_limit_height: 400
+soft_limit_width: 200
+soft_limit_height: 200
 hard_limit_width: null
 hard_limit_height: null

@@ -4,8 +4,9 @@ status: true
 dependencies:
   config:
     - field.field.user.user.user_picture
-    - image.style.thumbnail
+    - image.style.profile
   module:
+    - fences
     - image
     - user
 _core:
@@ -15,19 +16,43 @@ targetEntityType: user
 bundle: user
 mode: default
 content:
+  block_user:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  masquerade:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 50
+    region: content
   member_for:
+    settings: {  }
+    third_party_settings: {  }
     weight: 5
     region: content
   user_picture:
     type: image
     label: hidden
     settings:
-      image_style: thumbnail
       image_link: content
+      image_style: profile
       image_loading:
         attribute: lazy
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
+        fences_field_item_tag: div
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
     weight: 0
     region: content
 hidden:
   langcode: true
+  linked_username: true
+  name: true
+  private_message_link: true
