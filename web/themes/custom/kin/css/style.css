@@ -13551,6 +13551,7 @@ table td a, table th a {
   background-color: transparent !important;
   --bs-table-bg-type: transparent !important;
   padding: 0.3rem 0.6rem !important;
+  vertical-align: middle;
 }
 
 .privatemsg-message .privatemsg-message-recipient-unread-marker {
@@ -13897,8 +13898,34 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   }
 }
 
-.field--name-user-picture img {
+.field--name-user-picture img,
+.views-field-user-picture img,
+.picture img {
   border-radius: 50%;
+}
+
+.views-field-user-picture,
+.picture {
+  text-align: center;
+  margin: auto;
+}
+.views-field-user-picture .border,
+.picture .border {
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  padding-top: 4px;
+  background: rgb(212.375, 220.9, 242.625);
+  max-width: 75px;
+  width: 75px;
+  margin: auto;
+}
+.views-field-user-picture .border i,
+.picture .border i {
+  color: #2D4C9B;
+}
+.views-field-user-picture img,
+.picture img {
+  max-width: 75px;
 }
 
 /*# sourceMappingURL=style.css.map */

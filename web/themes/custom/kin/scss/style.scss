@@ -896,6 +896,7 @@ table {
 
         td {
           border: none;
+
         }
       }
 
@@ -903,6 +904,7 @@ table {
         background-color: transparent !important;
         --bs-table-bg-type: transparent !important;
         padding: .3rem .6rem !important;
+        vertical-align: middle;
       }
     }
   }
@@ -1393,8 +1395,34 @@ div.block.vertical {
   }
 }
 
-.field--name-user-picture {
+.field--name-user-picture,
+.views-field-user-picture,
+.picture {
   img {
     border-radius: 50%;
+  }
+}
+
+.views-field-user-picture,
+.picture {
+  text-align: center;
+  margin: auto;
+
+  .border {
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    padding-top: 4px;
+    background: lighten($primary,50%);
+    max-width: 75px;
+    width: 75px;
+    margin: auto;
+
+    i {
+      color: $primary;
+    }
+  }
+
+  img {
+    max-width: 75px ;
   }
 }
