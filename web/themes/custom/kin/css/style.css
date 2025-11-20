@@ -13392,6 +13392,9 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
   margin: 0 0 1rem 0;
   padding: 0;
 }
+#crm-container.crm-public .crm-event-thankyou-form-block .crm-section {
+  margin-bottom: 0.3rem;
+}
 #crm-container.crm-public textarea {
   width: 80%;
   border-radius: 6px;
@@ -13416,6 +13419,7 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 }
 #crm-container.crm-public fieldset {
   border: none;
+  margin-top: 1rem;
 }
 #crm-container.crm-public fieldset.crm-profile-name-Household_Contributions, #crm-container.crm-public fieldset.crm-profile-name-Membership_Fee, #crm-container.crm-public fieldset.crm-profile-name-Contribution_Reference {
   margin: 0;
@@ -13423,6 +13427,9 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 }
 #crm-container.crm-public fieldset.crm-profile-name-Household_Contributions legend, #crm-container.crm-public fieldset.crm-profile-name-Membership_Fee legend, #crm-container.crm-public fieldset.crm-profile-name-Contribution_Reference legend {
   display: none;
+}
+#crm-container.crm-public fieldset .crm-profile-view-title {
+  margin-bottom: 0.7rem;
 }
 #crm-container.crm-public fieldset.pay_later-group {
   border: 1px solid #FDC652;
@@ -13460,6 +13467,17 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 #crm-container.crm-public .select2-container {
   font-size: 1rem;
   min-width: 120px;
+}
+#crm-container.crm-public .section.action-link {
+  margin-bottom: 2rem;
+}
+#crm-container.crm-public .crm-socialnetwork {
+  margin-bottom: 5rem;
+}
+#crm-container.crm-public .participant_info-group > div:first-of-type, #crm-container.crm-public .event_info-group > div:first-of-type {
+  padding: 5px 10px;
+  font-weight: bold;
+  margin-bottom: 0.8rem;
 }
 
 .view-faqs .views-row {

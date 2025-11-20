@@ -693,6 +693,12 @@ table {
     }
   }
 
+  .crm-event-thankyou-form-block {
+    .crm-section {
+      margin-bottom: .3rem;
+    }
+  }
+
   textarea {
     width: 80%;
     border-radius: 6px;
@@ -725,6 +731,7 @@ table {
 
   fieldset {
     border: none;
+    margin-top: 1rem;
 
     &.crm-profile-name-Household_Contributions,
     &.crm-profile-name-Membership_Fee,
@@ -735,6 +742,10 @@ table {
       legend {
         display: none;
       }
+    }
+
+    .crm-profile-view-title {
+      margin-bottom: .7rem;
     }
 
     &.pay_later-group {
@@ -779,6 +790,22 @@ table {
   .select2-container {
     font-size: 1rem;
     min-width: 120px;
+  }
+
+  .section.action-link {
+    margin-bottom: 2rem;
+  }
+
+  .crm-socialnetwork {
+    margin-bottom: 5rem;
+  }
+
+  .participant_info-group, .event_info-group {
+    > div:first-of-type {
+      padding: 5px 10px;
+      font-weight: bold;
+      margin-bottom: .8rem;
+    }
   }
 }
 
