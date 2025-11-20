@@ -1,3 +1,8 @@
+:root {
+    --yellow: #FDC652;
+    --primary: #2D4C9B;
+}
+
 #crm-container.crm-public .header-dark {
         background-color: #FDC652;
         color: #000;
@@ -17,6 +22,7 @@
     text-decoration: underline;
 }
 
+/*
 #crm-container.crm-public fieldset .crm-section {
     margin: 1em 2em 1em 2em;
 }
@@ -29,6 +35,8 @@
     margin: .6em 0 0 !important;
 }
 
+ */
+
 @media (min-width: 480px) {
     .crm-container .crm-section .label {
         width: 180px;
@@ -37,4 +45,8 @@
 
 body .crm-search-display .crm-search-display-editable-buttons {
     bottom: -50px;
+}
+
+#civicrm-footer {
+    display: none;
 }

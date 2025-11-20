@@ -554,6 +554,10 @@ table {
 #crm-container.crm-public {
   a {
     color: #fff;
+
+    &.button {
+      background-color: $primary;
+    }
   }
 
   .help {
@@ -604,6 +608,7 @@ table {
     border: none;
     padding: 8px 12px;
     text-shadow: none;
+    border-radius: 5px;
 
     &:hover {
       background-color: $primary;
@@ -616,46 +621,82 @@ table {
     padding-right: .8rem;
   }
 
-  label {
+  label, .label {
     color: #fff;
-    //margin-right: .8rem;
+    margin-bottom: .3rem;
   }
 
-  @media (min-width: 480px) {
+  .crm-group {
+    margin-bottom: 1rem !important;
+  }
+
+  .crm-marker {
+    color: $yellow;
+  }
+
+  @media (min-width: 800px) {
+    label, .label {
+      float: left;
+      width: 220px;
+      text-align: right;
+      margin-right: 1.6rem;
+      //margin-right: .8rem;
+    }
+  }
+
+  @media (min-width: 800px) {
     .crm-section {
+      margin-bottom: 1.8rem;
+
       .label {
         width: 210px;
       }
 
       .content {
-        margin-left: 210px;
+        margin-left: 230px;
         padding-left: .8rem;
+
+        label {
+          float: none;
+          text-align: left;
+        }
       }
 
     }
   }
 
   .description {
-    color: #000;
     line-height: 1.4;
     font-style: normal;
   }
 
   .crm-section {
-    margin: 0.6rem 0 0 0;
+    margin: 0.6rem 0 1rem 0;
+    clear: both;
+
+    &.helprow-post {
+      margin: -1rem 0 1rem 0 !important;
+      color: #fff;
+    }
+
+    &.helprow-pre {
+      margin-bottom: 0 !important;
+    }
   }
 
   .crm-group {
     margin: 0;
 
     .crm-section {
-      margin: 0;
+      margin: 0 0 1rem 0;
       padding: 0;
     }
   }
 
   textarea {
     width: 80%;
+    border-radius: 6px;
+    font-size: 1rem;
   }
 
   #helprow-contribution_note {
@@ -723,6 +764,21 @@ table {
   }
   input {
     color: #000;
+    font-size: 1rem;
+    border-radius: 6px;
+    padding: 3px 5px;
+    border-width: 1px;
+    border-color: #999;
+    border-style: solid;
+
+    &[type="checkbox"] {
+      margin-right: 7px;
+    }
+  }
+
+  .select2-container {
+    font-size: 1rem;
+    min-width: 120px;
   }
 }
 

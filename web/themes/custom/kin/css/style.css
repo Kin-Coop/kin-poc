@@ -13298,6 +13298,9 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 #crm-container.crm-public a {
   color: #fff;
 }
+#crm-container.crm-public a.button {
+  background-color: #2D4C9B;
+}
 #crm-container.crm-public .help a {
   color: #2D4C9B;
 }
@@ -13323,6 +13326,7 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
   border: none;
   padding: 8px 12px;
   text-shadow: none;
+  border-radius: 5px;
 }
 #crm-container.crm-public button:hover {
   background-color: #2D4C9B;
@@ -13332,35 +13336,66 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
   font-size: inherit;
   padding-right: 0.8rem;
 }
-#crm-container.crm-public label {
+#crm-container.crm-public label, #crm-container.crm-public .label {
   color: #fff;
+  margin-bottom: 0.3rem;
 }
-@media (min-width: 480px) {
+#crm-container.crm-public .crm-group {
+  margin-bottom: 1rem !important;
+}
+#crm-container.crm-public .crm-marker {
+  color: #FDC652;
+}
+@media (min-width: 800px) {
+  #crm-container.crm-public label, #crm-container.crm-public .label {
+    float: left;
+    width: 220px;
+    text-align: right;
+    margin-right: 1.6rem;
+  }
+}
+@media (min-width: 800px) {
+  #crm-container.crm-public .crm-section {
+    margin-bottom: 1.8rem;
+  }
   #crm-container.crm-public .crm-section .label {
     width: 210px;
   }
   #crm-container.crm-public .crm-section .content {
-    margin-left: 210px;
+    margin-left: 230px;
     padding-left: 0.8rem;
+  }
+  #crm-container.crm-public .crm-section .content label {
+    float: none;
+    text-align: left;
   }
 }
 #crm-container.crm-public .description {
-  color: #000;
   line-height: 1.4;
   font-style: normal;
 }
 #crm-container.crm-public .crm-section {
-  margin: 0.6rem 0 0 0;
+  margin: 0.6rem 0 1rem 0;
+  clear: both;
+}
+#crm-container.crm-public .crm-section.helprow-post {
+  margin: -1rem 0 1rem 0 !important;
+  color: #fff;
+}
+#crm-container.crm-public .crm-section.helprow-pre {
+  margin-bottom: 0 !important;
 }
 #crm-container.crm-public .crm-group {
   margin: 0;
 }
 #crm-container.crm-public .crm-group .crm-section {
-  margin: 0;
+  margin: 0 0 1rem 0;
   padding: 0;
 }
 #crm-container.crm-public textarea {
   width: 80%;
+  border-radius: 6px;
+  font-size: 1rem;
 }
 #crm-container.crm-public #helprow-contribution_note {
   margin-bottom: 0 !important;
@@ -13412,6 +13447,19 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 }
 #crm-container.crm-public input {
   color: #000;
+  font-size: 1rem;
+  border-radius: 6px;
+  padding: 3px 5px;
+  border-width: 1px;
+  border-color: #999;
+  border-style: solid;
+}
+#crm-container.crm-public input[type=checkbox] {
+  margin-right: 7px;
+}
+#crm-container.crm-public .select2-container {
+  font-size: 1rem;
+  min-width: 120px;
 }
 
 .view-faqs .views-row {
