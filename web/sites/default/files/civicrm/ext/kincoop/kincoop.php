@@ -475,9 +475,9 @@ function kincoop_civicrm_buildForm($formName, $form) {
               $element = $form->getElement('custom_25');
 
               // Make it read-only
-              $element->freeze();
+              //$element->freeze();
 
-              /****
+
               // Get the contact ID value
               $contactId = $element->getValue();
 
@@ -491,8 +491,9 @@ function kincoop_civicrm_buildForm($formName, $form) {
                 // Remove the original element so it doesn’t render twice
                 $form->removeElement('custom_25');
 
-                // Insert a static HTML element with the same label
-                $form->add('static', 'custom_25', ts('Household'), $displayName);
+                $form->add('static', 'custom_25', ts('Household'), htmlspecialchars($displayName));
+
+                // Add a hidden field so the ID is still submitted with the form (optional but safe)
                 $form->add('hidden', 'custom_25', $contactId);
               }
               else {
@@ -500,7 +501,6 @@ function kincoop_civicrm_buildForm($formName, $form) {
                 $form->removeElement('custom_25');
                 $form->add('static', 'custom_25', ts('Household'), ts('(none)'));
               }
-              ****/
 
             }
 
