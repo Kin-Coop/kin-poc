@@ -466,10 +466,14 @@ function kincoop_civicrm_buildForm($formName, $form) {
           if($form->getAction() == CRM_Core_Action::ADD) {
              if (isset($_GET['groupid']) && $_GET['me']) {
                     $ref = $_GET['me'] . '-' . $_GET['groupid'];
-                    $defaults['custom_25'] = $_GET['groupid'];
+                    $groupid = $_GET['groupid'];
+                    $defaults['custom_25'] = $groupid;
                     $defaults['custom_61'] = $ref;
                     //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
              }
+
+            $defaults['custom_66'] = 1;
+            $form->setDefaults($defaults);
 
             if ($form->elementExists('custom_25')) {
               $element = $form->getElement('custom_25');
@@ -478,15 +482,9 @@ function kincoop_civicrm_buildForm($formName, $form) {
               //$element->freeze();
 
 
-              // Get the contact ID value
-              $contactId = $element->getValue();
-
-              if (!empty($contactId)) {
+              if ($groupid) {
                 // Load the contact's display name
-                $displayName = CRM_Core_DAO::getFieldValue('CRM_Contact_DAO_Contact', $contactId, 'display_name');
-
-                // Replace the element with plain text (non-editable, no link)
-                $form->assign('custom_25_readonly', $displayName);
+                $displayName = CRM_Core_DAO::getFieldValue('CRM_Contact_DAO_Contact', $groupid, 'display_name');
 
                 // Remove the original element so it doesn’t render twice
                 $form->removeElement('custom_25');
@@ -494,7 +492,7 @@ function kincoop_civicrm_buildForm($formName, $form) {
                 $form->add('static', 'custom_25', ts('Household'), htmlspecialchars($displayName));
 
                 // Add a hidden field so the ID is still submitted with the form (optional but safe)
-                $form->add('hidden', 'custom_25', $contactId);
+                $form->add('hidden', 'custom_25', $groupid);
               }
               else {
                 // No contact set, just display empty text
@@ -504,10 +502,7 @@ function kincoop_civicrm_buildForm($formName, $form) {
 
             }
 
-            //$form['custom_25']['#attributes']['readonly'] = 'readonly';
-            $defaults['custom_66'] = 1;
-            $form->setDefaults($defaults);
-            $form->addRule('custom_25', ts('This field is required.'), 'required');
+            //$form->addRule('custom_25', ts('This field is required.'), 'required');
           }
         } elseif ($form->_id === 3) {
           if($form->getAction() == CRM_Core_Action::ADD) {
