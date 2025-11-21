@@ -470,6 +470,41 @@ function kincoop_civicrm_buildForm($formName, $form) {
                     $defaults['custom_61'] = $ref;
                     //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
              }
+
+            if ($form->elementExists('custom_25')) {
+              $element = $form->getElement('custom_25');
+
+              // Make it read-only
+              $element->freeze();
+
+              /****
+              // Get the contact ID value
+              $contactId = $element->getValue();
+
+              if (!empty($contactId)) {
+                // Load the contact's display name
+                $displayName = CRM_Core_DAO::getFieldValue('CRM_Contact_DAO_Contact', $contactId, 'display_name');
+
+                // Replace the element with plain text (non-editable, no link)
+                $form->assign('custom_25_readonly', $displayName);
+
+                // Remove the original element so it doesn’t render twice
+                $form->removeElement('custom_25');
+
+                // Insert a static HTML element with the same label
+                $form->add('static', 'custom_25', ts('Household'), $displayName);
+                $form->add('hidden', 'custom_25', $contactId);
+              }
+              else {
+                // No contact set, just display empty text
+                $form->removeElement('custom_25');
+                $form->add('static', 'custom_25', ts('Household'), ts('(none)'));
+              }
+              ****/
+
+            }
+
+            //$form['custom_25']['#attributes']['readonly'] = 'readonly';
             $defaults['custom_66'] = 1;
             $form->setDefaults($defaults);
             $form->addRule('custom_25', ts('This field is required.'), 'required');

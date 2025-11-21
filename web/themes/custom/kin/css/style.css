@@ -13466,7 +13466,7 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 }
 #crm-container.crm-public .select2-container {
   font-size: 1rem;
-  min-width: 120px;
+  min-width: 250px;
 }
 #crm-container.crm-public .section.action-link {
   margin-bottom: 2rem;
