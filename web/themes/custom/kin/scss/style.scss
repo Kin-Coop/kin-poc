@@ -599,6 +599,8 @@ table {
   .header-dark {
     background-color: $yellow;
     color: #000;
+    padding: 5px 10px;
+    margin-bottom: .6rem;
   }
 
   button {
@@ -634,7 +636,14 @@ table {
     color: $yellow;
   }
 
+  fieldset.crm-profile {
+    legend {
+      display: none;
+    }
+  }
+
   @media (min-width: 800px) {
+
     label, .label {
       float: left;
       width: 220px;
@@ -642,26 +651,41 @@ table {
       margin-right: 1.6rem;
       //margin-right: .8rem;
     }
-  }
 
-  @media (min-width: 800px) {
+    .description {
+      margin-left: 250px;
+    }
+
+    br {
+      clear: both;
+    }
+
     .crm-section {
-      margin-bottom: 1.8rem;
+      &.form-item {
+        margin-bottom: 1.8rem;
 
-      .label {
-        width: 210px;
-      }
+        .content {
+          margin-left: 230px;
+          padding-left: .8rem;
 
-      .content {
-        margin-left: 230px;
-        padding-left: .8rem;
-
-        label {
-          float: none;
-          text-align: left;
+          label {
+            float: none;
+            text-align: left;
+          }
         }
       }
 
+      &.no-label {
+        .content {
+          margin-left: 230px;
+        }
+      }
+
+      &.is_recur-section {
+        > div:first-of-type {
+          display: none;
+        }
+      }
     }
   }
 

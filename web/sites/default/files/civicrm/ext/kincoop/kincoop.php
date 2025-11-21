@@ -379,7 +379,7 @@ function kincoop_civicrm_buildForm($formName, $form) {
           $('.civicrm-back-button').remove();
 
           var backButton = '<div class=\"civicrm-back-button\" style=\"margin: 10px 0; text-align: left; padding: 15px;\">' +
-                          '<a href=\"{$backUrl}\" class=\"btn btn-secondary\" style=\"display: inline-block; color: white; padding: 10px 20px; text-decoration: none; font-weight: bold;\">' +
+                          '<a href=\"{$backUrl}\" class=\"btn btn-secondary\" style=\"display: inline-block; color: white; padding: 10px 20px; text-decoration: none;\">' +
                           '<i class=\"crm-i fa-arrow-left\" style=\"margin-right: 8px;\"></i> Return to Group Page' +
                           '</a></div>';
 
@@ -416,6 +416,22 @@ function kincoop_civicrm_buildForm($formName, $form) {
             // Make AJAX call to clean up session
             $.post('/civicrm/ajax/cleanup-groupid', {}, function() {
               // Session cleaned up
+            });
+          }
+
+          // Target the section with the contribution details
+          var section = $('.crm-section.amount_display-section');
+
+          if (section.length) {
+            // Remove the 'no-label' class
+            section.removeClass('no-label');
+
+            // Wrap 'Amount:' and 'Date:' in <label> tags
+            var content = section.find('.content');
+            content.html(function(_, html) {
+              return html
+                .replace(/Amount:/, '<label>Amount:</label>')
+                .replace(/Date:/, '<label>Date:</label>');
             });
           }
         });
@@ -477,42 +493,60 @@ function kincoop_civicrm_buildForm($formName, $form) {
 
             if ($form->elementExists('custom_25')) {
               $element = $form->getElement('custom_25');
+              $email = $form->getElement('email-5');
 
               // Make it read-only
-              //$element->freeze();
+              $element->freeze();
+              $email->freeze();
 
+              // Inject JavaScript to strip the link
+              CRM_Core_Resources::singleton()->addScript("
+                (function($) {
+                  $(document).ready(function() {
+                    // Only target the display element of custom_25
+                    var el = $('.crm-frozen-field a');
 
-              if ($groupid) {
-                // Load the contact's display name
-                $displayName = CRM_Core_DAO::getFieldValue('CRM_Contact_DAO_Contact', $groupid, 'display_name');
-
-                // Remove the original element so it doesn’t render twice
-                $form->removeElement('custom_25');
-
-                $form->add('static', 'custom_25', ts('Household'), htmlspecialchars($displayName));
-
-                // Add a hidden field so the ID is still submitted with the form (optional but safe)
-                $form->add('hidden', 'custom_25', $groupid);
-              }
-              else {
-                // No contact set, just display empty text
-                $form->removeElement('custom_25');
-                $form->add('static', 'custom_25', ts('Household'), ts('(none)'));
-              }
-
+                    el.each(function() {
+                      var text = $(this).text();
+                      $(this).replaceWith(text); // replace link with plain text
+                    });
+                  });
+                })(CRM.$);
+              ");
             }
-
-            //$form->addRule('custom_25', ts('This field is required.'), 'required');
           }
         } elseif ($form->_id === 3) {
           if($form->getAction() == CRM_Core_Action::ADD) {
             if (isset($_GET['groupid']) && $_GET['me']) {
-                    $defaults['custom_25'] = $_GET['groupid'];
-                    //$defaults['custom_62'] = 'Gift';
-                    $form->setDefaults($defaults);
-                }
-            $form->addRule('custom_25', ts('This field is required.'), 'required');
+                $defaults['custom_25'] = $_GET['groupid'];
+                //$defaults['custom_62'] = 'Gift';
+                $form->setDefaults($defaults);
             }
+
+            if ($form->elementExists('custom_25')) {
+              $element = $form->getElement('custom_25');
+              $email = $form->getElement('email-5');
+
+              // Make it read-only
+              $element->freeze();
+              $email->freeze();
+
+              // Inject JavaScript to strip the link
+              CRM_Core_Resources::singleton()->addScript("
+                (function($) {
+                  $(document).ready(function() {
+                    // Only target the display element of custom_25
+                    var el = $('.crm-frozen-field a');
+
+                    el.each(function() {
+                      var text = $(this).text();
+                      $(this).replaceWith(text); // replace link with plain text
+                    });
+                  });
+                })(CRM.$);
+              ");
+            }
+          }
         } elseif ($form->_id === 4 || $form->_id === 8) {
             //Civi::log()->debug('Contents of $formName: ' . print_r($_GET, TRUE));
           if($form->getAction() == CRM_Core_Action::ADD) {
@@ -541,6 +575,30 @@ function kincoop_civicrm_buildForm($formName, $form) {
             }
             $defaults['custom_66'] = 1;
             $form->setDefaults($defaults);
+
+            if ($form->elementExists('custom_25')) {
+              $element = $form->getElement('custom_25');
+              $email = $form->getElement('email-5');
+
+              // Make it read-only
+              $element->freeze();
+              $email->freeze();
+
+              // Inject JavaScript to strip the link
+              CRM_Core_Resources::singleton()->addScript("
+                (function($) {
+                  $(document).ready(function() {
+                    // Only target the display element of custom_25
+                    var el = $('.crm-frozen-field a');
+
+                    el.each(function() {
+                      var text = $(this).text();
+                      $(this).replaceWith(text); // replace link with plain text
+                    });
+                  });
+                })(CRM.$);
+              ");
+            }
             $form->addRule('custom_25', ts('This field is required.'), 'required');
           }
         }
