@@ -48,22 +48,27 @@
       $account = User::load($uid);
       if ($account && $account->hasField('user_picture') && !$account->get('user_picture')->isEmpty()) {
         return $account->get('user_picture')->view('thumbnail');
+      } else {
+        $edit_url = Url::fromRoute('entity.user.edit_form', ['user' => $uid]);
+
+        $build = [
+          '#type' => 'link',
+          '#title' => [
+            '#markup' => '<div class="border border-primary border-3"><i class="bi bi-person-fill fs-1"></i></div>',
+          ],
+          '#url' => $edit_url,
+          '#attributes' => [
+            'class' => ['user-avatar-link'],
+            'title' => $this->t('Your image here'),
+          ],
+          '#allowed_tags' => ['div', 'i', 'a'],
+        ];
       }
+      // Important: make this block vary per user.
+      $build['#cache']['contexts'][] = 'user';
 
-      $edit_url = Url::fromRoute('entity.user.edit_form', ['user' => $uid]);
+      return $build;
 
-      return [
-        '#type' => 'link',
-        '#title' => [
-          '#markup' => '<div class="border border-primary border-3"><i class="bi bi-person-fill fs-1"></i></div>',
-        ],
-        '#url' => $edit_url,
-        '#attributes' => [
-          'class' => ['user-avatar-link'],
-          'title' => $this->t('Your image here'),
-        ],
-        '#allowed_tags' => ['div', 'i', 'a'],
-      ];
     }
 
   }
