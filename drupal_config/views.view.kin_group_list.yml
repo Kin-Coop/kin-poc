@@ -3,6 +3,8 @@ langcode: en-gb
 status: true
 dependencies:
   config:
+    - field.storage.user.user_picture
+    - image.style.profile
     - user.role.authenticated
     - views.view.civi_admins
     - views.view.contributions
@@ -19,6 +21,7 @@ dependencies:
     - civicrm_entity
     - datetime
     - household_access
+    - image
     - options
     - other_view_filter
     - user
@@ -1803,6 +1806,129 @@ display:
           or: '{{ display_name_1 }}'
           or_translate: true
           strip_tags: false
+        user_picture:
+          id: user_picture
+          table: user__user_picture
+          field: user_picture
+          relationship: user
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: image
+          settings:
+            image_link: ''
+            image_style: profile
+            image_loading:
+              attribute: lazy
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        views_conditional_field_2:
+          id: views_conditional_field_2
+          table: views_conditional
+          field: views_conditional_field
+          relationship: none
+          group_type: group
+          admin_label: 'user picture'
+          plugin_id: views_conditional_field
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: picture
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          if: user_picture
+          condition: em
+          equalto: ''
+          then: '<div class="border border-primary border-3"><i class="bi bi-person-fill fs-1"></i></div>'
+          then_translate: true
+          or: '{{ user_picture }}'
+          or_translate: true
+          strip_tags: false
         views_conditional_field_1:
           id: views_conditional_field_1
           table: views_conditional
@@ -2172,7 +2298,8 @@ display:
         - url
         - url.query_args
         - user.roles
-      tags: {  }
+      tags:
+        - 'config:field.storage.user.user_picture'
   block_4:
     id: block_4
     display_title: 'Group Contributions Block'
@@ -5328,7 +5455,7 @@ display:
     display_plugin: page
     position: 2
     display_options:
-      title: 'Kin Members'
+      title: 'Kin Membership'
       fields:
         id:
           id: id
@@ -5892,7 +6019,11 @@ display:
             value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Make A Contribution\r\n    </h2>\r\n    <p>\r\n       Make a new one-off contribution to support Kin Cooperative or set up a new regular contribution.\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=1&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Contribution</a>\r\n        &nbsp;&nbsp;&nbsp;\r\n       <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=7&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up Recurring Contribution</a>\r\n    </p>\r\n</div>"
             format: full_html
           tokenize: true
-      display_extenders: {  }
+      display_extenders:
+        attributes: {  }
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
       path: member/group/425
     cache_metadata:
       max-age: -1
