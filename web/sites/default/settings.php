@@ -892,7 +892,7 @@ $settings['extension_discovery_scan_composer'] = TRUE;
 $settings['config_sync_directory'] = '../drupal_config';
 
 if (file_exists($app_root . '/' . $site_path . '/civicrm.settings.php')) {
-  include_once $app_root . '/' . $site_path . '/civicrm.settings.php';
+  //include_once $app_root . '/' . $site_path . '/civicrm.settings.php';
 }
 
 // Automatically generated include for settings managed by ddev.
