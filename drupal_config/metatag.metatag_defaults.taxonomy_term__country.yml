@@ -1,0 +1,8 @@
+uuid: 01943d47-07bb-46bb-8d6f-7f6df1ad12bb
+langcode: en-gb
+status: true
+dependencies: {  }
+id: taxonomy_term__country
+label: 'Taxonomy term: Country'
+tags:
+  robots: 'noindex, nofollow'

@@ -35,8 +35,8 @@ elements: |-
     '#title': Status
     '#civicrm_live_options': 0
     '#options':
-      'withdrawal pending': 'Withdrawal Pending'
-      'withdrawal approved': 'Withdrawal Approved'
+      'withdrawal pending': 'Request to Leave Pending'
+      'withdrawal approved': 'Request to Leave Approved'
     '#extra':
       aslist: 1
       multiple: 0
@@ -157,7 +157,7 @@ elements: |-
   civicrm_2_contact_1_relationship_end_date:
     '#type': date
     '#title': 'End Date'
-    '#default_value': today
+    '#default_value': yesterday
     '#access': false
     '#extra':
       start_date: '-50 years'
@@ -601,6 +601,7 @@ handlers:
       attachments: false
       twig: false
       theme_name: ''
+      langcode: ''
       parameters: {  }
       debug: false
   email_1:
@@ -638,6 +639,7 @@ handlers:
       attachments: false
       twig: false
       theme_name: ''
+      langcode: ''
       parameters: {  }
       debug: false
 variants: {  }

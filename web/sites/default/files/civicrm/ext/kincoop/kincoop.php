@@ -3,6 +3,7 @@
 require_once 'kincoop.civix.php';
 
 use CRM_Kincoop_ExtensionUtil as E;
+use Civi\Api4\Relationship;
 
 const GIFT_FT_NAME = 'Gift';
 
@@ -121,6 +122,34 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
 
 function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$objectRef) {
 
+  if ($objectName == 'Relationship' && $op == 'edit') {
+
+    try {
+      // Fetch relationship with custom fields
+      $rel = Relationship::get(FALSE)
+        ->addSelect('id', 'Household.Relationship_Status', 'is_active')
+        ->addWhere('id', '=', $objectId)
+        ->addWhere('is_active', '=', TRUE)
+        ->addWhere('Household.Relationship_Status', '=', 'withdrawal approved')
+        ->execute()
+        ->first();
+
+      // If status is set to "withdrawal approved", disable the relationship
+      if ($rel && $rel['Household.Relationship_Status'] === 'withdrawal approved') {
+        Relationship::update(FALSE)
+          ->addWhere('id', '=', $objectId)
+          ->addValue('is_active', 0)
+          ->execute();
+
+        \Civi::log()->info("Relationship {$objectId} disabled (withdrawal approved).");
+      }
+    }
+    catch (\Exception $e) {
+      \Civi::log()->error("Error in kincoop_civicrm_post for Relationship $objectId: " . $e->getMessage());
+    }
+  }
+
+
   if($objectName === 'Individual' && $op === 'create') {
     //add hidden relationship to household
     //this is the sign up form with invitation to a particular group
@@ -163,6 +192,15 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
 function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef) {
   if ($objectName === 'Contribution' && $op === 'create') {
     $contribution = $objectRef;
+
+    // Debug code
+    /*
+    if (!empty($contribution->contribution_recur_id) && $contribution->contribution_recur_id > 0) {
+      Civi::log()->info('Post commit: New recurring contribution created', [
+        'contribution' => $contribution,
+      ]);
+    }
+    */
 
     // Check if it's from a contribution page
     if (!empty($contribution->contribution_page_id) && $contribution->contribution_page_id == 7) {
@@ -341,7 +379,7 @@ function kincoop_civicrm_buildForm($formName, $form) {
           $('.civicrm-back-button').remove();
 
           var backButton = '<div class=\"civicrm-back-button\" style=\"margin: 10px 0; text-align: left; padding: 15px;\">' +
-                          '<a href=\"{$backUrl}\" class=\"btn btn-secondary\" style=\"display: inline-block; color: white; padding: 10px 20px; text-decoration: none; font-weight: bold;\">' +
+                          '<a href=\"{$backUrl}\" class=\"btn btn-secondary\" style=\"display: inline-block; color: white; padding: 10px 20px; text-decoration: none;\">' +
                           '<i class=\"crm-i fa-arrow-left\" style=\"margin-right: 8px;\"></i> Return to Group Page' +
                           '</a></div>';
 
@@ -378,6 +416,22 @@ function kincoop_civicrm_buildForm($formName, $form) {
             // Make AJAX call to clean up session
             $.post('/civicrm/ajax/cleanup-groupid', {}, function() {
               // Session cleaned up
+            });
+          }
+
+          // Target the section with the contribution details
+          var section = $('.crm-section.amount_display-section');
+
+          if (section.length) {
+            // Remove the 'no-label' class
+            section.removeClass('no-label');
+
+            // Wrap 'Amount:' and 'Date:' in <label> tags
+            var content = section.find('.content');
+            content.html(function(_, html) {
+              return html
+                .replace(/Amount:/, '<label>Amount:</label>')
+                .replace(/Date:/, '<label>Date:</label>');
             });
           }
         });
@@ -427,31 +481,79 @@ function kincoop_civicrm_buildForm($formName, $form) {
         if ($form->_id === 1) {
           if($form->getAction() == CRM_Core_Action::ADD) {
              if (isset($_GET['groupid']) && $_GET['me']) {
-                    $ref = $_GET['me'] . '-' . date('mdi');
-                    $defaults['custom_25'] = $_GET['groupid'];
+                    $ref = $_GET['me'] . '-' . $_GET['groupid'];
+                    $groupid = $_GET['groupid'];
+                    $defaults['custom_25'] = $groupid;
                     $defaults['custom_61'] = $ref;
                     //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
              }
+
             $defaults['custom_66'] = 1;
             $form->setDefaults($defaults);
-            $form->addRule('custom_25', ts('This field is required.'), 'required');
+
+            if ($form->elementExists('custom_25')) {
+              $element = $form->getElement('custom_25');
+              $email = $form->getElement('email-5');
+
+              // Make it read-only
+              $element->freeze();
+              $email->freeze();
+
+              // Inject JavaScript to strip the link
+              CRM_Core_Resources::singleton()->addScript("
+                (function($) {
+                  $(document).ready(function() {
+                    // Only target the display element of custom_25
+                    var el = $('.crm-frozen-field a');
+
+                    el.each(function() {
+                      var text = $(this).text();
+                      $(this).replaceWith(text); // replace link with plain text
+                    });
+                  });
+                })(CRM.$);
+              ");
+            }
           }
         } elseif ($form->_id === 3) {
           if($form->getAction() == CRM_Core_Action::ADD) {
             if (isset($_GET['groupid']) && $_GET['me']) {
-                    $defaults['custom_25'] = $_GET['groupid'];
-                    //$defaults['custom_62'] = 'Gift';
-                    $form->setDefaults($defaults);
-                }
-            $form->addRule('custom_25', ts('This field is required.'), 'required');
+                $defaults['custom_25'] = $_GET['groupid'];
+                //$defaults['custom_62'] = 'Gift';
+                $form->setDefaults($defaults);
             }
+
+            if ($form->elementExists('custom_25')) {
+              $element = $form->getElement('custom_25');
+              $email = $form->getElement('email-5');
+
+              // Make it read-only
+              $element->freeze();
+              $email->freeze();
+
+              // Inject JavaScript to strip the link
+              CRM_Core_Resources::singleton()->addScript("
+                (function($) {
+                  $(document).ready(function() {
+                    // Only target the display element of custom_25
+                    var el = $('.crm-frozen-field a');
+
+                    el.each(function() {
+                      var text = $(this).text();
+                      $(this).replaceWith(text); // replace link with plain text
+                    });
+                  });
+                })(CRM.$);
+              ");
+            }
+          }
         } elseif ($form->_id === 4 || $form->_id === 8) {
             //Civi::log()->debug('Contents of $formName: ' . print_r($_GET, TRUE));
           if($form->getAction() == CRM_Core_Action::ADD) {
             if (isset($_GET['groupid']) && $_GET['me']) {
                 $cid = CRM_Core_Session::singleton()->getLoggedInContactID();
                 $cid = $cid ? $cid : 'K';
-                $ref = $cid . '-' . date('mdi');
+                $ref = $cid . '-' . $_GET['groupid'];
                 $defaults['custom_25'] = $_GET['groupid'];
                 $defaults['custom_61'] = $ref;
                 $form->setDefaults($defaults);
@@ -464,7 +566,8 @@ function kincoop_civicrm_buildForm($formName, $form) {
         } elseif ($form->_id === 7) {
           if($form->getAction() == CRM_Core_Action::ADD) {
             if (isset($_GET['groupid']) && $_GET['me']) {
-              $ref = $_GET['me'] . '-' . date('mdi');
+              //Include the R suffix on the unique contribution reference to denote recurring contributions
+              $ref = $_GET['me'] . '-' . $_GET['groupid'] . 'R';
               $defaults['custom_25'] = $_GET['groupid'];
               $defaults['custom_61'] = $ref;
               $defaults['frequency_unit'] = "month";
@@ -472,6 +575,30 @@ function kincoop_civicrm_buildForm($formName, $form) {
             }
             $defaults['custom_66'] = 1;
             $form->setDefaults($defaults);
+
+            if ($form->elementExists('custom_25')) {
+              $element = $form->getElement('custom_25');
+              $email = $form->getElement('email-5');
+
+              // Make it read-only
+              $element->freeze();
+              $email->freeze();
+
+              // Inject JavaScript to strip the link
+              CRM_Core_Resources::singleton()->addScript("
+                (function($) {
+                  $(document).ready(function() {
+                    // Only target the display element of custom_25
+                    var el = $('.crm-frozen-field a');
+
+                    el.each(function() {
+                      var text = $(this).text();
+                      $(this).replaceWith(text); // replace link with plain text
+                    });
+                  });
+                })(CRM.$);
+              ");
+            }
             $form->addRule('custom_25', ts('This field is required.'), 'required');
           }
         }

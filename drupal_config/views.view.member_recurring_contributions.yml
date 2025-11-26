@@ -743,7 +743,7 @@ display:
           plugin_id: civicrm_entity_civicrm_contact_user
           required: true
           domain_id: {  }
-      css_class: member-block
+      css_class: 'member-block no-header-gap'
       group_by: false
       header:
         area:
@@ -774,7 +774,11 @@ display:
     display_plugin: block
     position: 1
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        attributes: {  }
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
       block_description: 'Recurring Contributions'
       block_hide_empty: true
     cache_metadata:

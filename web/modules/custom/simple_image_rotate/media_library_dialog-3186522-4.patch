@@ -1,0 +1,16 @@
+diff --git a/js/simple_image_rotate.js b/js/simple_image_rotate.js
+index ffa00bc..e0906f7 100644
+--- a/js/simple_image_rotate.js
++++ b/js/simple_image_rotate.js
+@@ -24,8 +24,9 @@
+                 // Prevent default click on rotate icon
+                 e.preventDefault();
+                 // Current rotate value and thumbnail image
+-                var rotate = parseInt($(this).attr("data-rotate")),
+-                $image = $(this).closest(".image-widget").find("img");
++                var rotate = parseInt($(this).attr("data-rotate"));
++                $image = $(this).closest(".image-widget").find("img")
++                    .add($(this).closest(".media-library-add-form li").find('[data-drupal-selector="edit-preview"] img'));
+                 // Rotate Input
+                 $rotate_input = $(this).closest(".image-widget").find('.rotate');
+                 // Remove current rotate CSS class

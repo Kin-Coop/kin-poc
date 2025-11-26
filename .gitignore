@@ -12,6 +12,7 @@ Config.IDS.ini
 /web/modules/contrib/*
 /web/themes/contrib/*
 /web/libraries/*
+!/web/libraries/fitvids
 
 # Issues updating fpa for D11 so need to add the info.yml file to git
 !/web/modules/contrib/fpa/
@@ -96,3 +97,5 @@ cron*.sh
 
 # Ignore OS specific files
 .DS_Store
+
+/web/google*html

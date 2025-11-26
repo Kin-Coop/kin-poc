@@ -1,0 +1,21 @@
+uuid: f67bb43c-7476-46c1-9ec4-615ccbb9c420
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_metatag
+    - taxonomy.vocabulary.faq
+  module:
+    - metatag
+id: taxonomy_term.faq.field_metatag
+field_name: field_metatag
+entity_type: taxonomy_term
+bundle: faq
+label: Metatag
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: metatag

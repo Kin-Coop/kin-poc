@@ -275,7 +275,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      css_class: 'member-block col-sm-6'
+      css_class: member-block
       header:
         area:
           id: area
@@ -307,7 +307,11 @@ display:
     display_plugin: block
     position: 1
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        attributes: {  }
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
       block_description: 'Member Totals'
     cache_metadata:
       max-age: -1

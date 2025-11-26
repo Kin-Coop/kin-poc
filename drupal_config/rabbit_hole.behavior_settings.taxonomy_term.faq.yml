@@ -1,0 +1,13 @@
+uuid: 60d817c6-c415-4e8d-b06a-26c2ff0d6a1f
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.faq
+id: taxonomy_term.faq
+targetEntityType: taxonomy_term
+bundle: faq
+action: display_page
+no_bypass: false
+bypass_message: false
+configuration: {  }

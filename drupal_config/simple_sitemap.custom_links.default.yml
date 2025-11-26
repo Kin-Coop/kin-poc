@@ -1,0 +1,9 @@
+links:
+  -
+    path: /
+    priority: '1.0'
+    changefreq: daily
+  -
+    path: '/civicrm/contribute/transact?reset=1&id=2'
+    priority: '0.8'
+    changefreq: daily

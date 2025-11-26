@@ -1063,15 +1063,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        contact_id:
-          id: contact_id
-          table: civicrm_contribution
-          field: contact_id
-          relationship: none
-          group_type: count
+        display_name:
+          id: display_name
+          table: civicrm_contact
+          field: display_name
+          relationship: contact_id
+          group_type: group
           admin_label: ''
-          entity_type: civicrm_contribution
-          entity_field: contact_id
+          entity_type: civicrm_contact
+          entity_field: display_name
           plugin_id: field
           label: Contributor
           exclude: false
@@ -1114,11 +1114,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
+          click_sort_column: value
+          type: string
           settings:
-            link: false
-          group_column: target_id
+            link_to_entity: false
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -1582,7 +1582,7 @@ display:
           table: civicrm_contact
           field: display_name
           relationship: contact_id
-          group_type: count
+          group_type: group
           admin_label: ''
           entity_type: civicrm_contact
           entity_field: display_name
@@ -1593,19 +1593,28 @@ display:
           exposed: true
           expose:
             operator_id: display_name_op
-            label: Contributor
+            label: ''
             description: ''
             use_operator: false
             operator: display_name_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: member
+            identifier: contributor
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            placeholder: ''
+            placeholder: Contributor
+            autocomplete_filter: 0
+            autocomplete_min_chars: '2'
+            autocomplete_items: '4'
+            autocomplete_field: display_name
+            autocomplete_raw_suggestion: 1
+            autocomplete_raw_dropdown: 1
+            autocomplete_dependent: 0
+            autocomplete_contextual: 0
+            autocomplete_autosubmit: 0
           is_grouped: false
           group_info:
             label: ''
@@ -1623,11 +1632,13 @@ display:
         groups:
           1: AND
       defaults:
+        css_class: false
         pager: false
         fields: false
         filters: false
         filter_groups: false
         header: false
+      css_class: 'member-block w-100'
       display_description: ''
       header:
         area:
@@ -1643,7 +1654,11 @@ display:
             value: '<h2>History</h2>'
             format: basic_html
           tokenize: false
-      display_extenders: {  }
+      display_extenders:
+        attributes: {  }
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
       block_description: 'Group Contributions'
     cache_metadata:
       max-age: -1
@@ -1927,7 +1942,7 @@ display:
           exposed: true
           expose:
             operator_id: display_name_op
-            label: Contributor
+            label: ''
             description: ''
             use_operator: false
             operator: display_name_op
@@ -1939,7 +1954,16 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-            placeholder: ''
+            placeholder: Contributor
+            autocomplete_filter: 0
+            autocomplete_min_chars: '0'
+            autocomplete_items: '10'
+            autocomplete_field: ''
+            autocomplete_raw_suggestion: 1
+            autocomplete_raw_dropdown: 1
+            autocomplete_dependent: 0
+            autocomplete_contextual: 0
+            autocomplete_autosubmit: 0
           is_grouped: false
           group_info:
             label: ''
@@ -1957,6 +1981,7 @@ display:
         groups: {  }
       defaults:
         title: false
+        css_class: false
         pager: false
         group_by: false
         fields: false
@@ -1966,6 +1991,7 @@ display:
         filter_groups: false
         header: false
         footer: false
+      css_class: 'member-block col-md-6'
       group_by: true
       display_description: ''
       header:
@@ -1996,7 +2022,11 @@ display:
             value: '<p>Only completed transactions are included in the total.</p>'
             format: basic_html
           tokenize: false
-      display_extenders: {  }
+      display_extenders:
+        attributes: {  }
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
       block_description: 'Group Contribution Total'
     cache_metadata:
       max-age: -1
@@ -3329,6 +3359,7 @@ display:
         groups: {  }
       defaults:
         title: false
+        css_class: false
         relationships: false
         fields: false
         sorts: false
@@ -3380,8 +3411,13 @@ display:
           plugin_id: civicrm_entity_civicrm_contact_user
           required: true
           domain_id: {  }
+      css_class: member-block
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        attributes: {  }
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
       block_description: 'Member Recurring Contributions'
     cache_metadata:
       max-age: -1
