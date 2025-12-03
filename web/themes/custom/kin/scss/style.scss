@@ -1524,7 +1524,6 @@ div.block.vertical {
   }
 }
 
-.views-field-user-picture,
 .picture {
   text-align: center;
   margin: auto;
@@ -1538,7 +1537,7 @@ div.block.vertical {
   h1 {
     margin-top: 1rem;
   }
-  .block-user-avatar-block {
+  .block-user-avatar-block, .block-user-picture {
     max-width: 130px;
     margin-top: 1rem;
 
@@ -1549,11 +1548,25 @@ div.block.vertical {
       justify-content: center;
       padding-top: 0;
       margin-left: 0;
+      max-width: 130px;
+      width: 130px;
+
+      .fs-1 {
+        font-size: 4rem !important;
+      }
+    }
+
+    .border-user {
+      img {
+        border-radius: 50%;
+        aspect-ratio: 1 / 1;
+        margin: auto;
+      }
     }
   }
 
   @include media-breakpoint-up(md) {
-    .block-user-avatar-block {
+    .block-user-avatar-block, .block-user-picture {
       float: right;
       margin-bottom: 1rem;
       margin-top: 0;
