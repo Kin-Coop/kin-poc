@@ -12,7 +12,7 @@ dependencies:
 id: kin_views_block__user_message_block_1
 theme: kin
 region: content
-weight: -3
+weight: -7
 provider: null
 plugin: 'views_block:user_message-block_1'
 settings:
@@ -20,9 +20,9 @@ settings:
   label: ''
   label_display: '0'
   provider: views
+  context_mapping: {  }
   views_label: ''
   items_per_page: null
-  context_mapping: {  }
 visibility:
   request_path:
     id: request_path

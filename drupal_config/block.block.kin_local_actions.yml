@@ -9,7 +9,7 @@ _core:
 id: kin_local_actions
 theme: kin
 region: content
-weight: -8
+weight: -12
 provider: null
 plugin: local_actions_block
 settings:

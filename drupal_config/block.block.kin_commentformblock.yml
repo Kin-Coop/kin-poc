@@ -12,7 +12,7 @@ dependencies:
 id: kin_commentformblock
 theme: kin
 region: content
-weight: -1
+weight: -5
 provider: null
 plugin: comment_form_block
 settings:

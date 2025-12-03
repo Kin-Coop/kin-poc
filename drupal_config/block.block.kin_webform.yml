@@ -5,7 +5,6 @@ dependencies:
   config:
     - webform.webform.sign_up
   module:
-    - block_classes
     - block_visibility_groups
     - system
     - user
@@ -15,7 +14,7 @@ dependencies:
 id: kin_webform
 theme: kin
 region: content
-weight: 0
+weight: -2
 provider: null
 plugin: webform_block
 settings:
