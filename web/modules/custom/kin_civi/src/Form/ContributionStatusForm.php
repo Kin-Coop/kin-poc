@@ -157,7 +157,7 @@ class ContributionStatusForm extends FormBase {
                             'member' => $member_cid,
                         ];
 
-                        \Drupal::service('kin_civi.kin_civi_service')->kin_civi_send_email($cid, $params);
+                        \Drupal::service('kin_civi.kin_civi_service')->kin_civi_send_email($member_cid, $params);
 
                     // If request approved send notification email to admin to transfer money
                     } elseif ($status == 'yes') {
@@ -171,7 +171,7 @@ class ContributionStatusForm extends FormBase {
                             'member' => $member_cid,
                         ];
 
-                        \Drupal::service('kin_civi.kin_civi_service')->kin_civi_send_email($cid, $params);
+                        \Drupal::service('kin_civi.kin_civi_service')->kin_civi_send_email($member_cid, $params);
                     }
 
                 } catch (\Exception $e) {
