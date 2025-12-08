@@ -38,7 +38,7 @@ class ContributionStatusForm extends FormBase {
         $contribution = kin_civi_get_contribution($contribution_id);
         $member_cid = kin_civi_get_contrib_contact($contribution_id);
         $member_name = kin_civi_get_name($member_cid)['display_name'];
-        
+
         If($contribution == false) {
           $form = [
             '#markup' => $this->t('The contribution was not found. Please check and try again.'),
@@ -48,35 +48,35 @@ class ContributionStatusForm extends FormBase {
             '#type' => 'hidden',
             '#value' => $contribution_id,
           ];
-          
+
           $form['requested_by'] = [
             '#type' => 'textfield',
             '#title' => $this->t('Requested by'),
             '#default_value' => $member_name,
             '#disabled' => TRUE,
           ];
-          
+
           $form['amount'] = [
             '#type' => 'textfield',
             '#title' => $this->t('Amount requested'),
             '#default_value' => '£' . number_format($contribution['total_amount'],2,',','.'),
             '#disabled' => TRUE,
           ];
-          
+
           $form['receive_date'] = [
             '#type' => 'textfield',
             '#title' => $this->t('Date'),
             '#default_value' => date('d-m-Y H:i', strtotime($contribution['receive_date'])),
             '#disabled' => TRUE,
           ];
-          
+
           $form['gift_note'] = [
             '#type' => 'textarea',
             '#title' => $this->t('Request Note'),
             '#default_value' => $contribution['Kin_Contributions.Note'], // This is the preset value
             '#disabled' => TRUE, // Makes the field read-only
           ];
-          
+
           $form['status'] = [
             '#type' => 'select',
             '#title' => $this->t('Approve Request'),
@@ -86,7 +86,7 @@ class ContributionStatusForm extends FormBase {
             ],
             '#required' => TRUE,
           ];
-          
+
           $form['submit'] = [
             '#type' => 'submit',
             '#value' => $this->t('Submit'),
@@ -119,6 +119,7 @@ class ContributionStatusForm extends FormBase {
         if($contributions->rowCount > 0) {
             //Get group from contribution record
             $group = $contributions[0]['Kin_Contributions.Household'];
+            $group_name = kin_civi_get_name($group);
 
             //Get current user - should be only the admin accessing this form
             $uid = \Drupal::currentUser()->id();
@@ -178,7 +179,7 @@ class ContributionStatusForm extends FormBase {
                         'from' => '"Kin" <admin@kin.coop>',
                         'to_email' => 'admin@kin.coop',
                         'tplParams' => [
-                          'group' => $group,
+                          'group' => $group_name,
                           'amount' => '£' . $amount,
                           'contribution_id' => $contribution_id,
                         ],
