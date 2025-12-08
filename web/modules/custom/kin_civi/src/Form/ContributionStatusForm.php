@@ -104,6 +104,7 @@ class ContributionStatusForm extends FormBase {
         $contribution_id = $form_state->getValue('contribution_id');
         //$status = $form_state->getValue('status') === 'Yes' ? True : False;
         $status = $form_state->getValue('status');
+        $amount = $form_state->getValue('amount');
 
         //dpm($status);
 
@@ -171,7 +172,20 @@ class ContributionStatusForm extends FormBase {
                             'member' => $member_cid,
                         ];
 
-                        \Drupal::service('kin_civi.kin_civi_service')->kin_civi_send_email($cid, $params);
+                      $result = civicrm_api3('MessageTemplate', 'send', [
+                        'id' => 123, // The ID of your message template
+                        'contact_id' => $member_cid, // Recipient’s contact ID
+                        'from' => '"Kin" <admin@kin.coop>',
+                        'to_email' => 'admin@kin.coop',
+                        'tplParams' => [
+                          'group' => $group,
+                          'amount' => '£' . $amount,
+                          'contribution_id' => $contribution_id,
+                        ],
+                      ]);
+
+
+                      //\Drupal::service('kin_civi.kin_civi_service')->kin_civi_send_email($cid, $params);
                     }
 
                 } catch (\Exception $e) {
