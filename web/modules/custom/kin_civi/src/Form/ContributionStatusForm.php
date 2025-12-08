@@ -36,6 +36,7 @@ class ContributionStatusForm extends FormBase {
 
         $contribution_id = \Drupal::routeMatch()->getParameter('contribution_id');
         $contribution = kin_civi_get_contribution($contribution_id);
+        $contribution_amount = $contribution['total_amount'] * -1;
         $member_cid = kin_civi_get_contrib_contact($contribution_id);
         $member_name = kin_civi_get_name($member_cid)['display_name'];
 
@@ -59,7 +60,7 @@ class ContributionStatusForm extends FormBase {
           $form['amount'] = [
             '#type' => 'textfield',
             '#title' => $this->t('Amount requested'),
-            '#default_value' => '£' . number_format($contribution['total_amount'],2,',','.'),
+            '#default_value' => '£' . number_format($contribution_amount,2,'.',','),
             '#disabled' => TRUE,
           ];
 
@@ -174,13 +175,13 @@ class ContributionStatusForm extends FormBase {
                         ];
 
                       $result = civicrm_api3('MessageTemplate', 'send', [
-                        'id' => 123, // The ID of your message template
+                        'id' => 124, // The ID of your message template
                         'contact_id' => $member_cid, // Recipient’s contact ID
                         'from' => '"Kin" <admin@kin.coop>',
                         'to_email' => 'admin@kin.coop',
                         'tplParams' => [
-                          'group' => $group_name,
-                          'amount' => '£' . $amount,
+                          'group' => $group_name["display_name"],
+                          'amount' => $amount,
                           'contribution_id' => $contribution_id,
                         ],
                       ]);
