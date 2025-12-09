@@ -150,29 +150,20 @@ class ContributionStatusForm extends FormBase {
                     //Send notification email
                     // If request denied send email to member informing them and asking them to get in touch
                     if($status == 'no') {
-                        $params = [
-                            'subject' => 'Kin Gift Request Declined',
-                            'text' => "Dear $name,\r\n\r\nYour gift request has been declined. Please contact the group admin for further information.\r\n\r\nKin Team",
-                            'from' => '"Admin" <admin@kin.coop>',
-                            'toName' => $name,
-                            'toEmail' => $email,
-                            'admin' => $admin_cid,
-                            'member' => $member_cid,
-                        ];
-
-                        \Drupal::service('kin_civi.kin_civi_service')->kin_civi_send_email($member_cid, $params);
+                      $result = civicrm_api3('MessageTemplate', 'send', [
+                        'id' => 125, // The ID of your message template
+                        'contact_id' => $member_cid, // Recipient’s contact ID
+                        'from' => '"Kin" <admin@kin.coop>',
+                        'to_email' => $email,
+                        'tplParams' => [
+                          'group' => $group_name["display_name"],
+                          'amount' => $amount,
+                          'contribution_id' => $contribution_id,
+                        ],
+                      ]);
 
                     // If request approved send notification email to admin to transfer money
                     } elseif ($status == 'yes') {
-                        $params = [
-                            'subject' => 'Kin Gift Request Approved',
-                            'text' => "Dear Kin Admin,\r\n\r\nThe gift request for contribution id $contribution_id has been approved.\r\n\r\nPlease take the appropriate action.",
-                            'from' => '"Kin" <admin@kin.coop>',
-                            'toName' => 'Kin Admin',
-                            'toEmail' => '"Admin" <admin@kin.coop>',
-                            'admin' => $admin_cid,
-                            'member' => $member_cid,
-                        ];
 
                       $result = civicrm_api3('MessageTemplate', 'send', [
                         'id' => 124, // The ID of your message template
