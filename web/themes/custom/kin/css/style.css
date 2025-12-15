@@ -13982,11 +13982,7 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   border-radius: 50%;
 }
 
-.picture {
-  text-align: center;
-  margin: auto;
-}
-.picture .border {
+.border {
   border-radius: 50%;
   aspect-ratio: 1/1;
   padding-top: 4px;
@@ -13995,8 +13991,13 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   width: 75px;
   margin: auto;
 }
-.picture .border i {
+.border i {
   color: #2D4C9B;
+}
+
+.picture {
+  text-align: center;
+  margin: auto;
 }
 .picture img {
   max-width: 75px;
@@ -14018,6 +14019,7 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   margin-left: 0;
   max-width: 130px;
   width: 130px;
+  border-radius: 50%;
 }
 .page-node-type-member-page .block-user-avatar-block .border .fs-1, .page-node-type-member-page .block-user-picture .border .fs-1 {
   font-size: 4rem !important;
