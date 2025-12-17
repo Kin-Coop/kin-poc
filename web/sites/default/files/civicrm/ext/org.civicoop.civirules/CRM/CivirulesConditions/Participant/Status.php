@@ -62,7 +62,7 @@ class CRM_CivirulesConditions_Participant_Status extends CRM_CivirulesConditions
           'return' => 'name',
           'id' => $params['status_id'],
         ]);
-      } catch (\CiviCRM_Api3_Exception $e) {
+      } catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -89,7 +89,7 @@ class CRM_CivirulesConditions_Participant_Status extends CRM_CivirulesConditions
           'return' => 'id',
           'name' => $condition_params['status_id'],
         ]);
-      } catch (\CiviCRM_Api3_Exception $e) {
+      } catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }

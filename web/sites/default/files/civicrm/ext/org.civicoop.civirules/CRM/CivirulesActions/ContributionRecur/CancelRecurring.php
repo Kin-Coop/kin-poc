@@ -3,6 +3,7 @@
  * @author Shane Bill (SymbioTIC Coop) <shane@symbiotic.coop>
  * @license http://www.gnu.org/licenses/agpl-3.0.html
  */
+use CRM_Civirules_ExtensionUtil as E;
 
 class CRM_CivirulesActions_ContributionRecur_CancelRecurring extends CRM_CivirulesActions_Generic_Api {
 
@@ -71,7 +72,7 @@ class CRM_CivirulesActions_ContributionRecur_CancelRecurring extends CRM_Civirul
    * e.g. 'Older than 65'
    *
    * @return string
-   * @throws \CiviCRM_API3_Exception
+   * @throws \CRM_Core_Exception
    */
   public function userFriendlyConditionParams() {
     $return = '';

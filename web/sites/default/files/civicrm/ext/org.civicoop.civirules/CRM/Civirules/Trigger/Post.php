@@ -173,11 +173,9 @@ class CRM_Civirules_Trigger_Post extends CRM_Civirules_Trigger {
     if ($op === 'edit' || $op === 'delete') {
       //set also original data with an edit event
       $oldData = CRM_Civirules_Utils_PreData::getPreData($entity, $objectId, $eventID);
-      $triggerData = new CRM_Civirules_TriggerData_Edit($entity, $objectId, $data, $oldData);
-      $triggerData->setTrigger($this);
+      $triggerData = new CRM_Civirules_TriggerData_Edit($entity, $objectId, $data, $oldData, $this);
     } else {
-      $triggerData = new CRM_Civirules_TriggerData_Post($entity, $objectId, $data);
-      $triggerData->setTrigger($this);
+      $triggerData = new CRM_Civirules_TriggerData_Post($entity, $objectId, $data, $this);
     }
 
     $this->alterTriggerData($triggerData);
@@ -268,10 +266,9 @@ class CRM_Civirules_Trigger_Post extends CRM_Civirules_Trigger {
         $triggerOptions[] = $option['text'];
       }
     }
-    if (empty($text)) {
-      $text = E::ts('Trigger');
+    if (empty($text) && !empty($triggerOptions)) {
+      $text = E::ts('Trigger on %1', [1 => implode(', ', $triggerOptions ?? [])]);
     }
-    $text .= ' on ' . implode(', ', $triggerOptions ?? []);
     return $text;
   }
 

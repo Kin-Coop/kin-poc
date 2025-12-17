@@ -30,8 +30,7 @@ class CRM_CivirulesCronTrigger_EventDate extends CRM_Civirules_Trigger_Cron {
     if ($this->dao->fetch()) {
       $participant = [];
       CRM_Core_DAO::storeValues($this->dao, $participant);
-      $triggerData = new CRM_Civirules_TriggerData_Cron($this->dao->contact_id, 'Participant', $participant);
-      $triggerData->setTrigger($this);
+      $triggerData = new CRM_Civirules_TriggerData_Cron($this->dao->contact_id, 'Participant', $participant, NULL, $this);
       if (!isset($_eventCache[$participant['event_id']])) {
         $_eventCache[$participant['event_id']] = civicrm_api3('Event', 'getsingle', ['id' => $participant['event_id']]);
       }

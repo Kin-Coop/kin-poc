@@ -49,7 +49,7 @@ function emailapi_civicrm_enable() {
  *   For 'check' operations, return array(bool) (TRUE if an upgrade is required)
  *   For 'enqueue' operations, return void
  */
-function emailapi_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
+function emailapi_civicrm_upgrade($op, ?CRM_Queue_Queue $queue = NULL) {
   if ($op === 'enqueue') {
     $task = new CRM_Queue_Task(
       ['CRM_Emailapi_Upgrader', 'postUpgrade'],
@@ -58,4 +58,22 @@ function emailapi_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
     );
     return $queue->createItem($task);
   }
+}
+
+/**
+ * Implements hook_civicrm_scanClasses
+ *
+ * @see CRM_Utils_Hook::scanClasses()
+ */
+function emailapi_civicrm_scanClasses(array &$classes) {
+  // Example 1: Declare the exact classes that should be scanned.
+  // $classes[] = "CRM_Example_Class";
+
+  // Example 2: Scan specific subfolder(s)
+  \Civi\Core\ClassScanner::scanFolders($classes, __DIR__, 'Civi/Api4', '\\');
+  // \Civi\Core\ClassScanner::scanFolders($classes, __DIR__, 'Civi/Foobar', '\\');
+  // \Civi\Core\ClassScanner::scanFolders($classes, __DIR__, 'CRM/Foobar', '_');
+
+  // Example 3: Scan specific folder(s), with exclusions
+  // \Civi\Core\ClassScanner::scanFolders($classes, __DIR__, 'Civi', '\\', ';...regex...;');
 }

@@ -17,7 +17,7 @@ class CRM_CivirulesActions_GroupContact_Remove extends CRM_CivirulesActions_Grou
    * @return string
    */
   protected function getApiAction() {
-    return 'delete';
+    return 'create';
   }
 
   /**
@@ -41,6 +41,7 @@ class CRM_CivirulesActions_GroupContact_Remove extends CRM_CivirulesActions_Grou
       if (CRM_CivirulesConditions_Utils_GroupContact::isContactInGroup($contactId, $group_id)) {
         $params = [];
         $params['group_id'] = $group_id;
+        $params['status'] = 'Removed';
 
         //alter parameters by subclass
         $params = $this->alterApiParameters($params, $triggerData);

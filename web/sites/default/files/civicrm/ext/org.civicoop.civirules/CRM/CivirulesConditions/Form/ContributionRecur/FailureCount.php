@@ -5,6 +5,7 @@
  * @author Shane Bill (SymbioTIC Coop) <shane@symbiotic.coop>
  * @license AGPL-3.0
  */
+use CRM_Civirules_ExtensionUtil as E;
 
 class CRM_CivirulesConditions_Form_ContributionRecur_FailureCount extends CRM_CivirulesConditions_Form_Form {
 

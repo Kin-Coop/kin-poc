@@ -65,9 +65,9 @@
   {"name":"new_participant","label":"Event Participant is added","object_name":"Participant","op":"create","class_name":"CRM_CivirulesPostTrigger_Participant","cron":"0"},
   {"name":"changed_participant","label":"Event Participant is changed","object_name":"Participant","op":"edit","class_name":"CRM_CivirulesPostTrigger_Participant","cron":"0"},
   {"name":"deleted_participant","label":"Event Participant is deleted","object_name":"Participant","op":"delete","class_name":"CRM_CivirulesPostTrigger_Participant","cron":"0"},
-  {"name":"new_participant_payment","label":"Event Participant Payment is added","object_name":"ParticipantPayment","op":"create","class_name":null,"cron":"0"},
-  {"name":"changed_participant_payment","label":"Event Participant Payment is changed","object_name":"ParticipantPayment","op":"edit","class_name":null,"cron":"0"},
-  {"name":"deleted_participant_payment","label":"Event Participant is deleted","object_name":"ParticipantPayment","op":"delete","class_name":null,"cron":"0"},
+  {"name":"new_participant_payment","label":"Event Participant Payment is added","object_name":"ParticipantPayment","op":"create","class_name":"CRM_CivirulesPostTrigger_ParticipantPayment","cron":"0"},
+  {"name":"changed_participant_payment","label":"Event Participant Payment is changed","object_name":"ParticipantPayment","op":"edit","class_name":"CRM_CivirulesPostTrigger_ParticipantPayment","cron":"0"},
+  {"name":"deleted_participant_payment","label":"Event Participant Payment is deleted","object_name":"ParticipantPayment","op":"delete","class_name":"CRM_CivirulesPostTrigger_ParticipantPayment","cron":"0"},
   {"name":"new_phone","label":"Phonenumber is added","object_name":"Phone","op":"create","class_name":null,"cron":"0"},
   {"name":"changed_phone","label":"Phonenumber is changed","object_name":"Phone","op":"edit","class_name":null,"cron":"0"},
   {"name":"deleted_phone","label":"Phonenumber is deleted","object_name":"Phone","op":"delete","class_name":null,"cron":"0"},
@@ -106,5 +106,7 @@
   {"name": "relationship_activated", "label": "Relationship start date reached", "object_name": "Relationship", "op": "edit", "class_name": "CRM_CivirulesCronTrigger_RelationshipStartDate", "cron": "1"},
   {"name": "relationship_deactivated", "label": "Relationship end date reached", "object_name": "Relationship", "op": "edit", "class_name": "CRM_CivirulesCronTrigger_RelationshipEndDate", "cron": "1"},
   {"name": "next_scheduled_contribution", "label": "Daily trigger on Next Scheduled (Recurring) Contribution", "object_name": null, "op": null, "class_name": "CRM_CivirulesCronTrigger_NextContributionDate", "cron": "1"},
-  {"name":"membership_activity","label":"Membership Activity","object_name":"Activity","op":"create|edit","class_name":"CRM_CivirulesPostTrigger_MembershipActivity","cron":"0"}
+  {"name":"membership_activity","label":"Membership Activity","object_name":"Activity","op":"create|edit","class_name":"CRM_CivirulesPostTrigger_MembershipActivity","cron":"0"},
+  {"name":"nocaseactivitysince","label":"No Case Activity Since","object_name":null,"op":null,"class_name":"CRM_CivirulesCronTrigger_NoCaseActivitySince","cron":"1"},
+  {"name":"afformsubmission_contact","label":"FormBuilder submission","object_name":"AfformSubmission","op":"create|edit","class_name":"CRM_CivirulesPostTrigger_AfformSubmission","cron":"0"}
 ]

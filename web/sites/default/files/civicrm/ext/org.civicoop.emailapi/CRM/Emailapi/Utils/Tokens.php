@@ -27,10 +27,11 @@ class CRM_Emailapi_Utils_Tokens {
    * @param int $contactId
    * @param array $message
    * @param array $contactData
+   * @param string $preferred_language
    *
    * @return string[]
    */
-  public static function replaceTokens(int $contactId, array $message, array $contactData=[]): array {
+  public static function replaceTokens(int $contactId, array $message, array $contactData=[], string $preferred_language = NULL): array {
     // Add the entities we want rendered into the schema, and record their primary keys.
     $schema['contactId'] = 'contactId';
     $context['contactId'] = $contactId;
@@ -64,12 +65,21 @@ class CRM_Emailapi_Utils_Tokens {
     $tokenProcessor->addMessage('html', $message['html'], 'text/html');
     $tokenProcessor->addMessage('text', $message['text'], 'text/plain');
     $row = $tokenProcessor->addRow($context);
+
+    // Set language on row if necessary
+    $swapLocale = NULL;
+    if ($preferred_language) {
+      $row->context('locale', $preferred_language);
+      $swapLocale = \CRM_Utils_AutoClean::swapLocale($preferred_language);
+    }
+
     // Evaluate and render.
     $tokenProcessor->evaluate();
     foreach (['messageSubject', 'html', 'text'] as $component) {
       $rendered[$component] = $row->render($component);
     }
 
+    unset($swapLocale);
     return $rendered;
   }
 

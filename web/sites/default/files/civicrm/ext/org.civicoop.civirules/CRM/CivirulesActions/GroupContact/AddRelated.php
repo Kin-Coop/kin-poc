@@ -146,7 +146,7 @@ class CRM_CivirulesActions_GroupContact_AddRelated extends CRM_CivirulesActions_
           'return' => 'name',
           'id' => $j,
         ]);
-      } catch (CiviCRM_API3_Exception $e) {
+      } catch (CRM_Core_Exception $e) {
       }
     }
     foreach($action_params['rel_type_ids'] as $i=>$j) {
@@ -157,7 +157,7 @@ class CRM_CivirulesActions_GroupContact_AddRelated extends CRM_CivirulesActions_
           'return' => 'name_a_b',
           'id' => $rel_type,
         ]);
-      } catch (CiviCRM_API3_Exception $e) {
+      } catch (CRM_Core_Exception $e) {
       }
     }
     return $action_params;
@@ -176,7 +176,7 @@ class CRM_CivirulesActions_GroupContact_AddRelated extends CRM_CivirulesActions_
           'return' => 'id',
           'name' => $j,
         ]);
-      } catch (CiviCRM_API3_Exception $e) {
+      } catch (CRM_Core_Exception $e) {
       }
     }
     foreach($action_params['rel_type_ids'] as $i=>$j) {
@@ -187,7 +187,7 @@ class CRM_CivirulesActions_GroupContact_AddRelated extends CRM_CivirulesActions_
             'return' => 'id',
             'name_a_b' => $rel_type,
           ]);
-      } catch (CiviCRM_API3_Exception $e) {
+      } catch (CRM_Core_Exception $e) {
       }
     }
     return parent::importActionParameters($action_params);

@@ -153,7 +153,7 @@ abstract class CRM_Civirules_Action {
    * @param \CRM_Civirules_TriggerData_TriggerData|NULL $triggerData
    * @param string $level Should be one of \Psr\Log\LogLevel
    */
-  protected function logAction($message, CRM_Civirules_TriggerData_TriggerData $triggerData=null, $level=\Psr\Log\LogLevel::INFO) {
+  protected function logAction($message, ?CRM_Civirules_TriggerData_TriggerData $triggerData=null, $level=\Psr\Log\LogLevel::INFO) {
     $context = [];
     $context['message'] = $message;
     $context['rule_id'] = $this->ruleAction['rule_id'];

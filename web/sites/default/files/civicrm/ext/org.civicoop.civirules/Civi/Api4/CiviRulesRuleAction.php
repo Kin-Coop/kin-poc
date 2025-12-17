@@ -13,5 +13,5 @@ namespace Civi\Api4;
  */
 class CiviRulesRuleAction extends Generic\DAOEntity {
   use Generic\Traits\SortableEntity;
-
+  use Generic\Traits\ManagedEntity;
 }

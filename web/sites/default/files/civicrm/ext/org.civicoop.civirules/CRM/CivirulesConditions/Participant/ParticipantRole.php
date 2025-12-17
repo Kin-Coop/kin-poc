@@ -69,7 +69,7 @@ class CRM_CivirulesConditions_Participant_ParticipantRole extends CRM_Civirules_
           'value' => $params['participant_role_id'],
           'option_group_id' => 'participant_role',
         ]);
-      } catch (\CiviCRM_Api3_Exception $e) {
+      } catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -98,7 +98,7 @@ class CRM_CivirulesConditions_Participant_ParticipantRole extends CRM_Civirules_
           'name' => $condition_params['participant_role_id'],
           'option_group_id' => 'participant_role',
         ]);
-      } catch (\CiviCRM_Api3_Exception $e) {
+      } catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }

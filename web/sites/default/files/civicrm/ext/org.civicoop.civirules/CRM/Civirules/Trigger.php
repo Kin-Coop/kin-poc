@@ -1,5 +1,7 @@
 <?php
 
+use Civi\Api4\CiviRulesRuleCondition;
+
 abstract class CRM_Civirules_Trigger {
 
   /**
@@ -175,7 +177,7 @@ abstract class CRM_Civirules_Trigger {
    */
   public function getRuleConditions(): array {
     if (!isset($this->ruleConditions) && !empty($this->ruleId)) {
-      $this->ruleConditions = \Civi\Api4\CiviRulesRuleCondition::get(FALSE)
+      $this->ruleConditions = CiviRulesRuleCondition::get(FALSE)
         ->addWhere('rule_id', '=', $this->ruleId)
         ->addWhere('is_active', '=', TRUE)
         ->addOrderBy('weight', 'ASC')

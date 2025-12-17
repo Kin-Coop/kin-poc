@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Version 2.24.0 (2025-12-03)
+
+* [!75](https://lab.civicrm.org/extensions/emailapi/-/merge_requests/75) Switch to user language when sending messages for proper tokens.
+* [!74](https://lab.civicrm.org/extensions/emailapi/-/merge_requests/74) Fix deprecation notice - mark $queue as nullable.
+
 ## Version 2.23.0 (2025-07-24)
 
 * [!73](https://lab.civicrm.org/extensions/emailapi/-/merge_requests/73) Fix sending to alternative address.

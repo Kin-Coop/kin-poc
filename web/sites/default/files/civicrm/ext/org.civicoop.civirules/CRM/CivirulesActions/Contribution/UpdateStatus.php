@@ -60,7 +60,7 @@ class CRM_CivirulesActions_Contribution_UpdateStatus extends CRM_CivirulesAction
    * e.g. 'Older than 65'
    *
    * @return string
-   * @throws \CiviCRM_API3_Exception
+   * @throws \CRM_Core_Exception
    */
   public function userFriendlyConditionParams() {
     $return = '';

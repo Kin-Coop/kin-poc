@@ -43,10 +43,11 @@
   {"name":"contribution_recur_campaign","label":"Recurring Contribution is (not) in Campaign(s)","class_name":"CRM_CivirulesConditions_ContributionRecur_Campaign"},
   {"name":"contribution_recur_count","label":"xth Recurring Contribution Collection","class_name":"CRM_CivirulesConditions_ContributionRecur_Count"},
   {"name":"contribution_recur_failurecount","label":"Recurring Contribution Faliure Count","class_name":"CRM_CivirulesConditions_ContributionRecur_FailureCount"},
+  {"name":"contribution_recur_failurecount_changed","label":"Compare Old Faliure Count to New Failure Count","class_name":"CRM_CivirulesConditions_ContributionRecur_FailureCountChanged"},
   {"name":"contribution_recur_status","label":"Recurring Contribution Status is (not) one of","class_name":"CRM_CivirulesConditions_ContributionRecur_Status"},
   {"name":"contribution_recur_status_changed","label":"Compare Old Recurring Contribution Status to New Recurring Contribution Status","class_name":"CRM_CivirulesConditions_ContributionRecur_StatusChanged"},
   {"name":"contribution_recur_financial_type","label":"Recurring Contribution is (not) of Financial Type(s)","class_name":"CRM_CivirulesConditions_ContributionRecur_FinancialType"},
-  {"name": "contribution_recur_frequency", "label": "Recurring Contribution has Frequency", "class_name": "CRM_CivirulesConditions_ContributionRecur_Frequency"},
+  {"name":"contribution_recur_frequency", "label": "Recurring Contribution has Frequency", "class_name": "CRM_CivirulesConditions_ContributionRecur_Frequency"},
   {"name":"donor_has_recurring","label":"Contact has Recurring Contribution with future end date","class_name":"CRM_CivirulesConditions_ContributionRecur_DonorIsRecurring"},
   {"name":"contact_has_recurring","label":"Contact has recurring contribution(s) with status","class_name":"CRM_CivirulesConditions_Contact_HasRecur"},
   {"name":"contribution_recur_end_date","label":"End Date of Recurring Contribution","class_name":"CRM_CivirulesConditions_ContributionRecur_EndDate"},
@@ -91,5 +92,7 @@
   {"name":"relationship_is_activated", "label":"Relationship is activated", "class_name":"CRM_CivirulesConditions_Relationship_IsActivated"},
   {"name":"contact_in_group_since", "label":"Contact In Group Since", "class_name":"CRM_CivirulesConditions_GroupContact_InGroupSince"},
   {"name":"user_is_logged_in", "label":"User is Logged In", "class_name":"CRM_CivirulesConditions_Contact_LoggedIn"},
-  {"name":"contribution_recur_xth_contribution", "label":"xth Contribution of the Recurring Contribution", "class_name":"CRM_CivirulesConditions_ContributionRecur_xthContribution"}
+  {"name":"contribution_recur_xth_contribution", "label":"xth Contribution of the Recurring Contribution", "class_name":"CRM_CivirulesConditions_ContributionRecur_xthContribution"},
+  {"name":"afformsubmission_status", "label":"FormBuilder Submission status", "class_name":"CRM_CivirulesConditions_AfformSubmission_Status"},
+  {"name":"afformsubmission_statuschanged", "label":"FormBuilder Submission status changed", "class_name":"CRM_CivirulesConditions_AfformSubmission_StatusChanged"}
 ]

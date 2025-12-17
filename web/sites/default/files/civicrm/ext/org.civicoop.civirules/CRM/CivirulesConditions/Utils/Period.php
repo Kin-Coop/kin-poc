@@ -6,6 +6,8 @@
  * and it converts it to a start and end date of the period
  *
  */
+use CRM_Civirules_ExtensionUtil as E;
+
 class CRM_CivirulesConditions_Utils_Period {
 
   /**

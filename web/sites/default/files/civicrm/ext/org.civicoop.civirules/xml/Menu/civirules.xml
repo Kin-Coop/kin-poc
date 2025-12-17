@@ -541,6 +541,12 @@
     <title>Participant Role</title>
     <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
   </item>
+    <item>
+    <path>civicrm/civirule/form/trigger/nocaseactivitysince</path>
+    <page_callback>CRM_CivirulesCronTrigger_Form_NoCaseActivitySince</page_callback>
+    <title>No Case Activity Since</title>
+    <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
+  </item>
   <item>
     <path>civicrm/civirule/form/trigger/eventdate</path>
     <page_callback>CRM_CivirulesCronTrigger_Form_EventDate</page_callback>
@@ -557,6 +563,12 @@
     <path>civicrm/civirule/form/trigger/post</path>
     <page_callback>CRM_CivirulesPostTrigger_Form_Generic</page_callback>
     <title>Generic</title>
+    <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/civirule/form/trigger/afformsubmission</path>
+    <page_callback>CRM_CivirulesPostTrigger_Form_AfformSubmission</page_callback>
+    <title>FormBuilder Submssion</title>
     <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
   </item>
   <item>
@@ -696,6 +708,12 @@
     <path>civicrm/civirule/form/action/contributionrecur_cancel_recurring</path>
     <page_callback>CRM_CivirulesActions_ContributionRecur_Form_CancelRecurring</page_callback>
     <title>Cancel Recurring Contribution</title>
+    <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/civirule/form/action/contributionrecur_change_nextscheduledate</path>
+    <page_callback>CRM_CivirulesActions_ContributionRecur_Form_ChangeNextScheduleDate</page_callback>
+    <title>Change Next Schedule Date for Recurring Contribution</title>
     <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
   </item>
   <item>

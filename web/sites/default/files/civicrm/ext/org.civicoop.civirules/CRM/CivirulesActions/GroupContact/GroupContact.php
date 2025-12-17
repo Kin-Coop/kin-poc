@@ -64,7 +64,7 @@ abstract class CRM_CivirulesActions_GroupContact_GroupContact extends CRM_Civiru
           'return' => 'name',
           'id' => $action_params['group_id'],
         ]);
-      } catch (CiviCRM_API3_Exception $e) {
+      } catch (CRM_Core_Exception $e) {
       }
     } elseif (!empty($actionParams['group_ids']) && is_array($actionParams['group_ids'])) {
       foreach ($action_params['group_ids'] as $i => $j) {
@@ -73,7 +73,7 @@ abstract class CRM_CivirulesActions_GroupContact_GroupContact extends CRM_Civiru
             'return' => 'name',
             'id' => $j,
           ]);
-        } catch (CiviCRM_API3_Exception $e) {
+        } catch (CRM_Core_Exception $e) {
         }
       }
     }
@@ -93,7 +93,7 @@ abstract class CRM_CivirulesActions_GroupContact_GroupContact extends CRM_Civiru
           'return' => 'id',
           'name' => $action_params['group_id'],
         ]);
-      } catch (CiviCRM_API3_Exception $e) {
+      } catch (CRM_Core_Exception $e) {
       }
     } elseif (!empty($actionParams['group_ids']) && is_array($actionParams['group_ids'])) {
       foreach ($action_params['group_ids'] as $i => $j) {
@@ -102,7 +102,7 @@ abstract class CRM_CivirulesActions_GroupContact_GroupContact extends CRM_Civiru
             'return' => 'id',
             'name' => $j,
           ]);
-        } catch (CiviCRM_API3_Exception $e) {
+        } catch (CRM_Core_Exception $e) {
         }
       }
     }

@@ -189,12 +189,19 @@ function civicrm_api3_email_send($params) {
       $toEmail = $locationAddress;
     }
 
+    // Change the user language (if multilingual)
+    $preferred_language = NULL;
+    if (CRM_Core_I18n::isMultilingual()) {
+      $preferred_language = CRM_Core_DAO::getFieldValue('CRM_Contact_DAO_Contact', $contactId, 'preferred_language');
+      $preferred_language = CRM_Core_BAO_ActionSchedule::pickLocale(CRM_Core_I18n::AUTO, $preferred_language);
+    }
+
     $message['messageSubject'] = (empty($params['subject']) ? $messageTemplates->msg_subject : $params['subject']);
     $message['text'] = $messageTemplates->msg_text ?: CRM_Utils_String::htmlToText($messageTemplates->msg_html);
     $message['html'] = $messageTemplates->msg_html;
     $message_params = $params;
     $message_params['contact_id'] = $contactId;
-    list('messageSubject' => $messageSubject, 'html' => $html, 'text' => $text) = CRM_Emailapi_Utils_Tokens::replaceTokens($contactId, $message, $message_params);
+    list('messageSubject' => $messageSubject, 'html' => $html, 'text' => $text) = CRM_Emailapi_Utils_Tokens::replaceTokens($contactId, $message, $message_params, $preferred_language);
 
     // set up the parameters for CRM_Utils_Mail::send
     $mailParams = [
@@ -293,11 +300,18 @@ function civicrm_api3_email_send($params) {
     // Set the ID of the email activity (if we created one)
     $mailParams['emailActivityID'] = $activity['id'] ?? NULL;
 
+    // It's possible, eg, that sendReminderEmail fires Hook::alterMailParams() and that some listener use ts().
+    $swapLocale = empty($preferred_language) ? NULL : \CRM_Utils_AutoClean::swapLocale($preferred_language);
+
     // Try to send the email.
     $result = CRM_Utils_Mail::send($mailParams);
     if (!$result) {
+      unset($swapLocale);
       throw new CRM_Core_Exception('Error sending email to ' . $contact['display_name'] . ' <' . $mailParams['toEmail'] . '> ');
     }
+
+    // Switch back language
+    unset($swapLocale);
 
     if ($params['create_activity']) {
       // Update the activity to Completed, since we know sending was successful.
