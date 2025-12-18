@@ -218,7 +218,6 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef) {
   }
 }
 
-
 // Re-direct all emails to me on dev sites
 function kincoop_civicrm_alterMailParams(&$params, $context) {
 
@@ -665,5 +664,3 @@ function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$er
     }
     return;
 }
-
-
