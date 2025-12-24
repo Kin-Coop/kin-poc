@@ -1,10 +1,9 @@
 <?php
 
-namespace CivirulesActions;
+//use CivirulesActions\CRM_Civirules_Action;
+//use CRM_Civirules_TriggerData_TriggerData;
 
-use CRM_Civirules_TriggerData_TriggerData;
-
-class CRM_CivirulesActions_Contribution_ContactEmail extends \CRM_Civirules_Action
+class CRM_CivirulesActions_Contribution_SendEmail extends CRM_Civirules_Action
 {
 
   /**
