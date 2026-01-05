@@ -221,7 +221,7 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef) {
 // Re-direct all emails to me on dev sites
 function kincoop_civicrm_alterMailParams(&$params, $context) {
 
-  if(str_contains( $_SERVER['HTTP_HOST'], 'dev')) {
+  if(str_contains( $_SERVER['HTTP_HOST'], 'dev.kin')) {
     $params['toEmail'] = 'ben@benmango.co.uk';
     $params['cc'] = 'ben@benmango.co.uk';
     $params['bcc'] = 'ben@benmango.co.uk';
