@@ -1512,15 +1512,21 @@ div.block.vertical {
 
 .border {
   border-radius: 50%;
-  aspect-ratio: 1 / 1;
+  //aspect-ratio: 1 / 1;
   padding-top: 4px;
-  background: lighten($primary,50%);
-  max-width: 75px;
-  width: 75px;
+  //background: lighten($primary,50%);
   margin: auto;
 
   i {
     color: $primary;
+  }
+}
+
+.block-user-picture, .views-field-views-conditional-field-2 {
+  .border {
+    aspect-ratio: 1/1;
+    background: lighten($primary, 50%);
+    padding-top: 8px;
   }
 }
 
