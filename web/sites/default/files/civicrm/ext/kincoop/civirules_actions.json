@@ -1,0 +1,7 @@
+[
+  {
+    "name": "contribution_contact_email",
+    "label": "Send email to contribution contact",
+    "class_name": "CRM_CivirulesActions_Contribution_SendEmail"
+  }
+]
