@@ -131,6 +131,56 @@ elements: |-
     '#parent': civicrm_1_contact_1_fieldset_fieldset
     '#title': 'Phone Number'
     '#required': true
+  civicrm_1_contact_1_cg1_custom_76:
+    '#type': civicrm_options
+    '#title': 'How did you find out about Kin?'
+    '#required': true
+    '#extra':
+      aslist: 1
+      multiple: 0
+    '#data_type': String
+    '#form_key': civicrm_1_contact_1_cg1_custom_76
+    '#parent': civicrm_1_contact_1_cg1_fieldset
+    '#default_option': ''
+    '#default_value': ''
+    '#civicrm_live_options': '1'
+    '#options':
+      1: 'Someone who uses Kin'
+      2: 'Saw a poster or flyer'
+      3: 'Online search'
+      4: 'Attended an event'
+      5: Other
+  civicrm_1_contact_1_cg1_custom_77:
+    '#type': textfield
+    '#title': 'Who was it? (They may receive a reward!)'
+    '#counter_type': character
+    '#counter_maximum': 255
+    '#counter_maximum_message': ' '
+    '#states':
+      visible:
+        ':input[name="civicrm_1_contact_1_cg1_custom_76"]':
+          value: '1'
+    '#data_type': String
+    '#form_key': civicrm_1_contact_1_cg1_custom_77
+    '#extra':
+      width: 20
+    '#parent': civicrm_1_contact_1_cg1_fieldset
+  civicrm_1_contact_1_cg1_custom_78:
+    '#type': textfield
+    '#title': 'Other (please tell us)'
+    '#counter_type': character
+    '#counter_maximum': 255
+    '#counter_maximum_message': ' '
+    '#states':
+      visible:
+        ':input[name="civicrm_1_contact_1_cg1_custom_76"]':
+          value: '5'
+    '#data_type': String
+    '#form_key': civicrm_1_contact_1_cg1_custom_78
+    '#extra':
+      width: 20
+    '#parent': civicrm_1_contact_1_cg1_fieldset
+    '#required': true
   civicrm_1_contact_1_cg27_custom_72:
     '#type': hidden
     '#title': Group
@@ -481,6 +531,7 @@ handlers:
       civicrm_1_contact_1_cg3_custom_57: 0
       civicrm_1_contact_1_cg3_custom_58: 0
       civicrm_1_contact_1_cg3_custom_59: 0
+      civicrm_1_contact_1_cg3_custom_75: 0
       contact_1_number_of_cg27: '1'
       contact_1_settings_dynamic_custom_cg27: 0
       civicrm_1_contact_1_cg27_custom_71: create_civicrm_webform_element
@@ -520,7 +571,14 @@ handlers:
       civicrm_1_contact_1_email_is_primary: '1'
       contact_1_number_of_website: '0'
       contact_1_number_of_im: '0'
-      contact_1_number_of_cg1: '0'
+      contact_1_number_of_cg1: '1'
+      contact_1_settings_dynamic_custom_cg1: 0
+      civicrm_1_contact_1_cg1_custom_1: 0
+      civicrm_1_contact_1_cg1_custom_33: 0
+      civicrm_1_contact_1_cg1_custom_74: 0
+      civicrm_1_contact_1_cg1_custom_76: create_civicrm_webform_element
+      civicrm_1_contact_1_cg1_custom_77: create_civicrm_webform_element
+      civicrm_1_contact_1_cg1_custom_78: create_civicrm_webform_element
       contact_1_number_of_cg18: '1'
       contact_1_settings_dynamic_custom_cg18: 0
       civicrm_1_contact_1_cg18_custom_45: create_civicrm_webform_element
@@ -640,7 +698,8 @@ handlers:
             number_of_email: '1'
             number_of_website: '0'
             number_of_im: '0'
-            number_of_cg1: '0'
+            number_of_cg1: '1'
+            dynamic_custom_cg1: 0
             number_of_cg18: '1'
             dynamic_custom_cg18: 0
             address:
