@@ -214,7 +214,7 @@ settings:
   confirmation_title: Success!
   confirmation_message: '<p>Your call has been booked. We will give you a call on [webform_submission:values:civicrm_1_activity_1_activity_activity_date_time:l jS F] at [webform_submission:values:civicrm_1_activity_1_activity_activity_date_time:g.ia].&nbsp;</p><p>A confirmation email has been sent with your call details.</p>'
   confirmation_attributes: {  }
-  confirmation_back: true
+  confirmation_back: false
   confirmation_back_label: ''
   confirmation_back_attributes: {  }
   confirmation_exclude_query: false
