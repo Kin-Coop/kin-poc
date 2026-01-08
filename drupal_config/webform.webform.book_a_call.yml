@@ -121,7 +121,7 @@ settings:
   form_open_message: ''
   form_close_message: ''
   form_exception_message: ''
-  form_previous_submissions: true
+  form_previous_submissions: false
   form_confidential: false
   form_confidential_message: ''
   form_disable_remote_addr: false
@@ -211,8 +211,8 @@ settings:
   draft_pending_multiple_message: ''
   confirmation_type: page
   confirmation_url: ''
-  confirmation_title: ''
-  confirmation_message: ''
+  confirmation_title: Success!
+  confirmation_message: '<p>Your call has been booked. We will give you a call on [webform_submission:values:civicrm_1_activity_1_activity_activity_date_time:l jS F] at [webform_submission:values:civicrm_1_activity_1_activity_activity_date_time:g.ia].&nbsp;</p><p>A confirmation email has been sent with your call details.</p>'
   confirmation_attributes: {  }
   confirmation_back: true
   confirmation_back_label: ''
@@ -461,4 +461,42 @@ handlers:
           disable_unregister: 0
           allow_url_load: 0
           disable_primary_participant: 0
+  email:
+    id: email
+    handler_id: email
+    label: 'User Confirmation'
+    notes: ''
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      states:
+        - completed
+      to_mail: '[webform_submission:values:civicrm_1_contact_1_email_email:raw]'
+      to_options: {  }
+      bcc_mail: info@kin.coop
+      bcc_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      subject: 'Kin Talk To Us'
+      body: '<p>Dear [webform_submission:values:civicrm_1_contact_1_contact_first_name],</p><p>Thank you for booking a call with Kin, we will give you a call on &nbsp;[webform_submission:values:civicrm_1_activity_1_activity_activity_date_time:l jS F] at [webform_submission:values:civicrm_1_activity_1_activity_activity_date_time:g.ia].&nbsp;</p><p>Best wishes,</p><p>The Kin Cooperative Team<br><br><em>If you have any issues or have made a mistake, please get in touch </em><a href="https://kin.coop/contact" data-cke-saved-href="https://kin.coop/contact"><em>via the contact form here</em></a><em> or </em><a href="https://wa.me/447985022771?" data-cke-saved-href="https://wa.me/447985022771?"><em>by whatsapp (faster)</em></a><em>.</em></p>'
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      langcode: ''
+      parameters: {  }
+      debug: false
 variants: {  }

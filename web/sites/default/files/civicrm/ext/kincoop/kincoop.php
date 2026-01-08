@@ -178,6 +178,33 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
       }
     }
   }
+
+  // Add Ben and Rob as activity assignees to the Talk to Us activity when users
+  // fill out the Talk to Us webform - It doesn't seem to be possible to add them in the form itself
+  if ($objectName === 'Activity' && $op === 'create') {
+
+    if($objectRef->subject == 'Talk to Kin phone call') {
+      // Define your additional assignee contact IDs.
+      $assignee_ids = [2, 3]; // Ben and Rob
+
+      foreach ($assignee_ids as $cid) {
+        try {
+          \Civi\Api4\ActivityContact::create(FALSE)
+            ->addValue('contact_id', $cid)
+            ->addValue('activity_id', $objectId)
+            ->addValue('record_type_id', 1)
+            ->execute();
+        }
+        catch (CiviCRM_API3_Exception $e) {
+          Civi::log()->error('Failed to add assignee to activity', [
+            'activity_id' => $objectId,
+            'contact_id' => $cid,
+            'error' => $e->getMessage(),
+          ]);
+        }
+      }
+    }
+  }
 }
 
 /**
