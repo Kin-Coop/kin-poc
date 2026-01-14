@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3fd62b553a80d8da569b0f1a86c9060",
+    "content-hash": "f3567e2b99f4c722fc0640393e19e077",
     "packages": [
         {
             "name": "adrienrn/php-mimetyper",
@@ -4294,27 +4294,27 @@
         },
         {
             "name": "drupal/devel_php",
-            "version": "1.7.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/devel_php.git",
-                "reference": "8.x-1.7"
+                "reference": "2.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/devel_php-8.x-1.7.zip",
-                "reference": "8.x-1.7",
-                "shasum": "04a289eb97e9c8834444da316735d84883350220"
+                "url": "https://ftp.drupal.org/files/projects/devel_php-2.0.0.zip",
+                "reference": "2.0.0",
+                "shasum": "05072cc51567f7a5442413b16a90392fa39da72d"
             },
             "require": {
-                "drupal/core": "^10 || ^11",
+                "drupal/core": "^11.3",
                 "drupal/devel": ">=5.2"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.7",
-                    "datestamp": "1718549854",
+                    "version": "2.0.0",
+                    "datestamp": "1766247836",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -4335,7 +4335,7 @@
                     "homepage": "https://www.drupal.org/user/138068"
                 }
             ],
-            "description": "Re-add Execute PHP feature to Devel.",
+            "description": "Add Execute PHP feature to Devel.",
             "homepage": "https://www.drupal.org/project/devel_php",
             "support": {
                 "source": "https://git.drupalcode.org/project/devel_php"
@@ -5080,27 +5080,27 @@
         },
         {
             "name": "drupal/gin",
-            "version": "3.0.0",
+            "version": "5.0.11",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/gin.git",
-                "reference": "8.x-3.0"
+                "reference": "5.0.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/gin-8.x-3.0.zip",
-                "reference": "8.x-3.0",
-                "shasum": "bb1c660e85577d49db1deedfefe1ed3a91370aeb"
+                "url": "https://ftp.drupal.org/files/projects/gin-5.0.11.zip",
+                "reference": "5.0.11",
+                "shasum": "60423f2c9662ccc7197f79aa29e7939b93028d7a"
             },
             "require": {
-                "drupal/core": "^9 || ^10 || ^11",
-                "drupal/gin_toolbar": "^1.0@beta"
+                "drupal/core": "^11.2",
+                "drupal/gin_toolbar": "^3.0"
             },
             "type": "drupal-theme",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.0",
-                    "datestamp": "1734771812",
+                    "version": "5.0.11",
+                    "datestamp": "1768311009",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5146,26 +5146,26 @@
         },
         {
             "name": "drupal/gin_toolbar",
-            "version": "1.0.0",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/gin_toolbar.git",
-                "reference": "8.x-1.0"
+                "reference": "3.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/gin_toolbar-8.x-1.0.zip",
-                "reference": "8.x-1.0",
-                "shasum": "907a3c2202824168da98c8b1cede1af117f7adf2"
+                "url": "https://ftp.drupal.org/files/projects/gin_toolbar-3.0.2.zip",
+                "reference": "3.0.2",
+                "shasum": "6d041143d67440e5b68f6f927e8edb298866dd94"
             },
             "require": {
-                "drupal/core": "^9 || ^10 || ^11"
+                "drupal/core": "^11.2"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1734698810",
+                    "version": "3.0.2",
+                    "datestamp": "1752237929",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -17296,15 +17296,10 @@
         "drupal/block_field": 5,
         "drupal/civicrm_entity": 10,
         "drupal/ckeditor_font": 10,
-        "drupal/cookies": 15,
-        "drupal/field_group": 15,
-        "drupal/front": 15,
-        "drupal/gin": 5,
-        "drupal/gin_toolbar": 5,
+        "drupal/cookies": 5,
+        "drupal/front": 10,
         "drupal/login_destination": 10,
-        "drupal/masquerade": 5,
         "drupal/mercury_editor_live_edit": 20,
-        "drupal/other_view_filter": 20,
         "drupal/private_message": 15,
         "drupal/rabbit_hole": 10,
         "drupal/reroute_email": 5,
