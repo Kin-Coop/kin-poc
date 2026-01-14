@@ -133,21 +133,19 @@ class Utils
         int $templateId,
         array $params = [],
         ?int $contributionId = NULL,
-        string $bcc = 'info@kin.coop'
     ): bool {
         try {
             $apiParams = [
                 'contact_id' => $contactId,
                 'template_id' => $templateId,
                 'to_email' => $toEmail,
-                'from_email' => 'admin@kin.coop',
+                'from_email' => 'members@kin.coop',
                 'from_name' => 'KIN',
-                'bcc' => $bcc,
                 'record_activity' => 1, // Log email as activity
                 'tplParams' => $params,
             ];
 
-            //dpm($apiParams);
+            dpm($apiParams);
 
             if ($contributionId) {
                 $apiParams['contribution_id'] = $contributionId;

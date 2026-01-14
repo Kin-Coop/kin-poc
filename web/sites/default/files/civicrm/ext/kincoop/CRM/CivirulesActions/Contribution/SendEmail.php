@@ -20,7 +20,7 @@ class CRM_CivirulesActions_Contribution_SendEmail extends CRM_Civirules_Action
       "from_name" => "Kin",
       "from_email_option" => 1,
       "contact_id = 70",
-      "from_email" => "admin@kin.coop",
+      "from_email" => "members@kin.coop",
       "disable_smarty" => false,
     );
     civicrm_api3($entity, $action, $params);

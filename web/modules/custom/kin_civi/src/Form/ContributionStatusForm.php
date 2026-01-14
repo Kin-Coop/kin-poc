@@ -153,7 +153,7 @@ class ContributionStatusForm extends FormBase {
                       $result = civicrm_api3('MessageTemplate', 'send', [
                         'id' => 125, // The ID of your message template
                         'contact_id' => $member_cid, // Recipient’s contact ID
-                        'from' => '"Kin" <admin@kin.coop>',
+                        'from' => '"Kin" <members@kin.coop>',
                         'to_email' => $email,
                         'tplParams' => [
                           'group' => $group_name["display_name"],
@@ -168,8 +168,8 @@ class ContributionStatusForm extends FormBase {
                       $result = civicrm_api3('MessageTemplate', 'send', [
                         'id' => 124, // The ID of your message template
                         'contact_id' => $member_cid, // Recipient’s contact ID
-                        'from' => '"Kin" <admin@kin.coop>',
-                        'to_email' => 'admin@kin.coop',
+                        'from' => '"Kin" <members@kin.coop>',
+                        'to_email' => 'members@kin.coop',
                         'tplParams' => [
                           'group' => $group_name["display_name"],
                           'amount' => $amount,

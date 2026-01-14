@@ -46,7 +46,7 @@
 
       $group_id = \Drupal::routeMatch()->getParameter('group_id');
       $group = \Drupal::service('kin_civi.utils')->kin_civi_check_group($group_id);
-      $ref = $cid . '-' . $group_id;
+      $ref = $cid . '-' . date('mdi');
 
       //dpm($cid);
       //dpm($form_state->getValue('delegate_id'));
@@ -234,8 +234,7 @@
               'ref' => $ref,
           ],
           'toEmail' => $delegate['email_primary.email'],
-            'from' => '"Kin" <admin@kin.coop>',
-          'bcc' => 'info@kin.coop',
+            'from' => '"Kin" <members@kin.coop>',
         ]);
 
         // Log email as activity to contacts
@@ -262,8 +261,7 @@
               'ref' => $ref,
           ],
           'toEmail' => $onBehalfOf['email_primary.email'],
-          'from' => '"Kin" <admin@kin.coop>',
-          'bcc' => 'info@kin.coop',
+          'from' => '"Kin" <members@kin.coop>',
       ]);
 
           // Log email as activity to contacts

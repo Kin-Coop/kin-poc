@@ -76,8 +76,7 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
             'onBehalfOf' => $onBehalfOf,
           ],
           'toEmail' => $delegate['email_primary.email'],
-            'from' => '"Kin" <admin@kin.coop>',
-          'bcc' => 'info@kin.coop',
+            'from' => '"Kin" <members@kin.coop>',
         ]);
       }
     }
