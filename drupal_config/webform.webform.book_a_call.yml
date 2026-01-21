@@ -17,7 +17,7 @@ categories: {  }
 elements: |-
   markup_intro:
     '#type': processed_text
-    '#text': '<p>Unsure about how Kin works or what it does? Book a call with us to find out more.&nbsp;</p><p>Anytime Monday to Friday, 10am to 4pm.</p>'
+    '#text': '<p>Unsure about what Kin can be used for? Need help setting up or approaching others to join your group?&nbsp;</p><p><strong>Book a call with us to find out more.</strong> Anytime Monday to Friday, 10am to 4pm.</p>'
     '#format': basic_html
   civicrm_1_contact_1_contact_first_name:
     '#type': textfield
@@ -474,7 +474,7 @@ handlers:
         - completed
       to_mail: '[webform_submission:values:civicrm_1_contact_1_email_email:raw]'
       to_options: {  }
-      bcc_mail: info@kin.coop
+      bcc_mail: hello@kin.coop
       bcc_options: {  }
       cc_mail: ''
       cc_options: {  }

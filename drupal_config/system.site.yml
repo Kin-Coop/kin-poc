@@ -3,7 +3,7 @@ _core:
 langcode: en-gb
 uuid: dcce35de-ea79-4155-ae4e-c841f48e631b
 name: Kin
-mail: admin@kin.coop
+mail: members@kin.coop
 slogan: 'Community Saving'
 page:
   403: ''

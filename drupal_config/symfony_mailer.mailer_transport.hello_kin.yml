@@ -1,12 +1,12 @@
-uuid: f14091a0-2eda-4a4e-b815-e020cc6a23c5
+uuid: 84e37357-45bf-43ae-a82f-1712d2217fbb
 langcode: en-gb
 status: true
 dependencies: {  }
-id: smtp
-label: SMTP
+id: hello_kin
+label: hello@kin.coop
 plugin: smtp
 configuration:
-  user: members@kin.coop
+  user: hello@kin.coop
   pass: '#Kin111223'
   host: localhost
   port: 25

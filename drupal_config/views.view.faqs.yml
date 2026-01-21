@@ -1191,6 +1191,8 @@ display:
           bef:
             general:
               autosubmit: false
+              auto_submit_sort_only: false
+              autosubmit_breakpoint: ''
               autosubmit_exclude_textfield: false
               autosubmit_textfield_delay: 500
               autosubmit_textfield_minimum_length: 3
@@ -1200,24 +1202,22 @@ display:
               secondary_label: 'Advanced options'
               secondary_open: false
               reset_button_always_show: false
-              autosubmit_breakpoint: ''
-              auto_submit_sort_only: false
             filter:
               tid:
                 plugin_id: default
                 advanced:
+                  sort_options_method: alphabetical_asc
+                  sort_options_natural: true
                   placeholder_text: Search
                   rewrite:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: false
                   collapsible_disable_automatic_open: false
+                  open_by_default: false
                   is_secondary: false
                   hide_label: false
                   field_classes: ''
-                  open_by_default: false
-                  sort_options_method: alphabetical_asc
-                  sort_options_natural: true
       arguments: {  }
       filters:
         status:
@@ -2296,7 +2296,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<p>If you have difficulty with the FAQ links below, you can also view the FAQs <a href=\"/faqs-list\">here</a>.</p>\r\n<p>Can't find the answer to your question? Get in touch. <a href=\"https://wa.me/447985022771?\" target=\"_blank\">WhatsApp Kin (faster)</a> or <a href=\"mailto:?subject=Help;\">Contact Kin</a></p>\r\n<h3>FAQ Categories</h3>"
+            value: "<p>If you have difficulty with the FAQ links below, you can also view the FAQs <a href=\"/faqs-list\">here</a>.</p>\r\n<p>Can't find the answer to your question? Get in touch. <a href=\"https://wa.me/447985022771?\" target=\"_blank\">WhatsApp Kin (faster)</a> or <a href=\"https://kin.coop/contact\">Contact Kin</a></p>\r\n<h3>FAQ Categories</h3>"
             format: full_html
           tokenize: false
       display_extenders: {  }

@@ -479,7 +479,7 @@ handlers:
     settings:
       states:
         - completed
-      to_mail: admin@kin.coop
+      to_mail: _default
       to_options: {  }
       bcc_mail: ''
       bcc_options: {  }
@@ -494,8 +494,7 @@ handlers:
       sender_name: ''
       subject: 'A New Kin Group Has Been Created'
       body: _default
-      excluded_elements:
-        intro: intro
+      excluded_elements: {  }
       ignore_access: false
       exclude_empty: true
       exclude_empty_checkbox: false
