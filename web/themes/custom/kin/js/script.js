@@ -1,6 +1,12 @@
 //(function($) {
 (($, Drupal, drupalSettings) => {
 
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('[data-bs-toggle="popover"]').forEach(el => {
+            new bootstrap.Popover(el);
+        });
+    });
+
   //Accordion for group members - always show when viewing page 2++
   Drupal.behaviors.bootstrapAccordionView = {
     attach: function (context, settings) {
@@ -116,6 +122,7 @@
             //console.log(link);
             to_position("." + link);
         })
+
 
     });
 })(jQuery, Drupal, drupalSettings);
