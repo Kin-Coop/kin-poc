@@ -363,10 +363,26 @@ function getFromObjectOrArray($objectOrArray, $key) {
     return $array[$key] ?? null;
 }
 
+/*
 function kincoop_civicrm_pageRun($page): void {
   $pageName = $page->getVar('_name');
   if ($pageName == 'CRM_Admin_Page_Tag') {
 
+  }
+}
+*/
+
+function kincoop_civicrm_pageRun(&$page) {
+  // Check that this is a Contribution Page.
+  if ($page instanceof CRM_Contribute_Page_Contribution) {
+    // Get the 'groupid' query parameter.
+    $groupId = CRM_Utils_Request::retrieveValue('groupid', 'Integer');
+    
+    // If it's the one we want, change the page title.
+    if ($groupId == 425) {
+      // Set a custom title.
+      CRM_Utils_System::setTitle(ts('Special Group 425 Contribution'));
+    }
   }
 }
 
@@ -503,130 +519,136 @@ function kincoop_civicrm_buildForm($formName, $form) {
       ");
       }
 
-        if ($form->_id === 1) {
-          if($form->getAction() == CRM_Core_Action::ADD) {
-             if (isset($_GET['groupid']) && $_GET['me']) {
-                    $ref = $_GET['me'] . '-' . $_GET['groupid'];
-                    $groupid = $_GET['groupid'];
-                    $defaults['custom_25'] = $groupid;
-                    $defaults['custom_61'] = $ref;
-                    //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
-             }
-
-            $defaults['custom_66'] = 1;
-            $form->setDefaults($defaults);
-
-            if ($form->elementExists('custom_25')) {
-              $element = $form->getElement('custom_25');
-              $email = $form->getElement('email-5');
-
-              // Make it read-only
-              $element->freeze();
-              $email->freeze();
-
-              // Inject JavaScript to strip the link
-              CRM_Core_Resources::singleton()->addScript("
-                (function($) {
-                  $(document).ready(function() {
-                    // Only target the display element of custom_25
-                    var el = $('.crm-frozen-field a');
-
-                    el.each(function() {
-                      var text = $(this).text();
-                      $(this).replaceWith(text); // replace link with plain text
-                    });
-                  });
-                })(CRM.$);
-              ");
-            }
-          }
-        } elseif ($form->_id === 3) {
-          if($form->getAction() == CRM_Core_Action::ADD) {
-            if (isset($_GET['groupid']) && $_GET['me']) {
-                $defaults['custom_25'] = $_GET['groupid'];
-                //$defaults['custom_62'] = 'Gift';
-                $form->setDefaults($defaults);
-            }
-
-            if ($form->elementExists('custom_25')) {
-              $element = $form->getElement('custom_25');
-              $email = $form->getElement('email-5');
-
-              // Make it read-only
-              $element->freeze();
-              $email->freeze();
-
-              // Inject JavaScript to strip the link
-              CRM_Core_Resources::singleton()->addScript("
-                (function($) {
-                  $(document).ready(function() {
-                    // Only target the display element of custom_25
-                    var el = $('.crm-frozen-field a');
-
-                    el.each(function() {
-                      var text = $(this).text();
-                      $(this).replaceWith(text); // replace link with plain text
-                    });
-                  });
-                })(CRM.$);
-              ");
-            }
-          }
-        } elseif ($form->_id === 4 || $form->_id === 8) {
-            //Civi::log()->debug('Contents of $formName: ' . print_r($_GET, TRUE));
-          if($form->getAction() == CRM_Core_Action::ADD) {
-            if (isset($_GET['groupid']) && $_GET['me']) {
-                $cid = CRM_Core_Session::singleton()->getLoggedInContactID();
-                $cid = $cid ? $cid : 'K';
-                $ref = $cid . '-' . $_GET['groupid'];
-                $defaults['custom_25'] = $_GET['groupid'];
-                $defaults['custom_61'] = $ref;
-                $form->setDefaults($defaults);
-                //if (isset($form['custom_25'])) {
-                //  $form->addRule('custom_25', ts('This field is required.'), 'required');
-                //}
-                    //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
-                }
-            }
-        } elseif ($form->_id === 7) {
-          if($form->getAction() == CRM_Core_Action::ADD) {
-            if (isset($_GET['groupid']) && $_GET['me']) {
-              //Include the R suffix on the unique contribution reference to denote recurring contributions
-              $ref = $_GET['me'] . '-' . $_GET['groupid'] . 'R';
-              $defaults['custom_25'] = $_GET['groupid'];
+      // One off group contributions
+      if ($form->_id === 1) {
+        if($form->getAction() == CRM_Core_Action::ADD) {
+           if (isset($_GET['groupid']) && $_GET['me']) {
+              $ref = $_GET['me'] . '-' . $_GET['groupid'];
+              $groupid = $_GET['groupid'];
+              $defaults['custom_25'] = $groupid;
               $defaults['custom_61'] = $ref;
-              $defaults['frequency_unit'] = "month";
               //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
-            }
-            $defaults['custom_66'] = 1;
-            $form->setDefaults($defaults);
-
-            if ($form->elementExists('custom_25')) {
-              $element = $form->getElement('custom_25');
-              $email = $form->getElement('email-5');
-
-              // Make it read-only
-              $element->freeze();
-              $email->freeze();
-
-              // Inject JavaScript to strip the link
-              CRM_Core_Resources::singleton()->addScript("
-                (function($) {
-                  $(document).ready(function() {
-                    // Only target the display element of custom_25
-                    var el = $('.crm-frozen-field a');
-
-                    el.each(function() {
-                      var text = $(this).text();
-                      $(this).replaceWith(text); // replace link with plain text
-                    });
+           }
+  
+          $defaults['custom_66'] = 1;
+          $form->setDefaults($defaults);
+  
+          if ($form->elementExists('custom_25')) {
+            $element = $form->getElement('custom_25');
+            $email = $form->getElement('email-5');
+  
+            // Make it read-only
+            $element->freeze();
+            $email->freeze();
+  
+            // Inject JavaScript to strip the link
+            CRM_Core_Resources::singleton()->addScript("
+              (function($) {
+                $(document).ready(function() {
+                  // Only target the display element of custom_25
+                  var el = $('.crm-frozen-field a');
+  
+                  el.each(function() {
+                    var text = $(this).text();
+                    $(this).replaceWith(text); // replace link with plain text
                   });
-                })(CRM.$);
-              ");
-            }
-            $form->addRule('custom_25', ts('This field is required.'), 'required');
+                });
+              })(CRM.$);
+            ");
           }
         }
+      } elseif ($form->_id === 3) {
+        if($form->getAction() == CRM_Core_Action::ADD) {
+          if (isset($_GET['groupid']) && $_GET['me']) {
+              $defaults['custom_25'] = $_GET['groupid'];
+              //$defaults['custom_62'] = 'Gift';
+              $form->setDefaults($defaults);
+          }
+  
+          if ($form->elementExists('custom_25')) {
+            $element = $form->getElement('custom_25');
+            $email = $form->getElement('email-5');
+  
+            // Make it read-only
+            $element->freeze();
+            $email->freeze();
+  
+            // Inject JavaScript to strip the link
+            CRM_Core_Resources::singleton()->addScript("
+              (function($) {
+                $(document).ready(function() {
+                  // Only target the display element of custom_25
+                  var el = $('.crm-frozen-field a');
+  
+                  el.each(function() {
+                    var text = $(this).text();
+                    $(this).replaceWith(text); // replace link with plain text
+                  });
+                });
+              })(CRM.$);
+            ");
+          }
+        }
+      }
+      
+      // One off membership fee (4) / 8 does not exist!
+      elseif ($form->_id === 4 || $form->_id === 8) {
+          //Civi::log()->debug('Contents of $formName: ' . print_r($_GET, TRUE));
+        if($form->getAction() == CRM_Core_Action::ADD) {
+          if (isset($_GET['groupid']) && $_GET['me']) {
+              $cid = CRM_Core_Session::singleton()->getLoggedInContactID();
+              $cid = $cid ? $cid : 'K';
+              $ref = $cid . '-' . $_GET['groupid'];
+              $defaults['custom_25'] = $_GET['groupid'];
+              $defaults['custom_61'] = $ref;
+              $form->setDefaults($defaults);
+              //if (isset($form['custom_25'])) {
+              //  $form->addRule('custom_25', ts('This field is required.'), 'required');
+              //}
+                  //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
+              }
+          }
+      }
+      // Recurring contributions to groups
+      elseif ($form->_id === 7) {
+        if($form->getAction() == CRM_Core_Action::ADD) {
+          if (isset($_GET['groupid']) && $_GET['me']) {
+            //Include the R suffix on the unique contribution reference to denote recurring contributions
+            $ref = $_GET['me'] . '-' . $_GET['groupid'] . 'R';
+            $defaults['custom_25'] = $_GET['groupid'];
+            $defaults['custom_61'] = $ref;
+            $defaults['frequency_unit'] = "month";
+            //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
+          }
+          $defaults['custom_66'] = 1;
+          $form->setDefaults($defaults);
+  
+          if ($form->elementExists('custom_25')) {
+            $element = $form->getElement('custom_25');
+            $email = $form->getElement('email-5');
+  
+            // Make it read-only
+            $element->freeze();
+            $email->freeze();
+  
+            // Inject JavaScript to strip the link
+            CRM_Core_Resources::singleton()->addScript("
+              (function($) {
+                $(document).ready(function() {
+                  // Only target the display element of custom_25
+                  var el = $('.crm-frozen-field a');
+  
+                  el.each(function() {
+                    var text = $(this).text();
+                    $(this).replaceWith(text); // replace link with plain text
+                  });
+                });
+              })(CRM.$);
+            ");
+          }
+          $form->addRule('custom_25', ts('This field is required.'), 'required');
+        }
+      }
     }
 }
 
