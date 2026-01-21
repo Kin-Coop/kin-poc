@@ -1,10 +1,10 @@
-# English, British translation of Drupal Symfony Mailer (1.5.0)
-# Copyright (c) 2024 by the English, British translation team
+# English, British translation of Mailer Plus (DSM+) (2.0.0-beta3)
+# Copyright (c) 2025 by the English, British translation team
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Drupal Symfony Mailer (1.5.0)\n"
-"POT-Creation-Date: 2024-08-15 22:10+0000\n"
+"Project-Id-Version: Mailer Plus (DSM+) (2.0.0-beta3)\n"
+"POT-Creation-Date: 2025-11-24 18:45+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Language-Team: English, British\n"
 "MIME-Version: 1.0\n"
@@ -50,6 +50,8 @@ msgid "Unknown"
 msgstr "Unknown"
 msgid "Mail"
 msgstr "Mail"
+msgid "Site name"
+msgstr "Site name"
 msgid "Plain text"
 msgstr "Plain text"
 msgid "Account blocked"
