@@ -32,6 +32,11 @@ h1 {
   font-style: normal;
 }
 
+h3 {
+  font-size: 2rem;
+  margin: 1rem 0 .8rem;
+}
+
 h2, h3, h4, h5 {
   font-family: "Montserrat", serif;
   font-optical-sizing: auto;
@@ -109,10 +114,6 @@ h2 {
     font-size: 1.8rem;
     line-height: 1.4;
   }
-}
-
-h3 {
-  margin-bottom: 1.4rem;
 }
 
 p {
@@ -1583,5 +1584,32 @@ div.block.vertical {
     block-kin-content {
       clear: both;
     }
+  }
+}
+
+[data-bs-toggle="popover"] {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.popover {
+  background-color: $red;
+  color: #fff;
+  padding: 15px;
+
+  .popover-header {
+    background-color: $red;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+
+  .popover-body {
+    font-size: 1rem;
+    padding: 0;
+    margin: 0;
+    color: #fff;
   }
 }

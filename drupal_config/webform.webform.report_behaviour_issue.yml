@@ -266,7 +266,7 @@ handlers:
     settings:
       states:
         - completed
-      to_mail: info@kin.coop
+      to_mail: members@kin.coop
       to_options: {  }
       bcc_mail: ''
       bcc_options: {  }

@@ -12,3 +12,6 @@ global-scripts:
     - core/jquery
     - core/drupal
     - core/once
+bootstrap_popover_support:
+  js:
+    js/popper.min.js: {}

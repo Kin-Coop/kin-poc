@@ -6,8 +6,8 @@ id: smtp
 label: SMTP
 plugin: smtp
 configuration:
-  user: admin@kin.coop
-  pass: ''
+  user: members@kin.coop
+  pass: '#Kin111223'
   host: localhost
   port: 25
   query:

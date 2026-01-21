@@ -30,7 +30,7 @@ function kinmod_form_private_message_form_alter(&$form, FormStateInterface $form
 /**
  * Implements hook_views_post_render().
  */
-function kin_views_post_render(ViewExecutable $view) {
+function kinmod_views_post_render(ViewExecutable $view) {
     if($view->id() == 'kin_group_list'  && $view->current_display == 'page_2'){
         //dpm($view->result[0]->civicrm_contact_display_name);
         //dpm($view->result[0]);
@@ -59,7 +59,7 @@ function kin_views_post_render(ViewExecutable $view) {
     }
 }
 
-function kin_views_pre_render(&$view){
+function kinmod_views_pre_render($view){
 
     if($view->id() == 'contributions'){
         if(empty($view->result) && isset($view->exposed_widgets)){
