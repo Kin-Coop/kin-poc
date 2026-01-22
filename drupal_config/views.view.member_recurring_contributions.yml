@@ -351,7 +351,7 @@ display:
           entity_field: create_date
           plugin_id: field
           label: Started
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''

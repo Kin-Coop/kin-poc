@@ -486,7 +486,7 @@ handlers:
       sender_mail: ''
       sender_name: ''
       subject: 'Kin Talk To Us'
-      body: '<p>Dear [webform_submission:values:civicrm_1_contact_1_contact_first_name],</p><p>Thank you for booking a call with Kin, we will give you a call on &nbsp;[webform_submission:values:civicrm_1_activity_1_activity_activity_date_time:l jS F] at [webform_submission:values:civicrm_1_activity_1_activity_activity_date_time:g.ia].&nbsp;</p><p>Best wishes,</p><p>The Kin Cooperative Team<br><br><em>If you have any issues or have made a mistake, please get in touch </em><a href="https://kin.coop/contact" data-cke-saved-href="https://kin.coop/contact"><em>via the contact form here</em></a><em> or </em><a href="https://wa.me/447985022771?" data-cke-saved-href="https://wa.me/447985022771?"><em>by whatsapp (faster)</em></a><em>.</em></p>'
+      body: '<p>Dear [webform_submission:values:civicrm_1_contact_1_contact_first_name],</p><p>Thank you for booking a call with Kin, we will give you a call on [webform_submission:values:civicrm_1_contact_1_phone_phone] on &nbsp;[webform_submission:values:civicrm_1_activity_1_activity_activity_date_time:l jS F] at [webform_submission:values:civicrm_1_activity_1_activity_activity_date_time:g.ia].&nbsp;</p><p>Best wishes,</p><p>The Kin Cooperative Team<br><br><em>If you have any issues or have made a mistake, please get in touch </em><a href="https://kin.coop/contact" data-cke-saved-href="https://kin.coop/contact"><em>via the contact form here</em></a><em> or </em><a href="https://wa.me/447985022771?" data-cke-saved-href="https://wa.me/447985022771?"><em>by whatsapp (faster)</em></a><em>.</em></p>'
       excluded_elements: {  }
       ignore_access: false
       exclude_empty: true
