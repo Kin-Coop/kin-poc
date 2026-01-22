@@ -26,3 +26,15 @@ kin_civi.template_preview:
     _title: 'CiviCRM Message Template Preview'
   requirements:
     _permission: 'administer site configuration'
+kin_civi.edit_recurring_contribution:
+  path: '/member/recurring-contribution/edit/{recurring_contribution_id}'
+  defaults:
+    _form: '\Drupal\kin_civi\Form\EditRecurringContributionForm'
+    _title: 'Edit Recurring Contribution'
+  requirements:
+    _permission: 'access content'
+    _custom_access: '\Drupal\kin_civi\Form\EditRecurringContributionForm::checkAccess'
+  options:
+    parameters:
+      recurring_contribution_id:
+        type: integer
