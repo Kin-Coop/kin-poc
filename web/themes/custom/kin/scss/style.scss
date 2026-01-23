@@ -1613,3 +1613,23 @@ div.block.vertical {
     color: #fff;
   }
 }
+
+#kin-civi-edit-recurring-contribution {
+  label {
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  details {
+    display: block;
+    margin: 2rem 0;
+  }
+
+  #edit-actions {
+    margin-bottom: 4rem;
+
+    > * {
+      margin-bottom: 0;
+    }
+  }
+}

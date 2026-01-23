@@ -38,3 +38,5 @@ kin_civi.edit_recurring_contribution:
     parameters:
       recurring_contribution_id:
         type: integer
+      group_id:
+        type: integer

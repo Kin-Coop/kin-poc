@@ -2,6 +2,7 @@
 
 namespace Drupal\kin_civi\Form;
 
+use Civi\Api4\UFMatch;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Access\AccessResult;
@@ -65,13 +66,6 @@ class EditRecurringContributionForm extends FormBase {
       return AccessResult::forbidden();
     }
 
-    // Check if CiviCRM is available
-    if (!function_exists('civicrm_initialize')) {
-      return AccessResult::forbidden();
-    }
-
-    civicrm_initialize();
-
     try {
       // Get the CiviCRM contact ID for the current user
       $contact_id = self::getCiviCrmContactId($account);
@@ -81,7 +75,7 @@ class EditRecurringContributionForm extends FormBase {
       }
 
       // Get the recurring contribution
-      $recurring_contribution = \Civicrm\Api4\ContributionRecur::get(FALSE)
+      $recurring_contribution = \Civi\Api4\ContributionRecur::get(FALSE)
         ->addWhere('id', '=', $recurring_contribution_id)
         ->addWhere('contact_id', '=', $contact_id)
         ->execute()
@@ -106,18 +100,34 @@ class EditRecurringContributionForm extends FormBase {
   protected static function getCiviCrmContactId(AccountInterface $account) {
     try {
       // Try to get contact by email
-      $email = $account->getEmail();
+      //$email = $account->getEmail();
+      $uid = $account->id();
 
-      if (empty($email)) {
-        return NULL;
-      }
-
-      $contact = \Civicrm\Api4\Contact::get(FALSE)
-        ->addWhere('email_primary.email', '=', $email)
+      $contact = UFMatch::get(FALSE)
+        ->addWhere('uf_id', '=', $uid)
+        ->addSelect('contact_id')
         ->execute()
         ->first();
 
-      return $contact['id'] ?? NULL;
+      return $contact['contact_id'] ?? NULL;
+    }
+    catch (\Exception $e) {
+      \Drupal::logger('kin_civi')->error('Error getting CiviCRM contact: @message', [
+        '@message' => $e->getMessage(),
+      ]);
+      return NULL;
+    }
+  }
+
+  protected static function getCiviCrmContactName($group) {
+    try {
+      $contact = \Civi\Api4\Contact::get(FALSE)
+        ->addSelect('display_name')
+        ->addWhere('id', '=', $group)
+        ->execute()
+        ->first();
+
+      return $contact['display_name'] ?? NULL;
     }
     catch (\Exception $e) {
       \Drupal::logger('kin_civi')->error('Error getting CiviCRM contact: @message', [
@@ -130,8 +140,8 @@ class EditRecurringContributionForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $recurring_contribution_id = NULL) {
-    civicrm_initialize();
+  public function buildForm(array $form, FormStateInterface $form_state, $recurring_contribution_id = NULL, $group_id = NULL) {
+    //civicrm_initialize();
 
     // Get current user's CiviCRM contact ID
     $contact_id = self::getCiviCrmContactId($this->currentUser());
@@ -143,7 +153,7 @@ class EditRecurringContributionForm extends FormBase {
 
     try {
       // Fetch the recurring contribution
-      $recurring_contribution = \Civicrm\Api4\ContributionRecur::get(FALSE)
+      $recurring_contribution = \Civi\Api4\ContributionRecur::get(FALSE)
         ->addWhere('id', '=', $recurring_contribution_id)
         ->addWhere('contact_id', '=', $contact_id)
         ->execute()
@@ -157,12 +167,22 @@ class EditRecurringContributionForm extends FormBase {
       // Store the recurring contribution data
       $form_state->set('recurring_contribution', $recurring_contribution);
       $form_state->set('recurring_contribution_id', $recurring_contribution_id);
+      $form_state->set('group_id', $group_id);
+
+
 
       // Display ID (read-only)
       $form['id'] = [
         '#type' => 'item',
         '#title' => $this->t('Contribution ID'),
         '#markup' => $recurring_contribution['id'],
+      ];
+
+      // Display Group ID (read-only)
+      $form['group_id'] = [
+        '#type' => 'item',
+        '#title' => $this->t('Group'),
+        '#markup' => $group_id,
       ];
 
       // Display frequency (read-only)
@@ -279,7 +299,6 @@ class EditRecurringContributionForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    civicrm_initialize();
 
     $recurring_contribution_id = $form_state->get('recurring_contribution_id');
     $amount = $form_state->getValue('amount');
@@ -290,7 +309,7 @@ class EditRecurringContributionForm extends FormBase {
 
     try {
       // Update the recurring contribution
-      $result = \Civicrm\Api4\ContributionRecur::update(FALSE)
+      $result = \Civi\Api4\ContributionRecur::update(FALSE)
         ->addWhere('id', '=', $recurring_contribution_id)
         ->addValue('amount', $amount)
         ->addValue('next_sched_contribution_date', $next_date_formatted)
@@ -321,5 +340,4 @@ class EditRecurringContributionForm extends FormBase {
       ]);
     }
   }
-
 }
