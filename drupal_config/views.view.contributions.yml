@@ -3753,7 +3753,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '<a  class="btn btn-secondary" href="/civicrm/contribute/updaterecur?reset=1&coid={{ id_2 }}">Change</a>&nbsp;&nbsp;<a href="/civicrm/contribute/unsubscribe?reset=1&coid={{ id_2 }}" class="btn btn-primary">Cancel</a>'
+            text: '<a href="/civicrm/contribute/unsubscribe?reset=1&coid={{ id_2 }}" class="btn btn-primary">Cancel</a>'
             make_link: false
             path: ''
             absolute: false
@@ -3822,7 +3822,7 @@ display:
           entity_type: civicrm_contribution
           entity_field: receive_date
           plugin_id: datetime
-          order: ASC
+          order: DESC
           expose:
             label: ''
             field_identifier: ''
