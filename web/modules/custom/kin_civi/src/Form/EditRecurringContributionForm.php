@@ -10,6 +10,7 @@ use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
 
 \Drupal::service('civicrm')->initialize();
 
@@ -342,8 +343,7 @@ class EditRecurringContributionForm extends FormBase {
     }
 
     // Redirect to /member/home
-    $form_state->setRedirect('<none>');
-    $response = new \Symfony\Component\HttpFoundation\RedirectResponse('/member/home');
-    $response->send();
+    $url = Url::fromUserInput('/member/home');
+    $form_state->setRedirectUrl($url);
   }
 }
