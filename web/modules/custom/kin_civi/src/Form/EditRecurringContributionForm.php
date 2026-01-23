@@ -119,15 +119,17 @@ class EditRecurringContributionForm extends FormBase {
     }
   }
 
-  protected static function getCiviCrmContactName($group) {
+  protected static function getCiviContactName($recurring_contribution_id = NULL) {
     try {
-      $contact = \Civi\Api4\Contact::get(FALSE)
-        ->addSelect('display_name')
-        ->addWhere('id', '=', $group)
+      $contact = \Civi\Api4\Contribution::get(FALSE)
+        ->addSelect('Kin_Contributions.Household', 'Kin_Contributions.Household.display_name')
+        ->addWhere('contribution_recur_id', '=', $recurring_contribution_id)
+        ->addOrderBy('id', 'DESC')
+        ->setLimit(1)
         ->execute()
         ->first();
 
-      return $contact['display_name'] ?? NULL;
+      return $contact['Kin_Contributions.Household.display_name'] ?? NULL;
     }
     catch (\Exception $e) {
       \Drupal::logger('kin_civi')->error('Error getting CiviCRM contact: @message', [
@@ -140,7 +142,7 @@ class EditRecurringContributionForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $recurring_contribution_id = NULL, $group_id = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $recurring_contribution_id = NULL) {
     //civicrm_initialize();
 
     // Get current user's CiviCRM contact ID
@@ -167,22 +169,21 @@ class EditRecurringContributionForm extends FormBase {
       // Store the recurring contribution data
       $form_state->set('recurring_contribution', $recurring_contribution);
       $form_state->set('recurring_contribution_id', $recurring_contribution_id);
-      $form_state->set('group_id', $group_id);
 
-
-
+      /*
       // Display ID (read-only)
       $form['id'] = [
         '#type' => 'item',
         '#title' => $this->t('Contribution ID'),
         '#markup' => $recurring_contribution['id'],
       ];
+      */
 
       // Display Group ID (read-only)
       $form['group_id'] = [
         '#type' => 'item',
         '#title' => $this->t('Group'),
-        '#markup' => $group_id,
+        '#markup' => self::getCiviContactName($recurring_contribution_id),
       ];
 
       // Display frequency (read-only)
@@ -205,8 +206,8 @@ class EditRecurringContributionForm extends FormBase {
         '#type' => 'number',
         '#title' => $this->t('Amount'),
         '#default_value' => $recurring_contribution['amount'] ?? '',
-        '#min' => 0.01,
-        '#step' => 0.01,
+        '#min' => 1,
+        '#step' => 1,
         '#required' => TRUE,
         '#field_prefix' => $recurring_contribution['currency'] ?? '£',
       ];
@@ -339,5 +340,10 @@ class EditRecurringContributionForm extends FormBase {
         '@message' => $e->getMessage(),
       ]);
     }
+
+    // Redirect to /member/home
+    $form_state->setRedirect('<none>');
+    $response = new \Symfony\Component\HttpFoundation\RedirectResponse('/member/home');
+    $response->send();
   }
 }
