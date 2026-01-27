@@ -37,7 +37,12 @@ Config.IDS.ini
 !/web/sites/default/settings.php
 
 # ddev
-.ddev
+# Ignore everything in .ddev
+.ddev/*
+!.ddev/providers/
+.ddev/providers/*
+!.ddev/providers/kin.yaml
+
 .idea
 *.Identifier
 cron*.sh
