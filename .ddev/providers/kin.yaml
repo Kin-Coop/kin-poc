@@ -1,0 +1,31 @@
+# Custom provider for pulling Drupal & CiviCRM databases from live.
+# Usage:
+#   ddev auth ssh
+#   ddev pull kin
+
+environment_variables:
+  remote_host: kin@webarch8.co.uk
+  drupal_db: kin_drup
+  civi_db: kin_civi
+  tmp_dir: .ddev/.downloads
+
+auth_command:
+  command: |
+    set -eu -o pipefail
+    ssh-add -l >/dev/null || ( echo "❌ Please run 'ddev auth ssh' before using this command." && exit 1 )
+
+db_pull_command:
+  command: |
+    set -eu -o pipefail
+
+    echo "🚀 Pulling databases from ${remote_host} ..."
+
+    mkdir -p ${tmp_dir}
+
+    echo "→ Dumping Drupal database (${drupal_db})..."
+    ssh ${remote_host} "mysqldump --single-transaction --quick --lock-tables=false ${drupal_db} | gzip -c" > ${tmp_dir}/drupal.sql.gz
+
+    echo "→ Dumping CiviCRM database (${civi_db})..."
+    ssh ${remote_host} "mysqldump --single-transaction --quick --lock-tables=false ${civi_db} | gzip -c" > ${tmp_dir}/civi.sql.gz
+
+    echo "✅ Database dumps complete. DDEV will now import them automatically."
