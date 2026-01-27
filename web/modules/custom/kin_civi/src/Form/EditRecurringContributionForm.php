@@ -255,7 +255,7 @@ class EditRecurringContributionForm extends FormBase {
 
       $form['actions']['cancel'] = [
         '#type' => 'link',
-        '#title' => $this->t('Cancel'),
+        '#title' => $this->t('Go Back'),
         '#url' => \Drupal\Core\Url::fromRoute('<front>'),
         '#attributes' => ['class' => ['button']],
       ];
