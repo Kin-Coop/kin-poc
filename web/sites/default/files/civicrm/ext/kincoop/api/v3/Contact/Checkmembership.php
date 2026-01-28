@@ -63,7 +63,7 @@ function civicrm_api3_contact_Checkmembership($params) {
       $membershipValidUntil = new DateTime($contact['values'][0]['custom_80']);
 
       // 3️⃣ Compare with today's date
-      if ($membershipValidUntil <= $today) {
+      if ($membershipValidUntil < $today) {
         // 4️⃣ Remove Recurring_Member tag
         civicrm_api3('EntityTag', 'delete', [
           'entity_table' => 'civicrm_contact',
