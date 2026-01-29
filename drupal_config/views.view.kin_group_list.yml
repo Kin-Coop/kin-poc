@@ -244,7 +244,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: '<h2>Available Groups</h2>'
+            value: '<h2>Search Groups</h2>'
             format: basic_html
           tokenize: false
       footer: {  }
@@ -259,7 +259,7 @@ display:
       tags: {  }
   block_1:
     id: block_1
-    display_title: 'Available Groups Block'
+    display_title: 'Search Groups Block'
     display_plugin: block
     position: 1
     display_options:
@@ -591,7 +591,11 @@ display:
       css_class: 'member-block fix-filter-alert'
       use_ajax: true
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        attributes: {  }
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
       block_description: 'Kin Group List'
     cache_metadata:
       max-age: -1

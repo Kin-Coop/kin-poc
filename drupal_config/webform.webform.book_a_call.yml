@@ -474,7 +474,7 @@ handlers:
         - completed
       to_mail: '[webform_submission:values:civicrm_1_contact_1_email_email:raw]'
       to_options: {  }
-      bcc_mail: hello@kin.coop
+      bcc_mail: 'hello@kin.coop, info@kin.coop'
       bcc_options: {  }
       cc_mail: ''
       cc_options: {  }

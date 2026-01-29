@@ -759,6 +759,94 @@ display:
             group_items: {  }
       style:
         type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            id: id
+            view_1: view_1
+            amount: amount
+            frequency_unit: frequency_unit
+            next_sched_contribution_date: next_sched_contribution_date
+            create_date: create_date
+            contact_id: contact_id
+            contribution_status_id: contribution_status_id
+            nothing: nothing
+            view: view
+          default: '-1'
+          info:
+            id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            view_1:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            amount:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            frequency_unit:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            next_sched_contribution_date:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            create_date:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            contact_id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            contribution_status_id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nothing:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            view:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: ''
+          description: ''
+          class: mb-0
       row:
         type: fields
       query:
@@ -805,10 +893,23 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<h2>My Recurring Contributions</h2>'
-            format: basic_html
+            value: "<h2>My Recurring Contributions <sup tabindex=\"0\"\r\n     data-bs-toggle=\"popover\"\r\n     data-bs-trigger=\"focus\"\r\n     class=\"question-mark\"\r\n     title=\"Need to change the group?\"\r\n     data-bs-content=\"Cancel this contribution and make a new one from the correct group page. Make sure to use the correct unique reference for your payments.\"><em><i class=\"fs-4 fw-bold bi bi-question-circle-fill\"></i></em></sup>\r\n</h2>"
+            format: full_html
           tokenize: false
-      footer: {  }
+      footer:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<p class="my-0 fs-6">Your next contribution date and amount must match the standing order you have with your bank. Click the buttons to make changes or cancel.</p>'
+            format: full_html
+          tokenize: false
       display_extenders: {  }
     cache_metadata:
       max-age: -1

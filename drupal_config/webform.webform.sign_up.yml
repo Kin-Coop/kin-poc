@@ -96,22 +96,17 @@ elements: |-
     '#form_key': civicrm_1_contact_1_address_city
     '#parent': civicrm_1_contact_1_fieldset_fieldset
     '#title': City
-    '#required': true
-  civicrm_1_contact_1_address_state_province_id:
-    '#type': civicrm_options
-    '#title': County
-    '#empty_option': '- None -'
-    '#civicrm_live_options': 0
-    '#required': true
+  civicrm_1_contact_1_address_postal_code:
+    '#type': textfield
+    '#counter_type': character
+    '#counter_maximum': 64
+    '#counter_maximum_message': ' '
     '#extra':
-      aslist: 1
-      multiple: 0
-    '#data_type': state_province_abbr
-    '#form_key': civicrm_1_contact_1_address_state_province_id
+      width: 7
+    '#form_key': civicrm_1_contact_1_address_postal_code
     '#parent': civicrm_1_contact_1_fieldset_fieldset
-    '#default_option': null
-    '#default_value': null
-    '#options': {  }
+    '#title': 'Postal Code'
+    '#required': true
   civicrm_1_contact_1_email_email:
     '#type': email
     '#form_key': civicrm_1_contact_1_email_email
@@ -242,12 +237,18 @@ elements: |-
     '#type': civicrm_options
     '#title': Tag(s)
     '#options':
+      7: Admin
+      16: 'Archived Account'
       2: Company
-      3: 'Government Entity'
+      15: 'Lapsed Recurring'
       4: 'Major Donor'
-      6: Member
-      1: Non-profit
+      8: 'Pending Member'
+      10: 'Recurring Member'
+      14: 'Solidarity Member'
+      12: 'TO ARCHIVE'
       5: Volunteer
+    '#default_value':
+      - '8'
     '#access': false
     '#extra':
       aslist: 0
@@ -255,8 +256,7 @@ elements: |-
     '#table': tag
     '#form_key': civicrm_1_contact_1_other_tag
     '#parent': civicrm_1_contact_1_fieldset_fieldset
-    '#default_option': '6'
-    '#default_value': '6'
+    '#default_option': ''
     '#civicrm_live_options': '1'
   civicrm_1_contact_1_cg18_custom_45:
     '#type': civicrm_options
@@ -342,6 +342,7 @@ settings:
   form_access_denied_message: '<p>This is an invite to be part of our kin group. Details below:</p>'
   form_access_denied_attributes: {  }
   form_file_limit: ''
+  form_file_limit_message: ''
   form_attributes: {  }
   form_method: ''
   form_action: ''
@@ -408,7 +409,7 @@ settings:
   confirmation_type: page
   confirmation_url: ''
   confirmation_title: Success!
-  confirmation_message: '<p>Thank you for joining Kin!</p><p>We''ve sent you an email with instructions for how to login and set your new password.&nbsp;</p><p>Please check your spam folder and save <a href="mailto:admin@kin.coop">admin@kin.coop</a> as a contact. For any difficulties, please <a href="https://wa.me/447985022771?">WhatsApp the team</a> or email <a href="mailto:info@kin.coop">info@kin.coop</a>. &nbsp;</p>'
+  confirmation_message: '<p>Thank you for joining Kin!</p><p>We''ve sent you an email with instructions for how to login and set your new password.&nbsp;</p><p>Please check your spam folder and save <a href="mailto:members@kin.coop">members@kin.coop</a> as a contact. For any difficulties, please <a href="https://wa.me/447985022771?">WhatsApp the team</a> or email <a href="mailto:members@kin.coop">members@kin.coop</a>. &nbsp;&nbsp;</p>'
   confirmation_attributes: {  }
   confirmation_back: false
   confirmation_back_label: ''
@@ -536,6 +537,7 @@ handlers:
       contact_1_settings_dynamic_custom_cg27: 0
       civicrm_1_contact_1_cg27_custom_71: create_civicrm_webform_element
       civicrm_1_contact_1_cg27_custom_72: create_civicrm_webform_element
+      contact_1_number_of_cg28: '0'
       contact_1_number_of_other: '1'
       civicrm_1_contact_1_other_group:
         create_civicrm_webform_element: create_civicrm_webform_element
@@ -551,10 +553,10 @@ handlers:
       civicrm_1_contact_1_address_supplemental_address_2: 0
       civicrm_1_contact_1_address_supplemental_address_3: 0
       civicrm_1_contact_1_address_city: create_civicrm_webform_element
-      civicrm_1_contact_1_address_postal_code: 0
+      civicrm_1_contact_1_address_postal_code: create_civicrm_webform_element
       civicrm_1_contact_1_address_postal_code_suffix: 0
       civicrm_1_contact_1_address_country_id: 0
-      civicrm_1_contact_1_address_state_province_id: create_civicrm_webform_element
+      civicrm_1_contact_1_address_state_province_id: 0
       civicrm_1_contact_1_address_county_id: 0
       civicrm_1_contact_1_address_master_id: 0
       civicrm_1_contact_1_address_location_type_id: '1'
@@ -653,6 +655,8 @@ handlers:
       civicrm_1_activity_1_cg4_custom_7: 0
       civicrm_1_activity_1_cg4_custom_23: 0
       civicrm_1_activity_1_cg4_custom_24: create_civicrm_webform_element
+      activity_1_settings_dynamic_custom_cg30: 0
+      civicrm_1_activity_1_cg30_custom_82: 0
       participant_reg_type: '0'
       reg_options:
         event_type:
@@ -692,6 +696,7 @@ handlers:
             dynamic_custom_cg3: 0
             number_of_cg27: '1'
             dynamic_custom_cg27: 0
+            number_of_cg28: '0'
             number_of_other: '1'
             number_of_address: '1'
             number_of_phone: '1'
@@ -743,6 +748,7 @@ handlers:
             details:
               view_link: view_link
             dynamic_custom_cg4: 0
+            dynamic_custom_cg30: 0
             activity:
               1:
                 activity_type_id: '56'
