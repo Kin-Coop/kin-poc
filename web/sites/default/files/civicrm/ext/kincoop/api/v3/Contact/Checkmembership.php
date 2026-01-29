@@ -75,7 +75,7 @@ function civicrm_api3_contact_Checkmembership($params) {
         civicrm_api3('EntityTag', 'create', [
           'entity_table' => 'civicrm_contact',
           'entity_id' => $cid,
-          'tag_id' => 8,
+          'tag_id' => 15,
         ]);
 
         $updated++;
