@@ -263,9 +263,7 @@ function civicrm_entity_civicrm_pre($op, $objectName, $id, &$params) {
       }
     }
     /** @var \Drupal\civicrm_entity\Entity\CivicrmEntity $entity */
-    if($id) {
-      $entity = $storage->load($id);
-    }
+    $entity = $storage->load($id);
   }
   if (!$entity) {
     return;
