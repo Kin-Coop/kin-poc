@@ -1,0 +1,15 @@
+diff --git a/web/modules/contrib/civicrm_entity/civicrm_entity.module b/web/modules/contrib/civicrm_entity/civicrm_entity.module
+index d05b2c06..9ff99667 100644
+--- a/web/modules/contrib/civicrm_entity/civicrm_entity.module
++++ b/web/modules/contrib/civicrm_entity/civicrm_entity.module
+@@ -263,7 +263,9 @@ function civicrm_entity_civicrm_pre($op, $objectName, $id, &$params) {
+       }
+     }
+     /** @var \Drupal\civicrm_entity\Entity\CivicrmEntity $entity */
+-    $entity = $storage->load($id);
++    if($id) {
++      $entity = $storage->load($id);
++    }
+   }
+   if (!$entity) {
+     return;

@@ -18,6 +18,7 @@ Config.IDS.ini
 !/web/modules/contrib/civicrm_entity
 /web/modules/contrib/civicrm_entity/*
 !web/modules/contrib/civicrm_entity/civicrm_entity.module
+!web/modules/contrib/civicrm_entity/undefined.patch
 
 # Issues updating fpa for D11 so need to add the info.yml file to git
 !/web/modules/contrib/fpa/
