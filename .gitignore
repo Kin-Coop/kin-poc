@@ -14,6 +14,11 @@ Config.IDS.ini
 /web/libraries/*
 !/web/libraries/fitvids
 
+# issue with civicrm_entity module - need to record fix in git until they fix the issue
+!/web/modules/contrib/civicrm_entity
+/web/modules/contrib/civicrm_entity/*
+!web/modules/contrib/civicrm_entity/civicrm_entity.module
+
 # Issues updating fpa for D11 so need to add the info.yml file to git
 !/web/modules/contrib/fpa/
 /web/modules/contrib/fpa/*
