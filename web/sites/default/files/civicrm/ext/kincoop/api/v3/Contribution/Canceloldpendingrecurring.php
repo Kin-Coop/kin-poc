@@ -44,6 +44,12 @@ function civicrm_api3_contribution_Canceloldpendingrecurring($params) {
     foreach ($contributions as $c) {
       $results['processed']++;
 
+      $contribution = \Civi\Api4\Contribution::get(TRUE)
+        ->addSelect('id', 'Kin_Contributions.Household')
+        ->addWhere('id', '=', $c['id'])
+        ->execute()
+        ->first();
+
       try {
         // Cancel recurring contribution
         /*
@@ -59,31 +65,34 @@ function civicrm_api3_contribution_Canceloldpendingrecurring($params) {
           ->execute();
         */
 
+        /*
         // Send message template ID 131
-        civicrm_api3('MessageTemplate', 'send', [
-          'id' => 131,
+        civicrm_api3('Email', 'Send', [
+          'template_id' => 131,
           'contact_id' => $c['contact_id'],
-          'entity_id' => $c['id'],
-          'valueName' => 'contribution',
+          'contribution_id' => $c['id'],
+          'extra_data' => ['contact' => 477],
+          //'valueName' => 'contribution',
           //'template_params' => "'group' => 'my group'",
         ]);
+        */
 
-        /*
+
         // Send email to delegate confirming contribution
         $delivery = \CRM_Core_BAO_MessageTemplate::sendTemplate([
-          'workflow' => 'onbehalfof_delegate_completed',
+          //'workflow' => 'onbehalfof_delegate_completed',
+          'messageTemplateID' => 131,
           'tokenContext' => [
-            'contactId' => $delegate_id,
-            'contributionId' => $contribution_id,
+            'contactId' => $c['contact_id'],
+            'contributionId' => $c['id'],
           ],
           'tplParams' => [
-            'group' => $group['display_name'],
-            'onBehalfOf' => $onBehalfOf,
+            'group' => $contribution['Kin_Contributions.Household'],
           ],
-          'toEmail' => $delegate['email_primary.email'],
-          'from' => '"Kin" <members@kin.coop>',
+          //'toEmail' => $delegate['email_primary.email'],
+          //'from' => '"Kin" <members@kin.coop>',
         ]);
-        */
+
 
         $results['updated']++;
       }
