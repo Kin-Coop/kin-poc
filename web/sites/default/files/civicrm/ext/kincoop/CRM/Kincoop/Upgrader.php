@@ -96,6 +96,16 @@ final class CRM_Kincoop_Upgrader extends \CRM_Extension_Upgrader_Base {
      return TRUE;
    }
 
+  public function upgrade_0002(): bool {
+    $this->ctx->log->info('Applying update 0002');
+    if (!method_exists('CRM_Civirules_Utils_Upgrader', 'insertActionsFromJson'))
+      throw new Exception('Method CRM_Civirules_Utils_Upgrader::insertActionsFromJson() not found. Is the CiviRules extension enabled?');
+    CRM_Civirules_Utils_Upgrader::insertActionsFromJson($this->extensionDir . DIRECTORY_SEPARATOR . 'civirules_actions.json');
+    // this path is relative to the extension base dir
+    //$this->executeSqlFile('sql/createContributionContactEmail.sql');
+    return TRUE;
+  }
+
   /**
    * Example: Run a slow upgrade process by breaking it up into smaller chunk.
    *

@@ -44,8 +44,14 @@ function civicrm_api3_contribution_Canceloldpendingrecurring($params) {
     foreach ($contributions as $c) {
       $results['processed']++;
 
-      $contribution = \Civi\Api4\Contribution::get(TRUE)
-        ->addSelect('id', 'Kin_Contributions.Household')
+      $contacts = \Civi\Api4\Contact::get(FALSE)
+        ->addSelect('id', 'email_primary.email')
+        ->addWhere('id', '=', $c['contact_id'])
+        ->execute()
+        ->first();
+
+      $contribution = \Civi\Api4\Contribution::get(FALSE)
+        ->addSelect('id', 'Kin_Contributions.Household.display_name')
         ->addWhere('id', '=', $c['id'])
         ->execute()
         ->first();
@@ -87,10 +93,10 @@ function civicrm_api3_contribution_Canceloldpendingrecurring($params) {
             'contributionId' => $c['id'],
           ],
           'tplParams' => [
-            'group' => $contribution['Kin_Contributions.Household'],
+            'group' => $contribution['Kin_Contributions.Household.display_name'],
           ],
-          //'toEmail' => $delegate['email_primary.email'],
-          //'from' => '"Kin" <members@kin.coop>',
+          'toEmail' => $contacts['email_primary.email'],
+          'from' => '"Kin" <members@kin.coop>',
         ]);
 
 
