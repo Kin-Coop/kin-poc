@@ -3,5 +3,10 @@
     "name": "contribution_contact_email",
     "label": "Send email to contribution contact",
     "class_name": "CRM_CivirulesActions_Contribution_SendEmail"
+  },
+  {
+    "name": "contribution_cancel_old_rc",
+    "label": "Cancel old RCs and send email",
+    "class_name": "CRM_CivirulesActions_Contribution_CancelOldPendingRC"
   }
 ]
