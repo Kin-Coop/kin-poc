@@ -100,6 +100,7 @@
         "drupal/views_display_union": "^1.1",
         "drupal/views_field_view": "^1.0@beta",
         "drupal/views_fieldsets": "^4.0",
+        "drupal/views_infinite_scroll": "^2.0",
         "drupal/webform": "^6.3@beta",
         "drush/drush": "*",
         "justinrainbow/json-schema": "^5.2",

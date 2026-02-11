@@ -242,13 +242,14 @@ elements: |-
       2: Company
       15: 'Lapsed Recurring'
       4: 'Major Donor'
+      17: 'Member Sign Up'
       8: 'Pending Member'
       10: 'Recurring Member'
       14: 'Solidarity Member'
       12: 'TO ARCHIVE'
       5: Volunteer
     '#default_value':
-      - '8'
+      - '17'
     '#access': false
     '#extra':
       aslist: 0
@@ -409,7 +410,7 @@ settings:
   confirmation_type: page
   confirmation_url: ''
   confirmation_title: Success!
-  confirmation_message: '<p>Thank you for joining Kin!</p><p>We''ve sent you an email with instructions for how to login and set your new password.&nbsp;</p><p>Please check your spam folder and save <a href="mailto:members@kin.coop">members@kin.coop</a> as a contact. For any difficulties, please <a href="https://wa.me/447985022771?">WhatsApp the team</a> or email <a href="mailto:members@kin.coop">members@kin.coop</a>. &nbsp;&nbsp;</p>'
+  confirmation_message: '<p>Thank you for joining Kin!</p><p>We''ve sent you an email with instructions for how to login and set your new password.&nbsp;</p><p>Please check your spam folder and save <a href="mailto:members@kin.coop">members@kin.coop</a> as a contact.&nbsp;</p><p>If you have any difficulties, <a href="https://wa.me/447985022771?">whatsapp the team</a> or contact us <a href="https://kin.coop/contact">via this form</a>.</p>'
   confirmation_attributes: {  }
   confirmation_back: false
   confirmation_back_label: ''
