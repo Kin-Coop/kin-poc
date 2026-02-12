@@ -1,9 +1,6 @@
 trustpilot:
   js:
     //widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js: { type: external, attributes: { async: true } }
-woopra:
-  js:
-    js/woopra.js: {}
 google:
   js:
     js/google.js: { attributes: { defer: true } }
