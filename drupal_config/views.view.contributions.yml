@@ -1598,6 +1598,9 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
+      cache:
+        type: none
+        options: {  }
       filters:
         household_25:
           id: household_25
@@ -1739,13 +1742,16 @@ display:
         groups:
           1: AND
       defaults:
+        cache: false
         css_class: false
+        use_ajax: false
         pager: false
         fields: false
         filters: false
         filter_groups: false
         header: false
       css_class: 'member-block w-100'
+      use_ajax: false
       display_description: ''
       header:
         area:
@@ -1758,9 +1764,9 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<h2>History <sup tabindex=\"0\"\r\n     data-bs-toggle=\"popover\"\r\n     data-bs-trigger=\"focus\"\r\n     class=\"question-mark\"\r\n     title=\"Something missing?\"\r\n     data-bs-content=\"If you think a contribution is missing from your records, please contact us immediately\"><em><i class=\"fs-3 fw-bold bi bi-question-circle-fill\"></i></em></sup> </h2>"
+            value: "<div class=\"bg-primary d-flex justify-content-between p-2 no-margin align-items-center\">\r\n<h2>History <sup tabindex=\"0\"\r\n     data-bs-toggle=\"popover\"\r\n     data-bs-trigger=\"focus\"\r\n     class=\"question-mark\"\r\n     title=\"Something missing?\"\r\n     data-bs-content=\"If you think a contribution is missing from your records, please contact us immediately\"><em><i class=\"fs-3 fw-bold bi bi-question-circle-fill\"></i></em></sup> </h2>\r\n<a class=\"btn btn-secondary\" href=\"{{ id }}/contributions\">See all transactions</a></div>"
             format: full_html
-          tokenize: false
+          tokenize: true
       display_extenders:
         attributes: {  }
         metatag_display_extender:
@@ -6824,6 +6830,9 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
+      cache:
+        type: none
+        options: {  }
       filters:
         household_25:
           id: household_25
@@ -6965,13 +6974,16 @@ display:
         groups:
           1: AND
       defaults:
+        cache: false
         css_class: false
+        use_ajax: false
         pager: false
         fields: false
         filters: false
         filter_groups: false
         header: false
       css_class: 'member-block w-100'
+      use_ajax: false
       display_description: ''
       header:
         area:
@@ -6984,9 +6996,9 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<h2>History <sup tabindex=\"0\"\r\n     data-bs-toggle=\"popover\"\r\n     data-bs-trigger=\"focus\"\r\n     class=\"question-mark\"\r\n     title=\"Something missing?\"\r\n     data-bs-content=\"If you think a contribution is missing from your records, please contact us immediately\"><em><i class=\"fs-3 fw-bold bi bi-question-circle-fill\"></i></em></sup> </h2>"
+            value: "<div class=\"bg-primary d-flex justify-content-between p-2 no-margin align-items-center\">\r\n<h2>History <sup tabindex=\"0\"\r\n     data-bs-toggle=\"popover\"\r\n     data-bs-trigger=\"focus\"\r\n     class=\"question-mark\"\r\n     title=\"Something missing?\"\r\n     data-bs-content=\"If you think a contribution is missing from your records, please contact us immediately\"><em><i class=\"fs-3 fw-bold bi bi-question-circle-fill\"></i></em></sup> </h2>\r\n<a class=\"btn btn-secondary\" href=\"/member/group/{{ id }}\"><i class=\"bi bi-arrow-left\"></i> Back to group page</a></div>"
             format: full_html
-          tokenize: false
+          tokenize: true
       display_extenders:
         attributes: {  }
         metatag_display_extender:

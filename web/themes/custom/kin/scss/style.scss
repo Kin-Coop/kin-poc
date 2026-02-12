@@ -1634,3 +1634,22 @@ div.block.vertical {
     }
   }
 }
+
+.no-margin {
+  margin: -.8rem -.8rem .8rem -.81rem;
+  padding: .8rem;
+  background: $primary;
+  color: #fff;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+
+  h2 {
+    margin: 0 !important;
+  }
+
+  a {
+    &:hover {
+      color: #000 !important;
+    }
+  }
+}
