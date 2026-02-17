@@ -60,6 +60,7 @@ module:
   kin_civi: 0
   kin_forum: 0
   kin_forum_notify: 0
+  kin_welcome: 0
   kinmod: 0
   language: 0
   layout_builder: 0
