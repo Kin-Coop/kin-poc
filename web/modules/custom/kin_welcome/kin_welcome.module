@@ -3,41 +3,6 @@
 use Drupal\user\UserInterface;
 
 /**
- * Implements hook_form_alter().
- */
-function kin_welcome_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  // Target the user password/profile form that is shown after clicking
-  // a one-time login link
-  if ($form_id === 'user_form') {
-    $current_user = \Drupal::currentUser();
-
-    // Check if this user has never seen the welcome modal
-    $has_seen_modal = \Drupal::service('user.data')->get(
-      'kin_welcome',
-      $current_user->id(),
-      'has_seen_welcome_modal'
-    );
-
-    if ($has_seen_modal) {
-      return;
-    }
-
-    // Check if the user is coming from a one-time login link by checking
-    // if this is a new account that hasn't yet set their password.
-    // We detect this by checking the session flag set in hook_user_login.
-    //$session = \Drupal::request()->getSession();
-    //$is_pass_reset = $session->get('kin_welcome_pass_reset', FALSE);
-
-    //if (!$is_pass_reset) {
-      //return;
-    //}
-
-    // Add a custom submit handler to the user form
-    $form['actions']['submit']['#submit'][] = 'kin_welcome_user_form_submit';
-  }
-}
-
-/**
  * Implements hook_user_login().
  */
 function kin_welcome_user_login(UserInterface $account) {
@@ -48,34 +13,15 @@ function kin_welcome_user_login(UserInterface $account) {
     'has_seen_welcome_modal'
   );
 
-  if ($has_seen_modal) {
-    return;
+  // If they haven't seen the modal, set the initial login flag
+  if (!$has_seen_modal) {
+    \Drupal::service('user.data')->set(
+      'kin_welcome',
+      $account->id(),
+      'initial_login',
+      TRUE
+    );
   }
-
-  // Detect if the user is logging in via a one-time login link.
-  // Drupal sets pass_reset_{uid} in the session when a one-time
-  // login link is used.
-  $session = \Drupal::request()->getSession();
-  $pass_reset = $session->get('pass_reset_' . $account->id());
-
-  if ($pass_reset) {
-    // Set our own flag so we know to show the modal after password save
-    $session->set('kin_welcome_pass_reset', TRUE);
-  }
-}
-
-/**
- * Custom submit handler for the user form.
- */
-function kin_welcome_user_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
-  $current_user = \Drupal::currentUser();
-  $session = \Drupal::request()->getSession();
-
-  // Clear the pass reset session flag
-  $session->remove('kin_welcome_pass_reset');
-
-  // Set flag to show the modal on the next page load (the homepage)
-  $session->set('show_welcome_modal', TRUE);
 }
 
 /**
@@ -89,24 +35,39 @@ function kin_welcome_page_attachments(array &$attachments) {
     return;
   }
 
-  $session = \Drupal::request()->getSession();
-  $show_modal = $session->get('show_welcome_modal', FALSE);
+  // Only trigger on node 5 (the homepage)
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $node = \Drupal::routeMatch()->getParameter('node');
 
-  if (!$show_modal) {
+  $is_homepage = FALSE;
+
+  if ($route_name === 'entity.node.canonical' && $node) {
+    $node_id = is_object($node) ? $node->id() : $node;
+    if ($node_id == 5) {
+      $is_homepage = TRUE;
+    }
+  }
+
+  if (!$is_homepage) {
+    return;
+  }
+
+  $user_data = \Drupal::service('user.data');
+  $uid = $current_user->id();
+
+  // Check both flags
+  $initial_login = $user_data->get('kin_welcome', $uid, 'initial_login');
+  $has_seen_modal = $user_data->get('kin_welcome', $uid, 'has_seen_welcome_modal');
+  //$has_seen_modal = 0;
+
+  // Only show if it's their initial login and they haven't seen the modal
+  if (!$initial_login || $has_seen_modal) {
     //return;
   }
 
-  // Double check the user data flag
-  $has_seen_modal = \Drupal::service('user.data')->get(
-    'kin_welcome',
-    $current_user->id(),
-    'has_seen_welcome_modal'
-  );
-
-  if ($has_seen_modal) {
-    $session->remove('show_welcome_modal');
-    return;
-  }
+  // Reset the initial login flag and mark modal as seen
+  $user_data->set('kin_welcome', $uid, 'initial_login', FALSE);
+  $user_data->set('kin_welcome', $uid, 'has_seen_welcome_modal', TRUE);
 
   // Load slide config
   $config = \Drupal::config('kin_welcome.slides');
@@ -120,6 +81,7 @@ function kin_welcome_page_attachments(array &$attachments) {
       'body' => $slide['body'] ?? '',
       'link_text' => $slide['link_text'] ?? NULL,
       'link_url' => $slide['link_url'] ?? NULL,
+      'currentUserId' => $uid,
     ];
   }
 
@@ -133,7 +95,4 @@ function kin_welcome_page_attachments(array &$attachments) {
     'markShownUrl' => '/kin-welcome/mark-shown',
     'csrfToken' => $csrf_token,
   ];
-
-  // Remove the session flag now that we are displaying the modal
-  $session->remove('show_welcome_modal');
 }

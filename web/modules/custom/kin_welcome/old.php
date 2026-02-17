@@ -1,0 +1,139 @@
+<?php
+
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function xxxkin_welcome_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // Target the user password/profile form that is shown after clicking
+  // a one-time login link
+  if ($form_id === 'user_form') {
+    $current_user = \Drupal::currentUser();
+
+    // Check if this user has never seen the welcome modal
+    $has_seen_modal = \Drupal::service('user.data')->get(
+      'kin_welcome',
+      $current_user->id(),
+      'has_seen_welcome_modal'
+    );
+
+    if ($has_seen_modal) {
+      return;
+    }
+
+    // Check if the user is coming from a one-time login link by checking
+    // if this is a new account that hasn't yet set their password.
+    // We detect this by checking the session flag set in hook_user_login.
+    //$session = \Drupal::request()->getSession();
+    //$is_pass_reset = $session->get('kin_welcome_pass_reset', FALSE);
+
+    //if (!$is_pass_reset) {
+      //return;
+    //}
+
+    // Add a custom submit handler to the user form
+    $form['actions']['submit']['#submit'][] = 'kin_welcome_user_form_submit';
+  }
+}
+
+/**
+ * Implements hook_user_login().
+ */
+function xxxkin_welcome_user_login(UserInterface $account) {
+  // Check if this user has never seen the welcome modal
+  $has_seen_modal = \Drupal::service('user.data')->get(
+    'kin_welcome',
+    $account->id(),
+    'has_seen_welcome_modal'
+  );
+
+  if ($has_seen_modal) {
+    return;
+  }
+
+  // Detect if the user is logging in via a one-time login link.
+  // Drupal sets pass_reset_{uid} in the session when a one-time
+  // login link is used.
+  $session = \Drupal::request()->getSession();
+  $pass_reset = $session->get('pass_reset_' . $account->id());
+
+  if ($pass_reset) {
+    // Set our own flag so we know to show the modal after password save
+    $session->set('kin_welcome_pass_reset', TRUE);
+  }
+}
+
+/**
+ * Custom submit handler for the user form.
+ */
+function xxxkin_welcome_user_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $current_user = \Drupal::currentUser();
+  $session = \Drupal::request()->getSession();
+
+  // Clear the pass reset session flag
+  $session->remove('kin_welcome_pass_reset');
+
+  // Set flag to show the modal on the next page load (the homepage)
+  $session->set('show_welcome_modal', TRUE);
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function xxxkin_welcome_page_attachments(array &$attachments) {
+  $current_user = \Drupal::currentUser();
+
+  // Only for logged in users
+  if ($current_user->isAnonymous()) {
+    return;
+  }
+
+  $session = \Drupal::request()->getSession();
+  $show_modal = $session->get('show_welcome_modal', FALSE);
+
+  if (!$show_modal) {
+    //return;
+  }
+
+  // Double check the user data flag
+  $has_seen_modal = \Drupal::service('user.data')->get(
+    'kin_welcome',
+    $current_user->id(),
+    'has_seen_welcome_modal'
+  );
+
+  if ($has_seen_modal) {
+    $session->remove('show_welcome_modal');
+    return;
+  }
+
+  // Load slide config
+  $config = \Drupal::config('kin_welcome.slides');
+  $slides = $config->get('slides') ?? [];
+
+  // Build slides data for JavaScript
+  $slides_data = [];
+  foreach ($slides as $key => $slide) {
+    $slides_data[] = [
+      'title' => $slide['title'] ?? '',
+      'body' => $slide['body'] ?? '',
+      'link_text' => $slide['link_text'] ?? NULL,
+      'link_url' => $slide['link_url'] ?? NULL,
+    ];
+  }
+
+  // Generate CSRF token for the mark shown endpoint
+  $csrf_token = \Drupal::service('csrf_token')->get('kin-welcome/mark-shown');
+
+  // Attach library and pass slide data to JavaScript
+  $attachments['#attached']['library'][] = 'kin_welcome/welcome_modal';
+  $attachments['#attached']['drupalSettings']['kinWelcome'] = [
+    'slides' => $slides_data,
+    'markShownUrl' => '/kin-welcome/mark-shown',
+    'csrfToken' => $csrf_token,
+  ];
+
+  // Remove the session flag now that we are displaying the modal
+  $session->remove('show_welcome_modal');
+}

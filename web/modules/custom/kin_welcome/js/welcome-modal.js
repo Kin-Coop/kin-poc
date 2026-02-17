@@ -19,9 +19,9 @@
                 <div id="kin-welcome-content"></div>\
               </div>\
               <div id="kin-welcome-footer">\
-                <button id="kin-welcome-prev" class="button">' + Drupal.t('Previous') + '</button>\
+                <button id="kin-welcome-prev" class="btn btn-light">' + Drupal.t('Previous') + '</button>\
                 <span id="kin-welcome-counter"></span>\
-                <button id="kin-welcome-next" class="button button--primary">' + Drupal.t('Next') + '</button>\
+                <button id="kin-welcome-next" class="btn btn-primary">' + Drupal.t('Next') + '</button>\
               </div>\
             </div>\
           </div>\
@@ -55,7 +55,8 @@
 
           // Update next button on last slide
           if (isLast) {
-            $('#kin-welcome-next').text(Drupal.t('Finish'));
+            //$('#kin-welcome-next').text(Drupal.t('Finish'));
+            $('#kin-welcome-next').text(Drupal.t('Set Up Kin Membership'));
 
             // Add link if provided
             if (slide.link_text && slide.link_url) {
