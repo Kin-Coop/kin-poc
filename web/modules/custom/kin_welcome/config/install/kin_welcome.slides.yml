@@ -1,0 +1,15 @@
+slides:
+  slide_1:
+    title: 'Welcome to Our Community!'
+    body: '<p>We are so glad you have joined us. This quick guide will help you get started.</p>'
+  slide_2:
+    title: 'About Us'
+    body: '<p>Here is some information about who we are and what we do.</p>'
+  slide_3:
+    title: 'How It Works'
+    body: '<p>Here is a quick overview of how everything works on our platform.</p>'
+  slide_4:
+    title: 'Get Started'
+    body: '<p>You are ready to go! Click the link below to complete your registration.</p>'
+    link_text: 'Complete Registration'
+    link_url: '/registration-form'

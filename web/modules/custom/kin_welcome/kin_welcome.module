@@ -1,0 +1,80 @@
+<?php
+
+use Drupal\Core\Session\AccountInterface;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_user_login().
+ */
+function kin_welcome_user_login(UserInterface $account) {
+  // Check if this user has never seen the welcome modal
+  // and has completed their initial password set
+  // We store a flag in the session to trigger on next page load
+  $has_seen_modal = \Drupal::service('user.data')->get(
+    'kin_welcome',
+    $account->id(),
+    'has_seen_welcome_modal'
+  );
+
+  if (!$has_seen_modal) {
+    // Set a session flag to show the modal on next page load
+    \Drupal::request()->getSession()->set('show_welcome_modal', TRUE);
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function kin_welcome_page_attachments(array &$attachments) {
+  $current_user = \Drupal::currentUser();
+
+  // Only for logged in users
+  if ($current_user->isAnonymous()) {
+    return;
+  }
+
+  $session = \Drupal::request()->getSession();
+  $show_modal = $session->get('show_welcome_modal', FALSE);
+
+  if (!$show_modal) {
+    return;
+  }
+
+  // Check the user data flag as a double check
+  $has_seen_modal = \Drupal::service('user.data')->get(
+    'kin_welcome',
+    $current_user->id(),
+    'has_seen_welcome_modal'
+  );
+
+  if ($has_seen_modal) {
+    $session->remove('show_welcome_modal');
+    return;
+  }
+
+  // Load slide config
+  $config = \Drupal::config('kin_welcome.slides');
+  $slides = $config->get('slides') ?? [];
+
+  // Build slides data for JavaScript
+  $slides_data = [];
+  foreach ($slides as $key => $slide) {
+    $slides_data[] = [
+      'title' => $slide['title'] ?? '',
+      'body' => $slide['body'] ?? '',
+      'link_text' => $slide['link_text'] ?? NULL,
+      'link_url' => $slide['link_url'] ?? NULL,
+    ];
+  }
+
+  // Generate CSRF token for the mark shown endpoint
+  $csrf_token = \Drupal::service('csrf_token')->get('kin-welcome/mark-shown');
+
+  // Attach library and pass slide data to JavaScript
+  $attachments['#attached']['library'][] = 'kin_welcome/welcome_modal';
+  $attachments['#attached']['drupalSettings']['kinWelcome'] = [
+    'slides' => $slides_data,
+    'markShownUrl' => '/kin-welcome/mark-shown',
+    'csrfToken' => $csrf_token,
+  ];
+}

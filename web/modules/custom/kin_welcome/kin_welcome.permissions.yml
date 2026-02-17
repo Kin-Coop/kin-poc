@@ -1,0 +1,4 @@
+administer welcome modal:
+  title: 'Administer Welcome Modal'
+  description: 'Allows users to edit welcome modal slide content.'
+  restrict access: true

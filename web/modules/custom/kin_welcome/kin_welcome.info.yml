@@ -1,0 +1,7 @@
+name: 'Kin Welcome Modal'
+type: module
+description: 'Displays a welcome modal to new users after first login and password set.'
+core_version_requirement: ^11
+package: Custom
+dependencies:
+  - drupal:user
