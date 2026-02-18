@@ -55,6 +55,11 @@ function kin_welcome_page_attachments(array &$attachments) {
   $user_data = \Drupal::service('user.data');
   $uid = $current_user->id();
 
+  // Get contact ID
+  /** @var \Drupal\kin_civi\Service\Utils $utils */
+  $utils = \Drupal::service('kin_civi.utils');
+  $cid = $utils->kin_civi_get_contact_id($uid);
+
   // Check both flags
   $initial_login = $user_data->get('kin_welcome', $uid, 'initial_login');
   $has_seen_modal = $user_data->get('kin_welcome', $uid, 'has_seen_welcome_modal');
@@ -62,7 +67,7 @@ function kin_welcome_page_attachments(array &$attachments) {
 
   // Only show if it's their initial login and they haven't seen the modal
   if (!$initial_login || $has_seen_modal) {
-    //return;
+    return;
   }
 
   // Reset the initial login flag and mark modal as seen
@@ -81,7 +86,7 @@ function kin_welcome_page_attachments(array &$attachments) {
       'body' => $slide['body'] ?? '',
       'link_text' => $slide['link_text'] ?? NULL,
       'link_url' => $slide['link_url'] ?? NULL,
-      'currentUserId' => $uid,
+      'currentContactId' => $cid,
     ];
   }
 
