@@ -1,0 +1,6 @@
+kin_welcome.slide_settings:
+  title: 'Welcome Modal Slides'
+  description: 'Edit the content of the welcome modal slides.'
+  route_name: kin_welcome.slide_settings
+  parent: system.admin_config_content
+  weight: 10
