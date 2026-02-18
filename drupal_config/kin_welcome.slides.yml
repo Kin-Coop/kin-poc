@@ -7,15 +7,15 @@ slides:
     body_format: basic_html
   slide_2:
     title: 'Contributions (Important!)'
-    body: '<p>Every time you contribute to your group, you must make a record by clicking one of the contribution buttons on the group page.</p><img src="/sites/default/files/inline-images/buttons-web.png" data-entity-uuid="2a5d11a8-db5d-4b05-b316-458a68d2ea89" data-entity-type="file" alt="contribution buttons" width="304" height="166"><p>This will make the contribution appear for your group and create a unique reference.</p><p>You then need to go to your banking app and make the payment to Kin using the reference. You’ll get an email with instructions each time.</p>'
+    body: '<p>Contributing to your group is a 2 step process. First click one of the contribution buttons on your group page.</p><img src="/sites/default/files/inline-images/buttons-web.png" data-entity-uuid="2a5d11a8-db5d-4b05-b316-458a68d2ea89" data-entity-type="file" alt="contribution buttons" width="299" height="163"><p style="margin-top:10px;">This will generate a unique reference. You’ll also get an email with instructions.</p><p>Second go to your banking app and make the payment to Kin using the unique reference.&nbsp;</p>'
     body_format: full_html
   slide_3:
     title: 'Your Membership'
-    body: '<p>Kin is not for profit but it still costs money to maintain the platform and grow the movement.</p><p>To use Kin, you must become a member of Kin Cooperative by <strong>making a membership contribution</strong> of at least £1 per month<strong>*</strong>.</p><p>Note: this is a payment to support the whole cooperative, not to one of your personal groups.</p><p><em>*If you are in a position to help others, please contribute more. If a regular membership payment is too much for you, please get in touch about solidarity membership.</em></p>'
+    body: '<p>Kin is a member-supported not for profit cooperative. There are no transaction fees, no interest and no ads.</p><p>To use Kin, you must become a member of Kin Cooperative by <strong>making a membership contribution</strong> of at least £1 per month<strong>*.</strong></p><p><em>*If you are in a position to help others, please contribute more. If a regular membership payment is too much for you, please get in touch about solidarity membership.</em></p>'
     body_format: basic_html
   slide_4:
     title: 'Complete Your Membership'
-    body: '<p>You are ready to go! Click the button below to complete your registration.</p>'
+    body: '<p>You are ready to go! Click the button below to complete your Kin membership.</p>'
     body_format: basic_html
-    link_text: 'Start Membership'
-    link_url: '/civicrm/contribute/transact?reset=1&id=8&groupid=425&me=2'
+    link_text: 'Set Up Membership'
+    link_url: '/civicrm/contribute/transact?reset=1&id=8&groupid=425'

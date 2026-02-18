@@ -5,11 +5,3 @@ kin_welcome.slide_settings:
     _title: 'Welcome Modal Slide Settings'
   requirements:
     _permission: 'administer welcome modal'
-
-kin_welcome.mark_shown:
-  path: '/kin-welcome/mark-shown'
-  defaults:
-    _controller: '\Drupal\kin_welcome\Controller\WelcomeModalController::markShown'
-    _title: 'Mark Welcome Modal as Shown'
-  requirements:
-    _user_is_logged_in: 'TRUE'

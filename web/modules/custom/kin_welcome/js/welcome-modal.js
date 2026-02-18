@@ -56,18 +56,20 @@
           // Update next button on last slide
           if (isLast) {
             //$('#kin-welcome-next').text(Drupal.t('Finish'));
-            $('#kin-welcome-next').text(Drupal.t('Set Up Kin Membership')).attr('href', slide.link_url);
+            //$('#kin-welcome-next').text(Drupal.t('Set Up Kin Membership')).attr('href', slide.link_url);
 
             // Add link if provided
-            //if (slide.link_text && slide.link_url) {
-              //if (!$('#kin-welcome-link').length) {
-                //var $link = $('<a id="kin-welcome-link" class="button button--secondary"></a>');
-                //$('#kin-welcome-footer').append($link);
-              //}
-              //$('#kin-welcome-link')
-                //.text(slide.link_text)
-                //.attr('href', slide.link_url);
-            //}
+            if (slide.link_text && slide.link_url) {
+              if (!$('#kin-welcome-link').length) {
+                var $link = $('<a id="kin-welcome-link" class="btn btn-primary"></a>');
+                var $href = slide.link_url + '&me=' + slide.currentContactId;
+                $('#kin-welcome-footer').append($link);
+              }
+              $('#kin-welcome-link')
+                .text(slide.link_text)
+                .attr('href', $href);
+              $('#kin-welcome-next').remove();
+            }
           } else {
             $('#kin-welcome-next').text(Drupal.t('Next'));
             $('#kin-welcome-link').remove();

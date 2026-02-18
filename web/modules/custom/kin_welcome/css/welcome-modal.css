@@ -30,32 +30,43 @@
   background: #f0f0f0;
   height: 6px;
   border-radius: 8px 8px 0 0;
-  overflow: hidden;
 }
 
 #kin-welcome-progress {
   height: 100%;
-  background: #2D4C9B;
+  min-height: 6px;
+  background: #E6460F;
   transition: width 0.3s ease;
   width: 0%;
 }
 
 /* Body */
 #kin-welcome-body {
-  padding: 40px;
+  padding: 30px 40px;
   flex: 1;
 }
 
 #kin-welcome-title {
-  margin: 0 0 20px 0;
   font-size: 1.8em;
   color: #333;
+  margin: -30px -40px 20px -40px;
+  padding: 30px 40px 30px 40px;
+  background: #2D4C9B;
+  color: #fff;
 }
 
 #kin-welcome-content {
-  font-size: 1em;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.5;
   color: #555;
+
+  p {
+    font-size: 1.15rem;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
 }
 
 /* Footer */
