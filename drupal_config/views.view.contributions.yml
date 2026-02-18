@@ -1707,6 +1707,7 @@ display:
           value:
             1: '1'
             2: '2'
+            8: '8'
           group: 1
           exposed: false
           expose:
@@ -6939,6 +6940,7 @@ display:
           value:
             1: '1'
             2: '2'
+            8: '8'
           group: 1
           exposed: false
           expose:
