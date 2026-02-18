@@ -5,6 +5,7 @@ use Drupal\user\UserInterface;
 /**
  * Implements hook_user_login().
  */
+/*
 function kin_welcome_user_login(UserInterface $account) {
   // Check if this user has never seen the welcome modal
   $has_seen_modal = \Drupal::service('user.data')->get(
@@ -23,6 +24,7 @@ function kin_welcome_user_login(UserInterface $account) {
     );
   }
 }
+*/
 
 /**
  * Implements hook_page_attachments().
@@ -61,12 +63,16 @@ function kin_welcome_page_attachments(array &$attachments) {
   $cid = $utils->kin_civi_get_contact_id($uid);
 
   // Check both flags
-  $initial_login = $user_data->get('kin_welcome', $uid, 'initial_login');
+  //$initial_login = $user_data->get('kin_welcome', $uid, 'initial_login');
   $has_seen_modal = $user_data->get('kin_welcome', $uid, 'has_seen_welcome_modal');
   //$has_seen_modal = 0;
 
   // Only show if it's their initial login and they haven't seen the modal
-  if (!$initial_login || $has_seen_modal) {
+  //if (!$initial_login || $has_seen_modal) {
+    //return;
+  //}
+
+  if($has_seen_modal) {
     return;
   }
 

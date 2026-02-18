@@ -1,0 +1,5 @@
+services:
+  kin_welcome.commands:
+    class: \Drupal\kin_welcome\Commands\KinWelcomeCommands
+    tags:
+      - { name: drush.command }
