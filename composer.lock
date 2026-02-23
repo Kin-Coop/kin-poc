@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e3636e3f5fee62419c1a0b0b9e8b57be",
+    "content-hash": "2600f38e5d0bd062b3babc6b47938db9",
     "packages": [
         {
             "name": "adrienrn/php-mimetyper",
@@ -4957,60 +4957,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/fitvids",
                 "issues": "https://www.drupal.org/project/issues/fitvids"
-            }
-        },
-        {
-            "name": "drupal/fontawesome",
-            "version": "3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/fontawesome.git",
-                "reference": "3.0.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/fontawesome-3.0.0.zip",
-                "reference": "3.0.0",
-                "shasum": "48102613a7cb6791db4d50c0ffe8604cdb29623f"
-            },
-            "require": {
-                "drupal/core": "^10.2 || ^11.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "3.0.0",
-                    "datestamp": "1737497622",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                },
-                "drush": {
-                    "services": {
-                        "drush.services.yml": "^12 || ^13"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "daniel.moberly",
-                    "homepage": "https://www.drupal.org/user/1160788"
-                },
-                {
-                    "name": "truls1502",
-                    "homepage": "https://www.drupal.org/user/325866"
-                }
-            ],
-            "description": "The web's most popular icon set and toolkit.",
-            "homepage": "https://www.drupal.org/project/fontawesome",
-            "support": {
-                "source": "https://git.drupalcode.org/project/fontawesome",
-                "issues": "https://drupal.org/project/issues/fontawesome"
             }
         },
         {
