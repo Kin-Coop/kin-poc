@@ -14098,4 +14098,14 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   color: #000 !important;
 }
 
+.icon-collapse:after {
+  content: "\f235";
+  font-family: "bootstrap-icons";
+  vertical-align: bottom;
+  transition: all 1s;
+}
+.icon-collapse[aria-expanded=false]:after {
+  content: "\f229";
+}
+
 /*# sourceMappingURL=style.css.map */
