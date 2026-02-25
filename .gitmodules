@@ -1,3 +1,6 @@
 [submodule "web/sites/default/files/civicrm/ext/ca.civicrm.contributionrecur"]
 	path = web/sites/default/files/civicrm/ext/ca.civicrm.contributionrecur
 	url = https://github.com/Kin-Coop/ca.civicrm.contributionrecur.git
+[submodule "web/modules/custom/civicrmtokens-d8"]
+	path = web/modules/custom/civicrmtokens-d8
+	url = https://lab.civicrm.org/ben/civicrmtokens-d8.git
