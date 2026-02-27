@@ -66,6 +66,25 @@ function kinmod_views_pre_render($view){
             $view->exposed_widgets = FALSE;
         }
     }
+
+  if ($view->id() == "contributions" && $view->current_display == 'page_2') {
+    $total = 0;
+    foreach ($view->result as $value) {
+      $number = $value->_entity->get('total_amount')->value;
+      $total += $number;
+      //$total ++;
+    }
+    $info = '<sup tabindex="0"
+     data-bs-toggle="popover"
+     data-bs-trigger="focus"
+     class="question-mark"
+     title="Info"
+     data-bs-content="The total amount is the sum of the rows displayed below. It does not include contributions that are not displayed below."><em><i class="fs-5 fw-bold bi bi-question-circle-fill text-secondary"></i></em></sup>';
+    $view->attachment_before = [
+      '#markup' => '<table class="table cols-0"><tr><td><strong>Total Amount: £'.$total.'</strong> ' . $info . '</td></tr></table>',
+      '#allowed_tags' => ['table','tr','td','strong','sup','em','i'],
+    ];
+  }
 }
 
 
