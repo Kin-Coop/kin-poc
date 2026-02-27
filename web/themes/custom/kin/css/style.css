@@ -14108,4 +14108,34 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   content: "\f229";
 }
 
+.bg-primary > .btn-secondary {
+  background: #5CBEB5;
+}
+.bg-primary > .btn-secondary:hover {
+  background: #FDC652;
+}
+
+#webform-submission-candidate-voting-add-form ul.token-input-list {
+  background: transparent;
+  border: 1px solid black;
+  border-radius: 6px;
+}
+#webform-submission-candidate-voting-add-form ul.token-input-list li.token-input-token {
+  background: transparent;
+  border: none;
+}
+#webform-submission-candidate-voting-add-form fieldset {
+  border: 1px solid #2D4C9B;
+  padding: 14px;
+  border-radius: 6px;
+}
+#webform-submission-candidate-voting-add-form fieldset legend span {
+  background: #2D4C9B;
+  color: #fff;
+  margin: 14px -15px 0 -15px;
+}
+#webform-submission-candidate-voting-add-form fieldset > .fieldset-wrapper .form-item:first-child {
+  margin-top: 0;
+}
+
 /*# sourceMappingURL=style.css.map */

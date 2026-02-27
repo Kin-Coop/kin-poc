@@ -20,6 +20,7 @@ module:
   captcha: 0
   civicrm: 0
   civicrmtheme: 0
+  civicrmtokens: 0
   ckeditor5: 0
   ckeditor_font: 0
   comment: 0
@@ -102,6 +103,7 @@ module:
   shortcut: 0
   simple_image_rotate: 0
   simple_sitemap: 0
+  svg_image: 0
   symfony_mailer: 0
   system: 0
   taxonomy: 0
