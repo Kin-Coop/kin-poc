@@ -3,6 +3,7 @@ langcode: en-gb
 status: true
 dependencies:
   module:
+    - better_exposed_filters
     - civicrm_entity
     - datetime
     - options
@@ -570,7 +571,7 @@ display:
         type: basic
         options:
           submit_button: Search
-          reset_button: false
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -1598,6 +1599,44 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
+      exposed_form:
+        type: bef
+        options:
+          submit_button: Search
+          reset_button: true
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+          text_input_required: 'Select any filter and click on Apply to see results'
+          text_input_required_format: basic_html
+          bef:
+            general:
+              autosubmit: false
+              auto_submit_sort_only: false
+              autosubmit_breakpoint: ''
+              autosubmit_exclude_textfield: false
+              autosubmit_textfield_delay: 500
+              autosubmit_textfield_minimum_length: 3
+              autosubmit_hide: false
+              input_required: false
+              allow_secondary: false
+              secondary_label: 'Advanced options'
+              secondary_open: false
+              reset_button_always_show: false
+            filter:
+              display_name:
+                plugin_id: default
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  open_by_default: false
+                  is_secondary: false
+                  hide_label: false
+                  field_classes: ''
+                  sort_options_unsupported: ''
       cache:
         type: none
         options: {  }
@@ -1643,56 +1682,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        display_name:
-          id: display_name
-          table: civicrm_contact
-          field: display_name
-          relationship: contact_id
-          group_type: group
-          admin_label: ''
-          entity_type: civicrm_contact
-          entity_field: display_name
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: display_name_op
-            label: ''
-            description: ''
-            use_operator: false
-            operator: display_name_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: contributor
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            placeholder: Contributor
-            autocomplete_filter: 0
-            autocomplete_min_chars: '2'
-            autocomplete_items: '4'
-            autocomplete_field: display_name
-            autocomplete_raw_suggestion: 1
-            autocomplete_raw_dropdown: 1
-            autocomplete_dependent: 0
-            autocomplete_contextual: 0
-            autocomplete_autosubmit: 0
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         contribution_status_id:
           id: contribution_status_id
           table: civicrm_contribution
@@ -1707,6 +1696,7 @@ display:
           value:
             1: '1'
             2: '2'
+            8: '8'
           group: 1
           exposed: false
           expose:
@@ -1746,6 +1736,7 @@ display:
         css_class: false
         use_ajax: false
         pager: false
+        exposed_form: false
         fields: false
         filters: false
         filter_groups: false
@@ -1789,79 +1780,6 @@ display:
     display_options:
       title: 'Contributions Total'
       fields:
-        id:
-          id: id
-          table: civicrm_contact
-          field: id
-          relationship: household_25
-          group_type: count
-          admin_label: ''
-          entity_type: civicrm_contact
-          entity_field: id
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          set_precision: false
-          precision: 0
-          decimal: .
-          format_plural: false
-          format_plural_string: !!binary MQNAY291bnQ=
-          prefix: ''
-          suffix: ''
         total_amount:
           id: total_amount
           table: civicrm_contribution
@@ -1906,8 +1824,8 @@ display:
           element_label_type: ''
           element_label_class: ''
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: h2
+          element_wrapper_class: 'mb-0 rounded'
           element_default_classes: true
           empty: ''
           hide_empty: false
@@ -2039,64 +1957,29 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-        display_name:
-          id: display_name
-          table: civicrm_contact
-          field: display_name
-          relationship: contact_id
-          group_type: group
-          admin_label: ''
-          entity_type: civicrm_contact
-          entity_field: display_name
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: display_name_op
-            label: ''
-            description: ''
-            use_operator: false
-            operator: display_name_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: name
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            placeholder: Contributor
-            autocomplete_filter: 0
-            autocomplete_min_chars: '0'
-            autocomplete_items: '10'
-            autocomplete_field: ''
-            autocomplete_raw_suggestion: 1
-            autocomplete_raw_dropdown: 1
-            autocomplete_dependent: 0
-            autocomplete_contextual: 0
-            autocomplete_autosubmit: 0
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
       filter_groups:
         operator: AND
         groups: {  }
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+      row:
+        type: fields
+        options:
+          default_field_elements: true
+          inline: {  }
+          separator: ''
+          hide_empty: false
       defaults:
         title: false
         css_class: false
         pager: false
         group_by: false
+        style: false
+        row: false
         fields: false
         sorts: false
         arguments: false
@@ -2104,37 +1987,11 @@ display:
         filter_groups: false
         header: false
         footer: false
-      css_class: 'member-block col-md-6'
+      css_class: 'member-block col-md-6 pb-0'
       group_by: true
       display_description: ''
-      header:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text
-          empty: true
-          content:
-            value: '<h2 class="kin-accordion">Total: {{ total_amount }}</h2>'
-            format: full_html
-          tokenize: true
-      footer:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text
-          empty: false
-          content:
-            value: '<p>Only completed transactions are included in the total.</p>'
-            format: basic_html
-          tokenize: false
+      header: {  }
+      footer: {  }
       display_extenders:
         attributes: {  }
         metatag_display_extender:
@@ -6830,6 +6687,48 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
+      exposed_form:
+        type: bef
+        options:
+          submit_button: Search
+          reset_button: true
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+          text_input_required: 'Select any filter and click on Apply to see results'
+          text_input_required_format: basic_html
+          bef:
+            general:
+              autosubmit: false
+              auto_submit_sort_only: false
+              autosubmit_breakpoint: ''
+              autosubmit_exclude_textfield: false
+              autosubmit_textfield_delay: 500
+              autosubmit_textfield_minimum_length: 3
+              autosubmit_hide: false
+              input_required: false
+              allow_secondary: false
+              secondary_label: 'Advanced options'
+              secondary_open: false
+              reset_button_always_show: false
+            pager:
+              plugin_id: default
+              advanced:
+                is_secondary: false
+            filter:
+              display_name:
+                plugin_id: default
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  collapsible_disable_automatic_open: false
+                  open_by_default: false
+                  is_secondary: false
+                  hide_label: false
+                  field_classes: ''
+                  sort_options_unsupported: ''
       cache:
         type: none
         options: {  }
@@ -6939,6 +6838,7 @@ display:
           value:
             1: '1'
             2: '2'
+            8: '8'
           group: 1
           exposed: false
           expose:
@@ -6978,6 +6878,7 @@ display:
         css_class: false
         use_ajax: false
         pager: false
+        exposed_form: false
         fields: false
         filters: false
         filter_groups: false
@@ -6996,7 +6897,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<div class=\"bg-primary d-flex justify-content-between p-2 no-margin align-items-center\">\r\n<h2>History <sup tabindex=\"0\"\r\n     data-bs-toggle=\"popover\"\r\n     data-bs-trigger=\"focus\"\r\n     class=\"question-mark\"\r\n     title=\"Something missing?\"\r\n     data-bs-content=\"If you think a contribution is missing from your records, please contact us immediately\"><em><i class=\"fs-3 fw-bold bi bi-question-circle-fill\"></i></em></sup> </h2>\r\n<a class=\"btn btn-secondary\" href=\"/member/group/{{ id }}\"><i class=\"bi bi-arrow-left\"></i> Back to group page</a></div>"
+            value: "<div class=\"bg-primary d-flex justify-content-between p-2 no-margin align-items-center\">\r\n<h2>History <sup tabindex=\"0\"\r\n     data-bs-toggle=\"popover\"\r\n     data-bs-trigger=\"focus\"\r\n     class=\"question-mark\"\r\n     title=\"Something missing?\"\r\n     data-bs-content=\"If you think a contribution is missing from your records, please contact us immediately\"><em><i class=\"fs-4 fw-bold bi bi-question-circle-fill\"></i></em></sup> </h2>\r\n<a class=\"btn btn-secondary\" href=\"/member/group/{{ id }}\"><i class=\"bi bi-arrow-left\"></i> Back to group page</a></div>"
             format: full_html
           tokenize: true
       display_extenders:

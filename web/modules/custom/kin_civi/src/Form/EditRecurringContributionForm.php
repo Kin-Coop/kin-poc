@@ -140,6 +140,26 @@ class EditRecurringContributionForm extends FormBase {
     }
   }
 
+  protected static function getUniqueReference($recurring_contribution_id = NULL) {
+    try {
+      $contact = \Civi\Api4\Contribution::get(FALSE)
+        ->addSelect( 'Unique_Contribution_ID.Unique_Contribution_Reference')
+        ->addWhere('contribution_recur_id', '=', $recurring_contribution_id)
+        ->addOrderBy('id', 'DESC')
+        ->setLimit(1)
+        ->execute()
+        ->first();
+
+      return $contact['Unique_Contribution_ID.Unique_Contribution_Reference'] ?? NULL;
+    }
+    catch (\Exception $e) {
+      \Drupal::logger('kin_civi')->error('Error getting CiviCRM contact: @message', [
+        '@message' => $e->getMessage(),
+      ]);
+      return NULL;
+    }
+  }
+
   /**
    * {@inheritdoc}
    */
@@ -324,6 +344,26 @@ class EditRecurringContributionForm extends FormBase {
           '@id' => $recurring_contribution_id,
           '@user' => $this->currentUser()->id(),
         ]);
+
+        try {
+          $params = [
+            'id' => 133, // Message Template ID
+            'contact_id' => self::getCiviCrmContactId($this->currentUser()),
+            'from' => '"Kin Cooperative" <members@kin.coop>',
+            // Optional: specify email override if you want to force a specific address
+            'to_email' => $this->currentUser()->getEmail(),
+            'tplParams' => [
+              'group' => self::getCiviContactName($recurring_contribution_id),
+              'amount' => $amount,
+              'unique_ref' => self::getUniqueReference($recurring_contribution_id),
+              'next_sched_contribution_date' => date('d/m/Y', strtotime($next_date)),
+            ],
+          ];
+
+          civicrm_api3('MessageTemplate', 'send', $params);
+        } catch (Exception $e) {
+          \Civi::log()->error('Failed to send to contact ' . $admin['contact_id_a'] . ': ' . $e->getMessage());
+        }
 
         // Redirect to a success page or back to user profile
         // $form_state->setRedirect('<front>');

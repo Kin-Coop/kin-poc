@@ -11,8 +11,8 @@ slides:
     body_format: full_html
   slide_3:
     title: 'Your Membership'
-    body: '<p>Kin is a member-supported not for profit cooperative. There are no transaction fees, no interest and no ads.</p><p>To use Kin, you must become a member of Kin Cooperative by <strong>making a membership contribution</strong> of at least £1 per month<strong>*.</strong></p><p><em>*If you are in a position to help others, please contribute more. If a regular membership payment is too much for you, please get in touch about solidarity membership.</em></p>'
-    body_format: basic_html
+    body: '<p>Kin is a member-supported not for profit cooperative. There are no transaction fees, no interest and no ads.</p><p>To use Kin, you must become a member of Kin Cooperative by <strong>making a membership contribution</strong> of at least £1 per month<strong>*.</strong></p><p><em>*If you are in a position to help others, please contribute more. If a regular membership payment is too much for you, </em><a href="/contact" target="_blank"><em>please get in touch</em></a><em> about solidarity membership.</em></p>'
+    body_format: full_html
   slide_4:
     title: 'Complete Your Membership'
     body: '<p>You are ready to go! Click the button below to complete your Kin membership.</p>'

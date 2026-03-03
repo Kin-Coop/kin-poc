@@ -1653,3 +1653,67 @@ div.block.vertical {
     }
   }
 }
+
+.icon-collapse {
+  &:after {
+    content: "\F235";
+    font-family: "bootstrap-icons";
+    vertical-align: bottom;
+    transition: all 1s;
+    //font-size: 1rem;
+  }
+
+  &[aria-expanded="false"] {
+    &:after {
+      content: "\F229";
+    }
+  }
+}
+
+.bg-primary {
+  > .btn-secondary {
+    background: $secondary;
+    &:hover {
+      background: $yellow;
+    }
+  }
+}
+
+#webform-submission-candidate-voting-add-form {
+
+  ul.token-input-list {
+    background: transparent;
+    border: 1px solid black;
+    border-radius: 6px;
+
+    li.token-input-token {
+      background: transparent;
+      border: none;
+    }
+  }
+  fieldset {
+    border: 1px solid $primary;
+    padding: 14px;
+    border-radius: 6px;
+
+    legend {
+      span {
+        background: $primary;
+        color: #fff;
+        margin: 14px -15px 0 -15px;
+      }
+    }
+
+    > .fieldset-wrapper {
+      .form-item {
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+
+      fieldset.radios--wrapper {
+        //background: #fff;
+      }
+    }
+  }
+}
