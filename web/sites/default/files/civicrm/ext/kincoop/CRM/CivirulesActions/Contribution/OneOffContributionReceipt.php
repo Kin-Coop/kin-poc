@@ -33,25 +33,22 @@ class CRM_CivirulesActions_Contribution_OneOffContributionReceipt extends CRM_Ci
       ->execute()
       ->first();
 
-    foreach ($contribution as $field => $value) {
-      if (strpos($field, 'custom_') === 0 && !empty($value)) {
-        $label = \CRM_Core_BAO_CustomField::getLabel($field);
-        $body .= "<li><strong>{$label}:</strong> {$value}</li>";
-      }
-    }
+    $formattedDate = date('jS F Y \a\t g:ia', strtotime($contribution['receive_date']));
 
     try {
       $params = [
         'id' => 134, // Message Template ID
         'contact_id' => $contribution['contact_id'], // Recipient’s contact ID
         'contribution_id' => $contribution['id'],
+        'tokenContext' => [
+          'contactId' => $contribution['contact_id'],
+          'contributionId' => $contribution['id'],
+        ],
         'from' => '"Kin Cooperative" <members@kin.coop>',
         // Optional: specify email override if you want to force a specific address
         'to_email' => $contact['email_primary.email'],
         'tplParams' => [
-          //'admin_name' => $admin['contact_id_a.first_name'],
-          //'group' => $group_name["display_name"],
-          //'amount' => $amount,
+          'date' => $formattedDate,
         ],
       ];
 
