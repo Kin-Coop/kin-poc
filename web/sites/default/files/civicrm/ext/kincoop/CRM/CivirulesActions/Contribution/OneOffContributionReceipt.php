@@ -1,7 +1,5 @@
 <?php
 
-//use CRM_CivirulesActions_Email_SendEmail as BaseSendEmail;
-
 /**
  * Custom CiviRules action: Send email with custom contribution fields.
  */
@@ -35,17 +33,25 @@ class CRM_CivirulesActions_Contribution_OneOffContributionReceipt extends CRM_Ci
 
     $formattedDate = date('jS F Y \a\t g:ia', strtotime($contribution['receive_date']));
 
+    // Get the message template ID from the action parameters
+    $actionParams = $this->getActionParameters();
+    $messageTemplateId = $actionParams['message_template_id'] ?? NULL;
+
+    if (empty($messageTemplateId)) {
+      \Civi::log()->error('OneOffContributionReceipt action: No message template selected.');
+      return;
+    }
+
     try {
       $params = [
-        'id' => 134, // Message Template ID
-        'contact_id' => $contribution['contact_id'], // Recipient’s contact ID
+        'id' => $messageTemplateId, // Use the configured template ID
+        'contact_id' => $contribution['contact_id'],
         'contribution_id' => $contribution['id'],
         'tokenContext' => [
           'contactId' => $contribution['contact_id'],
           'contributionId' => $contribution['id'],
         ],
         'from' => '"Kin Cooperative" <members@kin.coop>',
-        // Optional: specify email override if you want to force a specific address
         'to_email' => $contact['email_primary.email'],
         'tplParams' => [
           'date' => $formattedDate,
@@ -58,9 +64,32 @@ class CRM_CivirulesActions_Contribution_OneOffContributionReceipt extends CRM_Ci
     }
   }
 
-  public function getExtraDataInputUrl($ruleActionId)
-  {
-    // TODO: Implement getExtraDataInputUrl() method.
-    return FALSE;
+  /**
+   * Returns the URL to the configuration form.
+   */
+  public function getExtraDataInputUrl($ruleActionId) {
+    return CRM_Utils_System::url('civicrm/civirule/form/action/contribution/oneoffreceipt', 'rule_action_id=' . $ruleActionId);
   }
+
+  /**
+   * Returns a user-friendly description of the action configuration.
+   */
+  public function userFriendlyConditionParams() {
+    $params = $this->getActionParameters();
+    $messageTemplateId = $params['message_template_id'] ?? NULL;
+
+    if (empty($messageTemplateId)) {
+      return 'No message template selected';
+    }
+
+    try {
+      $template = civicrm_api3('MessageTemplate', 'getsingle', [
+        'id' => $messageTemplateId,
+      ]);
+      return 'Send message template: ' . $template['msg_title'];
+    } catch (Exception $e) {
+      return 'Message template ID: ' . $messageTemplateId;
+    }
+  }
+
 }
