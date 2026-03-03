@@ -8,5 +8,10 @@
     "name": "contribution_cancel_old_rc",
     "label": "Cancel old RCs and send email",
     "class_name": "CRM_CivirulesActions_Contribution_CancelOldPendingRC"
+  },
+  {
+    "name": "contribution_send_oneoff_receipt",
+    "label": "Send receipt for one off contribution",
+    "class_name": "CRM_CivirulesActions_Contribution_OneOffContributionReceipt"
   }
 ]
