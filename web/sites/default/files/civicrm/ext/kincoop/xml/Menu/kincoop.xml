@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<menu>
-  <item>
-    <path>civicrm/civirule/form/action/contribution/oneoffreceipt</path>
-    <page_callback>CRM_CivirulesActions_Contribution_Form_OneOffContributionReceipt</page_callback>
-    <title>Configure One-Off Contribution Receipt</title>
-    <access_arguments>administer CiviCRM</access_arguments>
-  </item>
-</menu>

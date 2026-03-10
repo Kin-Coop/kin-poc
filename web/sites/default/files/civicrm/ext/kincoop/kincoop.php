@@ -298,6 +298,7 @@ function kincoop_civicrm_enable(): void {
  *
  * Register menu items for custom forms.
  */
+
 /*
 function kincoop_civicrm_xmlMenu(&$files) {
   _kincoop_civix_civicrm_xmlMenu($files);
@@ -306,7 +307,8 @@ function kincoop_civicrm_xmlMenu(&$files) {
 /**
  * Implements hook_civicrm_alterMenu().
  */
-/*
+
+
 function kincoop_civicrm_alterMenu(&$items) {
   $items['civicrm/civirule/form/action/contribution/oneoffreceipt'] = [
     'page_callback' => 'CRM_CivirulesActions_Contribution_Form_OneOffContributionReceipt',
@@ -314,7 +316,7 @@ function kincoop_civicrm_alterMenu(&$items) {
     'access_arguments' => [['administer CiviCRM'], 'and'],
   ];
 }
-*/
+
 
 function isNewContribution($objectName, $op): bool {
   return $objectName == 'Contribution' && $op == 'create';
