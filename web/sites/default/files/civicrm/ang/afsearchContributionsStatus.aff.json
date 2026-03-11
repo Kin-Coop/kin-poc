@@ -19,6 +19,7 @@
     "redirect": null,
     "submit_enabled": true,
     "submit_limit": null,
+    "submit_limit_per_user": null,
     "create_submission": false,
     "manual_processing": false,
     "allow_verification_by_email": false,
@@ -29,5 +30,9 @@
         "label": "Contributions",
         "weight": 0
     },
-    "modified_date": "2025-04-08 12:25:52"
+    "modified_date": "2026-03-10 14:18:32",
+    "confirmation_type": "redirect_to_url",
+    "confirmation_message": null,
+    "created_id": null,
+    "locale": null
 }
