@@ -325,6 +325,12 @@
     <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
   </item>
   <item>
+    <path>civicrm/civirule/form/trigger/weeklygroupmembership</path>
+    <page_callback>CRM_CivirulesCronTrigger_Form_WeeklyGroupMembership</page_callback>
+    <title>Group membership</title>
+    <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
+  </item>
+  <item>
     <path>civicrm/civirule/form/trigger/event</path>
     <page_callback>CRM_CivirulesPostTrigger_Form_Event</page_callback>
     <title>Event</title>
@@ -533,6 +539,12 @@
     <path>civicrm/civirule/form/condition/event_type</path>
     <page_callback>CRM_CivirulesConditions_Form_Event_EventType</page_callback>
     <title>Event type</title>
+    <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/civirule/form/condition/upcoming_events</path>
+    <page_callback>CRM_CivirulesConditions_Form_Event_UpcomingEvents</page_callback>
+    <title>Upcoming Events</title>
     <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
   </item>
   <item>

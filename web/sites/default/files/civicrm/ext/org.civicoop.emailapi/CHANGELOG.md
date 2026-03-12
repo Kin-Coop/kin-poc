@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.25.0 (2026-02-11)
+
+* [#33](https://lab.civicrm.org/extensions/emailapi/-/issues/33) Fixed Send E-mail to a contact reference fails.
+* Improved configuration for the action 'Send E-mail to a contact reference'. Restrict the selection to allowed entities.
+* [!78](https://lab.civicrm.org/extensions/emailapi/-/merge_requests/78) Support mosaicomsgtpl for messagetemplate link.
+
 ## Version 2.24.0 (2025-12-03)
 
 * [!75](https://lab.civicrm.org/extensions/emailapi/-/merge_requests/75) Switch to user language when sending messages for proper tokens.

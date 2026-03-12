@@ -1,3 +1,0 @@
-[
-  {"name":"cmsuser_get","label":"Contact has (not) a CMS user","class_name":"CRM_CivirulesConditions_Cmsuser_HasAccount"}
-]

@@ -96,4 +96,31 @@ class CRM_CivirulesConditions_Participant_Status extends CRM_CivirulesConditions
     return parent::importConditionParameters($condition_params);
   }
 
+  /**
+   * Method to determine if the condition is valid
+   *
+   * @param CRM_Civirules_TriggerData_TriggerData $triggerData
+   * @return bool
+   */
+  public function isConditionValid(CRM_Civirules_TriggerData_TriggerData $triggerData) {
+    $isConditionValid = FALSE;
+    $entityData = $triggerData->getEntityData($this->getEntity());
+    $statusId = $entityData['status_id'] ?? $entityData['participant_status_id'] ;
+    switch ($this->conditionParams['operator']) {
+      case 0:
+        if (in_array($statusId, $this->conditionParams['status_id'])) {
+          $isConditionValid = TRUE;
+        }
+        break;
+
+      case 1:
+        if (!in_array($statusId, $this->conditionParams['status_id'])) {
+          $isConditionValid = TRUE;
+        }
+        break;
+    }
+
+    return $isConditionValid;
+  }
+
 }

@@ -75,7 +75,6 @@ class CRM_ContributionButtonLabel_ExtensionUtil {
     return self::CLASS_PREFIX . '_' . str_replace('\\', '_', $suffix);
   }
 
-
 }
 
 use CRM_ContributionButtonLabel_ExtensionUtil as E;

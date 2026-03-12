@@ -126,107 +126,78 @@ function contributionbuttonlabel_civicrm_buildForm($formName, &$form) {
       'CRM_Contribute_Form_Contribution_Confirm' => ['_qf_Confirm_next', 'confirm'],
       'CRM_Contribute_Form_Contribution_Main' => ['_qf_Main_upload', 'main'],
     ];
-
     foreach ($buttons->_elements as &$elements) {
       if ($elements->_attributes['name'] == $values[$formName][0]) {
-        _contributionbuttonlabel_getButtonLabel($elements, $form->getVar('_id'), $values[$formName][1]);
+        _contributionbuttonlabel_setButtonLabel($elements, $form->getVar('_id'), $values[$formName][1]);
         break;
       }
-    }
-  }
-
-  if ('CRM_Contribute_Form_ContributionPage_Settings' == $formName
-    && !($form->getVar('_action') & CRM_Core_Action::DELETE)
-  ) {
-    if ($form->getVar('_id') && empty($_REQUEST['snippet'])) {
-      return;
-    }
-    $form->add('text', 'main_page_button_label', ts('Main Page Button Label'));
-    $form->add('text', 'confirm_page_button_label', ts('Confirm Page Button Label'));
-    CRM_Core_Region::instance('page-body')->add([
-      'template' => 'CRM/ContributionButtonLabel/Label.tpl',
-    ]);
-
-    if ($form->getVar('_id')) {
-      $contributionPage = civicrm_api4('ContributionPage', 'get', [
-        'select' => [
-          'contributionbuttonlabel_cg_buttonlabel.contributionbuttonlabel_cf_main',
-          'contributionbuttonlabel_cg_buttonlabel.contributionbuttonlabel_cf_confirm',
-        ],
-        'where' => [
-          ['id', '=', $form->getVar('_id')],
-        ],
-        'checkPermissions' => FALSE,
-      ], 0);
-
-      $defaults = [
-        'main_page_button_label' => $contributionPage['contributionbuttonlabel_cg_buttonlabel.contributionbuttonlabel_cf_main'],
-        'confirm_page_button_label' => $contributionPage['contributionbuttonlabel_cg_buttonlabel.contributionbuttonlabel_cf_confirm'],
-      ];
-
-      $form->setDefaults($defaults);
     }
   }
 }
 
 /**
- * Implements hook_civicrm_post().
+ * Set a custom button label on a contribution page element.
  *
- * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_post
+ * @param object $element
+ * @param int $contributionPageId
+ * @param string $pageName
  */
-function contributionbuttonlabel_civicrm_post($op, $objectName, $objectId, &$objectRef) {
-  if ($objectName == 'ContributionPage' && in_array($op, ['edit', 'create'])
-    && (isset($_POST['main_page_button_label']) || isset($_POST['confirm_page_button_label']))
-    && empty(Civi::$statics['contributionbuttonlabel_civicrm_post']['called'])
-  ) {
-    try {
-      Civi::$statics['contributionbuttonlabel_civicrm_post']['called'] = TRUE;
-      $result = civicrm_api3('CustomField', 'get', [
-        'return' => ['name'],
-        'custom_group_id' => 'contributionbuttonlabel_cg_buttonlabel',
-      ])['values'];
-      $result = array_column($result, 'id', 'name');
-      civicrm_api3('ContributionPage', 'create', [
-        'id' => $objectId,
-        "custom_{$result['contributionbuttonlabel_cf_main']}" => $_POST['main_page_button_label'] ?? 'null',
-        "custom_{$result['contributionbuttonlabel_cf_confirm']}" => $_POST['confirm_page_button_label'] ?? 'null',
-      ]);
-    }
-    catch (Exception $e) {
-    }
+function _contributionbuttonlabel_setButtonLabel(&$element, $contributionPageId, $pageName) {
+  $labelName = _contributionbuttonlabel_getButtonLabel($contributionPageId, $pageName);
+
+  if (empty($labelName)) {
+    return;
   }
+
+  if (!property_exists($element, '_content')) {
+    $element->_attributes['value'] = $labelName;
+  }
+  else {
+    $element->_content = substr_replace($element->_content, $labelName, (strpos($element->_content, '/i> ') + 4));
+  }
+  if ($pageName == 'confirm') {
+    _contributionbuttonlabel_civicrm_setPaymentProcessorText($labelName);
+  }
+
+}
+
+/**
+ * Replace default payment processor button help text with a custom label.
+ *
+ * @param string $newLabel
+ */
+function _contributionbuttonlabel_civicrm_setPaymentProcessorText($newLabel) {
+  $smarty = CRM_Core_Smarty::singleton();
+  // FIXME: Need to handle via the UI, may be Option group?
+  $buttonText = [
+    '<strong>Make Contribution</strong>',
+    '<strong>Make Payment</strong>',
+    '<strong>Continue</strong>',
+  ];
+  $smarty->assign('button', $newLabel);
+  foreach (['continueText', 'confirmText'] as $variableType) {
+    $text = $smarty->getTemplateVars($variableType);
+    if (empty($text)) {
+      continue;
+    }
+    $text = str_replace($buttonText, "<strong>{$newLabel}</strong>", $text);
+    $smarty->assign($variableType, $text);
+  }
+
 }
 
 /**
  * Get button label.
  *
- * @param object $element
  * @param int $contributionPageId
  * @param string $pageName
  *
+ * @return string|null
  */
-function _contributionbuttonlabel_getButtonLabel(&$element, $contributionPageId, $pageName) {
-  try {
-    $labelName = civicrm_api4('ContributionPage', 'get', [
-      'select' => [
-        "contributionbuttonlabel_cg_buttonlabel.contributionbuttonlabel_cf_{$pageName}",
-      ],
-      'where' => [
-        ['id', '=', $contributionPageId],
-      ],
-      'checkPermissions' => FALSE,
-    ], 0)["contributionbuttonlabel_cg_buttonlabel.contributionbuttonlabel_cf_{$pageName}"] ?? '';
-
-    if (empty($labelName)) {
-      return;
-    }
-    if (!property_exists($element, '_content')) {
-      $element->_attributes['value'] = $labelName;
-    }
-    else {
-      $element->_content = substr_replace($element->_content, $labelName, (strpos($element->_content, '/i> ') + 4));
-    }
-  }
-  catch (Exception $e) {
-  }
+function _contributionbuttonlabel_getButtonLabel($contributionPageId, $pageName): ?string {
+  return \Civi\Api4\ContributionPage::get(FALSE)
+    ->addSelect("contributionbuttonlabel_cg_buttonlabel.contributionbuttonlabel_cf_{$pageName}")
+    ->addWhere('id', '=', $contributionPageId)
+    ->execute()
+    ->first()["contributionbuttonlabel_cg_buttonlabel.contributionbuttonlabel_cf_{$pageName}"] ?? '';
 }
