@@ -11,7 +11,7 @@
   },
   {
     "name": "contribution_send_oneoff_receipt",
-    "label": "Send receipt for one off contribution",
+    "label": "Send receipt for contribution",
     "class_name": "CRM_CivirulesActions_Contribution_OneOffContributionReceipt"
   }
 ]
