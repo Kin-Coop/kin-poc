@@ -46,18 +46,9 @@
 
       $group_id = \Drupal::routeMatch()->getParameter('group_id');
       $group = \Drupal::service('kin_civi.utils')->kin_civi_check_group($group_id);
-      $ref = $cid . '-' . date('mdi');
+      $ref = $cid . '-' . $group_id . 'R';
 
       $isAdmin = self::isAdmin($cid, $group_id);
-
-      $optionValues = \Civi\Api4\OptionValue::get(FALSE)
-        ->addSelect('id', 'label', 'value')
-        ->addWhere('option_group_id', '=', 120)
-        ->addWhere('is_active', '=', TRUE)
-        ->execute();
-      foreach ($optionValues as $optionValue) {
-        // do something
-      }
 
       //dpm($cid);
       //dpm($form_state->getValue('delegate_id'));
@@ -86,29 +77,19 @@
               '#value' => $cid,
           ];
 
-        $form['email'] = [
-          '#type'        => 'email',
-          '#title'       => $this->t( 'Email Address' ),
-          '#required'    => TRUE,
-          '#description' => $this->t( 'The email address of the member you are giving the reward to.' ),
-        ];
-
-        $form['reward_type'] = [
-          '#type' => 'select',
-          '#title' => $this->t('Reward Type'),
-          '#options' => $options,
-          '#empty_option' => $this->t('- Select -'),
-          '#required' => TRUE,
-          '#description' => $this->t('Please select a reward type.'),
-        ];
-
-        $form['amount'] = [
-          '#type'        => 'number',
-          '#title'       => $this->t( 'Contribution Amount' ),
-          '#required'    => TRUE,
-          '#min'         => 0.01,
-          '#step'        => 0.01,
-          '#description' => $this->t( 'Enter the amount you are contributing.' ),
+        $form = [
+          '#markup' => $this->t('
+            <p>This form is for creating a group reward. This could be:</p>
+          <ul>
+          <li>A personal gift to a member (ie money agreed on rotation or a solidarity payment)</li>
+           <li>A community appreciation gift (recognising someone who has done a lot to support your group and sends them a gift of appreciation that is not regular)</li>
+           <li>A collective purchase</li>
+            <li>Something else</li>
+            </ul>
+          <p>Please select the type of gift it is below and add some comments to explain the gift/purchase.
+          You will need to enter the email address of the member who will be receiving the money.</p>
+          <p><strong>You need to have the agreement of the whole group before requesting a group reward.</strong></p>
+          '),
         ];
 
         $form['group'] = [
@@ -118,18 +99,87 @@
           '#disabled' => TRUE, // Makes the field read-only
         ];
 
+        $form['reward_type'] = [
+          '#type' => 'select',
+          '#title' => $this->t('Type of Reward'),
+          '#options' => $this->getRewardTypeOptions(),
+          '#empty_option' => $this->t('- Select -'),
+          '#required' => TRUE,
+        ];
+
+        $form['note'] = [
+          '#type' => 'textarea',
+          '#title' => $this->t('Please add some details about what this group reward is for'),
+          '#required' => TRUE,
+        ];
+
+        $form['group_agreement'] = [
+          '#type' => 'checkbox',
+          '#title' => $this->t('Has the whole group agreed to this reward?'),
+          '#required' => TRUE,
+        ];
+
+        $form['not_goods_services'] = [
+          '#type' => 'checkbox',
+          '#title' => $this->t('This is not a payment for goods or services.'),
+          '#states' => [
+            'visible' => [
+              ':input[name="reward_type"]' => ['value' => 2],
+            ],
+            'required' => [
+              ':input[name="reward_type"]' => ['value' => 2],
+            ],
+          ],
+        ];
+
+        $form['no_prior_agreement'] = [
+          '#type' => 'checkbox',
+          '#title' => $this->t('There was no prior agreement, contract or expectation of payment.'),
+          '#states' => [
+            'visible' => [
+              ':input[name="reward_type"]' => ['value' => 2],
+            ],
+            'required' => [
+              ':input[name="reward_type"]' => ['value' => 2],
+            ],
+          ],
+        ];
+
+        $form['leftover_funds'] = [
+          '#type' => 'checkbox',
+          '#title' => $this->t('The money comes from leftover group funds.'),
+          '#states' => [
+            'visible' => [
+              ':input[name="reward_type"]' => ['value' => 2],
+            ],
+            'required' => [
+              ':input[name="reward_type"]' => ['value' => 2],
+            ],
+          ],
+        ];
+
+        $form['email'] = [
+          '#type'        => 'email',
+          '#title'       => $this->t( 'Email Address' ),
+          '#required'    => TRUE,
+          '#description' => $this->t( 'The email address of the member you are giving the reward to.' ),
+        ];
+
+        $form['amount'] = [
+          '#type'        => 'number',
+          '#title'       => $this->t( 'Reward Amount' ),
+          '#required'    => TRUE,
+          '#min'         => 0.01,
+          '#step'        => 0.01,
+          '#description' => $this->t( 'Enter the amount you are contributing.' ),
+        ];
+
         $form['reference'] = [
           '#type' => 'textfield',
           '#title' => $this->t('Reference'),
           '#default_value' => $ref, // This is the preset value
           '#disabled' => TRUE, // Makes the field read-only
           '#description' => $this->t('Please use this reference when making the bank transfer.'),
-        ];
-
-        $form['note'] = [
-          '#type' => 'textarea',
-          '#title' => $this->t('Notes'),
-          '#description' => $this->t( 'Enter any notes you want to give about this contribution.' ),
         ];
 
         $form['actions'] = [
@@ -375,7 +425,6 @@
      *   An associative array of options (value => label).
      */
     protected function getRewardTypeOptions() {
-      civicrm_initialize();
 
       try {
         // Replace 'custom_123' with your actual custom field ID
