@@ -36,7 +36,7 @@
       $user = \Drupal::currentUser();
       $uid = $user->id();
       $cid = $utils->kin_civi_get_contact_id($uid);
-      $form_state->setValue('delegate_id', $cid);
+      //$form_state->setValue('delegate_id', $cid);
 
 
 
@@ -45,6 +45,7 @@
       }
 
       $group_id = \Drupal::routeMatch()->getParameter('group_id');
+      //$form_state->setValue('group_id', $group_id);
       $group = \Drupal::service('kin_civi.utils')->kin_civi_check_group($group_id);
       $ref = $cid . '-' . $group_id . 'R';
 
@@ -67,15 +68,6 @@
           '#markup' => $this->t("You are not an admin of " . $group['display_name'] . ". You need to be an admin in order to create a group reward."),
         ];
       } else {
-        $form['group_id'] = [
-          '#type'  => 'hidden',
-          '#value' => $group_id,
-        ];
-
-          $form['delegate_id'] = [
-              '#type'  => 'hidden',
-              '#value' => $cid,
-          ];
 
         $form = [
           '#markup' => $this->t('
@@ -92,11 +84,20 @@
           '),
         ];
 
+        $form['group_id'] = [
+          '#type'  => 'hidden',
+          '#value' => $group_id,
+        ];
+
+        $form['delegate_id'] = [
+          '#type'  => 'hidden',
+          '#value' => $cid,
+        ];
+
         $form['group'] = [
-          '#type' => 'textfield',
+          '#type' => 'item',
           '#title' => $this->t('Group'),
-          '#default_value' => $group['display_name'], // This is the preset value
-          '#disabled' => TRUE, // Makes the field read-only
+          '#markup' => '<strong>' . $group['display_name'] . '</strong>',
         ];
 
         $form['reward_type'] = [
@@ -175,11 +176,10 @@
         ];
 
         $form['reference'] = [
-          '#type' => 'textfield',
+          '#type' => 'hidden',
           '#title' => $this->t('Reference'),
           '#default_value' => $ref, // This is the preset value
           '#disabled' => TRUE, // Makes the field read-only
-          '#description' => $this->t('Please use this reference when making the bank transfer.'),
         ];
 
         $form['actions'] = [
@@ -188,7 +188,7 @@
 
         $form['actions']['submit'] = [
           '#type'  => 'submit',
-          '#value' => $this->t( 'Submit Contribution' ),
+          '#value' => $this->t( 'Create Reward' ),
           '#button_type' => 'primary', // Drupal core style
           '#attributes' => [
             'class' => ['my-3', 'me-4'],
@@ -262,9 +262,13 @@
         $group_id = $form_state->getValue('group_id');
         $onbehalfof_id = $form_state->getValue('on_behalf_of_id');
         $delegate_id = $form_state->getValue('delegate_id');
-        $ref = $form_state->getValue('reference');
+        $ref = $onbehalfof_id . '-' . $group_id . 'W';
         $onbehalfof_name = $utils->kin_civi_get_name($onbehalfof_id);
         $group_name = $utils->kin_civi_get_name($group_id);
+        $agreed = is_null($form_state->getValue('group_agreement')) ? 0 : $form_state->getValue('group_agreement');
+        $not_goods_services = is_null($form_state->getValue('not_goods_services')) ? 0 : $form_state->getValue('not_goods_services');
+        $no_prior_agreement = is_null($form_state->getValue('no_prior_agreement')) ? 0 : $form_state->getValue('no_prior_agreement');
+        $leftover_funds = is_null($form_state->getValue('leftover_funds')) ? 0 : $form_state->getValue('leftover_funds');
 
         $onBehalfOf = \Civi\Api4\Contact::get()
                      ->addSelect('custom.*','*','email_primary.email')
@@ -289,6 +293,12 @@
                   ->addValue('Kin_Contributions.Household', $group_id)
                   ->addValue('Kin_Contributions.Delegated_Contributor', $delegate_id)
                   ->addValue('Unique_Contribution_ID.Unique_Contribution_Reference', $ref)
+                  ->addValue('"Group_Reward.Reward_Type', $form_state->getValue('reward_type'))
+                  ->addValue('Kin_Contributions.Note', $form_state->getValue('note'))
+                  ->addValue('Group_Reward.All_members_agreed', $agreed)
+                  ->addValue('Group_Reward.This_is_not_a_payment_for_goods_or_services', $not_goods_services)
+                  ->addValue('Group_Reward.There_was_no_prior_agreement_contract_or_expectation_of_payment', $no_prior_agreement)
+                  ->addValue('Group_Reward.The_money_comes_from_leftover_group_funds', $leftover_funds)
                   ->execute();
 
         // Set contribution source to be "reward" so we can then filter rewards in the contributions/donations
@@ -355,19 +365,12 @@
           // Set a flag to indicate successful submission.
           $form_state->set('submitted', TRUE);
 
-          $message = t( '<p>Your contribution has been created successfully. The details are:</p>
+          $message = t( '<p>Your group reward has been created successfully. The details are:</p>
             <p>Amount: @amount<br>
-            On behalf of: @name<br>
+            Group reward payee: @name<br>
             Reference: @ref</p>
-            <p><strong>Please go to your bank app and pay your contribution to:</strong></p>
-            <p>&nbsp;</p>
-            <p style="font-weight: 600;">Kin Co operative Limited<br />
-            Account Number: 67355138<br />
-            Sort Code: 08-92-99</p>
-            <p>&nbsp;</p>
-            <p><strong>Please enter the unique contribution reference as the payment reference.</strong></p>
-            <p>An email will be sent to @name confirming the contribution. You will also receive an email with the payment instructions.</p>
-            <p>If you are with the Co-operative Bank, <a href="https://www.co-operativebank.co.uk/help-and-support/payments/money-transfer/">they are having a temporary issue with references</a> and you can leave this field blank.</p>
+            <p><strong>A payment of @amount will be paid to @name from Kin Cooperative with the reference @ref</strong></p>
+            <p>An email will be sent to yourself and to @name confirming the reward payment.</p>
             <p style="margin: 1.2rem 0 2rem;"><a href="/member/group/@gid" class="btn btn-primary">Return to group</a></p>
                     ',
               [
