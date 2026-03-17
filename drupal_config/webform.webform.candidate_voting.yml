@@ -1,6 +1,6 @@
 uuid: b8a6d217-492f-43fa-bec0-052f15d34b44
 langcode: en-gb
-status: open
+status: closed
 dependencies:
   module:
     - webform_civicrm
@@ -17,7 +17,7 @@ categories: {  }
 elements: |-
   processed_text:
     '#type': processed_text
-    '#text': "<p>Below are all of the nominees for Kin's Board of Directors. Please cast one vote for EACH candidate. Only members can vote.<br><br>Note: The Board is not exclusive, i.e. you can vote for all candidates.&nbsp;</p>"
+    '#text': "<p>Below are all of the nominees for Kin's Board of Directors. Please cast one vote for EACH candidate. Only members can vote.<br><br>Note: This vote is not exclusive: you can vote for all candidates and the Board MUST have a minimum of 3 directors.</p>"
     '#format': basic_html
   civicrm_1_contact_1_contact_existing:
     '#type': civicrm_contact
@@ -160,6 +160,11 @@ elements: |-
       '#extra':
         width: 20
       '#parent': civicrm_3_activity_1_fieldset_fieldset
+    background_3:
+      '#type': textarea
+      '#title': 'Background '
+      '#readonly': true
+      '#default_value': "Ben Mango has been working as a freelance website builder since 2006. In that time, he has worked primarily using open source software and for non-profit clients, particularly in the charity sector. Ben has been involved with Kin since its inception, inspired by Rob's vision. Ben initially worked as a volunteer and progressed to doing freelance paid work before being taken on as a part time member of staff. As well as website development Ben has experience in database management. Ben has also previously been a director with two companies, Tree of Silence Ltd and Just Skate Ltd."
     civicrm_3_activity_1_cg32_custom_88:
       '#type': civicrm_options
       '#extra':
@@ -178,9 +183,13 @@ elements: |-
       '#title': Vote
       '#civicrm_live_options': 1
       '#required': true
+  processed_text_02:
+    '#type': processed_text
+    '#text': '<p>Independent Non-Executive Appointed Directors are selected to bring specific expertise to the Board.</p>'
+    '#format': basic_html
   civicrm_4_activity_1_fieldset_fieldset:
     '#type': fieldset
-    '#title': 'Nominee 4'
+    '#title': 'Independent Non-Executive Appointed Director '
     civicrm_4_activity_1_activity_subject:
       '#type': textfield
       '#title': 'Activity Subject'
@@ -196,11 +205,17 @@ elements: |-
       '#counter_type': character
       '#counter_maximum': 255
       '#counter_maximum_message': ' '
+      '#default_value': 'Dr Balgiisa Sheik Ahmed'
       '#data_type': String
       '#form_key': civicrm_4_activity_1_cg32_custom_87
       '#extra':
         width: 20
       '#parent': civicrm_4_activity_1_fieldset_fieldset
+    background_4:
+      '#type': textarea
+      '#title': 'Background '
+      '#readonly': true
+      '#default_value': 'Dr Balgiisa Sheik Ahmed is a legal academic and activist. She was part of the founding team of Kin Co-operative, a platform cooperative building tools for community savings and mutual aid, and continues to support its development in an advisory capacity. She is an Assistant Professor of Law, her work focuses on labour law, workers’ rights, and international law. Her teaching and research reflects a commitment to economic justice and community organising. '
     civicrm_4_activity_1_cg32_custom_88:
       '#type': civicrm_options
       '#extra':
@@ -233,7 +248,7 @@ settings:
   page_submit_path: ''
   page_confirm_path: ''
   page_theme_name: ''
-  form_title: both
+  form_title: source_entity_webform
   form_submit_once: false
   form_open_message: ''
   form_close_message: ''
