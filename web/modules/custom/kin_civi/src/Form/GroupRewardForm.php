@@ -269,6 +269,7 @@
         $not_goods_services = is_null($form_state->getValue('not_goods_services')) ? 0 : $form_state->getValue('not_goods_services');
         $no_prior_agreement = is_null($form_state->getValue('no_prior_agreement')) ? 0 : $form_state->getValue('no_prior_agreement');
         $leftover_funds = is_null($form_state->getValue('leftover_funds')) ? 0 : $form_state->getValue('leftover_funds');
+        $reward_type = $form_state->getValue('reward_type');
 
         $onBehalfOf = \Civi\Api4\Contact::get()
                      ->addSelect('custom.*','*','email_primary.email')
@@ -287,13 +288,13 @@
         // Step 2: Create the contribution
         $results = \Civi\Api4\Contribution::create(FALSE)
                   ->addValue('contact_id', $onbehalfof_id)
-                  ->addValue('financial_type_id', 1)
+                  ->addValue('financial_type_id', 5)
                   ->addValue('total_amount', $amount)
                   ->addValue('contribution_status_id', 2)
                   ->addValue('Kin_Contributions.Household', $group_id)
                   ->addValue('Kin_Contributions.Delegated_Contributor', $delegate_id)
                   ->addValue('Unique_Contribution_ID.Unique_Contribution_Reference', $ref)
-                  ->addValue('"Group_Reward.Reward_Type', $form_state->getValue('reward_type'))
+                  ->addValue('Group_Reward.Reward_Type', $reward_type)
                   ->addValue('Kin_Contributions.Note', $form_state->getValue('note'))
                   ->addValue('Group_Reward.All_members_agreed', $agreed)
                   ->addValue('Group_Reward.This_is_not_a_payment_for_goods_or_services', $not_goods_services)
@@ -307,6 +308,7 @@
 
         \Drupal::messenger()->addStatus($this->t('Contribution created successfully.'));
 
+        /*
         // Send email to delegate
         $delivery = \CRM_Core_BAO_MessageTemplate::sendTemplate([
           'workflow' => 'onbehalfof_delegate',
@@ -359,7 +361,7 @@
               ->addValue('source_contact_id', $onbehalfof_id)
               ->addValue('target_contact_id', $delegate_id)
               ->execute();
-
+*/
 
 
           // Set a flag to indicate successful submission.
@@ -441,7 +443,7 @@
         $options = [];
         if (!empty($result['options'])) {
           foreach ($result['options'] as $option) {
-            $options[] = $option;
+            $options[$option] = $option;
           }
         }
 
