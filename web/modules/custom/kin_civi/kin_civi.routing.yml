@@ -38,4 +38,10 @@ kin_civi.edit_recurring_contribution:
     parameters:
       recurring_contribution_id:
         type: integer
-
+kin_civi.reward:
+  path: '/group-reward/{group_id}'
+  defaults:
+    _title: 'Create a Group Reward'
+    _form: '\Drupal\kin_civi\Form\GroupRewardForm'
+  requirements:
+    _permission: 'access content'
