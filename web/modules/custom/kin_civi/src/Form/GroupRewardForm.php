@@ -306,7 +306,7 @@
 
         $contribution_id = $results->first()['id'];
 
-        \Drupal::messenger()->addStatus($this->t('Contribution created successfully.'));
+        \Drupal::messenger()->addStatus($this->t('Group reward created successfully.'));
 
         /*
         // Send email to delegate
