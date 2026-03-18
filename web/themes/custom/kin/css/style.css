@@ -7784,7 +7784,7 @@ footer.navbar.footer > div,
   flex-shrink: 1 !important;
 }
 
-.flex-wrap, .member-home > .view-footer {
+.flex-wrap, #webform-submission-join-mailing-list-node-4-add-form .fieldset-wrapper, .member-home > .view-footer {
   flex-wrap: wrap !important;
 }
 
@@ -8370,7 +8370,7 @@ footer.navbar.footer > div,
   column-gap: 0.5rem !important;
 }
 
-.column-gap-3 {
+.column-gap-3, #webform-submission-join-mailing-list-node-4-add-form .fieldset-wrapper {
   column-gap: 1rem !important;
 }
 
@@ -9247,7 +9247,7 @@ footer.navbar.footer > div,
   .d-sm-table-cell {
     display: table-cell !important;
   }
-  .d-sm-flex {
+  .d-sm-flex, #webform-submission-join-mailing-list-node-4-add-form .fieldset-wrapper {
     display: flex !important;
   }
   .d-sm-inline-flex {
@@ -14193,6 +14193,41 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
 }
 #webform-submission-candidate-voting-add-form fieldset > .fieldset-wrapper .form-item:first-child {
   margin-top: 0;
+}
+.mailing-list {
+  background-color: rgb(56.475, 95.38, 194.525);
+}
+.mailing-list h2, .mailing-list .h2 {
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+#webform-submission-join-mailing-list-node-4-add-form {
+  max-width: 100%;
+}
+#webform-submission-join-mailing-list-node-4-add-form .fieldset-wrapper {
+  margin: 0;
+}
+#webform-submission-join-mailing-list-node-4-add-form .fieldset-wrapper .form-item-civicrm-1-contact-1-contact-first-name,
+#webform-submission-join-mailing-list-node-4-add-form .fieldset-wrapper .form-item-civicrm-1-contact-1-contact-last-name {
+  max-width: 170px;
+}
+#webform-submission-join-mailing-list-node-4-add-form .fieldset-wrapper .form-item-civicrm-1-contact-1-email-email {
+  max-width: 250px;
+}
+#webform-submission-join-mailing-list-node-4-add-form .form-item, #webform-submission-join-mailing-list-node-4-add-form .form-actions {
+  margin: 0 0 0.8rem;
+}
+#webform-submission-join-mailing-list-node-4-add-form fieldset.form-item {
+  margin: 0;
+}
+#webform-submission-join-mailing-list-node-4-add-form .captcha {
+  margin: 0;
+  max-width: 300px;
+  min-width: 280px;
+}
+#webform-submission-join-mailing-list-node-4-add-form .captcha legend, #webform-submission-join-mailing-list-node-4-add-form .captcha .description {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */
