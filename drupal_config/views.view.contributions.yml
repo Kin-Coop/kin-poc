@@ -781,18 +781,20 @@ display:
         type: table
         options:
           grouping: {  }
-          row_class: '{{ views_conditional_field }}'
+          row_class: '{{ views_conditional_field }} {{ reward_type_83 }}'
           default_row_class: true
           columns:
             contribution_source: contribution_source
             id: id
-            contact_id: contact_id
+            display_name: display_name
             receive_date: receive_date
             household_25: household_25
             total_amount: total_amount
             views_conditional_field: views_conditional_field
             id_1: id_1
             contribution_status_id: contribution_status_id
+            note_65: note_65
+            reward_type_83: reward_type_83
           default: '-1'
           info:
             contribution_source:
@@ -809,7 +811,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            contact_id:
+            display_name:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -850,6 +852,20 @@ display:
               empty_column: false
               responsive: ''
             contribution_status_id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            note_65:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            reward_type_83:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -1566,6 +1582,69 @@ display:
           empty_zero: false
           hide_alter_empty: true
           type: basic_string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: 0
+        reward_type_83:
+          id: reward_type_83
+          table: civicrm_value_group_reward_31
+          field: reward_type_83
+          relationship: none
+          group_type: group
+          admin_label: Reward
+          entity_type: civicrm_contribution
+          entity_field: reward_type_83
+          plugin_id: civicrm_entity_custom_field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: true
+            text: reward
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          type: list_default
           settings: {  }
           group_column: value
           group_columns: {  }

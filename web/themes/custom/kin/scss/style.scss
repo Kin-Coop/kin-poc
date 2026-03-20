@@ -1717,3 +1717,48 @@ div.block.vertical {
     }
   }
 }
+
+.mailing-list {
+  background-color: lighten($primary, 10%);
+
+  h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+}
+#webform-submission-join-mailing-list-node-4-add-form {
+  max-width: 100%;
+
+  .fieldset-wrapper {
+    @extend .d-sm-flex;
+    @extend .column-gap-3;
+    @extend .flex-wrap;
+    margin: 0;
+
+    .form-item-civicrm-1-contact-1-contact-first-name,
+    .form-item-civicrm-1-contact-1-contact-last-name{
+      max-width: 170px;
+    }
+
+    .form-item-civicrm-1-contact-1-email-email {
+      max-width: 250px;
+    }
+  }
+
+  .form-item, .form-actions {
+    margin: 0 0 0.8rem;
+  }
+
+  fieldset.form-item {
+    margin: 0;
+  }
+
+  .captcha {
+    margin: 0;
+    max-width: 300px;
+    min-width: 280px;
+    legend, .description {
+      display: none;
+    }
+  }
+}

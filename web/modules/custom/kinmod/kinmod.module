@@ -173,6 +173,29 @@ function kinmod_form_node_group_agreement_edit_form_alter(&$form, FormStateInter
   $form['#validate'][] = 'kinmod_node_form_validate';
 }
 
+function kinmod_captcha_after_build($element, \Drupal\Core\Form\FormStateInterface $form_state) {
+  // At this point, the CAPTCHA module has built the actual form elements
+  // The structure should now include captcha_widgets
+
+  if (isset($element['captcha_widgets']['captcha_response'])) {
+    $captcha_field = &$element['captcha_widgets']['captcha_response'];
+
+    // Get the title/question
+    if (isset($captcha_field['#title']) && !empty($captcha_field['#title'])) {
+      $captcha_label = (string) $captcha_field['#title'];
+
+      // Move title to placeholder
+      $captcha_field['#placeholder'] = $captcha_label;
+
+      // Remove the title
+      $captcha_field['#title'] = '';
+      $captcha_field['#title_display'] = 'invisible';
+    }
+  }
+
+  return $element;
+}
+
 /**
  * Implements hook_form_alter().
  *
@@ -180,6 +203,16 @@ function kinmod_form_node_group_agreement_edit_form_alter(&$form, FormStateInter
  */
 function kinmod_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
   // Only target the group agreement node form
+
+  // Target the specific webform
+  if ( $form_id === 'webform_submission_join_mailing_list_node_4_add_form' ) {
+    // Check if CAPTCHA element exists
+    if (isset($form['elements']['fieldset']['captcha'])) {
+      // Add our custom after_build callback AFTER the webform's callbacks
+      $form['elements']['fieldset']['captcha']['#after_build'][] = 'kinmod_captcha_after_build';
+    }
+  }
+
   if ($form_id !== 'node_group_agreement_form') {
     return;
   }
