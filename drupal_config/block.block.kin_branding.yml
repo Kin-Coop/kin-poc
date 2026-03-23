@@ -3,6 +3,8 @@ langcode: en-gb
 status: true
 dependencies:
   module:
+    - block_classes
+    - block_visibility_groups
     - system
   theme:
     - kin
@@ -20,6 +22,10 @@ settings:
   label_display: '0'
   provider: system
   use_site_logo: true
-  use_site_name: true
+  use_site_name: false
   use_site_slogan: false
-visibility: {  }
+visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''

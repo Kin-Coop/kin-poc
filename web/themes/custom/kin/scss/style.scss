@@ -175,6 +175,22 @@ footer.footer > div,
   @extend .container;
 }
 
+.user-anonymous #block-kin-account-menu {
+  li {
+    margin: 0 0 0 1.6rem;
+    a {
+      @extend .btn;
+      background: #fff;
+      color: #000;
+
+      &:hover {
+        background: $yellow;
+        color: #000 !important;
+      }
+    }
+  }
+}
+
 main > .fluid {
   #block-kin-page-title,
   .field--name-body {
@@ -239,6 +255,10 @@ nav.navbar {
     a {
       &.site-title {
         color: #fff;
+      }
+
+      img {
+        height: 78px;
       }
     }
   }
@@ -1719,14 +1739,16 @@ div.block.vertical {
 }
 
 .mailing-list {
-  background-color: lighten($primary, 10%);
-
+  .page---community-saving-history & {
+    background-color: $secondary !important;
+  }
   h2 {
     font-size: 2rem;
     line-height: 1.2;
+    color: #fff;
   }
 }
-#webform-submission-join-mailing-list-node-4-add-form {
+.webform-submission-join-mailing-list-form {
   max-width: 100%;
 
   .fieldset-wrapper {
@@ -1760,5 +1782,16 @@ div.block.vertical {
     legend, .description {
       display: none;
     }
+  }
+
+  .btn-primary {
+    &:hover {
+      background-color: $yellow;
+      color: #000;
+    }
+  }
+
+  .webform-confirmation {
+    color: #fff;
   }
 }

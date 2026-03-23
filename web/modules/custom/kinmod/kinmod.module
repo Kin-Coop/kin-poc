@@ -205,7 +205,8 @@ function kinmod_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_st
   // Only target the group agreement node form
 
   // Target the specific webform
-  if ( $form_id === 'webform_submission_join_mailing_list_node_4_add_form' ) {
+
+  if ( strpos($form_id, 'webform_submission_join_mailing_list' ) === 0) {
     // Check if CAPTCHA element exists
     if (isset($form['elements']['fieldset']['captcha'])) {
       // Add our custom after_build callback AFTER the webform's callbacks

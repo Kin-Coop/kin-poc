@@ -192,12 +192,12 @@ settings:
   draft_loaded_message: ''
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
-  confirmation_type: page
+  confirmation_type: inline
   confirmation_url: ''
-  confirmation_title: ''
-  confirmation_message: ''
+  confirmation_title: Success!
+  confirmation_message: '<p>Thank you for signing up to the mailing list. You will receive an email, please click on the link in the email to confirm your subscription.</p>'
   confirmation_attributes: {  }
-  confirmation_back: true
+  confirmation_back: false
   confirmation_back_label: ''
   confirmation_back_attributes: {  }
   confirmation_exclude_query: false
@@ -207,8 +207,8 @@ settings:
   limit_total_interval: null
   limit_total_message: ''
   limit_total_unique: false
-  limit_user: null
-  limit_user_interval: null
+  limit_user: 2
+  limit_user_interval: 86400
   limit_user_message: ''
   limit_user_unique: false
   entity_limit_total: null
@@ -281,11 +281,13 @@ handlers:
     conditions: {  }
     weight: null
     settings:
+      disable: 'Leave Fields and Save Settings'
       nid: 1
       number_of_contacts: '1'
       1_contact_type: individual
       1_webform_label: 'Contact 1'
-      civicrm_1_contact_1_contact_contact_sub_type: {  }
+      civicrm_1_contact_1_contact_contact_sub_type:
+        '': ''
       civicrm_1_contact_1_contact_existing: 0
       civicrm_1_contact_1_contact_prefix_id: 0
       civicrm_1_contact_1_contact_first_name: create_civicrm_webform_element
@@ -300,6 +302,7 @@ handlers:
       civicrm_1_contact_1_contact_privacy: 0
       civicrm_1_contact_1_contact_preferred_language: 0
       civicrm_1_contact_1_contact_communication_style_id: 0
+      civicrm_1_contact_1_contact_image_url: 0
       civicrm_1_contact_1_contact_contact_id: 0
       civicrm_1_contact_1_contact_user_id: 0
       civicrm_1_contact_1_contact_external_identifier: 0

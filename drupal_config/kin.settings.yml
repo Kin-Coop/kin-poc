@@ -15,11 +15,12 @@ features:
   favicon: 1
 logo:
   use_default: 0
-  path: 'public://KIN.coop_0824_logo_Brandmark - full colour (1).png'
+  path: 'public://KIN-logo.png'
 favicon:
   use_default: 0
-  path: 'public://KIN.coop_0824_logo_Brandmark - full colour.png'
+  path: 'public://favicon.png'
   mimetype: image/png
 subtheme_folder: themes/custom
 subtheme_name: 'B5 subtheme'
 subtheme_machine_name: b5subtheme
+b5_theme_mode: light
