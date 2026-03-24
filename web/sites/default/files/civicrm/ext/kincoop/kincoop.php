@@ -590,11 +590,12 @@ function kincoop_civicrm_buildForm($formName, $form) {
                 $(document).ready(function() {
                   // Only target the display element of custom_25
                   var el = $('.crm-frozen-field a');
-
+                  //alert('hi');
                   el.each(function() {
                     var text = $(this).text();
                     $(this).replaceWith(text); // replace link with plain text
                   });
+
                 });
               })(CRM.$);
             ");
@@ -602,22 +603,30 @@ function kincoop_civicrm_buildForm($formName, $form) {
 
           if ($form->elementExists('custom_83')) {
             CRM_Core_Resources::singleton()->addScript("
-              (function($) {
-                $(document).ready(function() {
-                  alert('hi');
-                  var helpText = '<sup data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" class=\"question-mark\" data-bs-content=\"A group reward is a payment from the group that could be a gift to a group member, for a collective purchase or another type of reward. It needs the whole group's approval.\" aria-label=\"Group Rewards\" data-bs-original-title=\"Group Rewards\"><em><i class=\"fs-3 fw-bold text-primary bi bi-question-circle\"></i></em></sup>';
-                  // Only target the display element of custom_25
-                  //var el = $('.crm-frozen-field a');
-                  $('#helprow-custom_83 .content').append(helpText);
+            (function($) {
+              $(document).ready(function() {
+                // Add the help icon
+                var helpText = '<sup data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" tabindex=\"0\" class=\"question-mark\"' +
+                  'data-bs-content=\"A group reward is a payment from the group that could be a gift to a group member, ' +
+                  'for a collective purchase or another type of reward. It needs the whole group\\'s approval.\"' +
+                  'data-bs-placement=\"top\" ' +
+                  'aria-label=\"Group Rewards\" title=\"Group Rewards\"> <em>' +
+                  '<i class=\"fs-3 fw-bold text-primary bg-white rounded-circle d-inline-block bi bi-question-circle-fill\"></i></em></sup>';
 
-                  //el.each(function() {
-                    //var text = $(this).text();
-                    //$(this).replaceWith(text); // replace link with plain text
-                  //});
-                });
-              })(CRM.$);
-            ");
+                $('#helprow-custom_83 .content').append(helpText);
 
+                // Initialize Bootstrap popover
+                var popoverTriggerEl = document.querySelector('[data-bs-toggle=\"popover\"]');
+                if (popoverTriggerEl) {
+                  var popover = new bootstrap.Popover(popoverTriggerEl, {
+                    trigger: 'focus',
+                    placement: 'top',
+                    html: false
+                  });
+                }
+              });
+            })(CRM.$);
+          ");
           }
         }
       }
