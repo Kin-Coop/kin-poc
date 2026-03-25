@@ -1,5 +1,5 @@
 kin_civi.update_status:
-  path: '/approve-contributions/{contribution_id}'
+  path: '/approve-contributions/{contribution_id}/{group_id}'
   defaults:
     _form: '\Drupal\kin_civi\Form\ContributionStatusForm'
     _title: 'Update Money Request'
