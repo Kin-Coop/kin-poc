@@ -56,6 +56,20 @@ class ContributionStatusForm extends FormBase
         '#value' => $contribution_id,
       ];
 
+      $form['intro'] = [
+        '#markup' => $this->t('
+           <p>Please approve or disapprove this request.</p>
+           <p>If the request type is not a personal request, then it requires the agreement of the whole group.</p>
+           <p>If the request type is a "Collective purchase" you also need to confirm that
+           </p>
+           <ul>
+           <li>The money comes from leftover group funds</li>
+           <li>There was no prior agreement, contract or expectation of payment</li>
+           <li>This is not a payment for goods or services</li>
+           </ul>
+          '),
+      ];
+
       $form['group'] = [
         '#type' => 'item',
         '#title' => $this->t('Group'),
