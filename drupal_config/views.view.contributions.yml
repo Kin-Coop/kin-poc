@@ -2486,7 +2486,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '<a href="/approve-contributions/{{ id_2 }}?destination=/member/group/{{ id }}" class="btn btn-primary mb-2">Approve/Disapprove</a>'
+            text: '<a href="/approve-contributions/{{ id_2 }}/{{ id }}?destination=/member/group/{{ id }}" class="btn btn-primary mb-2">Approve/Disapprove</a>'
             make_link: false
             path: '#'
             absolute: false
