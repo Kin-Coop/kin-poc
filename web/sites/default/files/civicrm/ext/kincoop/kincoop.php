@@ -571,18 +571,22 @@ function kincoop_civicrm_buildForm($formName, $form) {
       } elseif ($form->_id === 3) {
         if($form->getAction() == CRM_Core_Action::ADD) {
           if (isset($_GET['groupid']) && $_GET['me']) {
-              $defaults['custom_25'] = $_GET['groupid'];
-              //$defaults['custom_62'] = 'Gift';
-              $form->setDefaults($defaults);
+            $ref = $_GET['me'] . '-' . $_GET['groupid'] . 'G';
+            $defaults['custom_25'] = $_GET['groupid'];
+            $defaults['custom_61'] = $ref;
+            //$defaults['custom_62'] = 'Gift';
+            $form->setDefaults($defaults);
           }
 
           if ($form->elementExists('custom_25')) {
             $element = $form->getElement('custom_25');
             $email = $form->getElement('email-5');
+            $refField = $form->getElement('custom_61');
 
             // Make it read-only
             $element->freeze();
             $email->freeze();
+            $refField->freeze();
 
             // Inject JavaScript to strip the link
             CRM_Core_Resources::singleton()->addScript("
