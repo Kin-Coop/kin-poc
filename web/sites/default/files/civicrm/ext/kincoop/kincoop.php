@@ -601,16 +601,17 @@ function kincoop_civicrm_buildForm($formName, $form) {
             ");
           }
 
+          // adding group reward information popup box
           if ($form->elementExists('custom_83')) {
             CRM_Core_Resources::singleton()->addScript("
             (function($) {
               $(document).ready(function() {
                 // Add the help icon
                 var helpText = '<sup data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" tabindex=\"0\" class=\"question-mark\"' +
-                  'data-bs-content=\"A group reward is a payment from the group that could be a gift to a group member, ' +
-                  'for a collective purchase or another type of reward. It needs the whole group\\'s approval.\"' +
+                  'data-bs-content=\"Usually this will be a Personal Request (for money to be paid to you), but sometimes the payment is being used for the group' +
+                  ' as a whole or for another reason. For a collective purchase or another type of group payment it needs the whole group\'s approval.\"' +
                   'data-bs-placement=\"top\" ' +
-                  'aria-label=\"Group Rewards\" title=\"Group Rewards\"> <em>' +
+                  'aria-label=\"Request Type\" title=\"Request Type\"> <em>' +
                   '<i class=\"fs-3 fw-bold text-primary bg-white rounded-circle d-inline-block bi bi-question-circle-fill\"></i></em></sup>';
 
                 $('#helprow-custom_83 .content').append(helpText);

@@ -835,6 +835,11 @@ table {
   .select2-container {
     font-size: 1rem;
     min-width: 250px;
+
+    .select2-choice {
+      min-height: 32px;
+      padding-top: 2px;
+    }
   }
 
   .section.action-link {
@@ -1795,3 +1800,4 @@ div.block.vertical {
     color: #fff;
   }
 }
+
