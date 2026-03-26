@@ -571,18 +571,22 @@ function kincoop_civicrm_buildForm($formName, $form) {
       } elseif ($form->_id === 3) {
         if($form->getAction() == CRM_Core_Action::ADD) {
           if (isset($_GET['groupid']) && $_GET['me']) {
-              $defaults['custom_25'] = $_GET['groupid'];
-              //$defaults['custom_62'] = 'Gift';
-              $form->setDefaults($defaults);
+            $ref = $_GET['me'] . '-' . $_GET['groupid'] . 'G';
+            $defaults['custom_25'] = $_GET['groupid'];
+            $defaults['custom_61'] = $ref;
+            //$defaults['custom_62'] = 'Gift';
+            $form->setDefaults($defaults);
           }
 
           if ($form->elementExists('custom_25')) {
             $element = $form->getElement('custom_25');
             $email = $form->getElement('email-5');
+            $refField = $form->getElement('custom_61');
 
             // Make it read-only
             $element->freeze();
             $email->freeze();
+            $refField->freeze();
 
             // Inject JavaScript to strip the link
             CRM_Core_Resources::singleton()->addScript("
@@ -590,14 +594,44 @@ function kincoop_civicrm_buildForm($formName, $form) {
                 $(document).ready(function() {
                   // Only target the display element of custom_25
                   var el = $('.crm-frozen-field a');
-
+                  //alert('hi');
                   el.each(function() {
                     var text = $(this).text();
                     $(this).replaceWith(text); // replace link with plain text
                   });
+
                 });
               })(CRM.$);
             ");
+          }
+
+          // adding group reward information popup box
+          if ($form->elementExists('custom_83')) {
+            CRM_Core_Resources::singleton()->addScript("
+            (function($) {
+              $(document).ready(function() {
+                // Add the help icon
+                var helpText = '<sup data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" tabindex=\"0\" class=\"question-mark\"' +
+                  'data-bs-content=\"Usually this will be a Personal Request (for money to be paid to you), but sometimes the payment is being used for the group' +
+                  ' as a whole or for another reason. For a collective purchase or another type of group payment it needs the whole group\'s approval.\"' +
+                  'data-bs-placement=\"top\" ' +
+                  'aria-label=\"Request Type\" title=\"Request Type\"> <em>' +
+                  '<i class=\"fs-3 fw-bold text-primary bg-white rounded-circle d-inline-block bi bi-question-circle-fill\"></i></em></sup>';
+
+                $('#helprow-custom_83 .content').append(helpText);
+
+                // Initialize Bootstrap popover
+                var popoverTriggerEl = document.querySelector('[data-bs-toggle=\"popover\"]');
+                if (popoverTriggerEl) {
+                  var popover = new bootstrap.Popover(popoverTriggerEl, {
+                    trigger: 'focus',
+                    placement: 'top',
+                    html: false
+                  });
+                }
+              });
+            })(CRM.$);
+          ");
           }
         }
       }

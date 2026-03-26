@@ -575,7 +575,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<h2>Admin Tasks</h2>\r\n<p>New member and money requests will appear here. <a href=\"https://wa.me/447985022771?\" target=\"_blank\">WhatsApp Kin (faster)</a> or <a href=\"mailto:info@kin.coop?subject=Help\">contact Kin</a> to change group admins.</p>\r\n<p><a href=\"/group-reward/{{ id }}\" class=\"btn btn-primary\">Create Group Reward</a><sup tabindex=\"0\"\r\n     data-bs-toggle=\"popover\"\r\n     data-bs-trigger=\"focus\"\r\n     class=\"question-mark\"\r\n     title=\"Group Rewards\"\r\n     data-bs-content=\"A group reward is a payment from the group that could be a gift to a group member, for a collective purchase or another type of reward. It needs the whole group's approval.\"><em><i class=\"fs-3 fw-bold text-primary bi bi-question-circle\"></i></em></sup></p>"
+            value: "<h2>Admin Tasks</h2>\r\n<p>New member and money requests will appear here. <a href=\"https://wa.me/447985022771?\" target=\"_blank\">WhatsApp Kin (faster)</a> or <a href=\"mailto:info@kin.coop?subject=Help\">contact Kin</a> to change group admins.</p>"
             format: full_html
           tokenize: true
       footer: {  }

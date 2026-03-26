@@ -42,6 +42,9 @@ class ContributionStatusForm extends FormBase
     $contribution_amount = $contribution['total_amount'] * -1;
     $member_cid = kin_civi_get_contrib_contact($contribution_id);
     $member_name = kin_civi_get_name($member_cid)['display_name'];
+    $group_id = \Drupal::routeMatch()->getParameter('group_id');
+    //$form_state->setValue('group_id', $group_id);
+    $group = \Drupal::service('kin_civi.utils')->kin_civi_check_group($group_id);
 
     if ($contribution == false) {
       $form = [
@@ -53,11 +56,92 @@ class ContributionStatusForm extends FormBase
         '#value' => $contribution_id,
       ];
 
+      $form['intro'] = [
+        '#markup' => $this->t('
+           <p>Please approve or disapprove this request.</p>
+           <p>If the request type is not a personal request, then it requires the agreement of the whole group.</p>
+           <p>If the request type is a "Collective purchase" you also need to confirm that
+           </p>
+           <ul>
+           <li>The money comes from leftover group funds</li>
+           <li>There was no prior agreement, contract or expectation of payment</li>
+           <li>This is not a payment for goods or services</li>
+           </ul>
+          '),
+      ];
+
+      $form['group'] = [
+        '#type' => 'item',
+        '#title' => $this->t('Group'),
+        '#markup' => '<strong>' . $group['display_name'] . '</strong>',
+      ];
+
       $form['requested_by'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Requested by'),
         '#default_value' => $member_name,
         '#disabled' => TRUE,
+      ];
+
+      $form['reward_type'] = [
+        '#type' => 'select',
+        '#title' => $this->t('Type of Reward'),
+        '#options' => $this->getRewardTypeOptions(),
+        '#required' => TRUE,
+        '#default_value' => $contribution['Group_Reward.Reward_Type'],
+      ];
+
+      $form['group_agreement'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Has the whole group agreed to this reward?'),
+        '#required' => TRUE,
+        '#states' => [
+          'visible' => [
+            ':input[name="reward_type"]' => ['!value' => 'Personal request'],
+          ],
+          'required' => [
+            ':input[name="reward_type"]' => ['!value' => 'Personal request'],
+          ],
+        ],
+      ];
+
+      $form['not_goods_services'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('This is not a payment for goods or services.'),
+        '#states' => [
+          'visible' => [
+            ':input[name="reward_type"]' => ['value' => 'Collective purchase'],
+          ],
+          'required' => [
+            ':input[name="reward_type"]' => ['value' => 'Collective purchase'],
+          ],
+        ],
+      ];
+
+      $form['no_prior_agreement'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('There was no prior agreement, contract or expectation of payment.'),
+        '#states' => [
+          'visible' => [
+            ':input[name="reward_type"]' => ['value' => 'Collective purchase'],
+          ],
+          'required' => [
+            ':input[name="reward_type"]' => ['value' => 'Collective purchase'],
+          ],
+        ],
+      ];
+
+      $form['leftover_funds'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('The money comes from leftover group funds.'),
+        '#states' => [
+          'visible' => [
+            ':input[name="reward_type"]' => ['value' => 'Collective purchase'],
+          ],
+          'required' => [
+            ':input[name="reward_type"]' => ['value' => 'Collective purchase'],
+          ],
+        ],
       ];
 
       $form['amount'] = [
@@ -78,7 +162,6 @@ class ContributionStatusForm extends FormBase
         '#type' => 'textarea',
         '#title' => $this->t('Request Note'),
         '#default_value' => $contribution['Kin_Contributions.Note'], // This is the preset value
-        '#disabled' => TRUE, // Makes the field read-only
       ];
 
       $form['status'] = [
@@ -134,6 +217,11 @@ class ContributionStatusForm extends FormBase
       $member_cid = kin_civi_get_contrib_contact($contribution_id);
       $name = kin_civi_get_name($member_cid)['display_name'];
       $email = kin_civi_get_name($member_cid)['email_primary.email'];
+      $agreed = is_null($form_state->getValue('group_agreement')) ? 0 : $form_state->getValue('group_agreement');
+      $not_goods_services = is_null($form_state->getValue('not_goods_services')) ? 0 : $form_state->getValue('not_goods_services');
+      $no_prior_agreement = is_null($form_state->getValue('no_prior_agreement')) ? 0 : $form_state->getValue('no_prior_agreement');
+      $leftover_funds = is_null($form_state->getValue('leftover_funds')) ? 0 : $form_state->getValue('leftover_funds');
+      $reward_type = $form_state->getValue('reward_type');
 
       // Only update if the person accessing this form is an admin of the group where the gift is being requested
       if (kin_civi_is_admin($admin_cid, $group)) {
@@ -141,6 +229,12 @@ class ContributionStatusForm extends FormBase
           // Please note $status is Case Sensitive!!
           Contribution::update(FALSE)
             ->addValue('Kin_Contributions.Approved', $status)
+            ->addValue('Group_Reward.Reward_Type', $reward_type)
+            ->addValue('Kin_Contributions.Note', $form_state->getValue('gift_note'))
+            ->addValue('Group_Reward.All_members_agreed', $agreed)
+            ->addValue('Group_Reward.This_is_not_a_payment_for_goods_or_services', $not_goods_services)
+            ->addValue('Group_Reward.There_was_no_prior_agreement_contract_or_expectation_of_payment', $no_prior_agreement)
+            ->addValue('Group_Reward.The_money_comes_from_leftover_group_funds', $leftover_funds)
             ->addWhere('id', '=', $contribution_id)
             ->execute();
 
@@ -250,12 +344,47 @@ class ContributionStatusForm extends FormBase
       \Drupal::messenger()->addWarning($this->t('No gift contribution found.'));
     }
   }
+
+  /**
+   * Get reward type options from CiviCRM custom field.
+   *
+   * @return array
+   *   An associative array of options (value => label).
+   */
+  protected function getRewardTypeOptions() {
+
+    try {
+      // Replace 'custom_123' with your actual custom field ID
+      $result = \Civi\Api4\Contribution::getFields(FALSE)
+                                       ->addWhere('name', '=', 'Group_Reward.Reward_Type') // Use the actual custom field ID
+                                       ->setLoadOptions(TRUE)
+                                       ->addSelect('options')
+                                       ->execute()
+                                       ->first();
+
+      $options = [];
+      if (!empty($result['options'])) {
+        foreach ($result['options'] as $option) {
+          $options[$option] = $option;
+        }
+      }
+
+      return $options;
+
+    } catch (\Exception $e) {
+      \Drupal::logger('kin_civi')->error('Error loading reward type options: @message', [
+        '@message' => $e->getMessage(),
+      ]);
+      return [];
+    }
+  }
+
 }
 
 function kin_civi_get_contribution($contribution_id)
 {
   $contributions = \Civi\Api4\Contribution::get(FALSE)
-    ->addSelect('Kin_Contributions.Note', 'id', 'receive_date', 'total_amount', 'Kin_Contributions.Approved')
+    ->addSelect('Kin_Contributions.Note', 'id', 'receive_date', 'total_amount', 'Kin_Contributions.Approved', 'Group_Reward.Reward_Type')
     ->addWhere('id', '=', $contribution_id)
     ->addWhere('financial_type_id', '=', 5)
     ->execute();
