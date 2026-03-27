@@ -606,8 +606,10 @@ function kincoop_civicrm_buildForm($formName, $form)
               })(CRM.$);
             ");
         }
+      }
 
-      } elseif ($form->_id === 3) {
+      }
+      elseif ($form->_id === 3) {
         if ($form->getAction() == CRM_Core_Action::ADD) {
           if (isset($_GET['groupid']) && $_GET['me']) {
             $ref = $_GET['me'] . '-' . $_GET['groupid'] . 'G';
@@ -732,7 +734,6 @@ function kincoop_civicrm_buildForm($formName, $form)
         }
       }
     }
-  }
 }
 // Check group/household is filled in
 function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$errors)
