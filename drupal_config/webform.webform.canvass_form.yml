@@ -117,9 +117,34 @@ elements: |-
           width: 60
         '#form_key': civicrm_1_contact_1_address_street_address
         '#parent': civicrm_1_contact_1_fieldset_fieldset
+    civicrm_1_contact_1_cg33_custom_120:
+      '#type': civicrm_options
+      '#title': 'Door answered'
+      '#options':
+        1: 'Yes'
+        2: 'No'
+      '#required': true
+      '#data_type': String
+      '#civicrm_condition':
+        andor: or
+        action: visible
+        rules:
+          contact_contact_sub_type:
+            values:
+              - Canvass_Contact
+      '#nid': canvass_form
+      '#form_key': civicrm_1_contact_1_cg33_custom_120
+      '#parent': civicrm_1_contact_1_cg33_fieldset
+      '#default_option': ''
+      '#default_value': ''
+      '#civicrm_live_options': '1'
     civicrm_1_contact_1_cg33_fieldset:
       '#type': fieldset
       '#title': 'Canvass Response'
+      '#states':
+        visible:
+          ':input[name="civicrm_1_contact_1_cg33_custom_120"]':
+            value: '1'
       '#form_key': civicrm_1_contact_1_cg33_fieldset
       civicrm_1_contact_1_cg33_custom_94:
         '#type': civicrm_options
@@ -324,6 +349,10 @@ elements: |-
   canvass_page_2:
     '#type': webform_wizard_page
     '#title': 'Canvass page 2'
+    '#states':
+      visible:
+        ':input[name="civicrm_1_contact_1_cg33_custom_120"]':
+          value: '1'
     civicrm_1_contact_1_cg33_custom_107:
       '#type': civicrm_options
       '#title': 'Permission to follow-up'
@@ -430,6 +459,10 @@ elements: |-
   canvass_page_3:
     '#type': webform_wizard_page
     '#title': 'Canvass page 3'
+    '#states':
+      visible:
+        ':input[name="civicrm_1_contact_1_cg33_custom_120"]':
+          value: '1'
     civicrm_1_activity_1_fieldset_fieldset:
       '#type': fieldset
       '#title': Activity
