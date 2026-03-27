@@ -20,8 +20,9 @@ const REVERSIBLE_AMOUNT_KEYS = array(
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_pre
  */
-function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
-  if(isset($params['financial_type_id'])) {
+function kincoop_civicrm_pre($op, $objectName, $id, &$params)
+{
+  if (isset($params['financial_type_id'])) {
     if (isNewContribution($objectName, $op) && isAssociatedWithGift($params)) {
       reverseSignsOnAmounts($params);
     }
@@ -29,10 +30,10 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
 
   // Send email to delegated contributor when contribution is set to completed
   // No need to send one to the contributor as they will recieve the normal one via civirules anyway
-  if($objectName === 'Contribution' && $op === 'edit') {
+  if ($objectName === 'Contribution' && $op === 'edit') {
 
     // Has it been set to completed?
-    if($params['contribution_status_id'] == 1) {
+    if ($params['contribution_status_id'] == 1) {
       $contribution = \Civi\Api4\Contribution::get(FALSE)
         ->addSelect('*', 'custom.*')
         ->addWhere('id', '=', $id)
@@ -41,25 +42,25 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
         ->first();
 
       // Has it been delegated and was it originally pending?
-      if($contribution["Kin_Contributions.Delegated_Contributor"] && $contribution["contribution_status_id"] != 1) {
+      if ($contribution["Kin_Contributions.Delegated_Contributor"] && $contribution["contribution_status_id"] != 1) {
 
         $delegate_id = $contribution["Kin_Contributions.Delegated_Contributor"];
         $contribution_id = $params['id'];
 
         $group = \Civi\Api4\Contact::get()
-          ->addSelect('custom.*','*','email_primary.email')
+          ->addSelect('custom.*', '*', 'email_primary.email')
           ->addWhere('id', '=', $contribution["Kin_Contributions.Household"])
           ->execute()
           ->first();
 
         $onBehalfOf = \Civi\Api4\Contact::get()
-          ->addSelect('custom.*','*','email_primary.email')
+          ->addSelect('custom.*', '*', 'email_primary.email')
           ->addWhere('id', '=', $contribution["contact_id"])
           ->execute()
           ->first();
 
         $delegate = \Civi\Api4\Contact::get()
-          ->addSelect('custom.*','*','email_primary.email')
+          ->addSelect('custom.*', '*', 'email_primary.email')
           ->addWhere('id', '=', $delegate_id)
           ->execute()
           ->first();
@@ -76,7 +77,7 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
             'onBehalfOf' => $onBehalfOf,
           ],
           'toEmail' => $delegate['email_primary.email'],
-            'from' => '"Kin" <members@kin.coop>',
+          'from' => '"Kin" <members@kin.coop>',
         ]);
       }
     }
@@ -86,19 +87,19 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
     // Check if custom override email field was submitted
 
     //Civi::log()->debug('New email: ' . $_POST['email-5']);
-      // This is code for on behalf of to submit a contribution on behalf of someone else
-      // It uses the contribution page/form 8
-    if(!empty($params['contribution_page_id']) && $params['contribution_page_id'] == 8){
+    // This is code for on behalf of to submit a contribution on behalf of someone else
+    // It uses the contribution page/form 8
+    if (!empty($params['contribution_page_id']) && $params['contribution_page_id'] == 8) {
       if (!empty($_POST['email-5'])) {
         $overrideEmail = trim($_POST['email-5']);
 
         // Get contact id from email
         try {
-            $contacts = \Civi\Api4\Contact::get(FALSE)
-                ->addSelect('id')
-                ->addWhere('email_primary.email', '=', $overrideEmail)
-                ->setLimit(1)
-                ->execute();
+          $contacts = \Civi\Api4\Contact::get(FALSE)
+            ->addSelect('id')
+            ->addWhere('email_primary.email', '=', $overrideEmail)
+            ->setLimit(1)
+            ->execute();
 
           if (!empty($contacts[0]['id'])) {
             $new_contact_id = $contacts[0]['id'];
@@ -119,7 +120,8 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params) {
   }
 }
 
-function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$objectRef) {
+function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$objectRef)
+{
 
   if ($objectName == 'Relationship' && $op == 'edit') {
 
@@ -142,14 +144,13 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
 
         \Civi::log()->info("Relationship {$objectId} disabled (withdrawal approved).");
       }
-    }
-    catch (\Exception $e) {
+    } catch (\Exception $e) {
       \Civi::log()->error("Error in kincoop_civicrm_post for Relationship $objectId: " . $e->getMessage());
     }
   }
 
 
-  if($objectName === 'Individual' && $op === 'create') {
+  if ($objectName === 'Individual' && $op === 'create') {
     //add hidden relationship to household
     //this is the sign up form with invitation to a particular group
 
@@ -182,7 +183,7 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
   // fill out the Talk to Us webform - It doesn't seem to be possible to add them in the form itself
   if ($objectName === 'Activity' && $op === 'create') {
 
-    if($objectRef->subject == 'Talk to Kin phone call') {
+    if ($objectRef->subject == 'Talk to Kin phone call') {
       // Define your additional assignee contact IDs.
       $assignee_ids = [2, 3]; // Ben and Rob
 
@@ -193,8 +194,7 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
             ->addValue('activity_id', $objectId)
             ->addValue('record_type_id', 1)
             ->execute();
-        }
-        catch (CiviCRM_API3_Exception $e) {
+        } catch (CiviCRM_API3_Exception $e) {
           Civi::log()->error('Failed to add assignee to activity', [
             'activity_id' => $objectId,
             'contact_id' => $cid,
@@ -215,7 +215,8 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
 // and then implements the function isSendReceiptForPending and returns TRUE instead of FALSE
 // (see https://github.com/civicrm/civicrm-core/blob/6bdf4c122348e57b708ff31d76fc45dad21ae1f8/CRM/Core/Payment.php#L1955 and
 // https://chat.civicrm.org/civicrm/pl/yj64iwrh6fyrzgcdw8wziabm4a)
-function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef) {
+function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
+{
   if ($objectName === 'Contribution' && $op === 'create') {
     $contribution = $objectRef;
 
@@ -232,11 +233,10 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef) {
     if (!empty($contribution->contribution_page_id) && $contribution->contribution_page_id == 7) {
 
       // Check if it's pending
-      if ((int) $contribution->contribution_status_id === 2) {
+      if ((int)$contribution->contribution_status_id === 2) {
         try {
-          civicrm_api3('Contribution', 'sendconfirmation',  ['id' => $contribution->id]);
-        }
-        catch (CiviCRM_API3_Exception $e) {
+          civicrm_api3('Contribution', 'sendconfirmation', ['id' => $contribution->id]);
+        } catch (CiviCRM_API3_Exception $e) {
           \Civi::log()->error('Failed to send receipt for pending contribution ID ' . $contribution->id . ': ' . $e->getMessage());
         }
       }
@@ -245,9 +245,10 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef) {
 }
 
 // Re-direct all emails to me on dev sites
-function kincoop_civicrm_alterMailParams(&$params, $context) {
+function kincoop_civicrm_alterMailParams(&$params, $context)
+{
 
-  if(str_contains( $_SERVER['HTTP_HOST'], 'dev.kin')) {
+  if (str_contains($_SERVER['HTTP_HOST'], 'dev.kin')) {
     $params['toEmail'] = 'members@kin.coop';
     $params['cc'] = 'members@kin.coop';
     $params['bcc'] = 'members@kin.coop';
@@ -259,7 +260,8 @@ function kincoop_civicrm_alterMailParams(&$params, $context) {
  *
  * @link https://docs.civicrm.org/civirules/en/latest/hooks/hook_civirules_alter_trigger_data/
  */
-function kincoop_civirules_alter_trigger_data(&$triggerData) {
+function kincoop_civirules_alter_trigger_data(&$triggerData)
+{
   $contributionData = $triggerData->getEntityData('Contribution');
   if (isset($contributionData) && isAssociatedWithGift($contributionData)) {
     reassignContactIdToHousehold($triggerData, $contributionData);
@@ -271,7 +273,8 @@ function kincoop_civirules_alter_trigger_data(&$triggerData) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config/
  */
-function kincoop_civicrm_config(&$config): void {
+function kincoop_civicrm_config(&$config): void
+{
   _kincoop_civix_civicrm_config($config);
 }
 
@@ -280,7 +283,8 @@ function kincoop_civicrm_config(&$config): void {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_install
  */
-function kincoop_civicrm_install(): void {
+function kincoop_civicrm_install(): void
+{
   _kincoop_civix_civicrm_install();
 }
 
@@ -289,7 +293,8 @@ function kincoop_civicrm_install(): void {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_enable
  */
-function kincoop_civicrm_enable(): void {
+function kincoop_civicrm_enable(): void
+{
   _kincoop_civix_civicrm_enable();
 }
 
@@ -309,7 +314,8 @@ function kincoop_civicrm_xmlMenu(&$files) {
  */
 
 
-function kincoop_civicrm_alterMenu(&$items) {
+function kincoop_civicrm_alterMenu(&$items)
+{
   $items['civicrm/civirule/form/action/contribution/oneoffreceipt'] = [
     'page_callback' => 'CRM_CivirulesActions_Contribution_Form_OneOffContributionReceipt',
     'title' => 'Configure One-Off Contribution Receipt',
@@ -318,11 +324,13 @@ function kincoop_civicrm_alterMenu(&$items) {
 }
 
 
-function isNewContribution($objectName, $op): bool {
+function isNewContribution($objectName, $op): bool
+{
   return $objectName == 'Contribution' && $op == 'create';
 }
 
-function isAssociatedWithGift($contributionData): bool {
+function isAssociatedWithGift($contributionData): bool
+{
   $financialTypeId = getFromObjectOrArray($contributionData, 'financial_type_id');
   if (!isset($financialTypeId)) {
     return FALSE;
@@ -332,11 +340,13 @@ function isAssociatedWithGift($contributionData): bool {
   return $ftName == GIFT_FT_NAME;
 }
 
-function reverseSignsOnAmounts(&$params): void {
+function reverseSignsOnAmounts(&$params): void
+{
   array_walk_recursive($params, 'reverseSignIfAppropriate');
 }
 
-function reverseSignIfAppropriate(&$item, $key): void {
+function reverseSignIfAppropriate(&$item, $key): void
+{
   if (!isReversibleAmount($key)) {
     return;
   }
@@ -347,11 +357,13 @@ function reverseSignIfAppropriate(&$item, $key): void {
   }
 }
 
-function isReversibleAmount($key): bool {
+function isReversibleAmount($key): bool
+{
   return array_key_exists($key, REVERSIBLE_AMOUNT_KEYS);
 }
 
-function reassignContactIdToHousehold($triggerData, $contributionData): void {
+function reassignContactIdToHousehold($triggerData, $contributionData): void
+{
   $householdContactId = getHouseholdContactId($contributionData);
   if (!isset($householdContactId)) {
     Civi::log()->debug('[' . __FUNCTION__ . '] ' .
@@ -361,7 +373,8 @@ function reassignContactIdToHousehold($triggerData, $contributionData): void {
   $triggerData->setContactId($householdContactId);
 }
 
-function getHouseholdContactId($contributionData): ?int {
+function getHouseholdContactId($contributionData): ?int
+{
   $contributionId = getFromObjectOrArray($contributionData, 'id');
   if (!isset($contributionId)) {
     Civi::log()->debug('$contributionId not present');
@@ -383,9 +396,10 @@ function getHouseholdContactId($contributionData): ?int {
     array(1 => array($contributionId, 'Integer')));
 }
 
-function getFromObjectOrArray($objectOrArray, $key) {
-  $array = (array) $objectOrArray;
-    return $array[$key] ?? null;
+function getFromObjectOrArray($objectOrArray, $key)
+{
+  $array = (array)$objectOrArray;
+  return $array[$key] ?? null;
 }
 
 /*
@@ -405,12 +419,13 @@ function kincoop_civicrm_pageRun($page): void {
  * @param string $formName
  * @param CRM_Core_Form $form
  */
-function kincoop_civicrm_buildForm($formName, $form) {
-    //Civi::log()->debug('Contents of $formName: ' . print_r($formName, TRUE));
-    //Civi::log()->debug('Contents of $formName: ' . print_r($form, TRUE));
+function kincoop_civicrm_buildForm($formName, $form)
+{
+  //Civi::log()->debug('Contents of $formName: ' . print_r($formName, TRUE));
+  //Civi::log()->debug('Contents of $formName: ' . print_r($form, TRUE));
   $groupid = CRM_Utils_Request::retrieve('groupid', 'Positive');
 
-  if($formName == 'CRM_Contribute_Form_Contribution_ThankYou') {
+  if ($formName == 'CRM_Contribute_Form_Contribution_ThankYou') {
     $groupid = null;
 
     // Try to get from CiviCRM session first
@@ -497,23 +512,47 @@ function kincoop_civicrm_buildForm($formName, $form) {
     }
   }
 
-    if ($formName === 'CRM_Contribute_Form_Contribution_Main') {
+  if ($formName === 'CRM_Contribute_Form_Contribution_Main') {
 
-      $groupid = CRM_Utils_Request::retrieve('groupid', 'Positive');
-      if ($groupid) {
-        // Store in CiviCRM session
-        $session = CRM_Core_Session::singleton();
-        $session->set('contribution_groupid', $groupid);
+    // Get the contribution page ID
+    $page_id = $form->getVar('_id');
 
-        // Also store in PHP session as backup
-        if (session_status() == PHP_SESSION_NONE) {
-          session_start();
-        }
-        $_SESSION['civicrm_groupid'] = $groupid;
+    // Allow public access to page ID 2
+    if ($page_id != 2) {
+      // Check if user is logged in to Drupal
+      $user = \Drupal::currentUser();
 
-        $backUrl = "/member/group/{$groupid}";
+      if ($user->isAnonymous()) {
+        // Get current URL for redirect after login
+        $current_url = \Drupal::request()->getRequestUri();
 
-        CRM_Core_Resources::singleton()->addScript("
+        // Add message
+        \Drupal::messenger()->addWarning(t('You must be logged in to access this contribution form.'));
+
+        // Redirect to login
+        $login_url = \Drupal\Core\Url::fromRoute('user.login', [], [
+          'query' => ['destination' => $current_url]
+        ])->toString();
+
+        CRM_Utils_System::redirect($login_url);
+      }
+    }
+
+    $groupid = CRM_Utils_Request::retrieve('groupid', 'Positive');
+    if ($groupid) {
+      // Store in CiviCRM session
+      $session = CRM_Core_Session::singleton();
+      $session->set('contribution_groupid', $groupid);
+
+      // Also store in PHP session as backup
+      if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+      }
+      $_SESSION['civicrm_groupid'] = $groupid;
+
+      $backUrl = "/member/group/{$groupid}";
+
+      CRM_Core_Resources::singleton()->addScript("
         CRM.$(function($) {
           // Add back button to the confirmation page
           var backButton = '<div class=\"crm-section back-button-section\" style=\"margin: 20px 0;\">' +
@@ -528,32 +567,32 @@ function kincoop_civicrm_buildForm($formName, $form) {
           $('#footer_text').after(backButton);
         });
       ");
-      }
+    }
 
-      // One off group contributions
-      if ($form->_id === 1) {
-        if($form->getAction() == CRM_Core_Action::ADD) {
-           if (isset($_GET['groupid']) && $_GET['me']) {
-              $ref = $_GET['me'] . '-' . $_GET['groupid'];
-              $groupid = $_GET['groupid'];
-              $defaults['custom_25'] = $groupid;
-              $defaults['custom_61'] = $ref;
-              //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
-           }
+    // One off group contributions
+    if ($form->_id === 1) {
+      if ($form->getAction() == CRM_Core_Action::ADD) {
+        if (isset($_GET['groupid']) && $_GET['me']) {
+          $ref = $_GET['me'] . '-' . $_GET['groupid'];
+          $groupid = $_GET['groupid'];
+          $defaults['custom_25'] = $groupid;
+          $defaults['custom_61'] = $ref;
+          //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
+        }
 
-          $defaults['custom_66'] = 1;
-          $form->setDefaults($defaults);
+        $defaults['custom_66'] = 1;
+        $form->setDefaults($defaults);
 
-          if ($form->elementExists('custom_25')) {
-            $element = $form->getElement('custom_25');
-            $email = $form->getElement('email-5');
+        if ($form->elementExists('custom_25')) {
+          $element = $form->getElement('custom_25');
+          $email = $form->getElement('email-5');
 
-            // Make it read-only
-            $element->freeze();
-            $email->freeze();
+          // Make it read-only
+          $element->freeze();
+          $email->freeze();
 
-            // Inject JavaScript to strip the link
-            CRM_Core_Resources::singleton()->addScript("
+          // Inject JavaScript to strip the link
+          CRM_Core_Resources::singleton()->addScript("
               (function($) {
                 $(document).ready(function() {
                   // Only target the display element of custom_25
@@ -566,10 +605,10 @@ function kincoop_civicrm_buildForm($formName, $form) {
                 });
               })(CRM.$);
             ");
-          }
         }
+
       } elseif ($form->_id === 3) {
-        if($form->getAction() == CRM_Core_Action::ADD) {
+        if ($form->getAction() == CRM_Core_Action::ADD) {
           if (isset($_GET['groupid']) && $_GET['me']) {
             $ref = $_GET['me'] . '-' . $_GET['groupid'] . 'G';
             $defaults['custom_25'] = $_GET['groupid'];
@@ -588,6 +627,7 @@ function kincoop_civicrm_buildForm($formName, $form) {
             $email->freeze();
             $refField->freeze();
 
+
             // Inject JavaScript to strip the link
             CRM_Core_Resources::singleton()->addScript("
               (function($) {
@@ -602,20 +642,19 @@ function kincoop_civicrm_buildForm($formName, $form) {
 
                 });
               })(CRM.$);
-            ");
+          ");
           }
 
           // adding group reward information popup box
           if ($form->elementExists('custom_83')) {
+            //$typeHelp = $form->_fields["custom_83"]["help_post"];
             CRM_Core_Resources::singleton()->addScript("
             (function($) {
               $(document).ready(function() {
                 // Add the help icon
                 var helpText = '<sup data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" tabindex=\"0\" class=\"question-mark\"' +
-                  'data-bs-content=\"Usually this will be a Personal Request (for money to be paid to you), but sometimes the payment is being used for the group' +
-                  ' as a whole or for another reason. For a collective purchase or another type of group payment it needs the whole group\'s approval.\"' +
-                  'data-bs-placement=\"top\" ' +
-                  'aria-label=\"Request Type\" title=\"Request Type\"> <em>' +
+                  'data-bs-content=\"Usually this will be Personal use, but sometimes if the money is being used for the group as a whole, it will be Group use.\"' +
+                  'data-bs-placement=\"top\" aria-label=\"Request Type\" title=\"Request Type\"> <em>' +
                   '<i class=\"fs-3 fw-bold text-primary bg-white rounded-circle d-inline-block bi bi-question-circle-fill\"></i></em></sup>';
 
                 $('#helprow-custom_83 .content').append(helpText);
@@ -634,29 +673,26 @@ function kincoop_civicrm_buildForm($formName, $form) {
           ");
           }
         }
-      }
-
-      // One off membership fee (4)
+      } // One off membership fee (4)
       elseif ($form->_id === 4) {
-          //Civi::log()->debug('Contents of $formName: ' . print_r($_GET, TRUE));
-        if($form->getAction() == CRM_Core_Action::ADD) {
+        //Civi::log()->debug('Contents of $formName: ' . print_r($_GET, TRUE));
+        if ($form->getAction() == CRM_Core_Action::ADD) {
           if (isset($_GET['groupid']) && $_GET['me']) {
-              $cid = CRM_Core_Session::singleton()->getLoggedInContactID();
-              $cid = $cid ? $cid : 'K';
-              $ref = $cid . '-' . $_GET['groupid'];
-              $defaults['custom_25'] = $_GET['groupid'];
-              $defaults['custom_61'] = $ref;
-              $form->setDefaults($defaults);
-              //if (isset($form['custom_25'])) {
-              //  $form->addRule('custom_25', ts('This field is required.'), 'required');
-              //}
-                  //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
-              }
+            $cid = CRM_Core_Session::singleton()->getLoggedInContactID();
+            $cid = $cid ? $cid : 'K';
+            $ref = $cid . '-' . $_GET['groupid'];
+            $defaults['custom_25'] = $_GET['groupid'];
+            $defaults['custom_61'] = $ref;
+            $form->setDefaults($defaults);
+            //if (isset($form['custom_25'])) {
+            //  $form->addRule('custom_25', ts('This field is required.'), 'required');
+            //}
+            //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
           }
-      }
-      // Recurring contributions to groups
+        }
+      } // Recurring contributions to groups
       elseif ($form->_id === 7 || $form->_id === 8) {
-        if($form->getAction() == CRM_Core_Action::ADD) {
+        if ($form->getAction() == CRM_Core_Action::ADD) {
 
           if (isset($_GET['groupid']) && $_GET['me']) {
             //Include the R suffix on the unique contribution reference to denote recurring contributions
@@ -696,65 +732,62 @@ function kincoop_civicrm_buildForm($formName, $form) {
         }
       }
     }
+  }
 }
-
 // Check group/household is filled in
-function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$errors) {
-    if ($formName === 'CRM_Contribute_Form_Contribution_Main') {
-        if ($form->_id === 1 || $form->_id === 3 || $form->_id ===4) {
-            //Civi::log()->debug('Contents of $defaults: ' . print_r($fields, TRUE));
-            if(empty($fields['custom_25'])) {
-                $errors['custom_25'] = ts('This field is required.');
-            }
-        }
+function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$errors)
+{
+  if ($formName === 'CRM_Contribute_Form_Contribution_Main') {
+    if ($form->_id === 1 || $form->_id === 3 || $form->_id === 4) {
+      //Civi::log()->debug('Contents of $defaults: ' . print_r($fields, TRUE));
+      if (empty($fields['custom_25'])) {
+        $errors['custom_25'] = ts('This field is required.');
+      }
+    } // on behalf of form
+    elseif ($form->_id === 8) {
+      //check contact exists from email
 
-        // on behalf of form
-        elseif ($form->_id === 8) {
-            //check contact exists from email
+      if (empty($fields['custom_25'])) {
+        $errors['custom_25'] = ts('This field is required.');
+      }
 
-            if(empty($fields['custom_25'])) {
-              $errors['custom_25'] = ts('This field is required.');
-            }
+      if (!empty($fields['email-5'])) {
+        $on_behalf_of = $fields['email-5'];
 
-            if (!empty($fields['email-5'])) {
-              $on_behalf_of = $fields['email-5'];
+        // Check contact exists
+        try {
+          $contacts = \Civi\Api4\Contact::get(FALSE)
+            ->addSelect('id')
+            ->addWhere('email_primary.email', '=', $on_behalf_of)
+            ->setLimit(1)
+            ->execute();
 
-              // Check contact exists
-              try {
-                $contacts = \Civi\Api4\Contact::get(FALSE)
-                  ->addSelect('id')
-                  ->addWhere('email_primary.email', '=', $on_behalf_of)
-                  ->setLimit(1)
-                  ->execute();
-
-                  if (empty($contacts[0])) {
-                      $errors['email-5'] = ts('No member found with this email address. Please check and try again.');
-                  } else {
-                    $contact_id = $contacts[0]["id"];
-                  }
-              }
-              catch (CiviCRM_API4_Exception $e) {
-                  \Civi::log()->error("API error during email lookup: " . $e->getMessage());
-              }
-
-              //check that the member is in the group selected
-              try {
-                $relationships = \Civi\Api4\Relationship::get(FALSE)
-                  ->addSelect('*')
-                  ->addWhere('contact_id_a', '=', $contact_id)
-                  ->addWhere('contact_id_b', '=', $fields['custom_25'])
-                  ->setLimit(1)
-                  ->execute();
-
-                if (empty($relationships[0])) {
-                  $errors['custom_25'] = ts('The email given does not match any members of this group. Please check and try again.');
-                }
-              }
-              catch (CiviCRM_API4_Exception $e) {
-                \Civi::log()->error("API error during email lookup: " . $e->getMessage());
-              }
+          if (empty($contacts[0])) {
+            $errors['email-5'] = ts('No member found with this email address. Please check and try again.');
+          } else {
+            $contact_id = $contacts[0]["id"];
           }
+        } catch (CiviCRM_API4_Exception $e) {
+          \Civi::log()->error("API error during email lookup: " . $e->getMessage());
         }
+
+        //check that the member is in the group selected
+        try {
+          $relationships = \Civi\Api4\Relationship::get(FALSE)
+            ->addSelect('*')
+            ->addWhere('contact_id_a', '=', $contact_id)
+            ->addWhere('contact_id_b', '=', $fields['custom_25'])
+            ->setLimit(1)
+            ->execute();
+
+          if (empty($relationships[0])) {
+            $errors['custom_25'] = ts('The email given does not match any members of this group. Please check and try again.');
+          }
+        } catch (CiviCRM_API4_Exception $e) {
+          \Civi::log()->error("API error during email lookup: " . $e->getMessage());
+        }
+      }
     }
-    return;
+  }
+  return;
 }
