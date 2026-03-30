@@ -42,6 +42,9 @@ class ContributionStatusForm extends FormBase
     $contribution_amount = $contribution['total_amount'] * -1;
     $member_cid = kin_civi_get_contrib_contact($contribution_id);
     $member_name = kin_civi_get_name($member_cid)['display_name'];
+    $group_id = \Drupal::routeMatch()->getParameter('group_id');
+    //$form_state->setValue('group_id', $group_id);
+    $group = \Drupal::service('kin_civi.utils')->kin_civi_check_group($group_id);
 
     if ($contribution == false) {
       $form = [
@@ -53,11 +56,63 @@ class ContributionStatusForm extends FormBase
         '#value' => $contribution_id,
       ];
 
+      $form['intro'] = [
+        '#markup' => $this->t('
+           <p>Please approve or deny this request and confirm that it is legitimate mutual aid and has been agreed by the whole group.</p>
+          '),
+      ];
+
+      $form['group'] = [
+        '#type' => 'item',
+        '#title' => $this->t('Group'),
+        '#markup' => '<strong>' . $group['display_name'] . '</strong>',
+      ];
+
       $form['requested_by'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Requested by'),
         '#default_value' => $member_name,
         '#disabled' => TRUE,
+      ];
+
+      $form['reward_type'] = [
+        '#type' => 'select',
+        '#title' => $this->t('Type of Reward'),
+        '#options' => $this->getRewardTypeOptions(),
+        '#required' => TRUE,
+        '#default_value' => $contribution['Group_Reward.Reward_Type'],
+      ];
+
+      $form['group_agreement'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Confirm the whole group has agreed.'),
+        '#required' => TRUE,
+      ];
+
+      $form['gift_individual'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Is this a gift for an individual?'),
+        '#states' => [
+          'visible' => [
+            ':input[name="reward_type"]' => ['value' => 'Group use'],
+          ],
+          'required' => [
+            ':input[name="reward_type"]' => ['value' => 'Group use'],
+          ],
+        ],
+      ];
+
+      $form['no_prior_agreement'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('I confirm it is not a payment for goods or services, there was no prior agreement, and group member contributions were not made or altered to afford this gift.'),
+        '#states' => [
+          'visible' => [
+            ':input[name="gift_individual"]' => ['checked' => true],
+          ],
+          'required' => [
+            ':input[name="gift_individual"]' => ['checked' => true],
+          ],
+        ],
       ];
 
       $form['amount'] = [
@@ -78,7 +133,6 @@ class ContributionStatusForm extends FormBase
         '#type' => 'textarea',
         '#title' => $this->t('Request Note'),
         '#default_value' => $contribution['Kin_Contributions.Note'], // This is the preset value
-        '#disabled' => TRUE, // Makes the field read-only
       ];
 
       $form['status'] = [
@@ -134,6 +188,10 @@ class ContributionStatusForm extends FormBase
       $member_cid = kin_civi_get_contrib_contact($contribution_id);
       $name = kin_civi_get_name($member_cid)['display_name'];
       $email = kin_civi_get_name($member_cid)['email_primary.email'];
+      $agreed = is_null($form_state->getValue('group_agreement')) ? 0 : $form_state->getValue('group_agreement');
+      $gift_individual = is_null($form_state->getValue('gift_individual')) ? 0 : $form_state->getValue('gift_individual');
+      $no_prior_agreement = is_null($form_state->getValue('no_prior_agreement')) ? 0 : $form_state->getValue('no_prior_agreement');
+      $reward_type = $form_state->getValue('reward_type');
 
       // Only update if the person accessing this form is an admin of the group where the gift is being requested
       if (kin_civi_is_admin($admin_cid, $group)) {
@@ -141,6 +199,11 @@ class ContributionStatusForm extends FormBase
           // Please note $status is Case Sensitive!!
           Contribution::update(FALSE)
             ->addValue('Kin_Contributions.Approved', $status)
+            ->addValue('Group_Reward.Reward_Type', $reward_type)
+            ->addValue('Kin_Contributions.Note', $form_state->getValue('gift_note'))
+            ->addValue('Group_Reward.All_members_agreed', $agreed)
+            ->addValue('Group_Reward.Is_this_a_gift_for_an_individual_', $gift_individual)
+            ->addValue('Group_Reward.Not_payment_for_goods_or_services', $no_prior_agreement)
             ->addWhere('id', '=', $contribution_id)
             ->execute();
 
@@ -250,12 +313,47 @@ class ContributionStatusForm extends FormBase
       \Drupal::messenger()->addWarning($this->t('No gift contribution found.'));
     }
   }
+
+  /**
+   * Get reward type options from CiviCRM custom field.
+   *
+   * @return array
+   *   An associative array of options (value => label).
+   */
+  protected function getRewardTypeOptions() {
+
+    try {
+      // Replace 'custom_123' with your actual custom field ID
+      $result = \Civi\Api4\Contribution::getFields(FALSE)
+                                       ->addWhere('name', '=', 'Group_Reward.Reward_Type') // Use the actual custom field ID
+                                       ->setLoadOptions(TRUE)
+                                       ->addSelect('options')
+                                       ->execute()
+                                       ->first();
+
+      $options = [];
+      if (!empty($result['options'])) {
+        foreach ($result['options'] as $option) {
+          $options[$option] = $option;
+        }
+      }
+
+      return $options;
+
+    } catch (\Exception $e) {
+      \Drupal::logger('kin_civi')->error('Error loading reward type options: @message', [
+        '@message' => $e->getMessage(),
+      ]);
+      return [];
+    }
+  }
+
 }
 
 function kin_civi_get_contribution($contribution_id)
 {
   $contributions = \Civi\Api4\Contribution::get(FALSE)
-    ->addSelect('Kin_Contributions.Note', 'id', 'receive_date', 'total_amount', 'Kin_Contributions.Approved')
+    ->addSelect('Kin_Contributions.Note', 'id', 'receive_date', 'total_amount', 'Kin_Contributions.Approved', 'Group_Reward.Reward_Type')
     ->addWhere('id', '=', $contribution_id)
     ->addWhere('financial_type_id', '=', 5)
     ->execute();
