@@ -276,10 +276,10 @@ elements: |-
           5: 'Mutual aid or volunteering group'
           6: Other
         '#parent': civicrm_1_contact_1_cg33_fieldset
-        '#title': 'Are you part of any Community WhatsApp groups?'
+        '#title': 'Are you part of any Community chat / WhatsApp groups?'
         '#civicrm_live_options': 1
         '#default_value': ''
-        '#required': true
+        '#required': '0'
       civicrm_1_contact_1_cg33_custom_118:
         '#type': civicrm_options
         '#title': 'Knows people who would be interested?'
@@ -459,13 +459,13 @@ elements: |-
   canvass_page_3:
     '#type': webform_wizard_page
     '#title': 'Canvass page 3'
-    '#states':
-      visible:
-        ':input[name="civicrm_1_contact_1_cg33_custom_120"]':
-          value: '1'
     civicrm_1_activity_1_fieldset_fieldset:
       '#type': fieldset
       '#title': Activity
+      '#states':
+        visible:
+          ':input[name="civicrm_1_contact_1_cg33_custom_120"]':
+            value: '1'
       '#form_key': civicrm_1_activity_1_fieldset_fieldset
       civicrm_1_activity_1_cg34_custom_106:
         '#type': civicrm_options
