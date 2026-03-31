@@ -1801,3 +1801,8 @@ div.block.vertical {
   }
 }
 
+.contribution-status-form {
+  input, select {
+    max-width: 300px;
+  }
+}

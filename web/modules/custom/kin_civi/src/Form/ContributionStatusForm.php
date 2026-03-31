@@ -90,8 +90,15 @@ class ContributionStatusForm extends FormBase
       ];
 
       $form['gift_individual'] = [
-        '#type' => 'checkbox',
+        '#type' => 'select',
         '#title' => $this->t('Is this a gift for an individual?'),
+        '#empty_option' => '- Please select -',
+        '#empty_value' => '',
+        '#options' => [
+          1 => $this->t('Yes'),
+          0 => $this->t('No'),
+        ],
+        '#required' => TRUE,
         '#states' => [
           'visible' => [
             ':input[name="reward_type"]' => ['value' => 'Group use'],
@@ -107,10 +114,10 @@ class ContributionStatusForm extends FormBase
         '#title' => $this->t('I confirm it is not a payment for goods or services, there was no prior agreement, and group member contributions were not made or altered to afford this gift.'),
         '#states' => [
           'visible' => [
-            ':input[name="gift_individual"]' => ['checked' => true],
+            ':input[name="gift_individual"]' => ['value' => '1'],
           ],
           'required' => [
-            ':input[name="gift_individual"]' => ['checked' => true],
+            ':input[name="gift_individual"]' => ['value' => '1'],
           ],
         ],
       ];
