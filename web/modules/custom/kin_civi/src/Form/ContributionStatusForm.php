@@ -97,14 +97,13 @@ class ContributionStatusForm extends FormBase
           1 => $this->t('Yes'),
           0 => $this->t('No'),
         ],
-        '#required' => TRUE,
         '#states' => [
           'visible' => [
             ':input[name="reward_type"]' => ['value' => 'Group use'],
           ],
-          //'required' => [
-            //':input[name="reward_type"]' => ['value' => 'Personal use'],
-          //],
+          'required' => [
+            ':input[name="reward_type"]' => ['value' => 'Group use'],
+          ],
         ],
       ];
 
@@ -286,6 +285,10 @@ class ContributionStatusForm extends FormBase
               'contact_id' => $member_cid, // Recipient’s contact ID
               'from' => '"Kin Cooperative" <members@kin.coop>',
               'to_email' => 'members@kin.coop',
+              'tokenContext' => [
+                'contactId' => $member_cid,
+                'contributionId' => $contribution_id,
+              ],
               'tplParams' => [
                 'group' => $group_name["display_name"],
                 'amount' => $amount,
