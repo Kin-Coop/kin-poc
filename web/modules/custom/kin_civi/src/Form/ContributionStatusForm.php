@@ -93,7 +93,6 @@ class ContributionStatusForm extends FormBase
         '#type' => 'select',
         '#title' => $this->t('Is this a gift for an individual?'),
         '#empty_option' => '- Please select -',
-        '#empty_value' => '',
         '#options' => [
           1 => $this->t('Yes'),
           0 => $this->t('No'),
@@ -103,9 +102,9 @@ class ContributionStatusForm extends FormBase
           'visible' => [
             ':input[name="reward_type"]' => ['value' => 'Group use'],
           ],
-          'required' => [
-            ':input[name="reward_type"]' => ['value' => 'Group use'],
-          ],
+          //'required' => [
+            //':input[name="reward_type"]' => ['value' => 'Personal use'],
+          //],
         ],
       ];
 
