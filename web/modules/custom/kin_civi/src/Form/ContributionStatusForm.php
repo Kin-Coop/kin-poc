@@ -97,14 +97,13 @@ class ContributionStatusForm extends FormBase
           1 => $this->t('Yes'),
           0 => $this->t('No'),
         ],
-        '#required' => TRUE,
         '#states' => [
           'visible' => [
             ':input[name="reward_type"]' => ['value' => 'Group use'],
           ],
-          //'required' => [
-            //':input[name="reward_type"]' => ['value' => 'Personal use'],
-          //],
+          'required' => [
+            ':input[name="reward_type"]' => ['value' => 'Group use'],
+          ],
         ],
       ];
 
