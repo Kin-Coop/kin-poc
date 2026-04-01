@@ -14282,4 +14282,8 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   color: #fff;
 }
 
+.contribution-status-form input, .contribution-status-form select {
+  max-width: 300px;
+}
+
 /*# sourceMappingURL=style.css.map */

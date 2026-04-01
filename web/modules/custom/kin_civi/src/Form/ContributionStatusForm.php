@@ -58,15 +58,7 @@ class ContributionStatusForm extends FormBase
 
       $form['intro'] = [
         '#markup' => $this->t('
-           <p>Please approve or disapprove this request.</p>
-           <p>If the request type is not a personal request, then it requires the agreement of the whole group.</p>
-           <p>If the request type is a "Collective purchase" you also need to confirm that
-           </p>
-           <ul>
-           <li>The money comes from leftover group funds</li>
-           <li>There was no prior agreement, contract or expectation of payment</li>
-           <li>This is not a payment for goods or services</li>
-           </ul>
+           <p>Please approve or deny this request and confirm that it is legitimate mutual aid and has been agreed by the whole group.</p>
           '),
       ];
 
@@ -93,53 +85,38 @@ class ContributionStatusForm extends FormBase
 
       $form['group_agreement'] = [
         '#type' => 'checkbox',
-        '#title' => $this->t('Has the whole group agreed to this reward?'),
+        '#title' => $this->t('Confirm the whole group has agreed.'),
+        '#required' => TRUE,
+      ];
+
+      $form['gift_individual'] = [
+        '#type' => 'select',
+        '#title' => $this->t('Is this a gift for an individual?'),
+        '#empty_option' => '- Please select -',
+        '#options' => [
+          1 => $this->t('Yes'),
+          0 => $this->t('No'),
+        ],
         '#required' => TRUE,
         '#states' => [
           'visible' => [
-            ':input[name="reward_type"]' => ['!value' => 'Personal request'],
+            ':input[name="reward_type"]' => ['value' => 'Group use'],
           ],
-          'required' => [
-            ':input[name="reward_type"]' => ['!value' => 'Personal request'],
-          ],
-        ],
-      ];
-
-      $form['not_goods_services'] = [
-        '#type' => 'checkbox',
-        '#title' => $this->t('This is not a payment for goods or services.'),
-        '#states' => [
-          'visible' => [
-            ':input[name="reward_type"]' => ['value' => 'Collective purchase'],
-          ],
-          'required' => [
-            ':input[name="reward_type"]' => ['value' => 'Collective purchase'],
-          ],
+          //'required' => [
+            //':input[name="reward_type"]' => ['value' => 'Personal use'],
+          //],
         ],
       ];
 
       $form['no_prior_agreement'] = [
         '#type' => 'checkbox',
-        '#title' => $this->t('There was no prior agreement, contract or expectation of payment.'),
+        '#title' => $this->t('I confirm it is not a payment for goods or services, there was no prior agreement, and group member contributions were not made or altered to afford this gift.'),
         '#states' => [
           'visible' => [
-            ':input[name="reward_type"]' => ['value' => 'Collective purchase'],
+            ':input[name="gift_individual"]' => ['value' => '1'],
           ],
           'required' => [
-            ':input[name="reward_type"]' => ['value' => 'Collective purchase'],
-          ],
-        ],
-      ];
-
-      $form['leftover_funds'] = [
-        '#type' => 'checkbox',
-        '#title' => $this->t('The money comes from leftover group funds.'),
-        '#states' => [
-          'visible' => [
-            ':input[name="reward_type"]' => ['value' => 'Collective purchase'],
-          ],
-          'required' => [
-            ':input[name="reward_type"]' => ['value' => 'Collective purchase'],
+            ':input[name="gift_individual"]' => ['value' => '1'],
           ],
         ],
       ];
@@ -218,9 +195,8 @@ class ContributionStatusForm extends FormBase
       $name = kin_civi_get_name($member_cid)['display_name'];
       $email = kin_civi_get_name($member_cid)['email_primary.email'];
       $agreed = is_null($form_state->getValue('group_agreement')) ? 0 : $form_state->getValue('group_agreement');
-      $not_goods_services = is_null($form_state->getValue('not_goods_services')) ? 0 : $form_state->getValue('not_goods_services');
+      $gift_individual = is_null($form_state->getValue('gift_individual')) ? 0 : $form_state->getValue('gift_individual');
       $no_prior_agreement = is_null($form_state->getValue('no_prior_agreement')) ? 0 : $form_state->getValue('no_prior_agreement');
-      $leftover_funds = is_null($form_state->getValue('leftover_funds')) ? 0 : $form_state->getValue('leftover_funds');
       $reward_type = $form_state->getValue('reward_type');
 
       // Only update if the person accessing this form is an admin of the group where the gift is being requested
@@ -232,9 +208,8 @@ class ContributionStatusForm extends FormBase
             ->addValue('Group_Reward.Reward_Type', $reward_type)
             ->addValue('Kin_Contributions.Note', $form_state->getValue('gift_note'))
             ->addValue('Group_Reward.All_members_agreed', $agreed)
-            ->addValue('Group_Reward.This_is_not_a_payment_for_goods_or_services', $not_goods_services)
-            ->addValue('Group_Reward.There_was_no_prior_agreement_contract_or_expectation_of_payment', $no_prior_agreement)
-            ->addValue('Group_Reward.The_money_comes_from_leftover_group_funds', $leftover_funds)
+            ->addValue('Group_Reward.Is_this_a_gift_for_an_individual_', $gift_individual)
+            ->addValue('Group_Reward.Not_payment_for_goods_or_services', $no_prior_agreement)
             ->addWhere('id', '=', $contribution_id)
             ->execute();
 
