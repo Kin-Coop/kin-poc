@@ -311,6 +311,10 @@ class ContributionStatusForm extends FormBase
               'contact_id' => $member_cid, // Recipient’s contact ID
               'from' => '"Kin Cooperative" <members@kin.coop>',
               'to_email' => 'members@kin.coop',
+              'tokenContext' => [
+                'contactId' => $member_cid,
+                'contributionId' => $contribution_id,
+              ],
               'tplParams' => [
                 'group' => $group_name["display_name"],
                 'amount' => $amount,
