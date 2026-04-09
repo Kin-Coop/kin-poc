@@ -11,144 +11,141 @@ uid: 3
 template: false
 archive: false
 id: canvass_form
-title: 'Canvass Form (Template)'
-description: ''
+title: 'Cooperation in Haringey'
+description: '<p>Public form&nbsp;</p>'
 categories: {  }
 elements: |-
-  canvass_page_1:
-    '#type': webform_wizard_page
-    '#title': 'Canvass page 1'
-    civicrm_1_activity_1_activity_activity_date_time:
-      '#type': datetime
-      '#title': 'Activity Date'
-      '#disabled': true
-      '#prepopulate': true
-      '#default_value': now
-      '#access': false
-      '#date_time_step': '60'
-      '#form_key': civicrm_1_activity_1_activity_activity_date_time
-      '#parent': civicrm_1_activity_1_fieldset_fieldset
-      '#extra': {  }
-    canvas_address:
-      '#type': fieldset
-      '#title': 'Canvas Address'
-      location:
-        '#type': webform_flexbox
-        civicrm_1_contact_1_cg33_custom_93:
-          '#type': textfield
-          '#title': 'UK Local Authority / Borough'
-          '#prepopulate': true
-          '#required': true
-          '#counter_type': character
-          '#counter_maximum': 255
-          '#counter_maximum_message': ' '
-          '#flex': 6
-          '#data_type': String
-          '#civicrm_condition':
-            andor: or
-            action: visible
-            rules:
-              contact_contact_sub_type:
-                values:
-                  - Canvass_Contact
-          '#form_key': civicrm_1_contact_1_cg33_custom_93
-          '#extra':
-            width: 20
-          '#parent': civicrm_1_contact_1_cg33_fieldset
-        civicrm_1_contact_1_cg33_custom_105:
-          '#type': textfield
-          '#title': Ward
-          '#prepopulate': true
-          '#required': true
-          '#counter_type': character
-          '#counter_maximum': 255
-          '#counter_maximum_message': ' '
-          '#flex': 6
-          '#data_type': String
-          '#civicrm_condition':
-            andor: or
-            action: visible
-            rules:
-              contact_contact_sub_type:
-                values:
-                  - Canvass_Contact
-          '#form_key': civicrm_1_contact_1_cg33_custom_105
-          '#extra':
-            width: 20
-          '#parent': civicrm_1_contact_1_cg33_fieldset
-      civicrm_1_contact_1_address_street_name:
+  civicrm_1_activity_1_activity_activity_date_time:
+    '#type': datetime
+    '#title': 'Activity Date'
+    '#disabled': true
+    '#prepopulate': true
+    '#default_value': now
+    '#access': false
+    '#date_time_step': '60'
+    '#form_key': civicrm_1_activity_1_activity_activity_date_time
+    '#parent': civicrm_1_activity_1_fieldset_fieldset
+    '#extra': {  }
+  prize_draw:
+    '#type': webform_message
+    '#message_message': '<p><strong>Fill in this survey for two chances to win £100!</strong></p><p>The prize draw will choose two random respondents if at least 100 responses are received by May 31st. Respondents must answer honestly, be contactable, and live in the London Borough of Haringey.&nbsp;</p>'
+  canvas_address:
+    '#type': fieldset
+    '#title': 'Canvas Address'
+    '#title_display': invisible
+    location:
+      '#type': webform_flexbox
+      civicrm_1_contact_1_cg33_custom_93:
         '#type': textfield
-        '#title': 'Street Name'
+        '#title': 'UK Local Authority / Borough'
+        '#readonly': true
         '#required': true
         '#counter_type': character
-        '#counter_maximum': 64
+        '#counter_maximum': 255
         '#counter_maximum_message': ' '
-        '#flex': 9
-        '#attributes':
-          style: 'max-width: 360px;'
-        '#extra':
-          width: 60
-        '#form_key': civicrm_1_contact_1_address_street_name
-        '#parent': civicrm_1_contact_1_fieldset_fieldset
-      civicrm_1_contact_1_address_street_number:
-        '#type': textfield
-        '#title': 'Street Number'
-        '#size': 3
-        '#required': true
-        '#flex': 3
-        '#attributes':
-          style: 'max-width: 120px;'
+        '#flex': 6
+        '#default_value': Haringey
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg33_custom_93
         '#extra':
           width: 20
-        '#form_key': civicrm_1_contact_1_address_street_number
-        '#parent': civicrm_1_contact_1_fieldset_fieldset
-      street_address_combined:
-        '#type': hidden
-        '#title': 'Street Address Combined'
+        '#parent': civicrm_1_contact_1_cg33_fieldset
+      civicrm_1_contact_1_cg33_custom_105:
+        '#type': textfield
+        '#title': 'Ward (if known)'
+        '#counter_type': character
+        '#counter_maximum': 255
+        '#counter_maximum_message': ' '
+        '#flex': 6
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg33_custom_105
+        '#extra':
+          width: 20
+        '#parent': civicrm_1_contact_1_cg33_fieldset
+    flexbox:
+      '#type': webform_flexbox
       civicrm_1_contact_1_address_street_address:
         '#type': textfield
         '#title': 'Street Address'
+        '#required': true
         '#counter_type': character
         '#counter_maximum': 96
         '#counter_maximum_message': ' '
-        '#default_value': '[webform_submission:values:civicrm_1_contact_1_address_street_number] [webform_submission:values:civicrm_1_contact_1_address_street_name]'
-        '#access': false
+        '#flex': 8
         '#extra':
           width: 60
         '#form_key': civicrm_1_contact_1_address_street_address
         '#parent': civicrm_1_contact_1_fieldset_fieldset
-    civicrm_1_contact_1_cg33_custom_120:
-      '#type': civicrm_options
-      '#title': 'Door answered'
-      '#options':
-        1: 'Yes'
-        2: 'No'
-      '#required': true
-      '#data_type': String
-      '#civicrm_condition':
-        andor: or
-        action: visible
-        rules:
-          contact_contact_sub_type:
-            values:
-              - Canvass_Contact
-      '#nid': canvass_form
-      '#form_key': civicrm_1_contact_1_cg33_custom_120
-      '#parent': civicrm_1_contact_1_cg33_fieldset
-      '#default_option': ''
-      '#default_value': ''
-      '#civicrm_live_options': '1'
+      civicrm_1_contact_1_address_postal_code:
+        '#type': textfield
+        '#title': 'Post Code'
+        '#required': true
+        '#counter_type': character
+        '#counter_maximum': 64
+        '#counter_maximum_message': ' '
+        '#flex': 4
+        '#extra':
+          width: 7
+        '#form_key': civicrm_1_contact_1_address_postal_code
+        '#parent': civicrm_1_contact_1_fieldset_fieldset
+    street_address_combined:
+      '#type': hidden
+      '#title': 'Street Address Combined'
+    flexbox_03:
+      '#type': webform_flexbox
+      civicrm_1_contact_1_contact_first_name:
+        '#type': textfield
+        '#title': 'First Name'
+        '#counter_type': character
+        '#counter_maximum': 64
+        '#counter_maximum_message': ' '
+        '#contact_type': individual
+        '#form_key': civicrm_1_contact_1_contact_first_name
+        '#extra':
+          width: 20
+        '#parent': civicrm_1_contact_1_fieldset_fieldset
+        '#required': true
+      civicrm_1_contact_1_contact_last_name:
+        '#type': textfield
+        '#title': 'Last Name'
+        '#counter_type': character
+        '#counter_maximum': 64
+        '#counter_maximum_message': ' '
+        '#contact_type': individual
+        '#form_key': civicrm_1_contact_1_contact_last_name
+        '#extra':
+          width: 20
+        '#parent': civicrm_1_contact_1_fieldset_fieldset
     civicrm_1_contact_1_cg33_fieldset:
       '#type': fieldset
       '#title': 'Canvass Response'
-      '#states':
-        visible:
-          ':input[name="civicrm_1_contact_1_cg33_custom_120"]':
-            value: '1'
+      '#title_display': invisible
       '#form_key': civicrm_1_contact_1_cg33_fieldset
+      food_cooperatives:
+        '#type': webform_section
+        '#title': 'Food Cooperatives'
+      food_coop_info:
+        '#type': webform_message
+        '#message_type': info
+        '#message_message': '<p><strong>Food cooperatives </strong>are groups of neighbours who buy regular food items in bulk to save money.&nbsp;</p><p>Buying wholesale can create savings of up to 40% compared to the supermarket, especially on vegetables and loose staples like rice and oil.&nbsp;</p><p>They are simple to run, there is a local organisation that can help you get started, and most groups spend £2-6 per person per order.&nbsp;</p><p>For more information about food coops, visit <a href="https://cooperation.town">https://cooperation.town</a></p>'
+        '#message_close': true
       civicrm_1_contact_1_cg33_custom_94:
         '#type': civicrm_options
-        '#title': 'Interest: Food Coops'
+        '#title': 'Would you be interested in joining a food cooperative with your neighbours?'
         '#options':
           2: 'Yes'
           4: Maybe
@@ -167,9 +164,17 @@ elements: |-
         '#default_option': ''
         '#default_value': ''
         '#civicrm_live_options': '1'
+      savings_clubs:
+        '#type': webform_section
+        '#title': 'Savings Clubs'
+      savings_club_info:
+        '#type': webform_message
+        '#message_type': info
+        '#message_message': '<p><strong>Savings clubs </strong>are used by communities all over the world. You might know them by another name like pardna, sousou or hagbad.&nbsp;</p><p>There are different kinds:&nbsp;</p><ol><li data-list-item-id="eac4bf8518e4fc07cd5f90739b3d0d2e5">Rotating fund - close neighbours or trusted group save an agreed amount every month; every month one person gets the whole fund. Repeats until all have received.&nbsp;</li><li data-list-item-id="e51b62ef5752cd5359169deed64937596">Community purchase - the group saves together to buy something they will all use (like food, community improvements).&nbsp;</li><li data-list-item-id="e13f0271d0d8275c0cab48fc3b4294196">Solidarity fund - everyone puts in a small amount, e.g. £1 per week; anyone in the group can ask for funds, the group decides the rules together.&nbsp;</li></ol><p>Like food cooperatives, savings clubs are easy to run, they benefit members and the wider community, and there is local support to get started. Many savings clubs start with small amounts and increase as the trust between members grows.</p><p>Find out more about savings clubs at: <a href="https://kin.coop/faqs/common-kinds-savings-club">https://kin.coop/faqs/common-kinds-savings-club</a>&nbsp;</p>'
+        '#message_close': true
       civicrm_1_contact_1_cg33_custom_111:
         '#type': civicrm_options
-        '#title': 'Interest: Savings Clubs'
+        '#title': 'Would you be interested in joining some kind of savings club?'
         '#options':
           2: 'Yes'
           4: Maybe
@@ -191,12 +196,12 @@ elements: |-
         '#civicrm_live_options': '1'
       civicrm_1_contact_1_cg33_custom_97:
         '#type': civicrm_options
-        '#title': 'Preferred Savings Club model'
+        '#title': 'Preferred type of savings club'
         '#options':
           1: 'Rotating Fund'
-          2: 'Solidarity Fund'
-          3: 'Collective Purchase'
-          4: 'Small Close Group'
+          2: 'Community Purchase'
+          3: 'Solidarity Fund (large group)'
+          4: 'Solidarity Fund (close knit group)'
           5: Other
         '#states':
           visible:
@@ -208,8 +213,6 @@ elements: |-
         '#extra':
           aslist: 0
           multiple: 1
-          description: ''
-          description_above: null
         '#data_type': String
         '#civicrm_condition':
           andor: or
@@ -223,13 +226,47 @@ elements: |-
         '#default_option': ''
         '#default_value': ''
         '#civicrm_live_options': '1'
+      your_community:
+        '#type': webform_section
+        '#title': 'Your community'
+      civicrm_1_contact_1_cg33_custom_114:
+        '#type': civicrm_options
+        '#title': 'Are you already part of any Community chat / WhatsApp groups?'
+        '#options':
+          1: 'Neighbours or street group'
+          2: 'Parents group'
+          3: 'Local social or activity group'
+          8: 'Faith group'
+          4: 'Issue or campaign group (e.g. environment, housing, cost of living)'
+          5: 'Mutual aid or volunteering group'
+          6: Other
+          7: 'No'
+        '#extra':
+          aslist: 0
+          multiple: 1
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#nid': canvass_form
+        '#form_key': civicrm_1_contact_1_cg33_custom_114
+        '#parent': civicrm_1_contact_1_cg33_fieldset
+        '#default_option': ''
+        '#default_value': ''
+        '#civicrm_live_options': '1'
+        '#required': true
       civicrm_1_contact_1_cg33_custom_99:
         '#type': civicrm_options
-        '#title': 'Interest: Organising'
+        '#title': 'Are you interested in helping to organise your local neighbours or community?'
         '#options':
           2: 'Yes'
           4: Maybe
           3: 'No'
+        '#required': true
         '#data_type': String
         '#civicrm_condition':
           andor: or
@@ -243,50 +280,19 @@ elements: |-
         '#default_option': ''
         '#default_value': ''
         '#civicrm_live_options': '1'
-        '#required': true
-      civicrm_1_contact_1_cg33_custom_114:
-        '#type': civicrm_options
-        '#extra':
-          multiple: 1
-          aslist: 0
-          items: |-
-            1|Residents' or tenants' association
-            2|Faith group or place of worship
-            3|Community centre or social club
-            4|Issue or campaign group (e.g. environment, housing, cost of living)
-            5|Mutual aid or volunteering group
-            6|Other
-          description: ''
-          description_above: null
-        '#data_type': String
-        '#civicrm_condition':
-          andor: or
-          action: visible
-          rules:
-            contact_contact_sub_type:
-              values:
-                - Canvass_Contact
-        '#nid': canvass_form
-        '#form_key': civicrm_1_contact_1_cg33_custom_114
-        '#options':
-          1: "Residents' or tenants' association"
-          2: 'Faith group or place of worship'
-          3: 'Community centre or social club'
-          4: 'Issue or campaign group (e.g. environment, housing, cost of living)'
-          5: 'Mutual aid or volunteering group'
-          6: Other
-        '#parent': civicrm_1_contact_1_cg33_fieldset
-        '#title': 'Are you part of any Community chat / WhatsApp groups?'
-        '#civicrm_live_options': 1
-        '#default_value': ''
-        '#required': '0'
+      intercooperation:
+        '#type': webform_message
+        '#message_type': info
+        '#message_message': '<p>Cooperation means communities working together. It means wealth created locally stays local, leading to better common spaces, services and culture.&nbsp;</p><p>Cooperation starts with building local communities and not waiting for others to do it.&nbsp;</p>'
+        '#message_close': true
       civicrm_1_contact_1_cg33_custom_118:
         '#type': civicrm_options
-        '#title': 'Knows people who would be interested?'
+        '#title': 'Do you know others who would be interested in food cooperatives, savings clubs or a vision for a more cooperative borough?'
         '#options':
           2: 'Yes'
           4: Maybe
           3: 'No'
+        '#required': true
         '#data_type': String
         '#civicrm_condition':
           andor: or
@@ -301,15 +307,12 @@ elements: |-
         '#default_option': ''
         '#default_value': ''
         '#civicrm_live_options': '1'
-        '#required': true
-      civicrm_1_contact_1_cg33_custom_104:
-        '#type': civicrm_options
-        '#title': 'Neighbours Known By Name'
-        '#options':
-          1: 1-3
-          2: 4-10
-          3: 10+
-          4: None
+      civicrm_1_contact_1_cg33_custom_123:
+        '#type': textfield
+        '#title': 'Are there local people or organisations that you look to for community support or leadership? '
+        '#counter_type': character
+        '#counter_maximum': 255
+        '#counter_maximum_message': ' '
         '#data_type': String
         '#civicrm_condition':
           andor: or
@@ -318,20 +321,22 @@ elements: |-
             contact_contact_sub_type:
               values:
                 - Canvass_Contact
-        '#form_key': civicrm_1_contact_1_cg33_custom_104
+        '#nid': canvass_form
+        '#form_key': civicrm_1_contact_1_cg33_custom_123
+        '#extra':
+          width: 20
+          description: ''
+          description_above: null
         '#parent': civicrm_1_contact_1_cg33_fieldset
-        '#default_option': ''
-        '#default_value': ''
-        '#civicrm_live_options': '1'
-        '#required': true
       civicrm_1_contact_1_cg33_custom_98:
         '#type': civicrm_options
-        '#title': 'Length of residence'
+        '#title': 'How long have you lived in the area?'
         '#options':
           1: 'Less than 1 year'
           2: '1-5 years'
           3: '5-10 years'
           4: '10+ years'
+        '#required': true
         '#data_type': String
         '#civicrm_condition':
           andor: or
@@ -345,63 +350,100 @@ elements: |-
         '#default_option': ''
         '#default_value': ''
         '#civicrm_live_options': '1'
+      civicrm_1_contact_1_cg33_custom_104:
+        '#type': civicrm_options
+        '#title': 'How many of your neighbours do you think you know by name?'
+        '#options':
+          1: 1-3
+          2: 4-10
+          3: 10+
+          4: None
         '#required': true
-  canvass_page_2:
-    '#type': webform_wizard_page
-    '#title': 'Canvass page 2'
-    '#states':
-      visible:
-        ':input[name="civicrm_1_contact_1_cg33_custom_120"]':
-          value: '1'
-    civicrm_1_contact_1_cg33_custom_107:
-      '#type': civicrm_options
-      '#title': 'Permission to follow-up'
-      '#civicrm_live_options': 0
-      '#options':
-        1: 'Yes'
-        0: 'No'
-      '#required': true
-      '#data_type': Boolean
-      '#civicrm_condition':
-        andor: or
-        action: visible
-        rules:
-          contact_contact_sub_type:
-            values:
-              - Canvass_Contact
-      '#form_key': civicrm_1_contact_1_cg33_custom_107
-      '#parent': civicrm_1_contact_1_cg33_fieldset
-      '#default_option': ''
-      '#default_value': ''
-    civicrm_1_contact_1_cg33_custom_108:
-      '#type': civicrm_options
-      '#title': 'Preferred contact method'
-      '#options':
-        1: Email
-        2: WhatsApp
-      '#required': true
-      '#states':
-        visible:
-          ':input[name="civicrm_1_contact_1_cg33_custom_107"]':
-            value: '1'
-      '#data_type': String
-      '#civicrm_condition':
-        andor: or
-        action: visible
-        rules:
-          contact_contact_sub_type:
-            values:
-              - Canvass_Contact
-      '#form_key': civicrm_1_contact_1_cg33_custom_108
-      '#parent': civicrm_1_contact_1_cg33_fieldset
-      '#default_option': ''
-      '#default_value': ''
-      '#civicrm_live_options': '1'
-    civicrm_1_contact_1_fieldset_fieldset:
-      '#type': fieldset
-      '#title': 'Contact 1'
-      '#access': false
-      '#form_key': civicrm_1_contact_1_fieldset_fieldset
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg33_custom_104
+        '#parent': civicrm_1_contact_1_cg33_fieldset
+        '#default_option': ''
+        '#default_value': ''
+        '#civicrm_live_options': '1'
+      civicrm_1_activity_1_cg34_custom_109:
+        '#type': textarea
+        '#title': 'Do you want to tell us anything else? Feel free to share any ideas or ask questions. '
+        '#data_type': Memo
+        '#extra':
+          cols: '60'
+          rows: '4'
+        '#form_key': civicrm_1_activity_1_cg34_custom_109
+        '#parent': civicrm_1_activity_1_fieldset_fieldset
+      the_important_stuff:
+        '#type': webform_section
+        '#title': 'Finally, the important stuff'
+        '#title_tag': h4
+      civicrm_2_activity_1_fieldset_fieldset:
+        '#type': fieldset
+        '#title': 'Activity 2'
+        '#title_display': invisible
+        '#form_key': civicrm_2_activity_1_fieldset_fieldset
+        civicrm_2_activity_1_cg4_custom_23:
+          '#type': civicrm_options
+          '#title': 'I accept that Kin will process my data in accordance with GDPR'
+          '#description': '<p>Read the <a href="https://kin.coop/kin-privacy-policy" target="_blank">privacy policy</a></p>'
+          '#description_display': before
+          '#civicrm_live_options': 0
+          '#options':
+            1: 'Yes'
+          '#required': true
+          '#data_type': Boolean
+          '#has_help': true
+          '#form_key': civicrm_2_activity_1_cg4_custom_23
+          '#parent': civicrm_2_activity_1_fieldset_fieldset
+          '#default_option': ''
+          '#default_value': ''
+      civicrm_1_contact_1_cg33_custom_107:
+        '#type': civicrm_options
+        '#title': 'Kin can contact me in relation to the information in this form.'
+        '#civicrm_live_options': 0
+        '#options':
+          1: 'Yes'
+        '#required': true
+        '#data_type': Boolean
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg33_custom_107
+        '#parent': civicrm_1_contact_1_cg33_fieldset
+        '#default_option': ''
+        '#default_value': ''
+      civicrm_1_contact_1_cg33_custom_108:
+        '#type': civicrm_options
+        '#title': 'Preferred contact method'
+        '#required': true
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg33_custom_108
+        '#parent': civicrm_1_contact_1_cg33_fieldset
+        '#default_option': ''
+        '#default_value': ''
+        '#civicrm_live_options': '1'
+        '#options':
+          1: Email
+          2: WhatsApp
       civicrm_1_contact_1_phone_phone:
         '#type': textfield
         '#title': 'Phone Number'
@@ -429,70 +471,32 @@ elements: |-
           width: 20
         '#parent': civicrm_1_contact_1_fieldset_fieldset
         '#required': true
-      civicrm_1_contact_1_contact_first_name:
-        '#type': textfield
-        '#title': 'First Name'
-        '#counter_type': character
-        '#counter_maximum': 64
-        '#counter_maximum_message': ' '
-        '#states':
-          visible:
-            ':input[name="civicrm_1_contact_1_cg33_custom_107"]':
-              value: '1'
-        '#contact_type': individual
-        '#form_key': civicrm_1_contact_1_contact_first_name
-        '#extra':
-          width: 20
-        '#parent': civicrm_1_contact_1_fieldset_fieldset
-      civicrm_1_contact_1_contact_last_name:
-        '#type': textfield
-        '#title': 'Last Name'
-        '#counter_type': character
-        '#counter_maximum': 64
-        '#counter_maximum_message': ' '
-        '#default_value': '[webform_submission:values:civicrm_1_contact_1_address_street_number] [webform_submission:values:civicrm_1_contact_1_address_street_name]'
-        '#access': false
-        '#contact_type': individual
-        '#form_key': civicrm_1_contact_1_contact_last_name
-        '#extra':
-          width: 20
-        '#parent': civicrm_1_contact_1_fieldset_fieldset
-  canvass_page_3:
-    '#type': webform_wizard_page
-    '#title': 'Canvass page 3'
-    civicrm_1_activity_1_fieldset_fieldset:
-      '#type': fieldset
-      '#title': Activity
-      '#states':
-        visible:
-          ':input[name="civicrm_1_contact_1_cg33_custom_120"]':
-            value: '1'
-      '#form_key': civicrm_1_activity_1_fieldset_fieldset
-      civicrm_1_activity_1_cg34_custom_106:
+      enter_me_into_the_prize_draw:
+        '#type': checkbox
+        '#title': 'Yes, enter me into the prize draw!'
+      civicrm_1_contact_1_cg33_custom_120:
         '#type': civicrm_options
-        '#title': 'Outcome Code'
+        '#title': 'Door answered'
         '#options':
-          1: '5 - Completed (Potential Organiser)'
-          2: '4 - Completed (Enthusiastic)'
-          3: '3 - Completed (Maybe / Soft Interest)'
-          4: '2 - Declined (Busy / Soft No)'
-          5: '1 - Declined (Hard No)'
-        '#required': true
+          1: 'Yes'
+          2: 'No'
+        '#access': false
         '#data_type': String
-        '#form_key': civicrm_1_activity_1_cg34_custom_106
-        '#parent': civicrm_1_activity_1_fieldset_fieldset
-        '#default_option': ''
-        '#default_value': ''
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg33_custom_120
+        '#parent': civicrm_1_contact_1_cg33_fieldset
+        '#default_option': '1'
+        '#default_value': '1'
         '#civicrm_live_options': '1'
-  civicrm_1_activity_1_cg34_custom_109:
-    '#type': textarea
-    '#data_type': Memo
-    '#extra':
-      cols: '60'
-      rows: '4'
-    '#form_key': civicrm_1_activity_1_cg34_custom_109
-    '#parent': civicrm_1_activity_1_fieldset_fieldset
-    '#title': 'Canvasser notes'
+  share:
+    '#type': webform_message
+    '#message_message': '<p><strong>After you submit, please share this survey with your community to make sure we get enough responses to run the prize draw for your chance to win.&nbsp;</strong></p>'
 css: ''
 javascript: ''
 settings:
@@ -598,10 +602,10 @@ settings:
   draft_loaded_message: ''
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
-  confirmation_type: inline
-  confirmation_url: ''
+  confirmation_type: url_message
+  confirmation_url: 'https://kin.coop'
   confirmation_title: ''
-  confirmation_message: '<p><strong>FOR THIS BUTTON TO WORK AND PREPOPULATE THE ADDRESS FIELDS, THE HTML NEEDS TO BE EDITED IN NEW FORM / SETTINGS / CONFIRMATION&nbsp;</strong><br><br><strong>FROM:&nbsp;</strong><br><br>href="/form/canvass-form?<strong> &nbsp;</strong></p><p><strong>TO &gt;&gt;</strong><br><br>href="/form/CURRENT FORM URL?<br><br><br>Submitted! Ready for the next one?</p><p><a style="background-color:#E6460F;border-radius:6px;color:#ffffff;display:inline-block;font-size:18px;padding:14px 28px;text-decoration:none;" href="/form/canvass-form?civicrm_1_contact_1_cg33_custom_93=[webform_submission:values:civicrm_1_contact_1_cg33_custom_93]&amp;civicrm_1_contact_1_cg33_custom_105=[webform_submission:values:civicrm_1_contact_1_cg33_custom_105]&amp;civicrm_1_contact_1_address_street_name=[webform_submission:values:civicrm_1_contact_1_address_street_name]"><strong>Next →</strong></a></p>'
+  confirmation_message: '<p><strong>Thank you!&nbsp;</strong></p><p><strong>Please share this message to make sure we get enough responses to run the prize draw:</strong><br><br><br>Cooperation Haringey</p><p>I just filled in this survey about creating more cooperation in Haringey. If you fill in this survey, you could win £100!</p><p>It only takes 2 minutes &gt;&gt; <a href="https://kin.coop/form/canvass-form">https://kin.coop/form/canvass-form</a></p>'
   confirmation_attributes: {  }
   confirmation_back: false
   confirmation_back_label: ''
@@ -687,6 +691,7 @@ handlers:
     conditions: {  }
     weight: null
     settings:
+      disable: 'Leave Fields and Save Settings'
       nid: 1
       number_of_contacts: '1'
       1_contact_type: individual
@@ -697,18 +702,17 @@ handlers:
       contact_1_settings_dynamic_custom_cg33: 1
       civicrm_1_contact_1_cg33_custom_93: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_105: create_civicrm_webform_element
+      civicrm_1_contact_1_cg33_custom_120: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_94: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_111: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_97: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_99: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_98: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_104: create_civicrm_webform_element
-      civicrm_1_contact_1_cg33_custom_100: create_civicrm_webform_element
-      civicrm_1_contact_1_cg33_custom_110: create_civicrm_webform_element
-      civicrm_1_contact_1_cg33_custom_103: create_civicrm_webform_element
+      civicrm_1_contact_1_cg33_custom_114: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_107: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_108: create_civicrm_webform_element
-      civicrm_1_contact_1_cg33_custom_112: create_civicrm_webform_element
+      civicrm_1_contact_1_cg33_custom_118: create_civicrm_webform_element
       civicrm_1_contact_1_contact_existing: 0
       civicrm_1_contact_1_contact_prefix_id: 0
       civicrm_1_contact_1_contact_first_name: create_civicrm_webform_element
@@ -739,15 +743,15 @@ handlers:
       contact_1_number_of_other: '0'
       contact_1_number_of_address: '1'
       civicrm_1_contact_1_address_street_address: create_civicrm_webform_element
-      civicrm_1_contact_1_address_street_name: create_civicrm_webform_element
-      civicrm_1_contact_1_address_street_number: create_civicrm_webform_element
+      civicrm_1_contact_1_address_street_name: 0
+      civicrm_1_contact_1_address_street_number: 0
       civicrm_1_contact_1_address_street_unit: 0
       civicrm_1_contact_1_address_name: 0
       civicrm_1_contact_1_address_supplemental_address_1: 0
       civicrm_1_contact_1_address_supplemental_address_2: 0
       civicrm_1_contact_1_address_supplemental_address_3: 0
       civicrm_1_contact_1_address_city: 0
-      civicrm_1_contact_1_address_postal_code: 0
+      civicrm_1_contact_1_address_postal_code: create_civicrm_webform_element
       civicrm_1_contact_1_address_postal_code_suffix: 0
       civicrm_1_contact_1_address_country_id: 0
       civicrm_1_contact_1_address_state_province_id: 0
@@ -767,12 +771,14 @@ handlers:
       contact_1_number_of_website: '0'
       contact_1_number_of_im: '0'
       contact_1_number_of_cg1: '0'
-      contact_1_number_of_cg18: '0'
+      contact_1_number_of_cg18: '1'
+      contact_1_settings_dynamic_custom_cg18: 0
+      civicrm_1_contact_1_cg18_custom_45: 0
       prefix_known: ''
       prefix_unknown: ''
       toggle_message: 0
       message: ''
-      activity_number_of_activity: '1'
+      activity_number_of_activity: '2'
       activity_1_settings_existing_activity_status:
         '': ''
       activity_1_settings_details:
@@ -801,9 +807,41 @@ handlers:
       civicrm_1_activity_1_activityupload_file_3: 0
       activity_1_settings_dynamic_custom_cg30: 0
       civicrm_1_activity_1_cg30_custom_82: 0
-      activity_1_settings_dynamic_custom_cg34: 1
-      civicrm_1_activity_1_cg34_custom_106: create_civicrm_webform_element
+      activity_1_settings_dynamic_custom_cg34: 0
+      civicrm_1_activity_1_cg34_custom_106: 0
       civicrm_1_activity_1_cg34_custom_109: create_civicrm_webform_element
+      activity_2_settings_existing_activity_status:
+        '': ''
+      activity_2_settings_details:
+        view_link: view_link
+        entire_result: 0
+        edit_link: 0
+        view_link_secure: 0
+        update_existing: 0
+      civicrm_2_activity_1_activity_activity_type_id: '56'
+      civicrm_2_activity_1_activity_target_contact_id:
+        1: '1'
+      civicrm_2_activity_1_activity_source_contact_id: '0'
+      civicrm_2_activity_1_activity_subject: 0
+      civicrm_2_activity_1_activity_details: 0
+      civicrm_2_activity_1_activity_status_id: '0'
+      civicrm_2_activity_1_activity_priority_id: '0'
+      civicrm_2_activity_1_activity_assignee_contact_id:
+        '': ''
+      civicrm_2_activity_1_activity_location: 0
+      civicrm_2_activity_1_activity_activity_date_time: 0
+      civicrm_2_activity_1_activity_duration: 0
+      civicrm_2_activity_1_activity_tag:
+        '': ''
+      civicrm_2_activity_1_activityupload_file_1: 0
+      civicrm_2_activity_1_activityupload_file_2: 0
+      civicrm_2_activity_1_activityupload_file_3: 0
+      activity_2_settings_dynamic_custom_cg4: 0
+      civicrm_2_activity_1_cg4_custom_7: 0
+      civicrm_2_activity_1_cg4_custom_23: create_civicrm_webform_element
+      civicrm_2_activity_1_cg4_custom_24: 0
+      activity_2_settings_dynamic_custom_cg30: 0
+      civicrm_2_activity_1_cg30_custom_82: 0
       participant_reg_type: '0'
       reg_options:
         event_type:
@@ -851,7 +889,8 @@ handlers:
             number_of_website: '0'
             number_of_im: '0'
             number_of_cg1: '0'
-            number_of_cg18: '0'
+            number_of_cg18: '1'
+            dynamic_custom_cg18: 0
             address:
               1:
                 location_type_id: '1'
@@ -866,16 +905,27 @@ handlers:
                 location_type_id: '1'
                 is_primary: '1'
         activity:
-          number_of_activity: '1'
+          number_of_activity: '2'
           1:
             existing_activity_status: {  }
             details:
               view_link: view_link
             dynamic_custom_cg30: 0
-            dynamic_custom_cg34: 1
+            dynamic_custom_cg34: 0
             activity:
               1:
                 activity_type_id: '70'
+                target_contact_id:
+                  1: '1'
+          2:
+            existing_activity_status: {  }
+            details:
+              view_link: view_link
+            dynamic_custom_cg4: 0
+            dynamic_custom_cg30: 0
+            activity:
+              1:
+                activity_type_id: '56'
                 target_contact_id:
                   1: '1'
         membership:

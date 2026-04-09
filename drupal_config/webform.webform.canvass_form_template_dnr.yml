@@ -1,4 +1,4 @@
-uuid: bc6d8d93-4bb4-42da-8b97-bad5a6be0d26
+uuid: e0e7fbce-4397-4a62-b30f-924701d4a8f9
 langcode: en-gb
 status: open
 dependencies:
@@ -10,8 +10,8 @@ close: null
 uid: 3
 template: false
 archive: false
-id: haringey_canvass_form
-title: 'Haringey Canvass Form '
+id: canvass_form_template_dnr
+title: 'Canvass Form Template (DNR)'
 description: ''
 categories: {  }
 elements: |-
@@ -102,19 +102,20 @@ elements: |-
             width: 7
           '#form_key': civicrm_1_contact_1_address_postal_code
           '#parent': civicrm_1_contact_1_fieldset_fieldset
-      civicrm_1_contact_1_address_supplemental_address_1:
-        '#type': textfield
-        '#title': 'Street Number'
-        '#required': true
-        '#counter_type': character
-        '#counter_maximum': 96
-        '#counter_maximum_message': ' '
-        '#wrapper_attributes':
-          style: 'max-width: 160px;'
-        '#extra':
-          width: 60
-        '#form_key': civicrm_1_contact_1_address_supplemental_address_1
-        '#parent': civicrm_1_contact_1_fieldset_fieldset
+    civicrm_1_contact_1_address_supplemental_address_1:
+      '#type': textfield
+      '#title': 'Street Number'
+      '#counter_type': character
+      '#counter_maximum': 96
+      '#counter_maximum_message': ' '
+      '#flex': 3
+      '#attributes':
+        style: 'max-width: 115px;'
+      '#extra':
+        width: 60
+      '#form_key': civicrm_1_contact_1_address_supplemental_address_1
+      '#parent': civicrm_1_contact_1_fieldset_fieldset
+      '#required': true
     civicrm_1_contact_1_cg33_custom_120:
       '#type': civicrm_options
       '#title': 'Door answered'
@@ -311,7 +312,7 @@ elements: |-
         '#counter_type': character
         '#counter_maximum': 255
         '#counter_maximum_message': ' '
-        '#nid': haringey_canvass_form
+        '#nid': canvass_form_template_dnr
         '#form_key': civicrm_1_contact_1_cg33_custom_123
         '#extra':
           width: 20
@@ -365,6 +366,7 @@ elements: |-
     contact_details:
       '#type': fieldset
       '#title': 'Contact details'
+      '#title_display': invisible
       civicrm_1_contact_1_cg33_custom_107:
         '#type': civicrm_options
         '#title': 'Permission to follow-up'
@@ -612,7 +614,7 @@ settings:
   confirmation_type: inline
   confirmation_url: ''
   confirmation_title: ''
-  confirmation_message: '<p>Submitted! Ready for the next one?</p><p><a style="background-color:#E6460F;border-radius:6px;color:#ffffff;display:inline-block;font-size:18px;padding:14px 28px;text-decoration:none;" href="/form/haringey-canvass-form?civicrm_1_contact_1_cg33_custom_93=[webform_submission:values:civicrm_1_contact_1_cg33_custom_93]&amp;civicrm_1_contact_1_cg33_custom_105=[webform_submission:values:civicrm_1_contact_1_cg33_custom_105]&amp;civicrm_1_contact_1_address_street_address=[webform_submission:values:civicrm_1_contact_1_address_street_address]&amp;civicrm_1_contact_1_address_supplemental_address_1=[webform_submission:values:civicrm_1_contact_1_address_supplemental_address_1]&amp;civicrm_1_contact_1_address_postal_code=[webform_submission:values:civicrm_1_contact_1_address_postal_code]"><strong>Next →</strong></a></p>'
+  confirmation_message: '<p><strong>FOR THIS BUTTON TO WORK AND PREPOPULATE THE ADDRESS FIELDS, THE HTML NEEDS TO BE EDITED IN NEW FORM / SETTINGS / CONFIRMATION&nbsp;</strong><br><br><strong>FROM:&nbsp;</strong><br><br>href="/form/canvass-form-template-dnr?<strong> &nbsp;</strong></p><p><strong>TO &gt;&gt;</strong><br><br>href="/form/CURRENT FORM URL?<br>&nbsp;</p><p>&nbsp;</p><p>Submitted! Ready for the next one?</p><p><a style="background-color:#E6460F;border-radius:6px;color:#ffffff;display:inline-block;font-size:18px;padding:14px 28px;text-decoration:none;" href="/form/canvass-form-template-dnr?civicrm_1_contact_1_cg33_custom_93=[webform_submission:values:civicrm_1_contact_1_cg33_custom_93]&amp;civicrm_1_contact_1_cg33_custom_105=[webform_submission:values:civicrm_1_contact_1_cg33_custom_105]&amp;civicrm_1_contact_1_address_street_address=[webform_submission:values:civicrm_1_contact_1_address_street_address]&amp;civicrm_1_contact_1_address_supplemental_address_1=[webform_submission:values:civicrm_1_contact_1_address_supplemental_address_1]&amp;civicrm_1_contact_1_address_postal_code=[webform_submission:values:civicrm_1_contact_1_address_postal_code]"><strong>Next →</strong></a></p>'
   confirmation_attributes: {  }
   confirmation_back: false
   confirmation_back_label: ''
