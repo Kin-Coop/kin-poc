@@ -46,7 +46,6 @@
 
       $group_id = \Drupal::routeMatch()->getParameter('group_id');
       $group = \Drupal::service('kin_civi.utils')->kin_civi_check_group($group_id);
-      $ref = $cid . '-' . $group_id;
 
       //dpm($cid);
       //dpm($form_state->getValue('delegate_id'));
@@ -92,14 +91,6 @@
           '#title' => $this->t('Group'),
           '#default_value' => $group['display_name'], // This is the preset value
           '#disabled' => TRUE, // Makes the field read-only
-        ];
-
-        $form['reference'] = [
-          '#type' => 'textfield',
-          '#title' => $this->t('Reference'),
-          '#default_value' => $ref, // This is the preset value
-          '#disabled' => TRUE, // Makes the field read-only
-          '#description' => $this->t('Please use this reference when making the bank transfer.'),
         ];
 
         $form['note'] = [
@@ -188,7 +179,7 @@
         $group_id = $form_state->getValue('group_id');
         $onbehalfof_id = $form_state->getValue('on_behalf_of_id');
         $delegate_id = $form_state->getValue('delegate_id');
-        $ref = $form_state->getValue('reference');
+        $ref = $onbehalfof_id . '-' . $group_id;
         $onbehalfof_name = $utils->kin_civi_get_name($onbehalfof_id);
         $group_name = $utils->kin_civi_get_name($group_id);
 
@@ -284,15 +275,13 @@
             On behalf of: @name<br>
             Reference: @ref</p>
             <p><strong>Please go to your bank app and pay your contribution to:</strong></p>
-            <p>&nbsp;</p>
-            <p style="font-weight: 600;">Kin Co operative Limited<br />
+            <p class="fw-semibold my-3">Kin Cooperative Limited<br />
             Account Number: 67355138<br />
-            Sort Code: 08-92-99</p>
-            <p>&nbsp;</p>
+            Sort Code: 08-92-99<br>
+            Reference: @ref</p>
             <p><strong>Please enter the unique contribution reference as the payment reference.</strong></p>
             <p>An email will be sent to @name confirming the contribution. You will also receive an email with the payment instructions.</p>
-            <p>If you are with the Co-operative Bank, <a href="https://www.co-operativebank.co.uk/help-and-support/payments/money-transfer/">they are having a temporary issue with references</a> and you can leave this field blank.</p>
-            <p style="margin: 1.2rem 0 2rem;"><a href="/member/group/@gid" class="btn btn-primary">Return to group</a></p>
+            <p class="mt-5 mb-5"><a href="/member/group/@gid" class="btn btn-primary">Return to group</a></p>
                     ',
               [
                   '@amount' => CRM_Utils_Money::format($amount, 'GBP'),
