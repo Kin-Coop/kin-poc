@@ -654,8 +654,9 @@ function kincoop_civicrm_buildForm($formName, $form)
             (function($) {
               $(document).ready(function() {
                 // Add the help icon
-                var helpText = '<sup data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" tabindex=\"0\" class=\"question-mark\"' +
-                  'data-bs-content=\"Usually this will be Personal use, but sometimes if the money is being used for the group as a whole, it will be Group use.\"' +
+                var helpText = '<sup data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" tabindex=\"0\" class=\"question-mark\" data-bs-html=\"true\"' +
+                  'data-bs-content=\"Usually this will be Personal use, but sometimes if the money is being used for the group as a whole, eg to buy food for a food cooperative, it will be Group use. ' +
+                   'If unsure, see the <a class=\'text-decoration-underline\' target=\'_blank\' href=\'https://kin.coop/faqs/personal-or-group-use\'>faq</a>.\"' +
                   'data-bs-placement=\"top\" aria-label=\"Request Type\" title=\"Request Type\"> <em>' +
                   '<i class=\"fs-3 fw-bold text-primary bg-white rounded-circle d-inline-block bi bi-question-circle-fill\"></i></em></sup>';
 
