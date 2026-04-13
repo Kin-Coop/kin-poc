@@ -122,9 +122,7 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params)
 
 function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$objectRef)
 {
-
   if ($objectName == 'Relationship' && $op == 'edit') {
-
     try {
       // Fetch relationship with custom fields
       $rel = Relationship::get(FALSE)
@@ -148,7 +146,6 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
       \Civi::log()->error("Error in kincoop_civicrm_post for Relationship $objectId: " . $e->getMessage());
     }
   }
-
 
   if ($objectName === 'Individual' && $op === 'create') {
     //add hidden relationship to household
@@ -201,6 +198,28 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
             'error' => $e->getMessage(),
           ]);
         }
+      }
+    }
+  }
+
+  // Add the contributor name to a custom field on the contribution. This means that their name can be used as a token in message templates
+  if ($objectName === 'Contribution' && $op === 'create') {
+    $contactId = $objectRef->contact_id;
+
+    $contact = \Civi\Api4\Contact::get( FALSE )
+                                 ->addSelect( 'display_name' )
+                                 ->addWhere( 'id', '=', $contactId )
+                                 ->execute()
+                                 ->first();
+
+    if ( $contact ) {
+      try {
+        \Civi\Api4\Contribution::update( FALSE )
+                               ->addValue( 'Kin_Contributions.Contributor', $contact['display_name'] ) // replace XX
+                               ->addWhere( 'id', '=', $objectId )
+                               ->execute();
+      } catch (CiviCRM_API3_Exception $e) {
+        \Civi::log()->error('kincoop: Failed to update contribution: ' . $e->getMessage());
       }
     }
   }
