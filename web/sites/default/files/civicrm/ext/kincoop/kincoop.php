@@ -249,9 +249,12 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
     */
 
     // Check if it's from a contribution page
-    if (!empty($contribution->contribution_page_id) && $contribution->contribution_page_id == 7) {
+    // Pages 7 and 8 are for setting up recurring contributions, 7 for groups and 8 for Kin
+    if (!empty($contribution->contribution_page_id) &&
+        ($contribution->contribution_page_id == 7 || $contribution->contribution_page_id == 8)) {
 
       // Check if it's pending
+      // Send receipt email to contributor (not sure why it is not sending directly from the interface)
       if ((int)$contribution->contribution_status_id === 2) {
         try {
           civicrm_api3('Contribution', 'sendconfirmation', ['id' => $contribution->id]);
