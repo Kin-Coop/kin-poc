@@ -715,6 +715,20 @@ function kincoop_civicrm_buildForm($formName, $form)
       } // Recurring contributions to groups
       elseif ($form->_id === 7 || $form->_id === 8) {
         if ($form->getAction() == CRM_Core_Action::ADD) {
+          // Remove the pay later payment option, we only need BACS
+          // This whole section gets hidden in css anyway so is a bit superfluous
+          if ($form->elementExists('payment_processor_id')) {
+            $element = $form->getElement('payment_processor_id');
+            if (!empty($element->_elements)) {
+              foreach ($element->_elements as $index => $child) {
+                $value = $child->getAttribute('value');
+                // Keep the BACS option, the ID for BACS is 2
+                if ((int) $value !== 2) {
+                  unset($element->_elements[$index]);
+                }
+              }
+            }
+          }
 
           if (isset($_GET['groupid']) && $_GET['me']) {
             //Include the R suffix on the unique contribution reference to denote recurring contributions
