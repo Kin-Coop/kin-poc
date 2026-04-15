@@ -4,6 +4,8 @@ require_once 'kincoop.civix.php';
 
 use CRM_Kincoop_ExtensionUtil as E;
 use Civi\Api4\Relationship;
+use Civi\Api4\Contribution;
+use Civi\Api4\Contact;
 
 const GIFT_FT_NAME = 'Gift';
 
@@ -792,4 +794,70 @@ function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$er
     }
   }
   return;
+}
+
+function kincoop_civicrm_tokens(&$tokens) {
+  $tokens['contribution_contact'] = [
+    'contribution_contact.first_name' => 'Contribution Contact First Name',
+    'contribution_contact.display_name' => 'Contribution Contact Display Name',
+  ];
+}
+
+function kincoop_civicrm_tokenValues(&$values, $contactIDs, $job, $tokens, $context) {
+
+  if (empty($tokens['contribution_contact'])) {
+    return;
+  }
+
+  // 🧠 THIS is the key: detect TokenProcessor context
+  if (!($context instanceof \Civi\Token\TokenProcessor)) {
+    return;
+  }
+
+  // 🚀 Get contribution entity data
+  $contributions = $context->getEntityData('contribution');
+
+  if (empty($contributions)) {
+    return;
+  }
+
+  // 🧠 Collect contact IDs from contributions
+  $contactIds = [];
+
+  foreach ($contributions as $contribution) {
+    if (!empty($contribution['contact_id'])) {
+      $contactIds[] = $contribution['contact_id'];
+    }
+  }
+
+  if (empty($contactIds)) {
+    return;
+  }
+
+  // 🚀 Load contacts via APIv4
+  $contacts = Contact::get(FALSE)
+    ->addSelect('id', 'first_name', 'display_name')
+    ->addWhere('id', 'IN', array_unique($contactIds))
+    ->execute()
+    ->indexBy('id');
+
+  // 🎯 Map back to token values
+  foreach ($contributions as $index => $contribution) {
+
+    $cid = $contribution['contact_id'] ?? NULL;
+
+    if (!$cid || !isset($contacts[$cid])) {
+      continue;
+    }
+
+    // ⚠️ Important: match contribution → contact row
+    foreach ($contactIDs as $contactID) {
+
+      $values[$contactID]['contribution_contact.first_name'] =
+        $contacts[$cid]['first_name'] ?? '';
+
+      $values[$contactID]['contribution_contact.display_name'] =
+        $contacts[$cid]['display_name'] ?? '';
+    }
+  }
 }
