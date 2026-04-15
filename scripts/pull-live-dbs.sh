@@ -33,4 +33,7 @@ ddev import-db --database=$CIVI_DB --file="civi-$DATE.sql.gz"
 rm "drupal-$DATE.sql.gz"
 rm "civi-$DATE.sql.gz"
 
+echo "Flushing CiviCRM system including triggers"
+ddev cv api4 System.flush triggers=1
+
 echo "✅ Done! Both Drupal and CiviCRM databases synced from live."
