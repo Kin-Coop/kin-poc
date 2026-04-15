@@ -124,9 +124,7 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params)
 
 function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$objectRef)
 {
-
   if ($objectName == 'Relationship' && $op == 'edit') {
-
     try {
       // Fetch relationship with custom fields
       $rel = Relationship::get(FALSE)
@@ -150,7 +148,6 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
       \Civi::log()->error("Error in kincoop_civicrm_post for Relationship $objectId: " . $e->getMessage());
     }
   }
-
 
   if ($objectName === 'Individual' && $op === 'create') {
     //add hidden relationship to household
@@ -206,6 +203,28 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
       }
     }
   }
+
+  // Add the contributor name to a custom field on the contribution. This means that their name can be used as a token in message templates
+  if ($objectName === 'Contribution' && $op === 'create') {
+    $contactId = $objectRef->contact_id;
+
+    $contact = \Civi\Api4\Contact::get( FALSE )
+                                 ->addSelect( 'display_name' )
+                                 ->addWhere( 'id', '=', $contactId )
+                                 ->execute()
+                                 ->first();
+
+    if ( $contact ) {
+      try {
+        \Civi\Api4\Contribution::update( FALSE )
+                               ->addValue( 'Kin_Contributions.Contributor', $contact['display_name'] ) // replace XX
+                               ->addWhere( 'id', '=', $objectId )
+                               ->execute();
+      } catch (CiviCRM_API3_Exception $e) {
+        \Civi::log()->error('kincoop: Failed to update contribution: ' . $e->getMessage());
+      }
+    }
+  }
 }
 
 /**
@@ -219,6 +238,21 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
 // https://chat.civicrm.org/civicrm/pl/yj64iwrh6fyrzgcdw8wziabm4a)
 function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
 {
+  if($objectName === 'ContributionRecur' && $op === 'create') {
+    if(isset($_POST['custom_61']) && isset($_POST['custom_25'])) {
+      try {
+        $results = \Civi\Api4\ContributionRecur::update(TRUE)
+           ->addValue('Recurring_Contributions.Unique_Reference', $_POST["custom_61"])
+           ->addValue('Recurring_Contributions.Group', $_POST["custom_25"])
+           ->addWhere('id', '=', $objectId)
+           ->execute();
+      } catch (CiviCRM_API3_Exception $e) {
+        \Civi::log()->error('Failed to update custom fields for new contribution recur record ' . $objectId . ': ' . $e->getMessage());
+      }
+
+    }
+  }
+
   if ($objectName === 'Contribution' && $op === 'create') {
     $contribution = $objectRef;
 
@@ -232,9 +266,12 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
     */
 
     // Check if it's from a contribution page
-    if (!empty($contribution->contribution_page_id) && $contribution->contribution_page_id == 7) {
+    // Pages 7 and 8 are for setting up recurring contributions, 7 for groups and 8 for Kin
+    if (!empty($contribution->contribution_page_id) &&
+        ($contribution->contribution_page_id == 7 || $contribution->contribution_page_id == 8)) {
 
       // Check if it's pending
+      // Send receipt email to contributor (not sure why it is not sending directly from the interface)
       if ((int)$contribution->contribution_status_id === 2) {
         try {
           civicrm_api3('Contribution', 'sendconfirmation', ['id' => $contribution->id]);
@@ -698,6 +735,20 @@ function kincoop_civicrm_buildForm($formName, $form)
       } // Recurring contributions to groups
       elseif ($form->_id === 7 || $form->_id === 8) {
         if ($form->getAction() == CRM_Core_Action::ADD) {
+          // Remove the pay later payment option, we only need BACS
+          // This whole section gets hidden in css anyway so is a bit superfluous
+          if ($form->elementExists('payment_processor_id')) {
+            $element = $form->getElement('payment_processor_id');
+            if (!empty($element->_elements)) {
+              foreach ($element->_elements as $index => $child) {
+                $value = $child->getAttribute('value');
+                // Keep the BACS option, the ID for BACS is 2
+                if ((int) $value !== 2) {
+                  unset($element->_elements[$index]);
+                }
+              }
+            }
+          }
 
           if (isset($_GET['groupid']) && $_GET['me']) {
             //Include the R suffix on the unique contribution reference to denote recurring contributions

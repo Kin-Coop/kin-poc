@@ -978,8 +978,9 @@ table {
 }
 
 .crm-not-you-message,
-.pay_later-group {
-  display: none;
+.pay_later-group,
+.payment_options-group {
+  display: none !important;
 }
 
 .gift-details {
