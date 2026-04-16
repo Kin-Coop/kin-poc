@@ -13452,12 +13452,12 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 @media (min-width: 800px) {
   #crm-container.crm-public label, #crm-container.crm-public .label {
     float: left;
-    width: 220px;
-    text-align: right;
+    width: 210px;
+    text-align: left;
     margin-right: 1.6rem;
   }
   #crm-container.crm-public .description {
-    margin-left: 250px;
+    margin-left: 230px;
   }
   #crm-container.crm-public br {
     clear: both;
@@ -13466,7 +13466,7 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
     margin-bottom: 1.8rem;
   }
   #crm-container.crm-public .crm-section.form-item .content {
-    margin-left: 230px;
+    margin-left: 210px;
     padding-left: 0.8rem;
   }
   #crm-container.crm-public .crm-section.form-item .content label {

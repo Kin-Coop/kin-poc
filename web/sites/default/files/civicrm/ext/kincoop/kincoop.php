@@ -912,3 +912,14 @@ function kincoop_civicrm_tokenValues(&$values, $contactIDs, $job, $tokens, $cont
     }
   }
 }
+
+function kincoop_civicrm_alterContent(&$content, $context, $tplName, &$object) {
+  // Remove unwanted text from recurring contribution forms thank you pages
+  if ($context === 'form' && $tplName === 'CRM/Contribute/Form/Contribution/ThankYou.tpl' &&
+    !empty($object->_values['id']) && ($object->_values['id'] == 8 || $object->_values['id'] == 7)) {
+    // Remove the BACS processor message
+    $content = preg_replace('/Your contribution has been submitted to.*?successfully\./s', '', $content);
+    $content = str_replace('<div class="header-dark">Group </div>','',$content);
+    $content = str_replace('<div class="header-dark">Contribution Reference </div>','',$content);
+  }
+}
