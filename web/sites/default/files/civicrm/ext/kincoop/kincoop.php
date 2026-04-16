@@ -668,7 +668,6 @@ function kincoop_civicrm_buildForm($formName, $form)
             $email->freeze();
             $refField->freeze();
 
-
             // Inject JavaScript to strip the link
             CRM_Core_Resources::singleton()->addScript("
               (function($) {
@@ -715,7 +714,9 @@ function kincoop_civicrm_buildForm($formName, $form)
           ");
           }
         }
-      } // One off membership fee (4)
+      }
+
+      // One off membership fee (4)
       elseif ($form->_id === 4) {
         //Civi::log()->debug('Contents of $formName: ' . print_r($_GET, TRUE));
         if ($form->getAction() == CRM_Core_Action::ADD) {
@@ -732,7 +733,9 @@ function kincoop_civicrm_buildForm($formName, $form)
             //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
           }
         }
-      } // Recurring contributions to groups
+      }
+
+      // Recurring contributions to groups
       elseif ($form->_id === 7 || $form->_id === 8) {
         if ($form->getAction() == CRM_Core_Action::ADD) {
           // Remove the pay later payment option, we only need BACS
@@ -758,6 +761,7 @@ function kincoop_civicrm_buildForm($formName, $form)
             $defaults['frequency_unit'] = "month";
             //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
           }
+
           $defaults['custom_66'] = 1;
           $form->setDefaults($defaults);
 
@@ -768,6 +772,12 @@ function kincoop_civicrm_buildForm($formName, $form)
             // Make it read-only
             $element->freeze();
             $email->freeze();
+
+            // Kin recurring contribution form
+            if ($form->_id === 8) {
+              // Don't need to show group for Kin membership payment form
+
+            }
 
             // Inject JavaScript to strip the link
             CRM_Core_Resources::singleton()->addScript("
