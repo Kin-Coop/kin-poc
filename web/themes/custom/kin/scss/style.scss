@@ -667,14 +667,14 @@ table {
 
     label, .label {
       float: left;
-      width: 220px;
-      text-align: right;
+      width: 210px;
+      text-align: left;
       margin-right: 1.6rem;
       //margin-right: .8rem;
     }
 
     .description {
-      margin-left: 250px;
+      margin-left: 230px;
     }
 
     br {
@@ -686,7 +686,7 @@ table {
         margin-bottom: 1.8rem;
 
         .content {
-          margin-left: 230px;
+          margin-left: 210px;
           padding-left: .8rem;
 
           label {
