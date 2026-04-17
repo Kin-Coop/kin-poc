@@ -478,6 +478,8 @@ function kincoop_civicrm_buildForm($formName, $form)
 
     if ($groupid) {
       $backUrl = "/member/group/{$groupid}";
+      $backUrl = $form->_id == 8 ? "/" : $backUrl;
+      $page = $form->_id == 8 ? "Return to Home Page" : "Return to Group Page";
 
       CRM_Core_Resources::singleton()->addScript("
         CRM.$(function($) {
@@ -486,7 +488,7 @@ function kincoop_civicrm_buildForm($formName, $form)
 
           var backButton = '<div class=\"civicrm-back-button\" style=\"margin: 10px 0; text-align: left; padding: 15px;\">' +
                           '<a href=\"{$backUrl}\" class=\"btn btn-secondary\" style=\"display: inline-block; color: white; padding: 10px 20px; text-decoration: none;\">' +
-                          '<i class=\"crm-i fa-arrow-left\" style=\"margin-right: 8px;\"></i> Return to Group Page' +
+                          '<i class=\"crm-i fa-arrow-left\" style=\"margin-right: 8px;\"></i> {$page}' +
                           '</a></div>';
 
           // Try multiple insertion points for different CiviCRM versions/themes
