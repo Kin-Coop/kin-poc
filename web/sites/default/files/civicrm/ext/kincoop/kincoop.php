@@ -124,6 +124,22 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params)
 
 function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$objectRef)
 {
+  if($objectName === 'ContributionRecur' && $op === 'create') {
+    if(isset($_POST['custom_61']) && isset($_POST['custom_25'])) {
+      try {
+        $results = \Civi\Api4\ContributionRecur::update(FALSE)
+          ->addValue('Recurring_Contributions_Fields.Unique_Reference', $_POST["custom_61"])
+          ->addValue('Recurring_Contributions_Fields.Group', $_POST["custom_25"])
+          ->addWhere('id', '=', $objectId)
+          ->execute();
+
+      } catch (CiviCRM_API3_Exception $e) {
+        \Civi::log()->error('Failed to update custom fields for new contribution recur record ' . $objectId . ': ' . $e->getMessage());
+      }
+
+    }
+  }
+
   if ($objectName == 'Relationship' && $op == 'edit') {
     try {
       // Fetch relationship with custom fields
@@ -238,20 +254,6 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
 // https://chat.civicrm.org/civicrm/pl/yj64iwrh6fyrzgcdw8wziabm4a)
 function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
 {
-  if($objectName === 'ContributionRecur' && $op === 'create') {
-    if(isset($_POST['custom_61']) && isset($_POST['custom_25'])) {
-      try {
-        $results = \Civi\Api4\ContributionRecur::update(TRUE)
-           ->addValue('Recurring_Contributions.Unique_Reference', $_POST["custom_61"])
-           ->addValue('Recurring_Contributions.Group', $_POST["custom_25"])
-           ->addWhere('id', '=', $objectId)
-           ->execute();
-      } catch (CiviCRM_API3_Exception $e) {
-        \Civi::log()->error('Failed to update custom fields for new contribution recur record ' . $objectId . ': ' . $e->getMessage());
-      }
-
-    }
-  }
 
   if ($objectName === 'Contribution' && $op === 'create') {
     $contribution = $objectRef;
