@@ -735,69 +735,65 @@ function kincoop_civicrm_buildForm($formName, $form)
         }
       }
 
-      // Recurring contributions to groups
-      elseif ($form->_id === 7 || $form->_id === 8) {
-        if ($form->getAction() == CRM_Core_Action::ADD) {
-          // Remove the pay later payment option, we only need BACS
-          // This whole section gets hidden in css anyway so is a bit superfluous
-          if ($form->elementExists('payment_processor_id')) {
-            $element = $form->getElement('payment_processor_id');
-            if (!empty($element->_elements)) {
-              foreach ($element->_elements as $index => $child) {
-                $value = $child->getAttribute('value');
-                // Keep the BACS option, the ID for BACS is 2
-                if ((int) $value !== 2) {
-                  unset($element->_elements[$index]);
-                }
-              }
+    // Recurring contributions to groups
+    elseif ($form->_id === 7 || $form->_id === 8) {
+      if ($form->getAction() != CRM_Core_Action::ADD) {
+        return;
+      }
+
+      // Remove the pay later payment option, keep only BACS (ID = 2)
+      if ($form->elementExists('payment_processor_id')) {
+        $element = $form->getElement('payment_processor_id');
+        if (!empty($element->_elements)) {
+          foreach ($element->_elements as $index => $child) {
+            $value = $child->getAttribute('value');
+            if ((int) $value !== 2) {
+              unset($element->_elements[$index]);
             }
           }
-
-          if (isset($_GET['groupid']) && $_GET['me']) {
-            //Include the R suffix on the unique contribution reference to denote recurring contributions
-            $ref = $_GET['me'] . '-' . $_GET['groupid'] . 'R';
-            $defaults['custom_25'] = $_GET['groupid'];
-            $defaults['custom_61'] = $ref;
-            $defaults['frequency_unit'] = "month";
-            //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
-          }
-
-          $defaults['custom_66'] = 1;
-          $form->setDefaults($defaults);
-
-          if ($form->elementExists('custom_25')) {
-            $element = $form->getElement('custom_25');
-            $email = $form->getElement('email-5');
-
-            // Make it read-only
-            $element->freeze();
-            $email->freeze();
-
-            // Kin recurring contribution form
-            if ($form->_id === 8) {
-              // Don't need to show group for Kin membership payment form
-
-            }
-
-            // Inject JavaScript to strip the link
-            CRM_Core_Resources::singleton()->addScript("
-              (function($) {
-                $(document).ready(function() {
-                  // Only target the display element of custom_25
-                  var el = $('.crm-frozen-field a');
-
-                  el.each(function() {
-                    var text = $(this).text();
-                    $(this).replaceWith(text); // replace link with plain text
-                  });
-                });
-              })(CRM.$);
-            ");
-          }
-          $form->addRule('custom_25', ts('This field is required.'), 'required');
         }
       }
+
+      $defaults = [];
+
+      if (!empty($_GET['groupid']) && !empty($_GET['me'])) {
+        $ref = $_GET['me'] . '-' . $_GET['groupid'] . 'R';
+        $defaults['custom_25'] = $_GET['groupid'];
+        $defaults['custom_61'] = $ref;
+        $defaults['frequency_unit'] = "month";
+      }
+
+      $defaults['custom_66'] = 1;
+      $form->setDefaults($defaults);
+
+      $element = $form->getElement('custom_25');
+      $email = $form->getElement('email-5');
+
+      // Make read-only
+      $element->freeze();
+      $email->freeze();
+
+      $form->addRule('custom_25', ts('This field is required.'), 'required');
+
+      if ($form->_id === 7) {
+        // Remove link from frozen field
+        CRM_Core_Resources::singleton()->addScript("
+          (function($) {
+            $(document).ready(function() {
+              $('.crm-frozen-field a').each(function() {
+                var text = $(this).text();
+                $(this).replaceWith(text);
+              });
+            });
+          })(CRM.$);
+        ");
+      }
+
+      if ($form->_id === 8) {
+
+      }
     }
+  }
 }
 // Check group/household is filled in
 function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$errors)

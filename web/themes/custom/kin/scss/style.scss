@@ -603,6 +603,10 @@ table {
     }
   }
 
+  #priceset-div {
+    margin-top: 2rem;
+  }
+
   .crm-contribution-thankyou-form-block {
     fieldset.crm-profile-view {
       margin-left: 12px;
@@ -628,6 +632,21 @@ table {
           }
         }
       }
+    }
+  }
+
+  .crm-contribution-page-id-8 {
+    &.crm-contribution-thankyou-form-block {
+      .amount_display-group + fieldset {
+        display: none;
+      }
+    }
+
+    #editrow-custom_25,
+    .custom_pre_profile-group,
+    .cms_user-section,
+    .premium_block-section {
+      display: none;
     }
   }
 
