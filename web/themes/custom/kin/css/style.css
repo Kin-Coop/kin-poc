@@ -13402,10 +13402,40 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 #crm-container.crm-public .help a {
   color: #2D4C9B;
 }
-#crm-container.crm-public .crm-contribution-page-id-7.crm-contribution-thankyou-form-block .help {
+#crm-container.crm-public .crm-group {
+  margin: 0 0 1em 0;
+}
+#crm-container.crm-public .crm-group.amount_display-group {
+  margin-top: 2.4rem;
+}
+#crm-container.crm-public .crm-group .crm-section {
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+#crm-container.crm-public #priceset-div {
+  margin-top: 2rem;
+}
+#crm-container.crm-public .crm-contribution-thankyou-form-block fieldset.crm-profile-view {
+  margin-left: 12px;
+}
+#crm-container.crm-public .crm-contribution-thankyou-form-block .crm-group .amount_display-section {
+  margin-left: 12px;
+}
+#crm-container.crm-public .crm-contribution-page-id-7.crm-contribution-thankyou-form-block .help,
+#crm-container.crm-public .crm-contribution-page-id-8.crm-contribution-thankyou-form-block .help {
   display: none;
 }
-#crm-container.crm-public .crm-contribution-page-id-7.crm-contribution-thankyou-form-block .amount_display-group .content p {
+#crm-container.crm-public .crm-contribution-page-id-7.crm-contribution-thankyou-form-block .amount_display-group .content p,
+#crm-container.crm-public .crm-contribution-page-id-8.crm-contribution-thankyou-form-block .amount_display-group .content p {
+  display: none;
+}
+#crm-container.crm-public .crm-contribution-page-id-8.crm-contribution-thankyou-form-block .amount_display-group + fieldset {
+  display: none;
+}
+#crm-container.crm-public .crm-contribution-page-id-8 #editrow-custom_25,
+#crm-container.crm-public .crm-contribution-page-id-8 .custom_pre_profile-group,
+#crm-container.crm-public .crm-contribution-page-id-8 .cms_user-section,
+#crm-container.crm-public .crm-contribution-page-id-8 .premium_block-section {
   display: none;
 }
 #crm-container.crm-public h3, #crm-container.crm-public .h3 {
@@ -13417,7 +13447,8 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
   background-color: #FDC652;
   color: #000;
   padding: 5px 10px;
-  margin-bottom: 0.6rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 #crm-container.crm-public button {
   background-color: #FDC652;
@@ -13440,14 +13471,14 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
   color: #fff;
   margin-bottom: 0.3rem;
 }
-#crm-container.crm-public .crm-group {
-  margin-bottom: 1rem !important;
-}
 #crm-container.crm-public .crm-marker {
   color: #FDC652;
 }
 #crm-container.crm-public fieldset.crm-profile legend {
   display: none;
+}
+#crm-container.crm-public .kin-recur-text {
+  margin-top: 2rem;
 }
 @media (min-width: 800px) {
   #crm-container.crm-public label, #crm-container.crm-public .label {
@@ -13464,6 +13495,10 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
   }
   #crm-container.crm-public .crm-section.form-item {
     margin-bottom: 1.8rem;
+  }
+  #crm-container.crm-public .crm-section.form-item#editrow-custom_25, #crm-container.crm-public .crm-section.form-item#editrow-custom_61 {
+    margin-bottom: 0;
+    margin-top: 0;
   }
   #crm-container.crm-public .crm-section.form-item .content {
     margin-left: 210px;
@@ -13495,13 +13530,6 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 #crm-container.crm-public .crm-section.helprow-pre {
   margin-bottom: 0 !important;
 }
-#crm-container.crm-public .crm-group {
-  margin: 0;
-}
-#crm-container.crm-public .crm-group .crm-section {
-  margin: 0 0 1rem 0;
-  padding: 0;
-}
 #crm-container.crm-public .crm-event-thankyou-form-block .crm-section {
   margin-bottom: 0.3rem;
 }
@@ -13531,11 +13559,11 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
   border: none;
   margin-top: 1rem;
 }
-#crm-container.crm-public fieldset.crm-profile-name-Household_Contributions, #crm-container.crm-public fieldset.crm-profile-name-Membership_Fee, #crm-container.crm-public fieldset.crm-profile-name-Contribution_Reference {
+#crm-container.crm-public fieldset.crm-profile-name-Household_Contributions, #crm-container.crm-public fieldset.crm-profile-id-37, #crm-container.crm-public fieldset.crm-profile-name-Membership_Fee, #crm-container.crm-public fieldset.crm-profile-name-Contribution_Reference {
   margin: 0;
   padding: 0;
 }
-#crm-container.crm-public fieldset.crm-profile-name-Household_Contributions legend, #crm-container.crm-public fieldset.crm-profile-name-Membership_Fee legend, #crm-container.crm-public fieldset.crm-profile-name-Contribution_Reference legend {
+#crm-container.crm-public fieldset.crm-profile-name-Household_Contributions legend, #crm-container.crm-public fieldset.crm-profile-id-37 legend, #crm-container.crm-public fieldset.crm-profile-name-Membership_Fee legend, #crm-container.crm-public fieldset.crm-profile-name-Contribution_Reference legend {
   display: none;
 }
 #crm-container.crm-public fieldset .crm-profile-view-title {
