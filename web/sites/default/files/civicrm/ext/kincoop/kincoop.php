@@ -124,6 +124,7 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params)
 
 function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$objectRef)
 {
+  // Update the recurring contribution custom fields with the reference and group
   if($objectName === 'ContributionRecur' && $op === 'create') {
     if(isset($_POST['custom_61']) && isset($_POST['custom_25'])) {
       try {
@@ -136,7 +137,6 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
       } catch (CiviCRM_API3_Exception $e) {
         \Civi::log()->error('Failed to update custom fields for new contribution recur record ' . $objectId . ': ' . $e->getMessage());
       }
-
     }
   }
 
@@ -258,19 +258,11 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
   if ($objectName === 'Contribution' && $op === 'create') {
     $contribution = $objectRef;
 
-    // Debug code
-    /*
-    if (!empty($contribution->contribution_recur_id) && $contribution->contribution_recur_id > 0) {
-      Civi::log()->info('Post commit: New recurring contribution created', [
-        'contribution' => $contribution,
-      ]);
-    }
-    */
-
     // Check if it's from a contribution page
     // Pages 7 and 8 are for setting up recurring contributions, 7 for groups and 8 for Kin
+    /* Not needed anymore as now handled via civirules
     if (!empty($contribution->contribution_page_id) &&
-        ($contribution->contribution_page_id == 7 || $contribution->contribution_page_id == 8)) {
+        $contribution->contribution_page_id == 7) {
 
       // Check if it's pending
       // Send receipt email to contributor (not sure why it is not sending directly from the interface)
@@ -282,6 +274,7 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
         }
       }
     }
+    */
   }
 }
 
