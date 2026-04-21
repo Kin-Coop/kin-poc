@@ -593,7 +593,7 @@ handlers:
       sender_mail: ''
       sender_name: ''
       subject: 'Kin Group Application'
-      body: '<p>Hi [webform_submission:values:civicrm_1_contact_1_contact_first_name],</p><p>Your application to join the group [webform_submission:values:civicrm_2_contact_1_contact_household_name] has been updated.&nbsp;<br><br><strong>[webform_submission:values:civicrm_2_contact_1_relationship_custom_40]</strong></p><p>The Kin Cooperative Team</p>'
+      body: '<p>Hi [webform_submission:values:civicrm_1_contact_1_contact_first_name],</p><p>Your application to join the group [webform_submission:values:civicrm_2_contact_1_contact_household_name] has been updated.&nbsp;<br><br><strong>[webform_submission:values:civicrm_2_contact_1_relationship_custom_40]</strong></p><p><a href="https://kin.coop">Log in now</a> to visit your new group page.</p><p>The Kin Cooperative Team</p>'
       excluded_elements: {  }
       ignore_access: false
       exclude_empty: true

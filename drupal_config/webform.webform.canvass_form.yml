@@ -407,7 +407,7 @@ elements: |-
           '#default_value': ''
       civicrm_1_contact_1_cg33_custom_107:
         '#type': civicrm_options
-        '#title': 'Kin can contact me in relation to the information in this form.'
+        '#title': 'Kin can contact me in relation to the information in this form and the prize draw'
         '#civicrm_live_options': 0
         '#options':
           1: 'Yes'
@@ -471,6 +471,27 @@ elements: |-
           width: 20
         '#parent': civicrm_1_contact_1_fieldset_fieldset
         '#required': true
+      civicrm_1_contact_1_fieldset_fieldset:
+        '#type': fieldset
+        '#title': 'Please tell us how you identify your gender'
+        '#title_display': invisible
+        '#form_key': civicrm_1_contact_1_fieldset_fieldset
+        civicrm_1_contact_1_contact_gender_id:
+          '#type': civicrm_options
+          '#title': 'Please tell us how you identify your gender'
+          '#civicrm_live_options': 0
+          '#options':
+            1: Female
+            2: Male
+            4: Non-binary
+            3: "These don't describe me"
+            5: 'Prefer not to say'
+          '#required': true
+          '#contact_type': individual
+          '#form_key': civicrm_1_contact_1_contact_gender_id
+          '#parent': civicrm_1_contact_1_fieldset_fieldset
+          '#default_option': ''
+          '#default_value': ''
       enter_me_into_the_prize_draw:
         '#type': checkbox
         '#title': 'Yes, enter me into the prize draw!'
@@ -691,7 +712,6 @@ handlers:
     conditions: {  }
     weight: null
     settings:
-      disable: 'Leave Fields and Save Settings'
       nid: 1
       number_of_contacts: '1'
       1_contact_type: individual
@@ -713,6 +733,7 @@ handlers:
       civicrm_1_contact_1_cg33_custom_107: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_108: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_118: create_civicrm_webform_element
+      civicrm_1_contact_1_cg33_custom_123: create_civicrm_webform_element
       civicrm_1_contact_1_contact_existing: 0
       civicrm_1_contact_1_contact_prefix_id: 0
       civicrm_1_contact_1_contact_first_name: create_civicrm_webform_element
@@ -720,7 +741,7 @@ handlers:
       civicrm_1_contact_1_contact_last_name: create_civicrm_webform_element
       civicrm_1_contact_1_contact_suffix_id: 0
       civicrm_1_contact_1_contact_nick_name: 0
-      civicrm_1_contact_1_contact_gender_id: 0
+      civicrm_1_contact_1_contact_gender_id: create_civicrm_webform_element
       civicrm_1_contact_1_contact_job_title: 0
       civicrm_1_contact_1_contact_birth_date: 0
       civicrm_1_contact_1_contact_preferred_communication_method: 0
