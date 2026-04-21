@@ -12,7 +12,6 @@ dependencies:
     - views.view.group_forum_comments
     - views.view.public_join_group
   content:
-    - 'block_content:basic:41334e37-b9fd-451e-b87f-7a87359c0831'
     - 'block_content:basic:6b91916a-f030-44a7-bd01-79013025f3b6'
     - 'block_content:basic:93a450f5-1c6b-4301-92c5-62282fc96681'
     - 'block_content:basic:9a3268d1-3298-4240-8a4c-c507230a9701'
@@ -21,9 +20,9 @@ dependencies:
     - civicrm_entity
     - datetime
     - household_access
-    - image
     - options
     - other_view_filter
+    - svg_image
     - user
     - views_conditional
     - views_field_view
@@ -6026,7 +6025,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Membership Payments\r\n    </h2>\r\n    <p>\r\n       Set up a regular membership payment or make a one-off payment for your membership to Kin.\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=1&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Payment</a>\r\n        &nbsp;&nbsp;&nbsp;\r\n       <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=8&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up A Regular Payment</a>\r\n    <p>\r\n        <a class=\"btn btn-primary mb-3\" href=\"/contribute-onbehalfof/{{ id }}\">Contribute On Behalf Of</a>\r\n    </p>\r\n</div>"
+            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Membership Payments\r\n    </h2>\r\n    <p>\r\n       Set up a regular membership payment or make a one-off payment for your membership to Kin.\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=4&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Payment</a>\r\n        &nbsp;&nbsp;&nbsp;\r\n       <a class=\"btn btn-primary\" href=\"/civicrm/contribute/transact?reset=1&id=8&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up A Regular Payment</a>\r\n    <p>\r\n        <a class=\"btn btn-primary mb-3\" href=\"/contribute-onbehalfof/{{ id }}\">Contribute On Behalf Of</a>\r\n    </p>\r\n</div>"
             format: full_html
           tokenize: true
       display_extenders:
