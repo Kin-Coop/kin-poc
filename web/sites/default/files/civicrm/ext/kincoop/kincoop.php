@@ -724,6 +724,38 @@ function kincoop_civicrm_buildForm($formName, $form)
             $defaults['custom_25'] = $_GET['groupid'];
             $defaults['custom_61'] = $ref;
             $form->setDefaults($defaults);
+
+            // Set the open amount field to £1
+            if ($form->elementExists('price_8')) {
+              $element = $form->getElement('price_8');
+              if (!$element->getValue()) {
+                $element->setValue(1);
+              }
+            }
+
+            if ($form->elementExists('custom_25')) {
+              $element = $form->getElement('custom_25');
+              $email = $form->getElement('email-5');
+
+              // Make it read-only
+              $element->freeze();
+              $email->freeze();
+
+              // Inject JavaScript to strip the link
+              CRM_Core_Resources::singleton()->addScript("
+              (function($) {
+                $(document).ready(function() {
+                  // Only target the display element of custom_25
+                  var el = $('.crm-frozen-field a');
+
+                  el.each(function() {
+                    var text = $(this).text();
+                    $(this).replaceWith(text); // replace link with plain text
+                  });
+                });
+              })(CRM.$);
+            ");
+            }
             //if (isset($form['custom_25'])) {
             //  $form->addRule('custom_25', ts('This field is required.'), 'required');
             //}

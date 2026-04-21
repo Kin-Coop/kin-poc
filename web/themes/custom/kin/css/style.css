@@ -13429,13 +13429,16 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 #crm-container.crm-public .crm-contribution-page-id-8.crm-contribution-thankyou-form-block .amount_display-group .content p {
   display: none;
 }
-#crm-container.crm-public .crm-contribution-page-id-8.crm-contribution-thankyou-form-block .amount_display-group + fieldset {
+#crm-container.crm-public .crm-contribution-page-id-8.crm-contribution-thankyou-form-block .amount_display-group + fieldset, #crm-container.crm-public .crm-contribution-page-id-4.crm-contribution-thankyou-form-block .amount_display-group + fieldset {
   display: none;
 }
 #crm-container.crm-public .crm-contribution-page-id-8 #editrow-custom_25,
 #crm-container.crm-public .crm-contribution-page-id-8 .custom_pre_profile-group,
 #crm-container.crm-public .crm-contribution-page-id-8 .cms_user-section,
-#crm-container.crm-public .crm-contribution-page-id-8 .premium_block-section {
+#crm-container.crm-public .crm-contribution-page-id-8 .premium_block-section, #crm-container.crm-public .crm-contribution-page-id-4 #editrow-custom_25,
+#crm-container.crm-public .crm-contribution-page-id-4 .custom_pre_profile-group,
+#crm-container.crm-public .crm-contribution-page-id-4 .cms_user-section,
+#crm-container.crm-public .crm-contribution-page-id-4 .premium_block-section {
   display: none;
 }
 #crm-container.crm-public h3, #crm-container.crm-public .h3 {
