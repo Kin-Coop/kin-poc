@@ -255,6 +255,44 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
 function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
 {
 
+  if($objectName === 'ContributionRecur' && $op === 'create') {
+
+
+    /*
+     * $params = [
+                    'id' => 132, // Message Template ID
+                    'contact_id' => $member_cid, // Recipient’s contact ID
+                    'from' => '"Kin Cooperative" <members@kin.coop>',
+                    // Optional: specify email override if you want to force a specific address
+                    'to_email' => $admin['email.email'],
+                    'tplParams' => [
+                      'admin_name' => $admin['contact_id_a.first_name'],
+                      'group' => $group_name["display_name"],
+                      'amount' => $amount,
+                      'status' => $status == 'yes' ? 'approved' : 'declined',
+                    ],
+                  ];
+
+                  civicrm_api3('MessageTemplate', 'send', $params);
+
+    $result = civicrm_api3('MessageTemplate', 'send', [
+              'id' => 124, // The ID of your message template
+              'contact_id' => $member_cid, // Recipient’s contact ID
+              'from' => '"Kin Cooperative" <members@kin.coop>',
+              'to_email' => 'members@kin.coop',
+              'tokenContext' => [
+                'contactId' => $member_cid,
+                'contributionId' => $contribution_id,
+              ],
+              'tplParams' => [
+                'group' => $group_name["display_name"],
+                'amount' => $amount,
+                'contribution_id' => $contribution_id,
+              ],
+            ]);
+     */
+  }
+
   if ($objectName === 'Contribution' && $op === 'create') {
     $contribution = $objectRef;
 
