@@ -255,42 +255,59 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
 function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
 {
 
+  // We are using this method of sending emails as the contribution recur template
+  // is not properly picking up the total amount or reference
   if($objectName === 'ContributionRecur' && $op === 'create') {
+    if ($_POST['email-5'] && $_POST['custom_61'] && $_POST['custom_25']) {
 
+      $period = $objectRef->frequency_unit;
+      $amount = $objectRef->amount;
+      $contactId = $objectRef->contact_id;
 
-    /*
-     * $params = [
-                    'id' => 132, // Message Template ID
-                    'contact_id' => $member_cid, // Recipient’s contact ID
-                    'from' => '"Kin Cooperative" <members@kin.coop>',
-                    // Optional: specify email override if you want to force a specific address
-                    'to_email' => $admin['email.email'],
-                    'tplParams' => [
-                      'admin_name' => $admin['contact_id_a.first_name'],
-                      'group' => $group_name["display_name"],
-                      'amount' => $amount,
-                      'status' => $status == 'yes' ? 'approved' : 'declined',
-                    ],
-                  ];
+      $contributionRecurs = \Civi\Api4\ContributionRecur::get(TRUE)
+        ->addSelect('Recurring_Contributions_Fields.Group', 'Recurring_Contributions_Fields.Unique_Reference')
+        ->addWhere('id', '=', $objectId)
+        ->execute()
+        ->first();
 
-                  civicrm_api3('MessageTemplate', 'send', $params);
+      $contacts = \Civi\Api4\Contact::get(FALSE)
+        ->addSelect('email_primary.email')
+        ->addWhere('id', '=', $contactId)
+        ->execute()
+        ->first();
 
-    $result = civicrm_api3('MessageTemplate', 'send', [
-              'id' => 124, // The ID of your message template
-              'contact_id' => $member_cid, // Recipient’s contact ID
-              'from' => '"Kin Cooperative" <members@kin.coop>',
-              'to_email' => 'members@kin.coop',
-              'tokenContext' => [
-                'contactId' => $member_cid,
-                'contributionId' => $contribution_id,
-              ],
-              'tplParams' => [
-                'group' => $group_name["display_name"],
-                'amount' => $amount,
-                'contribution_id' => $contribution_id,
-              ],
-            ]);
-     */
+      $ref = $contributionRecurs['Recurring_Contributions_Fields.Unique_Reference'];
+      $email = $contacts['email_primary.email'];
+      $group_id = $contributionRecurs['Recurring_Contributions_Fields.Group'];
+      // Is this for Kin membership or a group?
+      $template_id = $group_id == 425 ? 140 : 141;
+
+      $group = \Civi\Api4\Contact::get(FALSE)
+        ->addSelect('display_name', 'email_primary.email')
+        ->addWhere('id', '=', $group_id)
+        ->execute()
+        ->first();
+
+      $params = [
+        'id' => $template_id, // The ID of your message template
+        'contact_id' => $contactId, // Recipient’s contact ID
+        'from' => '"Kin Cooperative" <members@kin.coop>',
+        'to_email' => $email,
+        'tokenContext' => [
+          'contactId' => $contactId,
+          'contributionRecurId' => $objectId,
+        ],
+        'tplParams' => [
+          'period' => $period,
+          'amount' => $amount,
+          'ref' => $ref,
+          'group' => $group['display_name'],
+          //'contribution_id' => $contribution_id,
+        ]
+      ];
+
+      $result = civicrm_api3('MessageTemplate', 'send', $params);
+    }
   }
 
   if ($objectName === 'Contribution' && $op === 'create') {
