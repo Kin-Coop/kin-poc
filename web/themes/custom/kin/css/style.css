@@ -13414,12 +13414,25 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 }
 #crm-container.crm-public #priceset-div {
   margin-top: 2rem;
+  margin-bottom: 0.7rem;
 }
 #crm-container.crm-public .crm-contribution-thankyou-form-block fieldset.crm-profile-view {
   margin-left: 12px;
 }
+#crm-container.crm-public .crm-contribution-thankyou-form-block .crm-group {
+  margin-bottom: 0.7rem;
+}
 #crm-container.crm-public .crm-contribution-thankyou-form-block .crm-group .amount_display-section {
   margin-left: 12px;
+}
+#crm-container.crm-public .crm-contribution-thankyou-form-block .crm-group .crm-section {
+  margin-bottom: 0.7rem;
+}
+#crm-container.crm-public .crm-contribution-thankyou-form-block .crm-group .form-item {
+  margin: 0 0 0.7rem;
+}
+#crm-container.crm-public .crm-contribution-thankyou-form-block fieldset .header-dark {
+  display: none;
 }
 #crm-container.crm-public .crm-contribution-page-id-7.crm-contribution-thankyou-form-block .help,
 #crm-container.crm-public .crm-contribution-page-id-8.crm-contribution-thankyou-form-block .help {
@@ -13470,6 +13483,9 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
   font-size: inherit;
   padding-right: 0.8rem;
 }
+#crm-container.crm-public .description {
+  margin-bottom: 0.3rem;
+}
 #crm-container.crm-public label, #crm-container.crm-public .label {
   color: #fff;
   margin-bottom: 0.3rem;
@@ -13491,13 +13507,13 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
     margin-right: 1.6rem;
   }
   #crm-container.crm-public .description {
-    margin-left: 230px;
+    margin-left: 235px;
   }
   #crm-container.crm-public br {
     clear: both;
   }
   #crm-container.crm-public .crm-section.form-item {
-    margin-bottom: 1.8rem;
+    margin-bottom: 1rem;
   }
   #crm-container.crm-public .crm-section.form-item#editrow-custom_25, #crm-container.crm-public .crm-section.form-item#editrow-custom_61 {
     margin-bottom: 0;
@@ -13523,7 +13539,6 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
   font-style: normal;
 }
 #crm-container.crm-public .crm-section {
-  margin: 0.6rem 0 1rem 0;
   clear: both;
 }
 #crm-container.crm-public .crm-section.helprow-post {
@@ -13560,7 +13575,7 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 }
 #crm-container.crm-public fieldset {
   border: none;
-  margin-top: 1rem;
+  margin-top: 0;
 }
 #crm-container.crm-public fieldset.crm-profile-name-Household_Contributions, #crm-container.crm-public fieldset.crm-profile-id-37, #crm-container.crm-public fieldset.crm-profile-name-Membership_Fee, #crm-container.crm-public fieldset.crm-profile-name-Contribution_Reference {
   margin: 0;

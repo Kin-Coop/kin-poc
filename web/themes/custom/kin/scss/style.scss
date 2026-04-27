@@ -605,6 +605,7 @@ table {
 
   #priceset-div {
     margin-top: 2rem;
+    margin-bottom: .7rem;
   }
 
   .crm-contribution-thankyou-form-block {
@@ -612,8 +613,20 @@ table {
       margin-left: 12px;
     }
     .crm-group {
+      margin-bottom: .7rem;
       .amount_display-section {
         margin-left: 12px;
+      }
+      .crm-section {
+        margin-bottom: .7rem;
+      }
+      .form-item {
+        margin: 0 0 0.7rem;
+      }
+    }
+    fieldset {
+      .header-dark {
+        display: none;
       }
     }
   }
@@ -684,6 +697,10 @@ table {
     padding-right: .8rem;
   }
 
+  .description {
+    margin-bottom: .3rem;
+  }
+
   label, .label {
     color: #fff;
     margin-bottom: .3rem;
@@ -712,7 +729,7 @@ table {
     }
 
     .description {
-      margin-left: 230px;
+      margin-left: 235px;
     }
 
     br {
@@ -721,7 +738,7 @@ table {
 
     .crm-section {
       &.form-item {
-        margin-bottom: 1.8rem;
+        margin-bottom: 1rem;
 
         &#editrow-custom_25,
         &#editrow-custom_61 {
@@ -760,7 +777,6 @@ table {
   }
 
   .crm-section {
-    margin: 0.6rem 0 1rem 0;
     clear: both;
 
     &.helprow-post {
@@ -811,7 +827,7 @@ table {
 
   fieldset {
     border: none;
-    margin-top: 1rem;
+    margin-top: 0;
 
     &.crm-profile-name-Household_Contributions,
     &.crm-profile-id-37,
