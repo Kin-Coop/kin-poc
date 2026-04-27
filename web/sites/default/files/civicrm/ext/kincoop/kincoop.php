@@ -258,35 +258,71 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
   // We are using this method of sending emails as the contribution recur template
   // is not properly picking up the total amount or reference
   if($objectName === 'ContributionRecur' && $op === 'create') {
-    if ($_POST['email-5'] && $_POST['custom_61'] && $_POST['custom_25']) {
+    $period = $objectRef->frequency_unit;
+    $amount = $objectRef->amount;
+    $contactId = $objectRef->contact_id;
 
-      $period = $objectRef->frequency_unit;
-      $amount = $objectRef->amount;
-      $contactId = $objectRef->contact_id;
+    $contributionRecurs = \Civi\Api4\ContributionRecur::get(TRUE)
+      ->addSelect('Recurring_Contributions_Fields.Group', 'Recurring_Contributions_Fields.Unique_Reference')
+      ->addWhere('id', '=', $objectId)
+      ->execute()
+      ->first();
 
-      $contributionRecurs = \Civi\Api4\ContributionRecur::get(TRUE)
-        ->addSelect('Recurring_Contributions_Fields.Group', 'Recurring_Contributions_Fields.Unique_Reference')
-        ->addWhere('id', '=', $objectId)
-        ->execute()
-        ->first();
+    $contacts = \Civi\Api4\Contact::get(FALSE)
+      ->addSelect('email_primary.email')
+      ->addWhere('id', '=', $contactId)
+      ->execute()
+      ->first();
 
+    $ref = $contributionRecurs['Recurring_Contributions_Fields.Unique_Reference'];
+    $email = $contacts['email_primary.email'];
+    $group_id = $contributionRecurs['Recurring_Contributions_Fields.Group'];
+    // Is this for Kin membership or a group?
+    $template_id = $group_id == 425 ? 140 : 141;
+
+    $group = \Civi\Api4\Contact::get(FALSE)
+      ->addSelect('display_name', 'email_primary.email')
+      ->addWhere('id', '=', $group_id)
+      ->execute()
+      ->first();
+
+    $params = [
+      'id' => $template_id, // The ID of your message template
+      'contact_id' => $contactId, // Recipient’s contact ID
+      'from' => '"Kin Cooperative" <members@kin.coop>',
+      'to_email' => $email,
+      'tokenContext' => [
+        'contactId' => $contactId,
+        'contributionRecurId' => $objectId,
+      ],
+      'tplParams' => [
+        'period' => $period,
+        'amount' => $amount,
+        'ref' => $ref,
+        'group' => $group['display_name'],
+        //'contribution_id' => $contribution_id,
+      ]
+    ];
+
+    $result = civicrm_api3('MessageTemplate', 'send', $params);
+  }
+
+  if ($objectName === 'Contribution' && $op === 'create') {
+    $contribution = $objectRef;
+
+    // For money requests
+    // Send confirmation email to member who requested money
+    // We can't use civirules because the contact data is being switched in the trigger data update in this file
+    if ($contribution->financial_type_id == 5) {
+      $contactId = $contribution->contact_id;
       $contacts = \Civi\Api4\Contact::get(FALSE)
-        ->addSelect('email_primary.email')
-        ->addWhere('id', '=', $contactId)
-        ->execute()
-        ->first();
+                                    ->addSelect('email_primary.email')
+                                    ->addWhere('id', '=', $contactId)
+                                    ->execute()
+                                    ->first();
 
-      $ref = $contributionRecurs['Recurring_Contributions_Fields.Unique_Reference'];
       $email = $contacts['email_primary.email'];
-      $group_id = $contributionRecurs['Recurring_Contributions_Fields.Group'];
-      // Is this for Kin membership or a group?
-      $template_id = $group_id == 425 ? 140 : 141;
-
-      $group = \Civi\Api4\Contact::get(FALSE)
-        ->addSelect('display_name', 'email_primary.email')
-        ->addWhere('id', '=', $group_id)
-        ->execute()
-        ->first();
+      $template_id = 142;
 
       $params = [
         'id' => $template_id, // The ID of your message template
@@ -295,24 +331,12 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
         'to_email' => $email,
         'tokenContext' => [
           'contactId' => $contactId,
-          'contributionRecurId' => $objectId,
+          'contributionId' => $objectId,
         ],
-        'tplParams' => [
-          'period' => $period,
-          'amount' => $amount,
-          'ref' => $ref,
-          'group' => $group['display_name'],
-          //'contribution_id' => $contribution_id,
-        ]
       ];
 
       $result = civicrm_api3('MessageTemplate', 'send', $params);
     }
-  }
-
-  if ($objectName === 'Contribution' && $op === 'create') {
-    $contribution = $objectRef;
-
     // Check if it's from a contribution page
     // Pages 7 and 8 are for setting up recurring contributions, 7 for groups and 8 for Kin
     /* Not needed anymore as now handled via civirules
@@ -353,6 +377,16 @@ function kincoop_civirules_alter_trigger_data(&$triggerData)
 {
   $contributionData = $triggerData->getEntityData('Contribution');
   if (isset($contributionData) && isAssociatedWithGift($contributionData)) {
+    /*
+     * This next bit of code doesn't work because the function only runs once on the trigger event
+     * and not for each civirule
+
+    $rule = $triggerData->getTrigger();
+    $rid = $rule->getRuleId();
+    // Don't update the contribution contact to admin for the civirule that sends out the member confirmation email
+    if($rid!=94) {
+    }
+    */
     reassignContactIdToHousehold($triggerData, $contributionData);
   }
 }
