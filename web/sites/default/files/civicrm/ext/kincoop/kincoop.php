@@ -562,8 +562,11 @@ function kincoop_civicrm_buildForm($formName, $form)
 
     if ($groupid) {
       $backUrl = "/member/group/{$groupid}";
-      $backUrl = $form->_id == 8 ? "/" : $backUrl;
-      $page = $form->_id == 8 ? "Return to Home Page" : "Return to Group Page";
+      $page = "Return to Group Page";
+      if ($form->_id == 8 || $form->_id == 4) {
+        $backUrl = "/";
+        $page = "Return to Home Page";
+      }
 
       CRM_Core_Resources::singleton()->addScript("
         CRM.$(function($) {
