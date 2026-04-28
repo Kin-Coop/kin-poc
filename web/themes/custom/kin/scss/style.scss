@@ -593,6 +593,12 @@ table {
   .email-5-section,
   .is_recur-section {
     margin-bottom: 1rem;
+
+    .content {
+      label {
+        margin-bottom: 1rem;
+      }
+    }
   }
 
   .crm-group {
@@ -614,7 +620,7 @@ table {
 
   #priceset-div {
     margin-top: 2rem;
-    margin-bottom: .7rem;
+    margin-bottom: 1rem;
   }
 
   .crm-contribution-thankyou-form-block {

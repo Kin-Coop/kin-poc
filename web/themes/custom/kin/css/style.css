@@ -13348,6 +13348,10 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 #crm-container.crm-public .is_recur-section {
   margin-bottom: 1rem;
 }
+#crm-container.crm-public .email-5-section .content label,
+#crm-container.crm-public .is_recur-section .content label {
+  margin-bottom: 1rem;
+}
 #crm-container.crm-public .crm-group {
   margin: 0 0 1em 0;
 }
@@ -13363,7 +13367,7 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 }
 #crm-container.crm-public #priceset-div {
   margin-top: 2rem;
-  margin-bottom: 0.7rem;
+  margin-bottom: 1rem;
 }
 #crm-container.crm-public .crm-contribution-thankyou-form-block fieldset.crm-profile-view {
   margin-left: 12px;
