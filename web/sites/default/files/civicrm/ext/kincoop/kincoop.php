@@ -262,7 +262,7 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
     $amount = $objectRef->amount;
     $contactId = $objectRef->contact_id;
 
-    $contributionRecurs = \Civi\Api4\ContributionRecur::get(TRUE)
+    $contributionRecurs = \Civi\Api4\ContributionRecur::get(FALSE)
       ->addSelect('Recurring_Contributions_Fields.Group', 'Recurring_Contributions_Fields.Unique_Reference')
       ->addWhere('id', '=', $objectId)
       ->execute()
