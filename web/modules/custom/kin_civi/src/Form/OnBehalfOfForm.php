@@ -179,7 +179,7 @@
         $group_id = $form_state->getValue('group_id');
         $onbehalfof_id = $form_state->getValue('on_behalf_of_id');
         $delegate_id = $form_state->getValue('delegate_id');
-        $ref = $onbehalfof_id . '-' . $group_id;
+        $ref = $onbehalfof_id . '-' . $group_id . 'B';
         $onbehalfof_name = $utils->kin_civi_get_name($onbehalfof_id);
         $group_name = $utils->kin_civi_get_name($group_id);
 

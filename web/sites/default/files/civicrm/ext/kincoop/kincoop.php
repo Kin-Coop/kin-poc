@@ -731,6 +731,7 @@ function kincoop_civicrm_buildForm($formName, $form)
       }
     }
 
+    // Group money request
     elseif ($form->_id === 3) {
       if ($form->getAction() == CRM_Core_Action::ADD) {
         if (isset($_GET['groupid']) && $_GET['me']) {
