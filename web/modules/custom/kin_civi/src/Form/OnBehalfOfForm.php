@@ -30,15 +30,11 @@
      */
     public function buildForm(array $form, FormStateInterface $form_state, ?Request $request = NULL) {
 
-      //$this->mySharedValue = 'Hello from buildForm';
       $utils = \Drupal::service('kin_civi.utils');
-
       $user = \Drupal::currentUser();
       $uid = $user->id();
       $cid = $utils->kin_civi_get_contact_id($uid);
       $form_state->setValue('delegate_id', $cid);
-
-
 
       if(\Drupal::currentUser()->isAuthenticated() == FALSE) {
         throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
@@ -46,10 +42,6 @@
 
       $group_id = \Drupal::routeMatch()->getParameter('group_id');
       $group = \Drupal::service('kin_civi.utils')->kin_civi_check_group($group_id);
-
-      //dpm($cid);
-      //dpm($form_state->getValue('delegate_id'));
-      //dpm($form_state);
 
       If($group == false) {
           $form = [
@@ -145,19 +137,15 @@
         $form_state->setErrorByName('amount', $this->t('Please enter a positive amount.'));
       }
 
-      //dpm($email);
       // Get original contributor ID
       $onbehalfof_id = $utils->kin_civi_get_id_from_email($email);
       $form_state->setValue('on_behalf_of_id', $onbehalfof_id);
-      //dpm($onbehalfof_id);
-      //dpm($group_id);
 
       // Check original contributor is in group
       $relationship = $utils->kin_civi_check_contact_in_group($onbehalfof_id, $group_id);
       if(!$relationship) {
         $form_state->setErrorByName('email', $this->t('This email does not match anyone in this group. Please try again.'));
       }
-
     }
 
     /**
@@ -171,23 +159,19 @@
       }
 
       $utils = \Drupal::service('kin_civi.utils');
+      $amount = $form_state->getValue('amount');
+      $group_id = $form_state->getValue('group_id');
+      $onbehalfof_id = $form_state->getValue('on_behalf_of_id');
+      $delegate_id = $form_state->getValue('delegate_id');
+      $ref = $onbehalfof_id . '-' . $group_id . 'B';
+      $onbehalfof_name = $utils->kin_civi_get_name($onbehalfof_id);
+      $group_name = $utils->kin_civi_get_name($group_id);
 
-        //dpm($form_state);
-
-        //$email = $form_state->getValue('email');
-        $amount = $form_state->getValue('amount');
-        $group_id = $form_state->getValue('group_id');
-        $onbehalfof_id = $form_state->getValue('on_behalf_of_id');
-        $delegate_id = $form_state->getValue('delegate_id');
-        $ref = $onbehalfof_id . '-' . $group_id . 'B';
-        $onbehalfof_name = $utils->kin_civi_get_name($onbehalfof_id);
-        $group_name = $utils->kin_civi_get_name($group_id);
-
-        $onBehalfOf = \Civi\Api4\Contact::get()
-                     ->addSelect('custom.*','*','email_primary.email')
-                     ->addWhere('id', '=', $onbehalfof_id)
-                     ->execute()
-                     ->first();
+      $onBehalfOf = \Civi\Api4\Contact::get()
+                   ->addSelect('custom.*','*','email_primary.email')
+                   ->addWhere('id', '=', $onbehalfof_id)
+                   ->execute()
+                   ->first();
 
       $delegate = \Civi\Api4\Contact::get()
                     ->addSelect('custom.*','*','email_primary.email')
@@ -196,7 +180,6 @@
                     ->first();
 
       try {
-
         // Step 2: Create the contribution
         $results = \Civi\Api4\Contribution::create(FALSE)
                   ->addValue('contact_id', $onbehalfof_id)
@@ -238,7 +221,6 @@
               ->addValue('target_contact_id', $onbehalfof_id)
               ->execute();
 
-
           // Send email to original contributor
       $delivery = \CRM_Core_BAO_MessageTemplate::sendTemplate([
           'workflow' => 'onbehalfof_contributor',
@@ -265,8 +247,6 @@
               ->addValue('target_contact_id', $delegate_id)
               ->execute();
 
-
-
           // Set a flag to indicate successful submission.
           $form_state->set('submitted', TRUE);
 
@@ -290,12 +270,9 @@
                   '@gid' => $group_id,
               ]);
 
-          //dpm($delivery);
-
           if ($delivery[0]) {
               //\Drupal::messenger()->addMessage('Confirmation email sent and logged.');
-          }
-          else {
+          } else {
               \Drupal::messenger()->addError('Error sending confirmation email.');
           }
 
@@ -304,12 +281,9 @@
           // Rebuild the form so buildForm runs again and shows the message.
           $form_state->setRebuild(TRUE);
 
-
       } catch (\Exception $e) {
         \Drupal::logger('kin_civi')->error($e->getMessage());
         \Drupal::messenger()->addError($this->t('There was an error processing your contribution.'));
       }
     }
-
   }
-
