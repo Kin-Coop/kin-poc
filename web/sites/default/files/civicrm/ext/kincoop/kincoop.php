@@ -669,6 +669,11 @@ function kincoop_civicrm_buildForm($formName, $form)
       $_SESSION['civicrm_groupid'] = $groupid;
 
       $backUrl = "/member/group/{$groupid}";
+      $page = "Return to Group Page";
+      if ($form->_id == 8 || $form->_id == 4) {
+        $backUrl = "/";
+        $page = "Return to Home Page";
+      }
 
       // Need to use a button variable as this button needs to be attached to a different element for the form ID = 4
       // (Individual membership contributions) as this form doesn't have a footer
@@ -679,7 +684,7 @@ function kincoop_civicrm_buildForm($formName, $form)
           // Add back button to the confirmation page
           var backButton = '<div class=\"crm-section back-button-section\" style=\"margin: 20px 0;\">' +
                           '<a href=\"{$backUrl}\" class=\"btn btn-secondary\">' +
-                          '<i class=\"crm-i fa-arrow-left\"></i> Back to Group Page' +
+                          '<i class=\"crm-i fa-arrow-left\"></i> {$page}' +
                           '</a></div>';
            {$button}
         });
