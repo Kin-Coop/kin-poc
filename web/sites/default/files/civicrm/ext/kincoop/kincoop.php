@@ -377,16 +377,6 @@ function kincoop_civirules_alter_trigger_data(&$triggerData)
 {
   $contributionData = $triggerData->getEntityData('Contribution');
   if (isset($contributionData) && isAssociatedWithGift($contributionData)) {
-    /*
-     * This next bit of code doesn't work because the function only runs once on the trigger event
-     * and not for each civirule
-
-    $rule = $triggerData->getTrigger();
-    $rid = $rule->getRuleId();
-    // Don't update the contribution contact to admin for the civirule that sends out the member confirmation email
-    if($rid!=94) {
-    }
-    */
     reassignContactIdToHousehold($triggerData, $contributionData);
   }
 }
@@ -680,6 +670,10 @@ function kincoop_civicrm_buildForm($formName, $form)
 
       $backUrl = "/member/group/{$groupid}";
 
+      // Need to use a button variable as this button needs to be attached to a different element for the form ID = 4
+      // (Individual membership contributions) as this form doesn't have a footer
+      $button = $form->_id === 4 ? "$('#crm-submit-buttons').after(backButton);" : "$('#footer_text').after(backButton);";
+
       CRM_Core_Resources::singleton()->addScript("
         CRM.$(function($) {
           // Add back button to the confirmation page
@@ -687,12 +681,7 @@ function kincoop_civicrm_buildForm($formName, $form)
                           '<a href=\"{$backUrl}\" class=\"btn btn-secondary\">' +
                           '<i class=\"crm-i fa-arrow-left\"></i> Back to Group Page' +
                           '</a></div>';
-
-          // Insert the button at the top of the form
-          //$('.crm-contribution-form-block').prepend(backButton);
-
-          // Or insert at the bottom
-          $('#footer_text').after(backButton);
+           {$button}
         });
       ");
     }
@@ -735,126 +724,126 @@ function kincoop_civicrm_buildForm($formName, $form)
             ");
         }
       }
+    }
 
+    elseif ($form->_id === 3) {
+      if ($form->getAction() == CRM_Core_Action::ADD) {
+        if (isset($_GET['groupid']) && $_GET['me']) {
+          $ref = $_GET['me'] . '-' . $_GET['groupid'] . 'G';
+          $defaults['custom_25'] = $_GET['groupid'];
+          $defaults['custom_61'] = $ref;
+          //$defaults['custom_62'] = 'Gift';
+          $form->setDefaults($defaults);
+        }
+
+        if ($form->elementExists('custom_25')) {
+          $element = $form->getElement('custom_25');
+          $email = $form->getElement('email-5');
+          $refField = $form->getElement('custom_61');
+
+          // Make it read-only
+          $element->freeze();
+          $email->freeze();
+          $refField->freeze();
+
+          // Inject JavaScript to strip the link
+          CRM_Core_Resources::singleton()->addScript("
+            (function($) {
+              $(document).ready(function() {
+                // Only target the display element of custom_25
+                var el = $('.crm-frozen-field a');
+                //alert('hi');
+                el.each(function() {
+                  var text = $(this).text();
+                  $(this).replaceWith(text); // replace link with plain text
+                });
+
+              });
+            })(CRM.$);
+        ");
+        }
+
+        // adding group reward information popup box
+        if ($form->elementExists('custom_83')) {
+          //$typeHelp = $form->_fields["custom_83"]["help_post"];
+          CRM_Core_Resources::singleton()->addScript("
+          (function($) {
+            $(document).ready(function() {
+              // Add the help icon
+              var helpText = '<sup data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" tabindex=\"0\" class=\"question-mark\" data-bs-html=\"true\"' +
+                'data-bs-content=\"Usually this will be Personal use, but sometimes if the money is being used for the group as a whole, eg to buy food for a food cooperative, it will be Group use. ' +
+                 'If unsure, see the <a class=\'text-decoration-underline\' target=\'_blank\' href=\'https://kin.coop/faqs/personal-or-group-use\'>faq</a>.\"' +
+                'data-bs-placement=\"top\" aria-label=\"Request Type\" title=\"Request Type\"> <em>' +
+                '<i class=\"fs-3 fw-bold text-primary bg-white rounded-circle d-inline-block bi bi-question-circle-fill\"></i></em></sup>';
+
+              $('#helprow-custom_83 .content').append(helpText);
+
+              // Initialize Bootstrap popover
+              var popoverTriggerEl = document.querySelector('[data-bs-toggle=\"popover\"]');
+              if (popoverTriggerEl) {
+                var popover = new bootstrap.Popover(popoverTriggerEl, {
+                  trigger: 'focus',
+                  placement: 'top',
+                  html: false
+                });
+              }
+            });
+          })(CRM.$);
+        ");
+        }
       }
-      elseif ($form->_id === 3) {
-        if ($form->getAction() == CRM_Core_Action::ADD) {
-          if (isset($_GET['groupid']) && $_GET['me']) {
-            $ref = $_GET['me'] . '-' . $_GET['groupid'] . 'G';
-            $defaults['custom_25'] = $_GET['groupid'];
-            $defaults['custom_61'] = $ref;
-            //$defaults['custom_62'] = 'Gift';
-            $form->setDefaults($defaults);
+    }
+
+    // One off membership fee (4)
+    elseif ($form->_id === 4) {
+      //Civi::log()->debug('Contents of $formName: ' . print_r($_GET, TRUE));
+      if ($form->getAction() == CRM_Core_Action::ADD) {
+        if (isset($_GET['groupid']) && $_GET['me']) {
+          $cid = CRM_Core_Session::singleton()->getLoggedInContactID();
+          $cid = $cid ? $cid : 'K';
+          $ref = $cid . '-' . $_GET['groupid'];
+          $defaults['custom_25'] = $_GET['groupid'];
+          $defaults['custom_61'] = $ref;
+          $form->setDefaults($defaults);
+
+          // Set the open amount field to £1
+          if ($form->elementExists('price_8')) {
+            $element = $form->getElement('price_8');
+            if (!$element->getValue()) {
+              $element->setValue(1);
+            }
           }
 
           if ($form->elementExists('custom_25')) {
             $element = $form->getElement('custom_25');
             $email = $form->getElement('email-5');
-            $refField = $form->getElement('custom_61');
 
             // Make it read-only
             $element->freeze();
             $email->freeze();
-            $refField->freeze();
 
             // Inject JavaScript to strip the link
             CRM_Core_Resources::singleton()->addScript("
-              (function($) {
-                $(document).ready(function() {
-                  // Only target the display element of custom_25
-                  var el = $('.crm-frozen-field a');
-                  //alert('hi');
-                  el.each(function() {
-                    var text = $(this).text();
-                    $(this).replaceWith(text); // replace link with plain text
-                  });
-
-                });
-              })(CRM.$);
-          ");
-          }
-
-          // adding group reward information popup box
-          if ($form->elementExists('custom_83')) {
-            //$typeHelp = $form->_fields["custom_83"]["help_post"];
-            CRM_Core_Resources::singleton()->addScript("
             (function($) {
               $(document).ready(function() {
-                // Add the help icon
-                var helpText = '<sup data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" tabindex=\"0\" class=\"question-mark\" data-bs-html=\"true\"' +
-                  'data-bs-content=\"Usually this will be Personal use, but sometimes if the money is being used for the group as a whole, eg to buy food for a food cooperative, it will be Group use. ' +
-                   'If unsure, see the <a class=\'text-decoration-underline\' target=\'_blank\' href=\'https://kin.coop/faqs/personal-or-group-use\'>faq</a>.\"' +
-                  'data-bs-placement=\"top\" aria-label=\"Request Type\" title=\"Request Type\"> <em>' +
-                  '<i class=\"fs-3 fw-bold text-primary bg-white rounded-circle d-inline-block bi bi-question-circle-fill\"></i></em></sup>';
+                // Only target the display element of custom_25
+                var el = $('.crm-frozen-field a');
 
-                $('#helprow-custom_83 .content').append(helpText);
-
-                // Initialize Bootstrap popover
-                var popoverTriggerEl = document.querySelector('[data-bs-toggle=\"popover\"]');
-                if (popoverTriggerEl) {
-                  var popover = new bootstrap.Popover(popoverTriggerEl, {
-                    trigger: 'focus',
-                    placement: 'top',
-                    html: false
-                  });
-                }
+                el.each(function() {
+                  var text = $(this).text();
+                  $(this).replaceWith(text); // replace link with plain text
+                });
               });
             })(CRM.$);
           ");
           }
+          //if (isset($form['custom_25'])) {
+          //  $form->addRule('custom_25', ts('This field is required.'), 'required');
+          //}
+          //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
         }
       }
-
-      // One off membership fee (4)
-      elseif ($form->_id === 4) {
-        //Civi::log()->debug('Contents of $formName: ' . print_r($_GET, TRUE));
-        if ($form->getAction() == CRM_Core_Action::ADD) {
-          if (isset($_GET['groupid']) && $_GET['me']) {
-            $cid = CRM_Core_Session::singleton()->getLoggedInContactID();
-            $cid = $cid ? $cid : 'K';
-            $ref = $cid . '-' . $_GET['groupid'];
-            $defaults['custom_25'] = $_GET['groupid'];
-            $defaults['custom_61'] = $ref;
-            $form->setDefaults($defaults);
-
-            // Set the open amount field to £1
-            if ($form->elementExists('price_8')) {
-              $element = $form->getElement('price_8');
-              if (!$element->getValue()) {
-                $element->setValue(1);
-              }
-            }
-
-            if ($form->elementExists('custom_25')) {
-              $element = $form->getElement('custom_25');
-              $email = $form->getElement('email-5');
-
-              // Make it read-only
-              $element->freeze();
-              $email->freeze();
-
-              // Inject JavaScript to strip the link
-              CRM_Core_Resources::singleton()->addScript("
-              (function($) {
-                $(document).ready(function() {
-                  // Only target the display element of custom_25
-                  var el = $('.crm-frozen-field a');
-
-                  el.each(function() {
-                    var text = $(this).text();
-                    $(this).replaceWith(text); // replace link with plain text
-                  });
-                });
-              })(CRM.$);
-            ");
-            }
-            //if (isset($form['custom_25'])) {
-            //  $form->addRule('custom_25', ts('This field is required.'), 'required');
-            //}
-            //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
-          }
-        }
-      }
+    }
 
     // Recurring contributions to groups
     elseif ($form->_id === 7 || $form->_id === 8) {
@@ -908,10 +897,6 @@ function kincoop_civicrm_buildForm($formName, $form)
             });
           })(CRM.$);
         ");
-      }
-
-      if ($form->_id === 8) {
-
       }
     }
   }
