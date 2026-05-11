@@ -14097,12 +14097,12 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
 .block-user-picture .border, .views-field-views-conditional-field-2 .border {
   aspect-ratio: 1/1;
   background: rgb(212.375, 220.9, 242.625);
-  padding-top: 8px;
 }
 
 .picture {
   text-align: center;
   margin: auto;
+  min-width: 88px;
 }
 .picture img {
   max-width: 75px;

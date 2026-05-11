@@ -1622,13 +1622,14 @@ div.block.vertical {
   .border {
     aspect-ratio: 1/1;
     background: lighten($primary, 50%);
-    padding-top: 8px;
+    //padding-top: 8px;
   }
 }
 
 .picture {
   text-align: center;
   margin: auto;
+  min-width: 88px;
 
   img {
     max-width: 75px ;
