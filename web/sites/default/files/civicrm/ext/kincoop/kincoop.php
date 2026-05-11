@@ -563,7 +563,7 @@ function kincoop_civicrm_buildForm($formName, $form)
           // Remove any existing back buttons first
           $('.civicrm-back-button').remove();
 
-          var backButton = '<div class=\"civicrm-back-button\" style=\"margin: 10px 0; text-align: left; padding: 15px;\">' +
+          var backButton = '<div class=\"civicrm-back-button\" style=\"margin: 10px 0; text-align: left; padding: 15px 0;\">' +
                           '<a href=\"{$backUrl}\" class=\"btn btn-secondary\" style=\"display: inline-block; color: white; padding: 10px 20px; text-decoration: none;\">' +
                           '<i class=\"crm-i fa-arrow-left\" style=\"margin-right: 8px;\"></i> {$page}' +
                           '</a></div>';
