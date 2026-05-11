@@ -319,8 +319,9 @@ elements: |-
           description: ''
           description_above: null
         '#parent': civicrm_1_contact_1_cg33_fieldset
-        '#title': 'Are there any local people or organisations that you look to for community support or leadership?'
+        '#title': 'Are there any local organisations that you look to for community support or leadership?'
         '#default_value': ''
+        '#required': '0'
       civicrm_1_contact_1_cg33_custom_98:
         '#type': civicrm_options
         '#title': 'Length of residence'
@@ -506,6 +507,80 @@ elements: |-
     '#form_key': civicrm_1_activity_1_cg34_custom_109
     '#parent': civicrm_1_activity_1_fieldset_fieldset
     '#title': 'Canvasser notes'
+  civicrm_1_contact_1_cg33_custom_139:
+    '#type': civicrm_options
+    '#extra':
+      multiple: 1
+      aslist: 0
+      items: |-
+        1|A mutual aid group or food cooperative
+        2|A savings club (sometimes called a pardner, sousou, tanda, chit)
+        3|Neither
+      description: ''
+      description_above: null
+    '#data_type': String
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_139
+    '#options':
+      1: 'A mutual aid group or food cooperative'
+      2: 'A savings club (sometimes called a pardner, sousou, tanda, chit)'
+      3: Neither
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'Prior experience: have you ever taken part in:'
+    '#civicrm_live_options': 1
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_150:
+    '#type': textfield
+    '#data_type': String
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#counter_type': character
+    '#counter_maximum': 255
+    '#counter_maximum_message': ' '
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_150
+    '#extra':
+      width: 20
+      description: ''
+      description_above: null
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'What appeals to you most about the idea of people in your area cooperating economically?'
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_151:
+    '#type': textarea
+    '#data_type': Memo
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#extra':
+      cols: '60'
+      rows: '4'
+      description: ''
+      description_above: null
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_151
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'What appeals to you most about the idea of people in your local area cooperating economically?'
+    '#required': '0'
+    '#default_value': ''
 css: ''
 javascript: ''
 settings:

@@ -28,7 +28,7 @@ elements: |-
     '#extra': {  }
   prize_draw:
     '#type': webform_message
-    '#message_message': '<p><strong>Fill in this survey for two chances to win £100!</strong></p><p>The prize draw will choose two random respondents if at least 100 responses are received by May 31st. Respondents must answer honestly, be contactable, and live in the London Borough of Haringey.&nbsp;</p>'
+    '#message_message': '<p><strong>Fill in this survey and the next one for two chances to win £100!</strong></p><p>Estimated time for both: 6 minutes</p><p>The prize draw will choose two random respondents - one from the first survey and one from the second survey - if more than 100 responses have been received by May 31st. Respondents must answer honestly, be contactable, and live in the London Borough of Haringey.&nbsp;</p><p>Responses are totally confidential and will never be shared with any information that could be used to identify an individual.&nbsp;</p>'
   canvas_address:
     '#type': fieldset
     '#title': 'Canvas Address'
@@ -287,7 +287,7 @@ elements: |-
         '#message_close': true
       civicrm_1_contact_1_cg33_custom_118:
         '#type': civicrm_options
-        '#title': 'Do you know others who would be interested in food cooperatives, savings clubs or a vision for a more cooperative borough?'
+        '#title': 'Do you know others who would be interested in food cooperatives, savings clubs or a vision of a more cooperative borough / local area?'
         '#options':
           2: 'Yes'
           4: Maybe
@@ -309,7 +309,7 @@ elements: |-
         '#civicrm_live_options': '1'
       civicrm_1_contact_1_cg33_custom_123:
         '#type': textfield
-        '#title': 'Are there local people or organisations that you look to for community support or leadership? '
+        '#title': 'Are there any local organisations that you look to for community support or leadership?'
         '#counter_type': character
         '#counter_maximum': 255
         '#counter_maximum_message': ' '
@@ -328,6 +328,7 @@ elements: |-
           description: ''
           description_above: null
         '#parent': civicrm_1_contact_1_cg33_fieldset
+        '#default_value': ''
       civicrm_1_contact_1_cg33_custom_98:
         '#type': civicrm_options
         '#title': 'How long have you lived in the area?'
@@ -517,7 +518,7 @@ elements: |-
         '#civicrm_live_options': '1'
   share:
     '#type': webform_message
-    '#message_message': '<p><strong>After you submit, please share this survey with your community to make sure we get enough responses to run the prize draw for your chance to win.&nbsp;</strong></p>'
+    '#message_message': '<p><strong>After you submit, You will be directed to the second survey (est. 2 minutes) for your second chance to win £100!</strong></p>'
 css: ''
 javascript: ''
 settings:
@@ -624,9 +625,9 @@ settings:
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
   confirmation_type: url_message
-  confirmation_url: 'https://kin.coop'
+  confirmation_url: 'https://kin.coop/form/cooperation-in-haringey-2'
   confirmation_title: ''
-  confirmation_message: '<p><strong>Thank you!&nbsp;</strong></p><p><strong>Please share this message to make sure we get enough responses to run the prize draw:</strong><br><br><br>Cooperation Haringey</p><p>I just filled in this survey about creating more cooperation in Haringey. If you fill in this survey, you could win £100!</p><p>It only takes 2 minutes &gt;&gt; <a href="https://kin.coop/form/canvass-form">https://kin.coop/form/canvass-form</a></p>'
+  confirmation_message: '<p><strong>ONE MORE SURVEY FOR YOUR SECOND CHANCE TO WIN £100!</strong></p>'
   confirmation_attributes: {  }
   confirmation_back: false
   confirmation_back_label: ''

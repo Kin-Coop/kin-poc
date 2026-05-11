@@ -286,7 +286,7 @@ handlers:
         - completed
       to_mail: hello@kin.coop
       to_options: {  }
-      bcc_mail: ''
+      bcc_mail: rob@kin.coop
       bcc_options: {  }
       cc_mail: ''
       cc_options: {  }

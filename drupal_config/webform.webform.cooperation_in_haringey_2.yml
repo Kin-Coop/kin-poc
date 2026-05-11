@@ -1,0 +1,1218 @@
+uuid: 1cb4135c-5849-48a6-8387-76c3897785e0
+langcode: en-gb
+status: open
+dependencies:
+  module:
+    - webform_civicrm
+weight: 0
+open: null
+close: null
+uid: 3
+template: false
+archive: false
+id: cooperation_in_haringey_2
+title: 'Cooperation in Haringey 2'
+description: '<p>Public form&nbsp;</p>'
+categories: {  }
+elements: |-
+  civicrm_1_activity_1_activity_activity_date_time:
+    '#type': datetime
+    '#title': 'Activity Date'
+    '#disabled': true
+    '#prepopulate': true
+    '#default_value': now
+    '#access': false
+    '#date_time_step': '60'
+    '#form_key': civicrm_1_activity_1_activity_activity_date_time
+    '#parent': civicrm_1_activity_1_fieldset_fieldset
+    '#extra': {  }
+  survey_info:
+    '#type': webform_message
+    '#message_message': '<p><strong>Fill in this final survey for a second chance to win £100!</strong></p><p>If you are filling in this survey, you have already responded to the idea of local cooperation. Many people will have ignored the message or flyer you saw. We want to understand what makes you special to help us build a stronger cooperation movement that is representative or local residents.&nbsp;</p><p>Responses are totally confidential and will never be shared with any information that could identify an individual.&nbsp;</p>'
+  flexbox_03:
+    '#type': webform_flexbox
+    civicrm_1_contact_1_contact_first_name:
+      '#type': textfield
+      '#title': 'First Name'
+      '#counter_type': character
+      '#counter_maximum': 64
+      '#counter_maximum_message': ' '
+      '#contact_type': individual
+      '#form_key': civicrm_1_contact_1_contact_first_name
+      '#extra':
+        width: 20
+      '#parent': civicrm_1_contact_1_fieldset_fieldset
+      '#required': true
+    civicrm_1_contact_1_contact_last_name:
+      '#type': textfield
+      '#title': 'Last Name'
+      '#counter_type': character
+      '#counter_maximum': 64
+      '#counter_maximum_message': ' '
+      '#contact_type': individual
+      '#form_key': civicrm_1_contact_1_contact_last_name
+      '#extra':
+        width: 20
+      '#parent': civicrm_1_contact_1_fieldset_fieldset
+  civicrm_1_contact_1_cg36_fieldset:
+    '#type': fieldset
+    '#title': 'Trust Scale'
+    '#title_display': invisible
+    '#form_key': civicrm_1_contact_1_cg36_fieldset
+    local_vibe:
+      '#type': webform_section
+      '#title': 'Local vibe'
+      civicrm_1_contact_1_cg36_custom_127:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg36_custom_127
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg36_fieldset
+        '#title': 'Most people can be trusted.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg36_custom_128:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg36_custom_128
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg36_fieldset
+        '#title': 'Most people you know personally can be trusted.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg36_custom_129:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg36_custom_129
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg36_fieldset
+        '#title': 'People from religions different from your own can be trusted.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg36_custom_130:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg36_custom_130
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg36_fieldset
+        '#title': 'People from nationalities different from your own can be trusted.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg36_custom_131:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg36_custom_131
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg36_fieldset
+        '#title': 'If you lost your wallet in your street, a neighbour would return it with the money intact.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg36_custom_132:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg36_custom_132
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg36_fieldset
+        '#title': 'If you lost your wallet on public transport in Haringey, a stranger would return it or give it to the police with the money intact.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg36_custom_133:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg36_custom_133
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg36_fieldset
+        '#title': 'I trust Parliament to act in the interests of people like me.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg36_custom_134:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg36_custom_134
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg36_fieldset
+        '#title': 'I trust Haringey Council to act in the interests of people like me.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg36_custom_135:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg36_custom_135
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg36_fieldset
+        '#title': 'I trust political parties to represent people like me.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg36_custom_136:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg36_custom_136
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg36_fieldset
+        '#title': 'I trust the justice system to treat people like me fairly.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg36_custom_137:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg36_custom_137
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg36_fieldset
+        '#title': 'I trust the police to treat people like me fairly.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg36_custom_138:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg36_custom_138
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg36_fieldset
+        '#title': 'I trust mainstream banks to act in my best interests.'
+        '#civicrm_live_options': 1
+        '#required': true
+  civicrm_1_contact_1_cg37_fieldset:
+    '#type': fieldset
+    '#title': 'Social Capital Supplemental'
+    '#title_display': invisible
+    '#form_key': civicrm_1_contact_1_cg37_fieldset
+    food_cooperatives:
+      '#type': webform_section
+      '#title': 'Local equality'
+      civicrm_1_contact_1_cg37_custom_147:
+        '#type': civicrm_options
+        '#title': 'If you imagine all households in Haringey ranked by income, where would you place yours?'
+        '#options':
+          1: 'Top 25%'
+          2: 'Upper middle'
+          3: 'Lower middle'
+          4: 'Bottom 25%'
+          5: "Don't know"
+        '#required': true
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg37_custom_147
+        '#parent': civicrm_1_contact_1_cg37_fieldset
+        '#default_option': ''
+        '#default_value': ''
+        '#civicrm_live_options': '1'
+      civicrm_1_contact_1_cg37_custom_148:
+        '#type': civicrm_options
+        '#title': 'Do you think the gap between the richest and poorest people in your Borough or local area district is:'
+        '#options':
+          1: 'Much too large'
+          2: 'Somewhat too large'
+          3: 'About right'
+          4: "Don't know"
+        '#required': true
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg37_custom_148
+        '#parent': civicrm_1_contact_1_cg37_fieldset
+        '#default_option': ''
+        '#default_value': ''
+        '#civicrm_live_options': '1'
+      civicrm_1_contact_1_cg37_custom_149:
+        '#type': civicrm_options
+        '#title': 'Do you think the economic opportunities available to you are roughly equal to those available to most other people in the local area?'
+        '#options':
+          1: 'Yes'
+          2: 'No'
+          3: 'Not sure'
+        '#required': true
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg37_custom_149
+        '#parent': civicrm_1_contact_1_cg37_fieldset
+        '#default_option': ''
+        '#default_value': ''
+        '#civicrm_live_options': '1'
+    financial_attitudes:
+      '#type': webform_section
+      '#title': 'Financial Attitudes'
+      civicrm_1_contact_1_cg37_custom_142:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg37_custom_142
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg37_fieldset
+        '#title': 'I sometimes worry about having enough money to cover my regular expenses.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg37_custom_143:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg37_custom_143
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg37_fieldset
+        '#title': 'I find it difficult to talk to friends or family about money.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg37_custom_144:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg37_custom_144
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg37_fieldset
+        '#title': 'I would feel comfortable borrowing £100 from a friend or neighbour in an emergency.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg37_custom_145:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg37_custom_145
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg37_fieldset
+        '#title': 'I would feel comfortable lending £100 to a friend or neighbour in an emergency.'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg37_custom_146:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Strongly Disagree
+            2|Disagree
+            3|Neither Agree Nor Disagree
+            4|Agree
+            5|Strongly Agree
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg37_custom_146
+        '#options':
+          1: 'Strongly Disagree'
+          2: Disagree
+          3: 'Neither Agree Nor Disagree'
+          4: Agree
+          5: 'Strongly Agree'
+        '#parent': civicrm_1_contact_1_cg37_fieldset
+        '#title': 'I feel financially resilient — I have enough in reserve to cope with an unexpected expense.'
+        '#civicrm_live_options': 1
+        '#required': true
+    education:
+      '#type': webform_section
+      '#title': 'About you'
+      civicrm_1_contact_1_cg33_custom_139:
+        '#type': civicrm_options
+        '#extra':
+          multiple: 1
+          aslist: 0
+          items: |-
+            1|A mutual aid group or food cooperative
+            2|A savings club (sometimes called a pardner, sousou, tanda, chit)
+            3|Neither
+          description: ''
+          description_above: null
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#nid': canvass_form
+        '#form_key': civicrm_1_contact_1_cg33_custom_139
+        '#options':
+          1: 'A mutual aid group or food cooperative'
+          2: 'A savings club (sometimes called a pardner, sousou, tanda, chit)'
+          3: Neither
+        '#parent': civicrm_1_contact_1_cg33_fieldset
+        '#title': 'Prior experience: have you ever taken part in:'
+        '#civicrm_live_options': 1
+        '#default_value': ''
+        '#required': true
+      civicrm_1_contact_1_cg37_custom_141:
+        '#type': civicrm_options
+        '#extra':
+          aslist: 0
+          items: |-
+            1|Yes
+            2|No
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg37_custom_141
+        '#options':
+          1: 'Yes'
+          2: 'No'
+        '#parent': civicrm_1_contact_1_cg37_fieldset
+        '#title': 'Are you currently in education?'
+        '#civicrm_live_options': 1
+        '#required': true
+      civicrm_1_contact_1_cg37_custom_140:
+        '#type': civicrm_options
+        '#title': 'What is your highest level of completed education?'
+        '#options':
+          1: 'No formal qualifications'
+          2: 'GCSE or equivalent'
+          3: 'A-Level or equivalent'
+          4: 'Undergraduate degree'
+          5: 'Postgraduate degree'
+          6: 'Professional qualification'
+          7: Other
+        '#required': true
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg37_custom_140
+        '#parent': civicrm_1_contact_1_cg37_fieldset
+        '#default_option': ''
+        '#default_value': ''
+        '#civicrm_live_options': '1'
+      civicrm_1_contact_1_cg33_custom_151:
+        '#type': textarea
+        '#title': 'What appeals to you most about the idea of people in your local area cooperating economically?'
+        '#description': '<p>Please tell us as much as you can.</p>'
+        '#description_display': before
+        '#required': true
+        '#data_type': Memo
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#extra':
+          cols: '60'
+          rows: '4'
+          description: ''
+          description_above: null
+        '#nid': cooperation_in_haringey_2
+        '#form_key': civicrm_1_contact_1_cg33_custom_151
+        '#parent': civicrm_1_contact_1_cg33_fieldset
+    and_finally:
+      '#type': webform_section
+      '#title': 'And finally...'
+      civicrm_2_activity_1_fieldset_fieldset:
+        '#type': fieldset
+        '#title': 'Activity 2'
+        '#title_display': invisible
+        '#form_key': civicrm_2_activity_1_fieldset_fieldset
+        civicrm_2_activity_1_cg4_custom_23:
+          '#type': civicrm_options
+          '#title': 'I accept that Kin will process my data in accordance with GDPR'
+          '#description': '<p>Read the <a href="https://kin.coop/kin-privacy-policy" target="_blank">privacy policy</a></p>'
+          '#description_display': before
+          '#civicrm_live_options': 0
+          '#options':
+            1: 'Yes'
+          '#required': true
+          '#data_type': Boolean
+          '#has_help': true
+          '#form_key': civicrm_2_activity_1_cg4_custom_23
+          '#parent': civicrm_2_activity_1_fieldset_fieldset
+          '#default_option': ''
+          '#default_value': ''
+        enter_me_into_the_prize_draw:
+          '#type': checkbox
+          '#title': 'Yes, enter me into the second prize draw!'
+    share:
+      '#type': webform_message
+      '#message_message': '<p><strong>After you submit, please share this survey with your local networks. This is really important.&nbsp;</strong><br><br><strong>Please copy this link: </strong><a href="https://kin.coop/form/canvass-form"><strong>https://kin.coop/form/canvass-form</strong></a></p><p><strong>Save the date - May 31st - and check your spam folders regularly for a message about Cooperation in Haringey.&nbsp;</strong></p>'
+  civicrm_1_contact_1_cg33_fieldset:
+    '#type': fieldset
+    '#title': 'Canvass Response'
+    '#title_display': invisible
+    '#form_key': civicrm_1_contact_1_cg33_fieldset
+css: ''
+javascript: ''
+settings:
+  ajax: false
+  ajax_scroll_top: form
+  ajax_progress_type: ''
+  ajax_effect: ''
+  ajax_speed: null
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_theme_name: ''
+  form_title: source_entity_webform
+  form_submit_once: false
+  form_open_message: ''
+  form_close_message: ''
+  form_exception_message: ''
+  form_previous_submissions: false
+  form_confidential: false
+  form_confidential_message: ''
+  form_disable_remote_addr: false
+  form_convert_anonymous: false
+  form_prepopulate: true
+  form_prepopulate_source_entity: true
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_reset: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  form_file_limit_message: ''
+  form_attributes: {  }
+  form_method: ''
+  form_action: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
+  submission_label: ''
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_log: false
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: false
+  wizard_confirmation_label: ''
+  wizard_auto_forward: true
+  wizard_auto_forward_hide_next_button: false
+  wizard_keyboard: true
+  wizard_track: ''
+  wizard_prev_button_label: ''
+  wizard_next_button_label: ''
+  wizard_toggle: false
+  wizard_toggle_show_label: ''
+  wizard_toggle_hide_label: ''
+  wizard_page_type: container
+  wizard_page_title_tag: h2
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: url_message
+  confirmation_url: 'https://kin.coop'
+  confirmation_title: ''
+  confirmation_message: '<p><strong>Thank you!&nbsp;</strong></p><p><strong>Please share this message to make sure we get enough responses to run the prize draw:</strong><br><br><br>Cooperation Haringey</p><p>I just filled in this survey about creating more cooperation in Haringey. If you fill in the surveys, you could win £100!</p><p>It only takes a few minutes &gt;&gt; <a href="https://kin.coop/form/canvass-form">https://kin.coop/form/canvass-form</a></p>'
+  confirmation_attributes: {  }
+  confirmation_back: false
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: false
+  results_disabled_ignore: false
+  results_customize: false
+  token_view: false
+  token_update: false
+  token_delete: false
+  serial_disabled: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  webform_civicrm:
+    id: webform_civicrm
+    handler_id: webform_civicrm
+    label: CiviCRM
+    notes: ''
+    status: true
+    conditions: {  }
+    weight: null
+    settings:
+      disable: 'Leave Fields and Save Settings'
+      nid: 1
+      number_of_contacts: '1'
+      1_contact_type: individual
+      1_webform_label: 'Contact 1'
+      civicrm_1_contact_1_contact_contact_sub_type:
+        Canvass_Contact: Canvass_Contact
+      contact_1_number_of_cg33: '1'
+      contact_1_settings_dynamic_custom_cg33: 0
+      civicrm_1_contact_1_cg33_custom_93: 0
+      civicrm_1_contact_1_cg33_custom_105: 0
+      civicrm_1_contact_1_cg33_custom_120: 0
+      civicrm_1_contact_1_cg33_custom_94: 0
+      civicrm_1_contact_1_cg33_custom_111: 0
+      civicrm_1_contact_1_cg33_custom_97: 0
+      civicrm_1_contact_1_cg33_custom_99: 0
+      civicrm_1_contact_1_cg33_custom_98: 0
+      civicrm_1_contact_1_cg33_custom_104: 0
+      civicrm_1_contact_1_cg33_custom_114: 0
+      civicrm_1_contact_1_cg33_custom_107: 0
+      civicrm_1_contact_1_cg33_custom_108: 0
+      civicrm_1_contact_1_cg33_custom_118: 0
+      civicrm_1_contact_1_cg33_custom_123: 0
+      civicrm_1_contact_1_cg33_custom_139: create_civicrm_webform_element
+      civicrm_1_contact_1_cg33_custom_151: create_civicrm_webform_element
+      contact_1_number_of_cg36: '1'
+      contact_1_settings_dynamic_custom_cg36: 1
+      civicrm_1_contact_1_cg36_custom_127: create_civicrm_webform_element
+      civicrm_1_contact_1_cg36_custom_128: create_civicrm_webform_element
+      civicrm_1_contact_1_cg36_custom_129: create_civicrm_webform_element
+      civicrm_1_contact_1_cg36_custom_130: create_civicrm_webform_element
+      civicrm_1_contact_1_cg36_custom_131: create_civicrm_webform_element
+      civicrm_1_contact_1_cg36_custom_132: create_civicrm_webform_element
+      civicrm_1_contact_1_cg36_custom_133: create_civicrm_webform_element
+      civicrm_1_contact_1_cg36_custom_134: create_civicrm_webform_element
+      civicrm_1_contact_1_cg36_custom_135: create_civicrm_webform_element
+      civicrm_1_contact_1_cg36_custom_136: create_civicrm_webform_element
+      civicrm_1_contact_1_cg36_custom_137: create_civicrm_webform_element
+      civicrm_1_contact_1_cg36_custom_138: create_civicrm_webform_element
+      contact_1_number_of_cg37: '1'
+      contact_1_settings_dynamic_custom_cg37: 1
+      civicrm_1_contact_1_cg37_custom_140: create_civicrm_webform_element
+      civicrm_1_contact_1_cg37_custom_141: create_civicrm_webform_element
+      civicrm_1_contact_1_cg37_custom_142: create_civicrm_webform_element
+      civicrm_1_contact_1_cg37_custom_143: create_civicrm_webform_element
+      civicrm_1_contact_1_cg37_custom_144: create_civicrm_webform_element
+      civicrm_1_contact_1_cg37_custom_145: create_civicrm_webform_element
+      civicrm_1_contact_1_cg37_custom_146: create_civicrm_webform_element
+      civicrm_1_contact_1_cg37_custom_147: create_civicrm_webform_element
+      civicrm_1_contact_1_cg37_custom_148: create_civicrm_webform_element
+      civicrm_1_contact_1_cg37_custom_149: create_civicrm_webform_element
+      civicrm_1_contact_1_contact_existing: 0
+      civicrm_1_contact_1_contact_prefix_id: 0
+      civicrm_1_contact_1_contact_first_name: create_civicrm_webform_element
+      civicrm_1_contact_1_contact_middle_name: 0
+      civicrm_1_contact_1_contact_last_name: create_civicrm_webform_element
+      civicrm_1_contact_1_contact_suffix_id: 0
+      civicrm_1_contact_1_contact_nick_name: 0
+      civicrm_1_contact_1_contact_gender_id: 0
+      civicrm_1_contact_1_contact_job_title: 0
+      civicrm_1_contact_1_contact_birth_date: 0
+      civicrm_1_contact_1_contact_preferred_communication_method: 0
+      civicrm_1_contact_1_contact_privacy: 0
+      civicrm_1_contact_1_contact_preferred_language: 0
+      civicrm_1_contact_1_contact_communication_style_id: 0
+      civicrm_1_contact_1_contact_image_url: 0
+      civicrm_1_contact_1_contact_contact_id: 0
+      civicrm_1_contact_1_contact_user_id: 0
+      civicrm_1_contact_1_contact_external_identifier: 0
+      civicrm_1_contact_1_contact_source: 0
+      civicrm_1_contact_1_contact_cs: 0
+      civicrm_1_contact_1_contact_employer_id: 0
+      civicrm_1_contact_1_contact_is_deceased: 0
+      civicrm_1_contact_1_contact_deceased_date: 0
+      contact_1_settings_matching_rule: '7'
+      contact_1_number_of_cg3: '0'
+      contact_1_number_of_cg27: '0'
+      contact_1_number_of_cg28: '0'
+      contact_1_number_of_other: '0'
+      contact_1_number_of_address: '0'
+      contact_1_number_of_phone: '0'
+      contact_1_number_of_email: '0'
+      contact_1_number_of_website: '0'
+      contact_1_number_of_im: '0'
+      contact_1_number_of_cg1: '0'
+      contact_1_number_of_cg18: '1'
+      contact_1_settings_dynamic_custom_cg18: 0
+      civicrm_1_contact_1_cg18_custom_45: 0
+      prefix_known: ''
+      prefix_unknown: ''
+      toggle_message: 0
+      message: ''
+      activity_number_of_activity: '2'
+      activity_1_settings_existing_activity_status:
+        '': ''
+      activity_1_settings_details:
+        view_link: view_link
+        entire_result: 0
+        edit_link: 0
+        view_link_secure: 0
+        update_existing: 0
+      civicrm_1_activity_1_activity_activity_type_id: '70'
+      civicrm_1_activity_1_activity_target_contact_id:
+        1: '1'
+      civicrm_1_activity_1_activity_source_contact_id: '0'
+      civicrm_1_activity_1_activity_subject: 0
+      civicrm_1_activity_1_activity_details: 0
+      civicrm_1_activity_1_activity_status_id: '0'
+      civicrm_1_activity_1_activity_priority_id: '0'
+      civicrm_1_activity_1_activity_assignee_contact_id:
+        '': ''
+      civicrm_1_activity_1_activity_location: 0
+      civicrm_1_activity_1_activity_activity_date_time: create_civicrm_webform_element
+      civicrm_1_activity_1_activity_duration: 0
+      civicrm_1_activity_1_activity_tag:
+        '': ''
+      civicrm_1_activity_1_activityupload_file_1: 0
+      civicrm_1_activity_1_activityupload_file_2: 0
+      civicrm_1_activity_1_activityupload_file_3: 0
+      activity_1_settings_dynamic_custom_cg30: 0
+      civicrm_1_activity_1_cg30_custom_82: 0
+      activity_1_settings_dynamic_custom_cg34: 0
+      civicrm_1_activity_1_cg34_custom_106: 0
+      civicrm_1_activity_1_cg34_custom_109: create_civicrm_webform_element
+      activity_2_settings_existing_activity_status:
+        '': ''
+      activity_2_settings_details:
+        view_link: view_link
+        entire_result: 0
+        edit_link: 0
+        view_link_secure: 0
+        update_existing: 0
+      civicrm_2_activity_1_activity_activity_type_id: '56'
+      civicrm_2_activity_1_activity_target_contact_id:
+        1: '1'
+      civicrm_2_activity_1_activity_source_contact_id: '0'
+      civicrm_2_activity_1_activity_subject: 0
+      civicrm_2_activity_1_activity_details: 0
+      civicrm_2_activity_1_activity_status_id: '0'
+      civicrm_2_activity_1_activity_priority_id: '0'
+      civicrm_2_activity_1_activity_assignee_contact_id:
+        '': ''
+      civicrm_2_activity_1_activity_location: 0
+      civicrm_2_activity_1_activity_activity_date_time: 0
+      civicrm_2_activity_1_activity_duration: 0
+      civicrm_2_activity_1_activity_tag:
+        '': ''
+      civicrm_2_activity_1_activityupload_file_1: 0
+      civicrm_2_activity_1_activityupload_file_2: 0
+      civicrm_2_activity_1_activityupload_file_3: 0
+      activity_2_settings_dynamic_custom_cg4: 0
+      civicrm_2_activity_1_cg4_custom_7: 0
+      civicrm_2_activity_1_cg4_custom_23: create_civicrm_webform_element
+      civicrm_2_activity_1_cg4_custom_24: 0
+      activity_2_settings_dynamic_custom_cg30: 0
+      civicrm_2_activity_1_cg30_custom_82: 0
+      participant_reg_type: '0'
+      reg_options:
+        event_type:
+          any: any
+        show_past_events: now
+        show_future_events: '1'
+        show_public_events: all
+        title_display: title
+        show_full_events: 1
+        event_sort_field: start_date
+        show_remaining: '0'
+        validate: 1
+        block_form: 0
+        disable_unregister: 0
+        allow_url_load: 0
+        disable_primary_participant: 0
+      membership_1_number_of_membership: '0'
+      civicrm_1_contribution_1_contribution_enable_contribution: '0'
+      checksum_text: ''
+      create_fieldsets: 1
+      confirm_subscription: 1
+      block_unknown_users: 0
+      create_new_relationship: 0
+      disable_contact_paging: 0
+      new_contact_source: 'Canvass Form'
+      data:
+        contact:
+          1:
+            contact:
+              1:
+                contact_type: individual
+                contact_sub_type:
+                  Canvass_Contact: Canvass_Contact
+                webform_label: 'Contact 1'
+            number_of_cg33: '1'
+            dynamic_custom_cg33: 0
+            number_of_cg36: '1'
+            dynamic_custom_cg36: 1
+            number_of_cg37: '1'
+            dynamic_custom_cg37: 1
+            matching_rule: '7'
+            number_of_cg3: '0'
+            number_of_cg27: '0'
+            number_of_cg28: '0'
+            number_of_other: '0'
+            number_of_address: '0'
+            number_of_phone: '0'
+            number_of_email: '0'
+            number_of_website: '0'
+            number_of_im: '0'
+            number_of_cg1: '0'
+            number_of_cg18: '1'
+            dynamic_custom_cg18: 0
+        activity:
+          number_of_activity: '2'
+          1:
+            existing_activity_status: {  }
+            details:
+              view_link: view_link
+            dynamic_custom_cg30: 0
+            dynamic_custom_cg34: 0
+            activity:
+              1:
+                activity_type_id: '70'
+                target_contact_id:
+                  1: '1'
+          2:
+            existing_activity_status: {  }
+            details:
+              view_link: view_link
+            dynamic_custom_cg4: 0
+            dynamic_custom_cg30: 0
+            activity:
+              1:
+                activity_type_id: '56'
+                target_contact_id:
+                  1: '1'
+        membership:
+          1:
+            number_of_membership: '0'
+        participant_reg_type: '0'
+        reg_options:
+          event_type:
+            any: any
+          show_past_events: now
+          show_future_events: '1'
+          show_public_events: all
+          title_display: title
+          show_full_events: 1
+          event_sort_field: start_date
+          show_remaining: '0'
+          validate: 1
+          block_form: 0
+          disable_unregister: 0
+          allow_url_load: 0
+          disable_primary_participant: 0
+variants: {  }

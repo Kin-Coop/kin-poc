@@ -309,7 +309,7 @@ elements: |-
         '#civicrm_live_options': '1'
       civicrm_1_contact_1_cg33_custom_123:
         '#type': textfield
-        '#title': 'Are there local people or organisations that you look to for community support or leadership? '
+        '#title': 'Are there any local organisations that you look to for community support or leadership?'
         '#counter_type': character
         '#counter_maximum': 255
         '#counter_maximum_message': ' '
@@ -328,6 +328,8 @@ elements: |-
           description: ''
           description_above: null
         '#parent': civicrm_1_contact_1_cg33_fieldset
+        '#required': '0'
+        '#default_value': ''
       civicrm_1_contact_1_cg33_custom_98:
         '#type': civicrm_options
         '#title': 'How long have you lived in the area?'
@@ -518,6 +520,80 @@ elements: |-
   share:
     '#type': webform_message
     '#message_message': '<p><strong>After you submit, please share this survey with your community to make sure we get enough responses to run the prize draw for your chance to win.&nbsp;</strong></p>'
+  civicrm_1_contact_1_cg33_custom_139:
+    '#type': civicrm_options
+    '#extra':
+      multiple: 1
+      aslist: 0
+      items: |-
+        1|A mutual aid group or food cooperative
+        2|A savings club (sometimes called a pardner, sousou, tanda, chit)
+        3|Neither
+      description: ''
+      description_above: null
+    '#data_type': String
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#nid': cooperation_in_wandsworth
+    '#form_key': civicrm_1_contact_1_cg33_custom_139
+    '#options':
+      1: 'A mutual aid group or food cooperative'
+      2: 'A savings club (sometimes called a pardner, sousou, tanda, chit)'
+      3: Neither
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'Prior experience: have you ever taken part in:'
+    '#civicrm_live_options': 1
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_150:
+    '#type': textfield
+    '#data_type': String
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#counter_type': character
+    '#counter_maximum': 255
+    '#counter_maximum_message': ' '
+    '#nid': cooperation_in_wandsworth
+    '#form_key': civicrm_1_contact_1_cg33_custom_150
+    '#extra':
+      width: 20
+      description: ''
+      description_above: null
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'What appeals to you most about the idea of people in your area cooperating economically?'
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_151:
+    '#type': textarea
+    '#data_type': Memo
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#extra':
+      cols: '60'
+      rows: '4'
+      description: ''
+      description_above: null
+    '#nid': cooperation_in_wandsworth
+    '#form_key': civicrm_1_contact_1_cg33_custom_151
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'What appeals to you most about the idea of people in your local area cooperating economically?'
+    '#required': '0'
+    '#default_value': ''
 css: ''
 javascript: ''
 settings:
