@@ -373,11 +373,11 @@ function kincoop_civicrm_alterMailParams(&$params, $context)
  *
  * @link https://docs.civicrm.org/civirules/en/latest/hooks/hook_civirules_alter_trigger_data/
  */
-function kincoop_civirules_alter_trigger_data(&$triggerData)
+function xxxkincoop_civirules_alter_trigger_data(&$triggerData)
 {
   $contributionData = $triggerData->getEntityData('Contribution');
   if (isset($contributionData) && isAssociatedWithGift($contributionData)) {
-    reassignContactIdToHousehold($triggerData, $contributionData);
+    //reassignContactIdToHousehold($triggerData, $contributionData);
   }
 }
 
