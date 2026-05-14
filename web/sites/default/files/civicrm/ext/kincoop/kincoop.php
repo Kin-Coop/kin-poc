@@ -39,7 +39,6 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params)
       $contribution = \Civi\Api4\Contribution::get(FALSE)
         ->addSelect('*', 'custom.*')
         ->addWhere('id', '=', $id)
-        ->setLimit(25)
         ->execute()
         ->first();
 
@@ -305,55 +304,6 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
     ];
 
     $result = civicrm_api3('MessageTemplate', 'send', $params);
-  }
-
-  if ($objectName === 'Contribution' && $op === 'create') {
-    $contribution = $objectRef;
-
-    // For money requests
-    // Send confirmation email to member who requested money
-    // We can't use civirules because the contact data is being switched in the trigger data update in this file
-    if ($contribution->financial_type_id == 5) {
-      $contactId = $contribution->contact_id;
-      $contacts = \Civi\Api4\Contact::get(FALSE)
-                                    ->addSelect('email_primary.email')
-                                    ->addWhere('id', '=', $contactId)
-                                    ->execute()
-                                    ->first();
-
-      $email = $contacts['email_primary.email'];
-      $template_id = 142;
-
-      $params = [
-        'id' => $template_id, // The ID of your message template
-        'contact_id' => $contactId, // Recipient’s contact ID
-        'from' => '"Kin Cooperative" <members@kin.coop>',
-        'to_email' => $email,
-        'tokenContext' => [
-          'contactId' => $contactId,
-          'contributionId' => $objectId,
-        ],
-      ];
-
-      $result = civicrm_api3('MessageTemplate', 'send', $params);
-    }
-    // Check if it's from a contribution page
-    // Pages 7 and 8 are for setting up recurring contributions, 7 for groups and 8 for Kin
-    /* Not needed anymore as now handled via civirules
-    if (!empty($contribution->contribution_page_id) &&
-        $contribution->contribution_page_id == 7) {
-
-      // Check if it's pending
-      // Send receipt email to contributor (not sure why it is not sending directly from the interface)
-      if ((int)$contribution->contribution_status_id === 2) {
-        try {
-          civicrm_api3('Contribution', 'sendconfirmation', ['id' => $contribution->id]);
-        } catch (CiviCRM_API3_Exception $e) {
-          \Civi::log()->error('Failed to send receipt for pending contribution ID ' . $contribution->id . ': ' . $e->getMessage());
-        }
-      }
-    }
-    */
   }
 }
 
