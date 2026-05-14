@@ -17,6 +17,6 @@
   {
     "name": "send_email_household_admins",
     "label": "Send Email to all Household Admins of referenced household",
-    "class": "CRM_CivirulesActions_Contribution_SendEmailToHouseholdAdmins"
-  },
+    "class_name": "CRM_CivirulesActions_Contribution_SendEmailToHouseholdAdmins"
+  }
 ]

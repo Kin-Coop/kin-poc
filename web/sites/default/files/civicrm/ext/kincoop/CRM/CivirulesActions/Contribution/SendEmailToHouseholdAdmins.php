@@ -19,7 +19,7 @@ class CRM_CivirulesActions_Contribution_SendEmailToHouseholdAdmins extends CRM_C
     // Get the contribution with the custom household field.
     try {
       $contribution = \Civi\Api4\Contribution::get(FALSE)
-        ->addSelect('id', 'contact_id', 'custom_25') // custom_25 is your Group field
+        ->addSelect('id', 'contact_id', 'Kin_Contributions.Household') // custom_25 is your Group field
         ->addWhere('id', '=', $contributionId)
         ->execute()
         ->first();
@@ -30,31 +30,17 @@ class CRM_CivirulesActions_Contribution_SendEmailToHouseholdAdmins extends CRM_C
       }
 
       // Get the household ID from the custom field.
-      $householdId = $contribution['custom_25'] ?? NULL;
+      $householdId = $contribution['Kin_Contributions.Household'] ?? NULL;
 
       if (empty($householdId)) {
         \Civi::log()->warning("SendEmailToHouseholdAdmins: No household reference found for contribution {$contributionId}.");
         return;
       }
 
-      // Get the relationship type ID for "Household Admin is".
-      // You may need to adjust this based on your actual relationship type name.
-      $relationshipType = \Civi\Api4\RelationshipType::get(FALSE)
-        ->addWhere('name_a_b', '=', 'Household Admin is')
-        ->execute()
-        ->first();
-
-      if (!$relationshipType) {
-        \Civi::log()->error('SendEmailToHouseholdAdmins: Relationship type "Household Admin is" not found.');
-        return;
-      }
-
-      $relationshipTypeId = $relationshipType['id'];
-
       // Get all active relationships where contact is admin of this household.
       $relationships = \Civi\Api4\Relationship::get(FALSE)
         ->addSelect('contact_id_a')
-        ->addWhere('relationship_type_id', '=', $relationshipTypeId)
+        ->addWhere('relationship_type_id', '=', 11)
         ->addWhere('contact_id_b', '=', $householdId)
         ->addWhere('is_active', '=', TRUE)
         ->execute();
@@ -67,7 +53,7 @@ class CRM_CivirulesActions_Contribution_SendEmailToHouseholdAdmins extends CRM_C
       // Get action parameters (message template, from email, etc.).
       $actionParams = $this->getActionParameters();
       $messageTemplateId = $actionParams['message_template_id'] ?? NULL;
-      $fromEmail = $actionParams['from_email'] ?? NULL;
+      //$fromEmail = $actionParams['from_email'] ?? NULL;
 
       if (empty($messageTemplateId)) {
         \Civi::log()->error('SendEmailToHouseholdAdmins: No message template configured.');
@@ -96,16 +82,13 @@ class CRM_CivirulesActions_Contribution_SendEmailToHouseholdAdmins extends CRM_C
             'id' => $messageTemplateId,
             'contact_id' => $contactId,
             'contribution_id' => $contributionId,
+            'from' => '"Kin Cooperative" <members@kin.coop>',
             'tokenContext' => [
               'contactId' => $contactId,
               'contributionId' => $contributionId,
             ],
             'to_email' => $contact['email_primary.email'],
           ];
-
-          if (!empty($fromEmail)) {
-            $params['from'] = $fromEmail;
-          }
 
           civicrm_api3('MessageTemplate', 'send', $params);
 
@@ -126,6 +109,8 @@ class CRM_CivirulesActions_Contribution_SendEmailToHouseholdAdmins extends CRM_C
    *
    * @return array
    */
+
+  /*
   public function getConfigurationSpecification() {
     return [
       [
@@ -142,6 +127,7 @@ class CRM_CivirulesActions_Contribution_SendEmailToHouseholdAdmins extends CRM_C
       ],
     ];
   }
+  */
 
   /**
    * Returns a redirect URL to a page for setting the configuration.
