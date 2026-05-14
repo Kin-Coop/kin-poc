@@ -434,6 +434,11 @@ function kincoop_civicrm_alterMenu(&$items)
     'title' => 'Configure One-Off Contribution Receipt',
     'access_arguments' => [['administer CiviCRM'], 'and'],
   ];
+  $items['civicrm/civirule/form/action/contribution/sendemailhouseholdadmins'] = [
+    'page_callback' => 'CRM_CivirulesActions_Contribution_Form_SendEmailHouseholdAdmins',
+    'title' => 'Configure Send Email to Household Admins',
+    'access_arguments' => [['administer CiviCRM'], 'and'],
+  ];
 }
 
 

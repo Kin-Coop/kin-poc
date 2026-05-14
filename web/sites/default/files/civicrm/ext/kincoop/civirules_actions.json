@@ -13,5 +13,10 @@
     "name": "contribution_send_oneoff_receipt",
     "label": "Send receipt for contribution",
     "class_name": "CRM_CivirulesActions_Contribution_OneOffContributionReceipt"
+  },
+  {
+    "name": "send_email_household_admins",
+    "label": "Send Email to all Household Admins of referenced household",
+    "class_name": "CRM_CivirulesActions_Contribution_SendEmailToHouseholdAdmins"
   }
 ]
