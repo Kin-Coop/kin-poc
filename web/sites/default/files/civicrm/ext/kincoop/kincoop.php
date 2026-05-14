@@ -369,19 +369,6 @@ function kincoop_civicrm_alterMailParams(&$params, $context)
 }
 
 /**
- * Implements hook_civirules_alter_trigger_data
- *
- * @link https://docs.civicrm.org/civirules/en/latest/hooks/hook_civirules_alter_trigger_data/
- */
-function kincoop_civirules_alter_trigger_data(&$triggerData)
-{
-  $contributionData = $triggerData->getEntityData('Contribution');
-  if (isset($contributionData) && isAssociatedWithGift($contributionData)) {
-    reassignContactIdToHousehold($triggerData, $contributionData);
-  }
-}
-
-/**
  * Implements hook_civicrm_config().
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config/
@@ -478,17 +465,6 @@ function reverseSignIfAppropriate(&$item, $key): void
 function isReversibleAmount($key): bool
 {
   return array_key_exists($key, REVERSIBLE_AMOUNT_KEYS);
-}
-
-function reassignContactIdToHousehold($triggerData, $contributionData): void
-{
-  $householdContactId = getHouseholdContactId($contributionData);
-  if (!isset($householdContactId)) {
-    Civi::log()->debug('[' . __FUNCTION__ . '] ' .
-      'Warning: no household found for this contribution [#' . $contributionData->id . '].' .
-      'This may lead to an unexpected action.');
-  }
-  $triggerData->setContactId($householdContactId);
 }
 
 function getHouseholdContactId($contributionData): ?int
