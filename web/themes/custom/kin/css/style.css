@@ -14345,4 +14345,14 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   max-width: 300px;
 }
 
+.page-route-entity-user-edit-form #edit-language {
+  display: none;
+}
+.page-route-entity-user-edit-form #edit-private-messages {
+  margin: 2rem 0;
+}
+.page-route-entity-user-edit-form #edit-private-messages fieldset {
+  margin: 2rem 0;
+}
+
 /*# sourceMappingURL=style.css.map */

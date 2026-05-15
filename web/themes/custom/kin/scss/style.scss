@@ -1877,3 +1877,18 @@ div.block.vertical {
     max-width: 300px;
   }
 }
+
+// Hide site language on user edit form
+.page-route-entity-user-edit-form {
+  #edit-language {
+    display: none;
+  }
+
+  #edit-private-messages {
+    margin: 2rem 0;
+
+    fieldset {
+      margin: 2rem 0;
+    }
+  }
+}
