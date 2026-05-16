@@ -28,6 +28,31 @@ function kinmod_form_private_message_form_alter(&$form, FormStateInterface $form
 }
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function kinmod_module_implements_alter(&$implementations, $hook) {
+
+  // Ensure our form alter runs after private_message.
+  if ($hook === 'form_alter') {
+
+    $group = $implementations['kinmod'];
+    unset($implementations['kinmod']);
+    $implementations['kinmod'] = $group;
+
+  }
+}
+
+function kinmod_form_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Change the title of the Messages settings section.
+  if (isset($form['private_messages'])) {
+    $form['private_messages']['#title'] = t('Notification Settings');
+  }
+}
+
+
+
+/**
  * Implements hook_views_post_render().
  */
 function kinmod_views_post_render(ViewExecutable $view) {
