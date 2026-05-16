@@ -1885,10 +1885,20 @@ div.block.vertical {
   }
 
   #edit-private-messages {
-    margin: 2rem 0;
+    margin: 2rem 0 0;
 
     fieldset {
       margin: 2rem 0;
     }
+
+    .form-item-private-messages-number-of-seconds-considered-away {
+      display: none !important;
+      margin: 0;
+
+      * {
+        display: none;
+      }
+    }
+
   }
 }
