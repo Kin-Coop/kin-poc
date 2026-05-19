@@ -16,7 +16,6 @@ class KinSharesController extends ControllerBase {
    */
   public function create_kinshare() {
 
-    // Get logged in Drupal user.
     $account = $this->currentUser();
     $uid = $account->id();
 
@@ -29,9 +28,7 @@ class KinSharesController extends ControllerBase {
     }
 
     try {
-
-      // Bootstrap CiviCRM if needed.
-      civicrm_initialize();
+      \Drupal::service('civicrm')->initialize();
 
       // Get matching CiviCRM contact ID from Drupal user ID.
       $ufMatch = \Civi\Api4\UFMatch::get(FALSE)
@@ -62,9 +59,21 @@ class KinSharesController extends ControllerBase {
         $contact['last_name'] . ' Kin Shares'
       );
 
-      /**
-       * Create household contact.
-       */
+      // Check household doesn't already exist
+      $households = \Civi\Api4\Household::get(FALSE)
+        ->addSelect('*')
+        ->addWhere('household_name', '=', $householdName)
+        ->execute()
+        ->first();
+
+      if (!empty($households['id'])) {
+        $this->messenger()->addWarning(
+          $this->t('This household already exists.')
+        );
+
+        return new RedirectResponse('/members/group/' . $households['id']);
+      }
+
       $household = \Civi\Api4\Contact::create(FALSE)
         ->addValue('contact_type', 'Household')
         ->addValue('contact_sub_type', ['Kin_Share'])
@@ -80,9 +89,6 @@ class KinSharesController extends ControllerBase {
 
       /**
        * Create relationship.
-       *
-       * Assumes relationship type already exists:
-       * "Member of Household"
        */
       \Civi\Api4\Relationship::create(FALSE)
         ->addValue('contact_id_a', $contactId)
@@ -92,14 +98,11 @@ class KinSharesController extends ControllerBase {
         ->addValue('start_date', date('Y-m-d'))
         ->execute();
 
-      // Success message.
       $this->messenger()->addStatus(
         $this->t('Successfully created new Kin Shares household.')
       );
 
-      // Redirect.
       return new RedirectResponse('/members/group/' . $householdId);
-
     }
     catch (\Exception $e) {
 
@@ -112,5 +115,4 @@ class KinSharesController extends ControllerBase {
       return new RedirectResponse('/');
     }
   }
-
 }
