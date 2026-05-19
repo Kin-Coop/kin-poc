@@ -1,0 +1,7 @@
+kin_shares.create:
+  path: '/kin-shares/create'
+  defaults:
+    _controller: '\Drupal\kin_shares\Controller\KinSharesController::create_kinshare'
+    _title: 'Create Kin Shares Household'
+  requirements:
+    _user_is_logged_in: 'TRUE'
