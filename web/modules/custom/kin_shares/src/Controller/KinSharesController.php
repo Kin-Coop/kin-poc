@@ -99,7 +99,7 @@ class KinSharesController extends ControllerBase {
         ->execute();
 
       \Civi\Api4\Relationship::create(FALSE)
-       ->addValue('contact_id_a', 425)
+       ->addValue('contact_id_a', 2482) // Kin shares
        ->addValue('contact_id_b', $householdId)
        ->addValue('relationship_type_id', 11) // Household admin
        ->addValue('is_active', TRUE)
