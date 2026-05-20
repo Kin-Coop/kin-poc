@@ -1,0 +1,8 @@
+name: Kin Shares
+type: module
+description: Creates Kin Shares households for logged in users.
+core_version_requirement: ^11
+package: Custom
+
+dependencies:
+  - drupal:user
