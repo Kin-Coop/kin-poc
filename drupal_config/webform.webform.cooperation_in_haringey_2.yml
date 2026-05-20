@@ -217,6 +217,8 @@ elements: |-
             3|Neither Agree Nor Disagree
             4|Agree
             5|Strongly Agree
+          description: ''
+          description_above: null
         '#data_type': String
         '#civicrm_condition':
           andor: or
@@ -233,9 +235,10 @@ elements: |-
           4: Agree
           5: 'Strongly Agree'
         '#parent': civicrm_1_contact_1_cg36_fieldset
-        '#title': 'If you lost your wallet on public transport in Haringey, a stranger would return it or give it to the police with the money intact.'
+        '#title': 'If you lost your wallet on public transport in your local area, a stranger would return it or give it to the police with the money intact.'
         '#civicrm_live_options': 1
-        '#required': true
+        '#required': '0'
+        '#default_value': ''
       civicrm_1_contact_1_cg36_custom_133:
         '#type': civicrm_options
         '#extra':
@@ -275,6 +278,8 @@ elements: |-
             3|Neither Agree Nor Disagree
             4|Agree
             5|Strongly Agree
+          description: ''
+          description_above: null
         '#data_type': String
         '#civicrm_condition':
           andor: or
@@ -291,9 +296,10 @@ elements: |-
           4: Agree
           5: 'Strongly Agree'
         '#parent': civicrm_1_contact_1_cg36_fieldset
-        '#title': 'I trust Haringey Council to act in the interests of people like me.'
+        '#title': 'I trust the local council to act in the interests of people like me.'
         '#civicrm_live_options': 1
-        '#required': true
+        '#required': '0'
+        '#default_value': ''
       civicrm_1_contact_1_cg36_custom_135:
         '#type': civicrm_options
         '#extra':
@@ -877,7 +883,7 @@ settings:
   confirmation_type: url_message
   confirmation_url: 'https://kin.coop'
   confirmation_title: ''
-  confirmation_message: '<p><strong>Thank you!&nbsp;</strong></p><p><strong>Please share this message to make sure we get enough responses to run the prize draw:</strong><br><br><br>Cooperation Haringey</p><p>I just filled in this survey about creating more cooperation in Haringey. If you fill in the surveys, you could win £100!</p><p>It only takes a few minutes &gt;&gt; <a href="https://kin.coop/form/canvass-form">https://kin.coop/form/canvass-form</a></p>'
+  confirmation_message: '<p><strong>Thank you!&nbsp;</strong></p><p><strong>Keep an eye out for messages about the prize draw and Haringey meetings (check your spam folder / whatsapp message requests).&nbsp;</strong></p><p><strong>And please share this message to make sure we get enough responses to run the prize draw:</strong><br><br><br>Cooperation Haringey</p><p>I just filled in this survey about creating more cooperation in Haringey. If you fill in the surveys, you could win £100!</p><p>It only takes a few minutes &gt;&gt; <a href="https://kin.coop/form/canvass-form">https://kin.coop/form/canvass-form</a></p>'
   confirmation_attributes: {  }
   confirmation_back: false
   confirmation_back_label: ''
