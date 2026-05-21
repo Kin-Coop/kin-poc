@@ -107,7 +107,7 @@ class KinSharesController extends ControllerBase {
        ->execute();
 
       $this->messenger()->addStatus(
-        $this->t('Successfully created new Kin Shares household.')
+        $this->t('Successfully created new Kin shares.')
       );
 
       return new RedirectResponse('/member/group/' . $householdId);
