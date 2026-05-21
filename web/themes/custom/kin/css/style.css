@@ -13526,7 +13526,7 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
   #crm-container.crm-public .crm-section.form-item {
     margin-bottom: 1rem;
   }
-  #crm-container.crm-public .crm-section.form-item#editrow-custom_25, #crm-container.crm-public .crm-section.form-item#editrow-custom_61 {
+  #crm-container.crm-public .crm-section.form-item#editrow-custom_25, #crm-container.crm-public .crm-section.form-item#editrow-custom_152, #crm-container.crm-public .crm-section.form-item#editrow-custom_61 {
     margin-bottom: 0;
     margin-top: 0;
   }

@@ -484,9 +484,18 @@ function kincoop_civicrm_buildForm($formName, $form)
     if ($groupid) {
       $backUrl = "/member/group/{$groupid}";
       $page = "Return to Group Page";
-      if ($form->_id == 8 || $form->_id == 4) {
+      if ($form->_id == 8 || $form->_id == 4 || $form->_id == 9) {
         $backUrl = "/";
         $page = "Return to Home Page";
+      }
+
+      $investment ="";
+
+      if($form->_id == 9) {
+        $investment = "var contribution = $('.crm-group.amount_display-group .header-dark');
+          if (contribution.length) {
+            contribution.text($('.crm-group.amount_display-group .header-dark').text().replace('Contribution', 'Investment'));
+          }";
       }
 
       CRM_Core_Resources::singleton()->addScript("
@@ -550,6 +559,7 @@ function kincoop_civicrm_buildForm($formName, $form)
                 .replace(/Date:/, '<label>Date:</label>');
             });
           }
+          {$investment}
         });
       ");
 
