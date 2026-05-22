@@ -71,7 +71,7 @@ class KinSharesController extends ControllerBase {
           $this->t('This household already exists.')
         );
 
-        return new RedirectResponse('/member/group/' . $households['id']);
+        return new RedirectResponse('/member/shares/' . $households['id']);
       }
 
       $household = \Civi\Api4\Contact::create(FALSE)
@@ -110,7 +110,7 @@ class KinSharesController extends ControllerBase {
         $this->t('Successfully created new Kin shares.')
       );
 
-      return new RedirectResponse('/member/group/' . $householdId);
+      return new RedirectResponse('/member/shares/' . $householdId);
     }
     catch (\Exception $e) {
 
