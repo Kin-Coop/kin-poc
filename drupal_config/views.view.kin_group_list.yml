@@ -8124,7 +8124,7 @@ display:
           admin_label: Contributions
           plugin_id: view
           empty: false
-          view_to_insert: 'contributions:block_1'
+          view_to_insert: 'contributions:block_10'
           inherit_arguments: false
       display_extenders:
         attributes: {  }
