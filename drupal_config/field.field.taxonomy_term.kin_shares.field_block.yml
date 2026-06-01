@@ -1,0 +1,24 @@
+uuid: 3c567b9b-071a-4b26-bfb1-462f4cde1b5f
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_block
+    - taxonomy.vocabulary.kin_shares
+  module:
+    - block_field
+id: taxonomy_term.kin_shares.field_block
+field_name: field_block
+entity_type: taxonomy_term
+bundle: kin_shares
+label: Block
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  selection: blocks
+  selection_settings:
+    plugin_ids: {  }
+field_type: block_field

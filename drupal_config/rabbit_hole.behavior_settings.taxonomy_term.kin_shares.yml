@@ -1,0 +1,16 @@
+uuid: b0ab9525-026c-4063-a8a9-2dbec0859e6f
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.kin_shares
+id: taxonomy_term.kin_shares
+targetEntityType: taxonomy_term
+bundle: kin_shares
+action: page_redirect
+no_bypass: false
+bypass_message: false
+configuration:
+  redirect: '<front>'
+  redirect_code: 301
+  redirect_fallback_action: access_denied

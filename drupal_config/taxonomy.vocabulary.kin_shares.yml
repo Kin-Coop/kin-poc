@@ -1,0 +1,9 @@
+uuid: c9af1ebe-8b1c-4fab-b0e1-7a902b3a3e26
+langcode: en-gb
+status: true
+dependencies: {  }
+name: 'Kin Shares'
+vid: kin_shares
+description: null
+weight: 0
+new_revision: false

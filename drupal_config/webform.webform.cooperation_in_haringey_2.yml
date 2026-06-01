@@ -1,6 +1,6 @@
 uuid: 1cb4135c-5849-48a6-8387-76c3897785e0
 langcode: en-gb
-status: open
+status: closed
 dependencies:
   module:
     - webform_civicrm
@@ -880,10 +880,10 @@ settings:
   draft_loaded_message: ''
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
-  confirmation_type: url_message
+  confirmation_type: page
   confirmation_url: 'https://kin.coop'
   confirmation_title: ''
-  confirmation_message: '<p><strong>Thank you!&nbsp;</strong></p><p><strong>Keep an eye out for messages about the prize draw and Haringey meetings (check your spam folder / whatsapp message requests).&nbsp;</strong></p><p><strong>And please share this message to make sure we get enough responses to run the prize draw:</strong><br><br><br>Cooperation Haringey</p><p>I just filled in this survey about creating more cooperation in Haringey. If you fill in the surveys, you could win £100!</p><p>It only takes a few minutes &gt;&gt; <a href="https://kin.coop/form/canvass-form">https://kin.coop/form/canvass-form</a></p>'
+  confirmation_message: '<p><strong>Thank you!&nbsp;</strong></p><p>It''s a big political moment in Haringey. There is a once in a generation opportunity to create a model that might be picked up and run with. But it won''t build itself.</p><p>Join us on <strong>Sunday May 31st</strong> for the first Cooperation in Haringey meeting.</p><p><strong>3pm @ Tottenham Quaker Meeting House, 594 Tottenham High Road, N17 9TA</strong></p><p>Drinks &amp; snacks provided</p><ul><li data-list-item-id="e69b4cb01b70feab418a99a063745197b">Meet other Haringey residents interested in cooperating</li><li data-list-item-id="e4fb8cbfb0957c48b9c596da9fd78dddf">Get started with a food coop, savings club, or join the organising group</li><li data-list-item-id="e92c58e580f4eac0ba3c847d98c3ca8ed">Feed into plans for building a local economic cooperation movement that could be a model for other boroughs</li></ul><p><strong>This is important.</strong> Please share this survey with other local residents (even if you can''t come), to help build the case for Cooperation in Haringey: <a href="https://kin.coop/form/canvass-form">https://kin.coop/form/canvass-form</a>&nbsp;</p><p>It takes a few seconds but it makes a massive difference. We are all in this together.&nbsp;</p>'
   confirmation_attributes: {  }
   confirmation_back: false
   confirmation_back_label: ''

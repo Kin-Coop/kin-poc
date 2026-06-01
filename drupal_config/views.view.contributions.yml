@@ -1699,7 +1699,6 @@ display:
                   is_secondary: false
                   hide_label: false
                   field_classes: ''
-                  sort_options_unsupported: ''
       cache:
         type: none
         options: {  }
@@ -2482,7 +2481,6 @@ display:
                   is_secondary: false
                   hide_label: false
                   field_classes: ''
-                  sort_options_unsupported: ''
       cache:
         type: none
         options: {  }
@@ -7886,7 +7884,6 @@ display:
                   is_secondary: false
                   hide_label: false
                   field_classes: ''
-                  sort_options_unsupported: ''
       cache:
         type: none
         options: {  }
@@ -8723,7 +8720,6 @@ display:
                   is_secondary: false
                   hide_label: false
                   field_classes: ''
-                  sort_options_unsupported: ''
       cache:
         type: none
         options: {  }
