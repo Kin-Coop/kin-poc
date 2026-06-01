@@ -1903,3 +1903,41 @@ div.block.vertical {
 
   }
 }
+
+.page---shares {
+  main {
+    > div {
+      > div.row {
+        > div:first-of-type {
+          margin-top: 46px;
+          
+          @include media-breakpoint-up(lg) {
+            height: fit-content;
+            top: 10%;
+            position: sticky;
+          }
+
+          .views-row {
+            position: relative;
+            a {
+              color: $primary;
+
+              &:hover, &.active {
+                color: $red;
+
+                &:before {
+                  content: '\2022';
+                  font-size: 1.5rem;
+                  line-height: 1.2;
+                  position: absolute;
+                  left: -12px;
+                }
+              }
+            }
+          }
+
+        }
+      }
+    }
+  }
+}
