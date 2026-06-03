@@ -71,7 +71,7 @@ class KinSharesController extends ControllerBase {
           $this->t('This household already exists.')
         );
 
-        return new RedirectResponse('/member/group/' . $households['id']);
+        return new RedirectResponse('/member/shares/' . $households['id']);
       }
 
       $household = \Civi\Api4\Contact::create(FALSE)
@@ -99,7 +99,7 @@ class KinSharesController extends ControllerBase {
         ->execute();
 
       \Civi\Api4\Relationship::create(FALSE)
-       ->addValue('contact_id_a', 2482)
+       ->addValue('contact_id_a', 2482) // Kin shares
        ->addValue('contact_id_b', $householdId)
        ->addValue('relationship_type_id', 11) // Household admin
        ->addValue('is_active', TRUE)
@@ -107,10 +107,10 @@ class KinSharesController extends ControllerBase {
        ->execute();
 
       $this->messenger()->addStatus(
-        $this->t('Successfully created new Kin Shares household.')
+        $this->t('Successfully created new Kin shares.')
       );
 
-      return new RedirectResponse('/member/group/' . $householdId);
+      return new RedirectResponse('/member/shares/' . $householdId);
     }
     catch (\Exception $e) {
 

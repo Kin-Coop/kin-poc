@@ -1,6 +1,6 @@
 uuid: 18ab31d9-b577-4f2d-8302-8ed38bf6eda1
 langcode: en-gb
-status: open
+status: closed
 dependencies:
   module:
     - webform_civicrm

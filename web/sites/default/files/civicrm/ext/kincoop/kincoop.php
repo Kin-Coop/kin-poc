@@ -484,9 +484,18 @@ function kincoop_civicrm_buildForm($formName, $form)
     if ($groupid) {
       $backUrl = "/member/group/{$groupid}";
       $page = "Return to Group Page";
-      if ($form->_id == 8 || $form->_id == 4) {
+      if ($form->_id == 8 || $form->_id == 4 || $form->_id == 9) {
         $backUrl = "/";
         $page = "Return to Home Page";
+      }
+
+      $investment ="";
+
+      if($form->_id == 9) {
+        $investment = "var contribution = $('.crm-group.amount_display-group .header-dark');
+          if (contribution.length) {
+            contribution.text($('.crm-group.amount_display-group .header-dark').text().replace('Contribution', 'Investment'));
+          }";
       }
 
       CRM_Core_Resources::singleton()->addScript("
@@ -550,6 +559,7 @@ function kincoop_civicrm_buildForm($formName, $form)
                 .replace(/Date:/, '<label>Date:</label>');
             });
           }
+          {$investment}
         });
       ");
 
@@ -608,7 +618,12 @@ function kincoop_civicrm_buildForm($formName, $form)
 
       // Need to use a button variable as this button needs to be attached to a different element for the form ID = 4
       // (Individual membership contributions) as this form doesn't have a footer
-      $button = $form->_id === 4 ? "$('#crm-submit-buttons').after(backButton);" : "$('#footer_text').after(backButton);";
+      if($form->_id === 4 || $form->_id === 9){
+        $button = "$('#crm-submit-buttons').after(backButton);";
+      } else {
+        $button = "$('#footer_text').after(backButton);";
+      }
+
 
       CRM_Core_Resources::singleton()->addScript("
         CRM.$(function($) {
@@ -834,6 +849,46 @@ function kincoop_civicrm_buildForm($formName, $form)
             });
           })(CRM.$);
         ");
+      }
+    }
+    elseif ($form->_id === 9) {
+      if ($form->getAction() == CRM_Core_Action::ADD) {
+        if (isset($_GET['groupid']) && $_GET['me']) {
+          $ref = $_GET['me'] . '-' . $_GET['groupid'] . 'S';
+          $groupid = $_GET['groupid'];
+          $defaults['custom_25'] = $groupid;
+          $defaults['custom_61'] = $ref;
+          //Civi::log()->debug('Contents of $defaults: ' . print_r($form->_fields, TRUE));
+        }
+
+        $defaults['custom_66'] = 1;
+        $form->setDefaults($defaults);
+
+        if ($form->elementExists('custom_25')) {
+          $element = $form->getElement('custom_25');
+          $email = $form->getElement('email-5');
+          $reference = $form->getElement('custom_61');
+
+          // Make it read-only
+          $element->freeze();
+          $email->freeze();
+          $reference->freeze();
+
+          // Inject JavaScript to strip the link
+          CRM_Core_Resources::singleton()->addScript("
+              (function($) {
+                $(document).ready(function() {
+                  // Only target the display element of custom_25
+                  var el = $('.crm-frozen-field a');
+
+                  el.each(function() {
+                    var text = $(this).text();
+                    $(this).replaceWith(text); // replace link with plain text
+                  });
+                });
+              })(CRM.$);
+            ");
+        }
       }
     }
   }

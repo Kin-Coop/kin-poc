@@ -1,0 +1,19 @@
+uuid: 9d80a963-3b68-4ccb-b73a-6b9d40aeac19
+langcode: en-gb
+status: true
+dependencies:
+  module:
+    - block_field
+    - taxonomy
+id: taxonomy_term.field_block
+field_name: field_block
+entity_type: taxonomy_term
+type: block_field
+settings: {  }
+module: block_field
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,71 @@
+uuid: 7fd5a688-cef9-4229-87df-c85a386ee4c6
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.kin_shares.field_anchor
+    - field.field.taxonomy_term.kin_shares.field_block
+    - field.field.taxonomy_term.kin_shares.field_flag
+    - image.style.medium
+    - taxonomy.vocabulary.kin_shares
+  module:
+    - block_field
+    - fences
+    - manage_display
+    - svg_image
+    - text
+id: taxonomy_term.kin_shares.default
+targetEntityType: taxonomy_term
+bundle: kin_shares
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_block:
+    type: block_field
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_flag:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: medium
+      image_loading:
+        attribute: lazy
+      svg_attributes:
+        width: null
+        height: null
+      svg_render_as_image: true
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
+        fences_field_item_tag: div
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+    weight: 1
+    region: content
+  name:
+    type: title
+    label: hidden
+    settings:
+      link_to_entity: true
+      tag: h2
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_anchor: true
+  langcode: true

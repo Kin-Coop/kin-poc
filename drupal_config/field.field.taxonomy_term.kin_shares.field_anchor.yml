@@ -1,0 +1,19 @@
+uuid: 111ebc88-b89d-4c4c-82f2-4b907c5ea49a
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_anchor
+    - taxonomy.vocabulary.kin_shares
+id: taxonomy_term.kin_shares.field_anchor
+field_name: field_anchor
+entity_type: taxonomy_term
+bundle: kin_shares
+label: Anchor
+description: 'Use short words, no spaces, not starting with a number'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,39 @@
+uuid: aa7b8ec8-1735-4724-939b-e33e670341cd
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - views.view.shares
+  module:
+    - block_classes
+    - block_visibility_groups
+    - system
+    - views
+  theme:
+    - kin
+third_party_settings:
+  block_classes:
+    block_class: 'bg-white rounded me-4 mb-4 p-3 ps-4 fw-medium'
+    title_class: 'fs-4 text-primary'
+id: kin_views_block__shares_block_1
+theme: kin
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'views_block:shares-block_1'
+settings:
+  id: 'views_block:shares-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: null
+visibility:
+  condition_group:
+    id: condition_group
+    negate: false
+    block_visibility_group: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: /shares

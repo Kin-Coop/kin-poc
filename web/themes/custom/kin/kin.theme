@@ -20,6 +20,8 @@ function kin_views_pre_render(&$view){
 }
 */
 
+
+
 // Remove lazy loading
 function kin_preprocess_image(&$variables) {
     $variables['attributes']['loading'] = [];
@@ -48,6 +50,19 @@ function kin_preprocess_html(&$variables) {
     $variables['attributes']['class'][] = 'page--' . implode('-', $route_parts);
 
     $variables['attributes']['class'][] = $user->id() ? 'user-authenticated' : 'user-anonymous';
+
+  // Get the current path.
+  $current_path = \Drupal::service('path.current')->getPath();
+
+  // Only apply on /shares.
+  if ($current_path === '/shares') {
+
+    // Add custom body attributes.
+    $variables['attributes']['data-bs-spy'] = 'scroll';
+    $variables['attributes']['data-bs-target'] = '#block-kin-views-block-shares-block-1';
+    $variables['attributes']['data-bs-smooth-scroll'] = 'true';
+    $variables['attributes']['data-bs-threshold'] = '[0, 0.25, 0.5, 0.75, 1]';
+  }
 }
 
 /**
@@ -98,4 +113,13 @@ function kin_preprocess_node(array &$variables) {
     'custom',
     'd/m/Y H:i'
   );
+}
+
+function kin_preprocess_views_view(&$variables) {
+
+  if ($variables['view']->id() === 'kin_group_list1' && $variables['view']->current_display === 'block_3') {
+    $variables['attributes']['id'] = 'groupMembersCollapse';
+    $variables['attributes']['class'][] = 'collapse';
+    $variables['attributes']['class'][] = 'custom-class';
+  }
 }

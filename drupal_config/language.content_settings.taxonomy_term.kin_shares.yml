@@ -1,0 +1,11 @@
+uuid: 5b81f995-eecc-425c-86e8-265923bfe7fe
+langcode: en-gb
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.kin_shares
+id: taxonomy_term.kin_shares
+target_entity_type_id: taxonomy_term
+target_bundle: kin_shares
+default_langcode: site_default
+language_alterable: false

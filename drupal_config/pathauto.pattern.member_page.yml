@@ -2,6 +2,8 @@ uuid: 8e446cc8-60ac-4aad-9a5b-76d8a8fb9dee
 langcode: en-gb
 status: true
 dependencies:
+  config:
+    - node.type.member_page
   module:
     - node
 id: member_page
@@ -12,7 +14,6 @@ selection_criteria:
   92a9c079-bcc0-41c6-ba79-a0382f60131d:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 92a9c079-bcc0-41c6-ba79-a0382f60131d
     context_mapping:
       node: node
     bundles:

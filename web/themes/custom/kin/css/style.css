@@ -13526,7 +13526,7 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
   #crm-container.crm-public .crm-section.form-item {
     margin-bottom: 1rem;
   }
-  #crm-container.crm-public .crm-section.form-item#editrow-custom_25, #crm-container.crm-public .crm-section.form-item#editrow-custom_61 {
+  #crm-container.crm-public .crm-section.form-item#editrow-custom_25, #crm-container.crm-public .crm-section.form-item#editrow-custom_152, #crm-container.crm-public .crm-section.form-item#editrow-custom_61 {
     margin-bottom: 0;
     margin-top: 0;
   }
@@ -14360,6 +14360,33 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
 }
 .page-route-entity-user-edit-form #edit-private-messages .form-item-private-messages-number-of-seconds-considered-away * {
   display: none;
+}
+
+.page---shares main > div > div.row > div:first-of-type {
+  margin-top: 46px;
+}
+@media (min-width: 992px) {
+  .page---shares main > div > div.row > div:first-of-type {
+    height: fit-content;
+    top: 10%;
+    position: sticky;
+  }
+}
+.page---shares main > div > div.row > div:first-of-type .views-row {
+  position: relative;
+}
+.page---shares main > div > div.row > div:first-of-type .views-row a {
+  color: #2D4C9B;
+}
+.page---shares main > div > div.row > div:first-of-type .views-row a:hover, .page---shares main > div > div.row > div:first-of-type .views-row a.active, .page---shares main > div > div.row > div:first-of-type .views-row .media-library-view--widget .view-header a.is-active, .media-library-view--widget .view-header .page---shares main > div > div.row > div:first-of-type .views-row a.is-active {
+  color: #E6460F;
+}
+.page---shares main > div > div.row > div:first-of-type .views-row a:hover:before, .page---shares main > div > div.row > div:first-of-type .views-row a.active:before, .page---shares main > div > div.row > div:first-of-type .views-row .media-library-view--widget .view-header a.is-active:before, .media-library-view--widget .view-header .page---shares main > div > div.row > div:first-of-type .views-row a.is-active:before {
+  content: "•";
+  font-size: 1.5rem;
+  line-height: 1.2;
+  position: absolute;
+  left: -12px;
 }
 
 /*# sourceMappingURL=style.css.map */
