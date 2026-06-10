@@ -1,5 +1,5 @@
-Package: kin_contributions
-Copyright (C) 2026, Ben Mango <ben@benmango.co.uk>
+Package: kinpayments
+Copyright (C) 2026, DDEV User <nobody@example.com>
 Licensed under the GNU Affero Public License 3.0 (below).
 
 -------------------------------------------------------------------------------

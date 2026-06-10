@@ -6,10 +6,10 @@
  * The ExtensionUtil class provides small stubs for accessing resources of this
  * extension.
  */
-class CRM_KinContributions_ExtensionUtil {
-  const SHORT_NAME = 'kin_contributions';
-  const LONG_NAME = 'kin_contributions';
-  const CLASS_PREFIX = 'CRM_KinContributions';
+class CRM_Kinpayments_ExtensionUtil {
+  const SHORT_NAME = 'kinpayments';
+  const LONG_NAME = 'kinpayments';
+  const CLASS_PREFIX = 'CRM_Kinpayments';
 
   /**
    * Translate a string using the extension's domain.
@@ -87,18 +87,18 @@ class CRM_KinContributions_ExtensionUtil {
 
 }
 
-use CRM_KinContributions_ExtensionUtil as E;
+use CRM_Kinpayments_ExtensionUtil as E;
 
-spl_autoload_register('_kin_contributions_civix_class_loader', TRUE, TRUE);
+spl_autoload_register('_kinpayments_civix_class_loader', TRUE, TRUE);
 
-function _kin_contributions_civix_class_loader($class) {
-  if ($class === 'CRM_KinContributions_DAO_Base') {
+function _kinpayments_civix_class_loader($class) {
+  if ($class === 'CRM_Kinpayments_DAO_Base') {
     if (version_compare(CRM_Utils_System::version(), '5.74.beta', '>=')) {
-      class_alias('CRM_Core_DAO_Base', 'CRM_KinContributions_DAO_Base');
+      class_alias('CRM_Core_DAO_Base', 'CRM_Kinpayments_DAO_Base');
       // ^^ Materialize concrete names -- encourage IDE's to pick up on this association.
     }
     else {
-      $realClass = 'CiviMix\\Schema\\KinContributions\\DAO';
+      $realClass = 'CiviMix\\Schema\\Kinpayments\\DAO';
       class_alias($realClass, $class);
       // ^^ Abstract names -- discourage IDE's from picking up on this association.
     }
@@ -106,7 +106,7 @@ function _kin_contributions_civix_class_loader($class) {
   }
 
   // This allows us to tap-in to the installation process (without incurring real file-reads on typical requests).
-  if (strpos($class, 'CiviMix\\Schema\\KinContributions\\') === 0) {
+  if (strpos($class, 'CiviMix\\Schema\\Kinpayments\\') === 0) {
     // civimix-schema@5 is designed for backported use in download/activation workflows,
     // where new revisions may become dynamically available.
     pathload()->loadPackage('civimix-schema@5', TRUE);
@@ -119,7 +119,7 @@ function _kin_contributions_civix_class_loader($class) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config
  */
-function _kin_contributions_civix_civicrm_config($config = NULL) {
+function _kinpayments_civix_civicrm_config($config = NULL) {
   static $configured = FALSE;
   if ($configured) {
     return;
@@ -137,8 +137,8 @@ function _kin_contributions_civix_civicrm_config($config = NULL) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_install
  */
-function _kin_contributions_civix_civicrm_install() {
-  _kin_contributions_civix_civicrm_config();
+function _kinpayments_civix_civicrm_install() {
+  _kinpayments_civix_civicrm_config();
   // Based on <compatibility>, this does not currently require mixin/polyfill.php.
 }
 
@@ -147,8 +147,8 @@ function _kin_contributions_civix_civicrm_install() {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_enable
  */
-function _kin_contributions_civix_civicrm_enable(): void {
-  _kin_contributions_civix_civicrm_config();
+function _kinpayments_civix_civicrm_enable(): void {
+  _kinpayments_civix_civicrm_config();
   // Based on <compatibility>, this does not currently require mixin/polyfill.php.
 }
 
@@ -163,7 +163,7 @@ function _kin_contributions_civix_civicrm_enable(): void {
  *
  * @return bool
  */
-function _kin_contributions_civix_insert_navigation_menu(&$menu, $path, $item) {
+function _kinpayments_civix_insert_navigation_menu(&$menu, $path, $item) {
   // If we are done going down the path, insert menu
   if (empty($path)) {
     $menu[] = [
@@ -184,7 +184,7 @@ function _kin_contributions_civix_insert_navigation_menu(&$menu, $path, $item) {
         if (!isset($entry['child'])) {
           $entry['child'] = [];
         }
-        $found = _kin_contributions_civix_insert_navigation_menu($entry['child'], implode('/', $path), $item);
+        $found = _kinpayments_civix_insert_navigation_menu($entry['child'], implode('/', $path), $item);
       }
     }
     return $found;
@@ -194,9 +194,9 @@ function _kin_contributions_civix_insert_navigation_menu(&$menu, $path, $item) {
 /**
  * (Delegated) Implements hook_civicrm_navigationMenu().
  */
-function _kin_contributions_civix_navigationMenu(&$nodes) {
+function _kinpayments_civix_navigationMenu(&$nodes) {
   if (!is_callable(['CRM_Core_BAO_Navigation', 'fixNavigationMenu'])) {
-    _kin_contributions_civix_fixNavigationMenu($nodes);
+    _kinpayments_civix_fixNavigationMenu($nodes);
   }
 }
 
@@ -204,17 +204,17 @@ function _kin_contributions_civix_navigationMenu(&$nodes) {
  * Given a navigation menu, generate navIDs for any items which are
  * missing them.
  */
-function _kin_contributions_civix_fixNavigationMenu(&$nodes) {
+function _kinpayments_civix_fixNavigationMenu(&$nodes) {
   $maxNavID = 1;
   array_walk_recursive($nodes, function($item, $key) use (&$maxNavID) {
     if ($key === 'navID') {
       $maxNavID = max($maxNavID, $item);
     }
   });
-  _kin_contributions_civix_fixNavigationMenuItems($nodes, $maxNavID, NULL);
+  _kinpayments_civix_fixNavigationMenuItems($nodes, $maxNavID, NULL);
 }
 
-function _kin_contributions_civix_fixNavigationMenuItems(&$nodes, &$maxNavID, $parentID) {
+function _kinpayments_civix_fixNavigationMenuItems(&$nodes, &$maxNavID, $parentID) {
   $origKeys = array_keys($nodes);
   foreach ($origKeys as $origKey) {
     if (!isset($nodes[$origKey]['attributes']['parentID']) && $parentID !== NULL) {
@@ -229,7 +229,7 @@ function _kin_contributions_civix_fixNavigationMenuItems(&$nodes, &$maxNavID, $p
       $origKey = $newKey;
     }
     if (isset($nodes[$origKey]['child']) && is_array($nodes[$origKey]['child'])) {
-      _kin_contributions_civix_fixNavigationMenuItems($nodes[$origKey]['child'], $maxNavID, $nodes[$origKey]['attributes']['navID']);
+      _kinpayments_civix_fixNavigationMenuItems($nodes[$origKey]['child'], $maxNavID, $nodes[$origKey]['attributes']['navID']);
     }
   }
 }

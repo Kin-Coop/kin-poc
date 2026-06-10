@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<extension key="kin_contributions" type="module">
-  <file>kin_contributions</file>
-  <name>kin_contributions</name>
+<extension key="kinpayments" type="module">
+  <file>kinpayments</file>
+  <name>kinpayments</name>
   <description>FIXME</description>
   <license>AGPL-3.0</license>
   <authors>
     <author>
-      <name>Ben Mango</name>
-      <email>ben@benmango.co.uk</email>
+      <name>DDEV User</name>
+      <email>nobody@example.com</email>
       <role>Maintainer</role>
     </author>
   </authors>
@@ -17,12 +17,12 @@
     <url desc="Support">https://FIXME</url>
     <url desc="Licensing">https://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
-  <releaseDate>2026-06-01</releaseDate>
+  <releaseDate>2026-06-03</releaseDate>
   <version>1.0.0</version>
   <develStage>alpha</develStage>
   <compatibility mode="semver">
     <comments>Semantic versioning. For example, compatibility with "6.1" implies compatibility with "6.2".</comments>
-    <ver>6.14</ver>
+    <ver>6.13</ver>
   </compatibility>
   <php_compatibility mode="list">
     <comments>Listed versions. For example, specify both "8.1" and "8.2".</comments>
@@ -42,9 +42,9 @@
     <psr4 prefix="Civi\" path="Civi"/>
   </classloader>
   <civix>
-    <namespace>CRM/KinContributions</namespace>
+    <namespace>CRM/Kinpayments</namespace>
     <format>25.10.2</format>
-    <angularModule>crmKinContributions</angularModule>
+    <angularModule>crmKinpayments</angularModule>
   </civix>
   <mixins>
     <mixin>mgd-php@2.0.0</mixin>
@@ -53,5 +53,5 @@
     <mixin>smarty@1.0.3</mixin>
     <mixin>entity-types-php@2.0.0</mixin>
   </mixins>
-  <upgrader>CiviMix\Schema\KinContributions\AutomaticUpgrader</upgrader>
+  <upgrader>CiviMix\Schema\Kinpayments\AutomaticUpgrader</upgrader>
 </extension>
