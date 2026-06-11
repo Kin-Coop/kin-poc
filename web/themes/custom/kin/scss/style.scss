@@ -131,6 +131,11 @@ th {
   font-weight: 500;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 @include media-breakpoint-down(sm) {
   img {
     max-width: 100%;
