@@ -1,10 +1,9 @@
 <?php
-  use CRM_Grant_ExtensionUtil as E;
 
   // This enables custom fields for Grant entities
   return [
     [
-      'name' => 'cg_extend_objects:Grant',
+      'name' => 'cg_extends_kinpayments_payment',
       'entity' => 'OptionValue',
       'cleanup' => 'always',
       'update' => 'always',
@@ -12,7 +11,7 @@
         'version' => 4,
         'values' => [
           'option_group_id.name' => 'cg_extend_objects',
-          'label' => E::ts('Kin Payment'),
+          'label' => 'Kin Payment',
           'value' => 'KinpaymentsPayment',
           'name' => 'civicrm_kinpayments_payment',
           'is_active' => TRUE,
