@@ -55,6 +55,7 @@ return [
       'sql_type' => 'decimal(20,2)',
       'input_type' => 'Text',
       'required' => TRUE,
+      'default' => 0,
       'description' => E::ts('Payment amount'),
     ],
     'datetime' => [
@@ -92,6 +93,7 @@ return [
       'input_type' => 'Select',
       'required' => TRUE,
       'description' => E::ts('FK to payment status option value'),
+      'default' => 1,
       'pseudoconstant' => [
         'option_group_name' => 'kin_payment_status',
       ],
@@ -107,7 +109,17 @@ return [
         'on_delete' => 'RESTRICT',
       ],
     ],
+    'notes' => [
+      'title' => E::ts('Notes'),
+      'sql_type' => 'longtext',
+      'input_type' => 'RichTextEditor',
+      'description' => E::ts('User generated notes about the pament'),
+      'input_attrs' => [
+        'rows' => 4,
+        'cols' => 60,
+      ],
+    ],
+
   ],
-  'getIndices' => fn() => [],
   'getPaths' => fn() => [],
 ];
