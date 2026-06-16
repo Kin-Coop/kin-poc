@@ -61,7 +61,79 @@ function civicrm_api3_kinpayments_payment_delete($params) {
 
   return civicrm_api3_create_success([], $params);
 }
+
 /*
+function civicrm_api3_kinpayments_payment_getfields($params) {
+
+  $fields = [
+
+    'id' => [
+      'name' => 'id',
+      'title' => ts('ID'),
+      'type' => CRM_Utils_Type::T_INT,
+    ],
+
+    'contact_id' => [
+      'name' => 'contact_id',
+      'title' => ts('Contact'),
+      'type' => CRM_Utils_Type::T_INT,
+      'FKApiName' => 'Contact',
+    ],
+
+    'amount' => [
+      'name' => 'amount',
+      'title' => ts('Payment Amount'),
+      'type' => CRM_Utils_Type::T_MONEY,
+      'api.required' => 1,
+    ],
+
+    'datetime' => [
+      'name' => 'datetime',
+      'title' => ts('Payment Date'),
+      'type' => CRM_Utils_Type::T_DATE + CRM_Utils_Type::T_TIME,
+      'api.required' => 1,
+    ],
+
+    'customer_reference' => [
+      'name' => 'customer_reference',
+      'title' => ts('Customer Reference'),
+      'type' => CRM_Utils_Type::T_STRING,
+    ],
+
+    'bank_reference' => [
+      'name' => 'bank_reference',
+      'title' => ts('Bank Reference'),
+      'type' => CRM_Utils_Type::T_STRING,
+    ],
+
+    'customer_account_number' => [
+      'name' => 'customer_account_number',
+      'title' => ts('Customer Account Number'),
+      'type' => CRM_Utils_Type::T_STRING,
+    ],
+
+    'payment_status_id' => [
+      'name' => 'payment_status_id',
+      'title' => ts('Payment Status'),
+      'type' => CRM_Utils_Type::T_INT,
+      'api.required' => 1,
+      'pseudoconstant' => [
+        'optionGroupName' => 'kin_payment_status',
+      ],
+    ],
+
+    'contribution_id' => [
+      'name' => 'contribution_id',
+      'title' => ts('Contribution'),
+      'type' => CRM_Utils_Type::T_INT,
+      'FKApiName' => 'Contribution',
+    ],
+
+  ];
+
+  return civicrm_api3_create_success($fields, $params);
+}
+
 function civicrm_api3_kinpayments_payment_getfields($params) {
 
   $entity = \Civi\Api4\KinpaymentsPayment::getFields(FALSE)

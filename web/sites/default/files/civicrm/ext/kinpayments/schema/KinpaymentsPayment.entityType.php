@@ -28,6 +28,15 @@ return [
         'payment_status_id' => TRUE,
       ],
     ],
+    'unique_bank_payment' => [
+      'fields' => [
+        'amount' => TRUE,
+        'datetime' => TRUE,
+        'customer_account_number' => TRUE,
+        'bank_reference' => TRUE,
+      ],
+      'unique' => TRUE,
+    ],
   ],
   'getFields' => fn() => [
     'id' => [
