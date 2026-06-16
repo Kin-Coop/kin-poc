@@ -2448,7 +2448,7 @@ textarea.form-control-lg {
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
 }
-.btn-check[disabled] + .btn, .forum-teaser .more-link .btn-check[disabled] + a, .user-anonymous #block-kin-account-menu li .btn-check[disabled] + a, .node-preview-container .btn-check[disabled] + .node-preview-backlink, .btn-check[disabled] + .button, .btn-check[disabled] + button.link, .btn-check:disabled + .btn, .forum-teaser .more-link .btn-check:disabled + a, .user-anonymous #block-kin-account-menu li .btn-check:disabled + a, .node-preview-container .btn-check:disabled + .node-preview-backlink, .btn-check:disabled + .button, .btn-check:disabled + button.link {
+.btn-check[disabled] + .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-check[disabled] + a, .forum-teaser .more-link .btn-check[disabled] + a, .user-anonymous #block-kin-account-menu li .btn-check[disabled] + a, .node-preview-container .btn-check[disabled] + .node-preview-backlink, .btn-check[disabled] + .button, .btn-check[disabled] + button.link, .btn-check:disabled + .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-check:disabled + a, .forum-teaser .more-link .btn-check:disabled + a, .user-anonymous #block-kin-account-menu li .btn-check:disabled + a, .node-preview-container .btn-check:disabled + .node-preview-backlink, .btn-check:disabled + .button, .btn-check:disabled + button.link {
   pointer-events: none;
   filter: none;
   opacity: 0.65;
@@ -2649,11 +2649,11 @@ textarea.form-control-lg {
 .input-group > .form-floating:focus-within {
   z-index: 5;
 }
-.input-group .btn, .input-group .forum-teaser .more-link a, .forum-teaser .more-link .input-group a, .input-group .user-anonymous #block-kin-account-menu li a, .user-anonymous #block-kin-account-menu li .input-group a, .input-group .node-preview-container .node-preview-backlink, .node-preview-container .input-group .node-preview-backlink, .input-group .button, .input-group button.link {
+.input-group .btn, .input-group .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .input-group a, .input-group .forum-teaser .more-link a, .forum-teaser .more-link .input-group a, .input-group .user-anonymous #block-kin-account-menu li a, .user-anonymous #block-kin-account-menu li .input-group a, .input-group .node-preview-container .node-preview-backlink, .node-preview-container .input-group .node-preview-backlink, .input-group .button, .input-group button.link {
   position: relative;
   z-index: 2;
 }
-.input-group .btn:focus, .input-group .forum-teaser .more-link a:focus, .forum-teaser .more-link .input-group a:focus, .input-group .user-anonymous #block-kin-account-menu li a:focus, .user-anonymous #block-kin-account-menu li .input-group a:focus, .input-group .node-preview-container .node-preview-backlink:focus, .node-preview-container .input-group .node-preview-backlink:focus, .input-group .button:focus, .input-group button.link:focus {
+.input-group .btn:focus, .input-group .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a:focus, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .input-group a:focus, .input-group .forum-teaser .more-link a:focus, .forum-teaser .more-link .input-group a:focus, .input-group .user-anonymous #block-kin-account-menu li a:focus, .user-anonymous #block-kin-account-menu li .input-group a:focus, .input-group .node-preview-container .node-preview-backlink:focus, .node-preview-container .input-group .node-preview-backlink:focus, .input-group .button:focus, .input-group button.link:focus {
   z-index: 5;
 }
 
@@ -2676,6 +2676,7 @@ textarea.form-control-lg {
 .input-group-lg > .form-select,
 .input-group-lg > .input-group-text,
 .input-group-lg > .btn,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .input-group-lg > a,
 .forum-teaser .more-link .input-group-lg > a,
 .user-anonymous #block-kin-account-menu li .input-group-lg > a,
 .node-preview-container .input-group-lg > .node-preview-backlink,
@@ -2690,6 +2691,7 @@ textarea.form-control-lg {
 .input-group-sm > .form-select,
 .input-group-sm > .input-group-text,
 .input-group-sm > .btn,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .input-group-sm > a,
 .forum-teaser .more-link .input-group-sm > a,
 .user-anonymous #block-kin-account-menu li .input-group-sm > a,
 .node-preview-container .input-group-sm > .node-preview-backlink,
@@ -2910,7 +2912,7 @@ textarea.form-control-lg {
   z-index: 4;
 }
 
-.btn, .forum-teaser .more-link a, .user-anonymous #block-kin-account-menu li a, .node-preview-container .node-preview-backlink, a.button, .button, button.link {
+.btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a, .forum-teaser .more-link a, .user-anonymous #block-kin-account-menu li a, .node-preview-container .node-preview-backlink, a.button, .button, button.link {
   --bs-btn-padding-x: 0.75rem;
   --bs-btn-padding-y: 0.375rem;
   --bs-btn-font-family: ;
@@ -2944,44 +2946,44 @@ textarea.form-control-lg {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .btn, .forum-teaser .more-link a, .user-anonymous #block-kin-account-menu li a, .node-preview-container .node-preview-backlink, a.button, .button, button.link {
+  .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a, .forum-teaser .more-link a, .user-anonymous #block-kin-account-menu li a, .node-preview-container .node-preview-backlink, a.button, .button, button.link {
     transition: none;
   }
 }
-.btn:hover, .forum-teaser .more-link a:hover, .user-anonymous #block-kin-account-menu li a:hover, .node-preview-container .node-preview-backlink:hover, .button:hover, button.link:hover {
+.btn:hover, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a:hover, .forum-teaser .more-link a:hover, .user-anonymous #block-kin-account-menu li a:hover, .node-preview-container .node-preview-backlink:hover, .button:hover, button.link:hover {
   color: var(--bs-btn-hover-color);
   background-color: var(--bs-btn-hover-bg);
   border-color: var(--bs-btn-hover-border-color);
 }
-.btn-check + .btn:hover, .forum-teaser .more-link .btn-check + a:hover, .user-anonymous #block-kin-account-menu li .btn-check + a:hover, .node-preview-container .btn-check + .node-preview-backlink:hover, .btn-check + .button:hover, .btn-check + button.link:hover {
+.btn-check + .btn:hover, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-check + a:hover, .forum-teaser .more-link .btn-check + a:hover, .user-anonymous #block-kin-account-menu li .btn-check + a:hover, .node-preview-container .btn-check + .node-preview-backlink:hover, .btn-check + .button:hover, .btn-check + button.link:hover {
   color: var(--bs-btn-color);
   background-color: var(--bs-btn-bg);
   border-color: var(--bs-btn-border-color);
 }
-.btn:focus-visible, .forum-teaser .more-link a:focus-visible, .user-anonymous #block-kin-account-menu li a:focus-visible, .node-preview-container .node-preview-backlink:focus-visible, .button:focus-visible, button.link:focus-visible {
+.btn:focus-visible, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a:focus-visible, .forum-teaser .more-link a:focus-visible, .user-anonymous #block-kin-account-menu li a:focus-visible, .node-preview-container .node-preview-backlink:focus-visible, .button:focus-visible, button.link:focus-visible {
   color: var(--bs-btn-hover-color);
   background-color: var(--bs-btn-hover-bg);
   border-color: var(--bs-btn-hover-border-color);
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-.btn-check:focus-visible + .btn, .forum-teaser .more-link .btn-check:focus-visible + a, .user-anonymous #block-kin-account-menu li .btn-check:focus-visible + a, .node-preview-container .btn-check:focus-visible + .node-preview-backlink, .btn-check:focus-visible + .button, .btn-check:focus-visible + button.link {
+.btn-check:focus-visible + .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-check:focus-visible + a, .forum-teaser .more-link .btn-check:focus-visible + a, .user-anonymous #block-kin-account-menu li .btn-check:focus-visible + a, .node-preview-container .btn-check:focus-visible + .node-preview-backlink, .btn-check:focus-visible + .button, .btn-check:focus-visible + button.link {
   border-color: var(--bs-btn-hover-border-color);
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-.btn-check:checked + .btn, .forum-teaser .more-link .btn-check:checked + a, .user-anonymous #block-kin-account-menu li .btn-check:checked + a, .node-preview-container .btn-check:checked + .node-preview-backlink, .btn-check:checked + .button, .btn-check:checked + button.link, :not(.btn-check) + .btn:active, .forum-teaser .more-link :not(.btn-check) + a:active, .user-anonymous #block-kin-account-menu li :not(.btn-check) + a:active, .node-preview-container :not(.btn-check) + .node-preview-backlink:active, :not(.btn-check) + .button:active, :not(.btn-check) + button.link:active, .btn:first-child:active, .forum-teaser .more-link a:first-child:active, .user-anonymous #block-kin-account-menu li a:first-child:active, .node-preview-container .node-preview-backlink:first-child:active, .button:first-child:active, button.link:first-child:active, .btn.active, .forum-teaser .more-link a.active, .user-anonymous #block-kin-account-menu li a.active, .media-library-view--widget .view-header a.btn.is-active, .media-library-view--widget .view-header .forum-teaser .more-link a.is-active, .forum-teaser .more-link .media-library-view--widget .view-header a.is-active, .media-library-view--widget .view-header .user-anonymous #block-kin-account-menu li a.is-active, .user-anonymous #block-kin-account-menu li .media-library-view--widget .view-header a.is-active, .node-preview-container .active.node-preview-backlink, .node-preview-container .media-library-view--widget .view-header a.node-preview-backlink.is-active, .media-library-view--widget .view-header .node-preview-container a.node-preview-backlink.is-active, .active.button, .media-library-view--widget .view-header a.button.is-active, button.active.link, .btn.show, .forum-teaser .more-link a.show, .user-anonymous #block-kin-account-menu li a.show, .node-preview-container .show.node-preview-backlink, .show.button, button.show.link {
+.btn-check:checked + .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-check:checked + a, .forum-teaser .more-link .btn-check:checked + a, .user-anonymous #block-kin-account-menu li .btn-check:checked + a, .node-preview-container .btn-check:checked + .node-preview-backlink, .btn-check:checked + .button, .btn-check:checked + button.link, :not(.btn-check) + .btn:active, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type :not(.btn-check) + a:active, .forum-teaser .more-link :not(.btn-check) + a:active, .user-anonymous #block-kin-account-menu li :not(.btn-check) + a:active, .node-preview-container :not(.btn-check) + .node-preview-backlink:active, :not(.btn-check) + .button:active, :not(.btn-check) + button.link:active, .btn:first-child:active, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a:first-child:active, .forum-teaser .more-link a:first-child:active, .user-anonymous #block-kin-account-menu li a:first-child:active, .node-preview-container .node-preview-backlink:first-child:active, .button:first-child:active, button.link:first-child:active, .btn.active, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a.active, .forum-teaser .more-link a.active, .user-anonymous #block-kin-account-menu li a.active, .media-library-view--widget .view-header a.btn.is-active, .media-library-view--widget .view-header .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a.is-active, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .media-library-view--widget .view-header a.is-active, .media-library-view--widget .view-header .forum-teaser .more-link a.is-active, .forum-teaser .more-link .media-library-view--widget .view-header a.is-active, .media-library-view--widget .view-header .user-anonymous #block-kin-account-menu li a.is-active, .user-anonymous #block-kin-account-menu li .media-library-view--widget .view-header a.is-active, .node-preview-container .active.node-preview-backlink, .node-preview-container .media-library-view--widget .view-header a.node-preview-backlink.is-active, .media-library-view--widget .view-header .node-preview-container a.node-preview-backlink.is-active, .active.button, .media-library-view--widget .view-header a.button.is-active, button.active.link, .btn.show, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a.show, .forum-teaser .more-link a.show, .user-anonymous #block-kin-account-menu li a.show, .node-preview-container .show.node-preview-backlink, .show.button, button.show.link {
   color: var(--bs-btn-active-color);
   background-color: var(--bs-btn-active-bg);
   border-color: var(--bs-btn-active-border-color);
 }
-.btn-check:checked + .btn:focus-visible, .forum-teaser .more-link .btn-check:checked + a:focus-visible, .user-anonymous #block-kin-account-menu li .btn-check:checked + a:focus-visible, .node-preview-container .btn-check:checked + .node-preview-backlink:focus-visible, .btn-check:checked + .button:focus-visible, .btn-check:checked + button.link:focus-visible, :not(.btn-check) + .btn:active:focus-visible, .forum-teaser .more-link :not(.btn-check) + a:active:focus-visible, .user-anonymous #block-kin-account-menu li :not(.btn-check) + a:active:focus-visible, .node-preview-container :not(.btn-check) + .node-preview-backlink:active:focus-visible, :not(.btn-check) + .button:active:focus-visible, :not(.btn-check) + button.link:active:focus-visible, .btn:first-child:active:focus-visible, .forum-teaser .more-link a:first-child:active:focus-visible, .user-anonymous #block-kin-account-menu li a:first-child:active:focus-visible, .node-preview-container .node-preview-backlink:first-child:active:focus-visible, .button:first-child:active:focus-visible, button.link:first-child:active:focus-visible, .btn.active:focus-visible, .forum-teaser .more-link a.active:focus-visible, .user-anonymous #block-kin-account-menu li a.active:focus-visible, .media-library-view--widget .view-header a.btn.is-active:focus-visible, .media-library-view--widget .view-header .forum-teaser .more-link a.is-active:focus-visible, .forum-teaser .more-link .media-library-view--widget .view-header a.is-active:focus-visible, .media-library-view--widget .view-header .user-anonymous #block-kin-account-menu li a.is-active:focus-visible, .user-anonymous #block-kin-account-menu li .media-library-view--widget .view-header a.is-active:focus-visible, .node-preview-container .active.node-preview-backlink:focus-visible, .node-preview-container .media-library-view--widget .view-header a.node-preview-backlink.is-active:focus-visible, .media-library-view--widget .view-header .node-preview-container a.node-preview-backlink.is-active:focus-visible, .active.button:focus-visible, .media-library-view--widget .view-header a.button.is-active:focus-visible, button.active.link:focus-visible, .btn.show:focus-visible, .forum-teaser .more-link a.show:focus-visible, .user-anonymous #block-kin-account-menu li a.show:focus-visible, .node-preview-container .show.node-preview-backlink:focus-visible, .show.button:focus-visible, button.show.link:focus-visible {
+.btn-check:checked + .btn:focus-visible, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-check:checked + a:focus-visible, .forum-teaser .more-link .btn-check:checked + a:focus-visible, .user-anonymous #block-kin-account-menu li .btn-check:checked + a:focus-visible, .node-preview-container .btn-check:checked + .node-preview-backlink:focus-visible, .btn-check:checked + .button:focus-visible, .btn-check:checked + button.link:focus-visible, :not(.btn-check) + .btn:active:focus-visible, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type :not(.btn-check) + a:active:focus-visible, .forum-teaser .more-link :not(.btn-check) + a:active:focus-visible, .user-anonymous #block-kin-account-menu li :not(.btn-check) + a:active:focus-visible, .node-preview-container :not(.btn-check) + .node-preview-backlink:active:focus-visible, :not(.btn-check) + .button:active:focus-visible, :not(.btn-check) + button.link:active:focus-visible, .btn:first-child:active:focus-visible, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a:first-child:active:focus-visible, .forum-teaser .more-link a:first-child:active:focus-visible, .user-anonymous #block-kin-account-menu li a:first-child:active:focus-visible, .node-preview-container .node-preview-backlink:first-child:active:focus-visible, .button:first-child:active:focus-visible, button.link:first-child:active:focus-visible, .btn.active:focus-visible, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a.active:focus-visible, .forum-teaser .more-link a.active:focus-visible, .user-anonymous #block-kin-account-menu li a.active:focus-visible, .media-library-view--widget .view-header a.btn.is-active:focus-visible, .media-library-view--widget .view-header .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a.is-active:focus-visible, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .media-library-view--widget .view-header a.is-active:focus-visible, .media-library-view--widget .view-header .forum-teaser .more-link a.is-active:focus-visible, .forum-teaser .more-link .media-library-view--widget .view-header a.is-active:focus-visible, .media-library-view--widget .view-header .user-anonymous #block-kin-account-menu li a.is-active:focus-visible, .user-anonymous #block-kin-account-menu li .media-library-view--widget .view-header a.is-active:focus-visible, .node-preview-container .active.node-preview-backlink:focus-visible, .node-preview-container .media-library-view--widget .view-header a.node-preview-backlink.is-active:focus-visible, .media-library-view--widget .view-header .node-preview-container a.node-preview-backlink.is-active:focus-visible, .active.button:focus-visible, .media-library-view--widget .view-header a.button.is-active:focus-visible, button.active.link:focus-visible, .btn.show:focus-visible, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a.show:focus-visible, .forum-teaser .more-link a.show:focus-visible, .user-anonymous #block-kin-account-menu li a.show:focus-visible, .node-preview-container .show.node-preview-backlink:focus-visible, .show.button:focus-visible, button.show.link:focus-visible {
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-.btn-check:checked:focus-visible + .btn, .forum-teaser .more-link .btn-check:checked:focus-visible + a, .user-anonymous #block-kin-account-menu li .btn-check:checked:focus-visible + a, .node-preview-container .btn-check:checked:focus-visible + .node-preview-backlink, .btn-check:checked:focus-visible + .button, .btn-check:checked:focus-visible + button.link {
+.btn-check:checked:focus-visible + .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-check:checked:focus-visible + a, .forum-teaser .more-link .btn-check:checked:focus-visible + a, .user-anonymous #block-kin-account-menu li .btn-check:checked:focus-visible + a, .node-preview-container .btn-check:checked:focus-visible + .node-preview-backlink, .btn-check:checked:focus-visible + .button, .btn-check:checked:focus-visible + button.link {
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-.btn:disabled, .forum-teaser .more-link a:disabled, .user-anonymous #block-kin-account-menu li a:disabled, .node-preview-container .node-preview-backlink:disabled, .button:disabled, button.link:disabled, .btn.disabled, .forum-teaser .more-link a.disabled, .user-anonymous #block-kin-account-menu li a.disabled, .node-preview-container .disabled.node-preview-backlink, .disabled.button, button.disabled.link, fieldset:disabled .btn, fieldset:disabled .forum-teaser .more-link a, .forum-teaser .more-link fieldset:disabled a, fieldset:disabled .user-anonymous #block-kin-account-menu li a, .user-anonymous #block-kin-account-menu li fieldset:disabled a, fieldset:disabled .node-preview-container .node-preview-backlink, .node-preview-container fieldset:disabled .node-preview-backlink, fieldset:disabled .button, fieldset:disabled button.link {
+.btn:disabled, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a:disabled, .forum-teaser .more-link a:disabled, .user-anonymous #block-kin-account-menu li a:disabled, .node-preview-container .node-preview-backlink:disabled, .button:disabled, button.link:disabled, .btn.disabled, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a.disabled, .forum-teaser .more-link a.disabled, .user-anonymous #block-kin-account-menu li a.disabled, .node-preview-container .disabled.node-preview-backlink, .disabled.button, button.disabled.link, fieldset:disabled .btn, fieldset:disabled .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type fieldset:disabled a, fieldset:disabled .forum-teaser .more-link a, .forum-teaser .more-link fieldset:disabled a, fieldset:disabled .user-anonymous #block-kin-account-menu li a, .user-anonymous #block-kin-account-menu li fieldset:disabled a, fieldset:disabled .node-preview-container .node-preview-backlink, .node-preview-container fieldset:disabled .node-preview-backlink, fieldset:disabled .button, fieldset:disabled button.link {
   color: var(--bs-btn-disabled-color);
   pointer-events: none;
   background-color: var(--bs-btn-disabled-bg);
@@ -2989,7 +2991,7 @@ textarea.form-control-lg {
   opacity: var(--bs-btn-disabled-opacity);
 }
 
-.btn-primary, .forum-teaser .more-link a {
+.btn-primary, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a, .forum-teaser .more-link a {
   --bs-btn-color: #fff;
   --bs-btn-bg: #2D4C9B;
   --bs-btn-border-color: #2D4C9B;
@@ -3283,14 +3285,14 @@ textarea.form-control-lg {
   color: var(--bs-btn-hover-color);
 }
 
-.btn-lg, .btn-group-lg > .btn, .forum-teaser .more-link .btn-group-lg > a, .user-anonymous #block-kin-account-menu li .btn-group-lg > a, .node-preview-container .btn-group-lg > .node-preview-backlink, .btn-group-lg > .button, .btn-group-lg > button.link {
+.btn-lg, .btn-group-lg > .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-lg > a, .forum-teaser .more-link .btn-group-lg > a, .user-anonymous #block-kin-account-menu li .btn-group-lg > a, .node-preview-container .btn-group-lg > .node-preview-backlink, .btn-group-lg > .button, .btn-group-lg > button.link {
   --bs-btn-padding-y: 0.5rem;
   --bs-btn-padding-x: 1rem;
   --bs-btn-font-size: 1.25rem;
   --bs-btn-border-radius: var(--bs-border-radius-lg);
 }
 
-.btn-sm, .btn-group-sm > .btn, .forum-teaser .more-link .btn-group-sm > a, .user-anonymous #block-kin-account-menu li .btn-group-sm > a, .node-preview-container .btn-group-sm > .node-preview-backlink, .btn-group-sm > .button, .btn-group-sm > button.link {
+.btn-sm, .btn-group-sm > .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-sm > a, .forum-teaser .more-link .btn-group-sm > a, .user-anonymous #block-kin-account-menu li .btn-group-sm > a, .node-preview-container .btn-group-sm > .node-preview-backlink, .btn-group-sm > .button, .btn-group-sm > button.link {
   --bs-btn-padding-y: 0.25rem;
   --bs-btn-padding-x: 0.5rem;
   --bs-btn-font-size: 0.875rem;
@@ -3657,8 +3659,9 @@ textarea.form-control-lg {
   display: inline-flex;
   vertical-align: middle;
 }
-.btn-group > .btn, .forum-teaser .more-link .btn-group > a, .user-anonymous #block-kin-account-menu li .btn-group > a, .node-preview-container .btn-group > .node-preview-backlink, .btn-group > .button, .btn-group > button.link,
+.btn-group > .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > a, .forum-teaser .more-link .btn-group > a, .user-anonymous #block-kin-account-menu li .btn-group > a, .node-preview-container .btn-group > .node-preview-backlink, .btn-group > .button, .btn-group > button.link,
 .btn-group-vertical > .btn,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > a,
 .forum-teaser .more-link .btn-group-vertical > a,
 .user-anonymous #block-kin-account-menu li .btn-group-vertical > a,
 .node-preview-container .btn-group-vertical > .node-preview-backlink,
@@ -3667,35 +3670,42 @@ textarea.form-control-lg {
   position: relative;
   flex: 1 1 auto;
 }
-.btn-group > .btn-check:checked + .btn, .forum-teaser .more-link .btn-group > .btn-check:checked + a, .user-anonymous #block-kin-account-menu li .btn-group > .btn-check:checked + a, .node-preview-container .btn-group > .btn-check:checked + .node-preview-backlink, .btn-group > .btn-check:checked + .button, .btn-group > .btn-check:checked + button.link,
+.btn-group > .btn-check:checked + .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > .btn-check:checked + a, .forum-teaser .more-link .btn-group > .btn-check:checked + a, .user-anonymous #block-kin-account-menu li .btn-group > .btn-check:checked + a, .node-preview-container .btn-group > .btn-check:checked + .node-preview-backlink, .btn-group > .btn-check:checked + .button, .btn-group > .btn-check:checked + button.link,
 .btn-group > .btn-check:focus + .btn,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > .btn-check:focus + a,
 .forum-teaser .more-link .btn-group > .btn-check:focus + a,
 .user-anonymous #block-kin-account-menu li .btn-group > .btn-check:focus + a,
 .node-preview-container .btn-group > .btn-check:focus + .node-preview-backlink,
 .btn-group > .btn-check:focus + .button,
 .btn-group > .btn-check:focus + button.link,
 .btn-group > .btn:hover,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > a:hover,
 .forum-teaser .more-link .btn-group > a:hover,
 .user-anonymous #block-kin-account-menu li .btn-group > a:hover,
 .node-preview-container .btn-group > .node-preview-backlink:hover,
 .btn-group > .button:hover,
 .btn-group > button.link:hover,
 .btn-group > .btn:focus,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > a:focus,
 .forum-teaser .more-link .btn-group > a:focus,
 .user-anonymous #block-kin-account-menu li .btn-group > a:focus,
 .node-preview-container .btn-group > .node-preview-backlink:focus,
 .btn-group > .button:focus,
 .btn-group > button.link:focus,
 .btn-group > .btn:active,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > a:active,
 .forum-teaser .more-link .btn-group > a:active,
 .user-anonymous #block-kin-account-menu li .btn-group > a:active,
 .node-preview-container .btn-group > .node-preview-backlink:active,
 .btn-group > .button:active,
 .btn-group > button.link:active,
 .btn-group > .btn.active,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > a.active,
 .forum-teaser .more-link .btn-group > a.active,
 .user-anonymous #block-kin-account-menu li .btn-group > a.active,
 .media-library-view--widget .view-header .btn-group > a.btn.is-active,
+.media-library-view--widget .view-header .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > a.is-active,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .media-library-view--widget .view-header .btn-group > a.is-active,
 .media-library-view--widget .view-header .forum-teaser .more-link .btn-group > a.is-active,
 .forum-teaser .more-link .media-library-view--widget .view-header .btn-group > a.is-active,
 .media-library-view--widget .view-header .user-anonymous #block-kin-account-menu li .btn-group > a.is-active,
@@ -3707,39 +3717,47 @@ textarea.form-control-lg {
 .media-library-view--widget .view-header .btn-group > a.button.is-active,
 .btn-group > button.active.link,
 .btn-group-vertical > .btn-check:checked + .btn,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > .btn-check:checked + a,
 .forum-teaser .more-link .btn-group-vertical > .btn-check:checked + a,
 .user-anonymous #block-kin-account-menu li .btn-group-vertical > .btn-check:checked + a,
 .node-preview-container .btn-group-vertical > .btn-check:checked + .node-preview-backlink,
 .btn-group-vertical > .btn-check:checked + .button,
 .btn-group-vertical > .btn-check:checked + button.link,
 .btn-group-vertical > .btn-check:focus + .btn,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > .btn-check:focus + a,
 .forum-teaser .more-link .btn-group-vertical > .btn-check:focus + a,
 .user-anonymous #block-kin-account-menu li .btn-group-vertical > .btn-check:focus + a,
 .node-preview-container .btn-group-vertical > .btn-check:focus + .node-preview-backlink,
 .btn-group-vertical > .btn-check:focus + .button,
 .btn-group-vertical > .btn-check:focus + button.link,
 .btn-group-vertical > .btn:hover,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > a:hover,
 .forum-teaser .more-link .btn-group-vertical > a:hover,
 .user-anonymous #block-kin-account-menu li .btn-group-vertical > a:hover,
 .node-preview-container .btn-group-vertical > .node-preview-backlink:hover,
 .btn-group-vertical > .button:hover,
 .btn-group-vertical > button.link:hover,
 .btn-group-vertical > .btn:focus,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > a:focus,
 .forum-teaser .more-link .btn-group-vertical > a:focus,
 .user-anonymous #block-kin-account-menu li .btn-group-vertical > a:focus,
 .node-preview-container .btn-group-vertical > .node-preview-backlink:focus,
 .btn-group-vertical > .button:focus,
 .btn-group-vertical > button.link:focus,
 .btn-group-vertical > .btn:active,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > a:active,
 .forum-teaser .more-link .btn-group-vertical > a:active,
 .user-anonymous #block-kin-account-menu li .btn-group-vertical > a:active,
 .node-preview-container .btn-group-vertical > .node-preview-backlink:active,
 .btn-group-vertical > .button:active,
 .btn-group-vertical > button.link:active,
 .btn-group-vertical > .btn.active,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > a.active,
 .forum-teaser .more-link .btn-group-vertical > a.active,
 .user-anonymous #block-kin-account-menu li .btn-group-vertical > a.active,
 .media-library-view--widget .view-header .btn-group-vertical > a.btn.is-active,
+.media-library-view--widget .view-header .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > a.is-active,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .media-library-view--widget .view-header .btn-group-vertical > a.is-active,
 .media-library-view--widget .view-header .forum-teaser .more-link .btn-group-vertical > a.is-active,
 .forum-teaser .more-link .media-library-view--widget .view-header .btn-group-vertical > a.is-active,
 .media-library-view--widget .view-header .user-anonymous #block-kin-account-menu li .btn-group-vertical > a.is-active,
@@ -3765,18 +3783,20 @@ textarea.form-control-lg {
 .btn-group {
   border-radius: var(--bs-border-radius);
 }
-.btn-group > :not(.btn-check:first-child) + .btn, .forum-teaser .more-link .btn-group > :not(.btn-check:first-child) + a, .user-anonymous #block-kin-account-menu li .btn-group > :not(.btn-check:first-child) + a, .node-preview-container .btn-group > :not(.btn-check:first-child) + .node-preview-backlink, .btn-group > :not(.btn-check:first-child) + .button, .btn-group > :not(.btn-check:first-child) + button.link,
+.btn-group > :not(.btn-check:first-child) + .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > :not(.btn-check:first-child) + a, .forum-teaser .more-link .btn-group > :not(.btn-check:first-child) + a, .user-anonymous #block-kin-account-menu li .btn-group > :not(.btn-check:first-child) + a, .node-preview-container .btn-group > :not(.btn-check:first-child) + .node-preview-backlink, .btn-group > :not(.btn-check:first-child) + .button, .btn-group > :not(.btn-check:first-child) + button.link,
 .btn-group > .btn-group:not(:first-child) {
   margin-left: calc(var(--bs-border-width) * -1);
 }
-.btn-group > .btn:not(:last-child):not(.dropdown-toggle), .forum-teaser .more-link .btn-group > a:not(:last-child):not(.dropdown-toggle), .user-anonymous #block-kin-account-menu li .btn-group > a:not(:last-child):not(.dropdown-toggle), .node-preview-container .btn-group > .node-preview-backlink:not(:last-child):not(.dropdown-toggle), .btn-group > .button:not(:last-child):not(.dropdown-toggle), .btn-group > button.link:not(:last-child):not(.dropdown-toggle),
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle), .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > a:not(:last-child):not(.dropdown-toggle), .forum-teaser .more-link .btn-group > a:not(:last-child):not(.dropdown-toggle), .user-anonymous #block-kin-account-menu li .btn-group > a:not(:last-child):not(.dropdown-toggle), .node-preview-container .btn-group > .node-preview-backlink:not(:last-child):not(.dropdown-toggle), .btn-group > .button:not(:last-child):not(.dropdown-toggle), .btn-group > button.link:not(:last-child):not(.dropdown-toggle),
 .btn-group > .btn.dropdown-toggle-split:first-child,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > a.dropdown-toggle-split:first-child,
 .forum-teaser .more-link .btn-group > a.dropdown-toggle-split:first-child,
 .user-anonymous #block-kin-account-menu li .btn-group > a.dropdown-toggle-split:first-child,
 .node-preview-container .btn-group > .dropdown-toggle-split.node-preview-backlink:first-child,
 .btn-group > .dropdown-toggle-split.button:first-child,
 .btn-group > button.dropdown-toggle-split.link:first-child,
 .btn-group > .btn-group:not(:last-child) > .btn,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > .btn-group:not(:last-child) > a,
 .forum-teaser .more-link .btn-group > .btn-group:not(:last-child) > a,
 .user-anonymous #block-kin-account-menu li .btn-group > .btn-group:not(:last-child) > a,
 .node-preview-container .btn-group > .btn-group:not(:last-child) > .node-preview-backlink,
@@ -3785,14 +3805,16 @@ textarea.form-control-lg {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.btn-group > .btn:nth-child(n+3), .forum-teaser .more-link .btn-group > a:nth-child(n+3), .user-anonymous #block-kin-account-menu li .btn-group > a:nth-child(n+3), .node-preview-container .btn-group > .node-preview-backlink:nth-child(n+3), .btn-group > .button:nth-child(n+3), .btn-group > button.link:nth-child(n+3),
+.btn-group > .btn:nth-child(n+3), .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > a:nth-child(n+3), .forum-teaser .more-link .btn-group > a:nth-child(n+3), .user-anonymous #block-kin-account-menu li .btn-group > a:nth-child(n+3), .node-preview-container .btn-group > .node-preview-backlink:nth-child(n+3), .btn-group > .button:nth-child(n+3), .btn-group > button.link:nth-child(n+3),
 .btn-group > :not(.btn-check) + .btn,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > :not(.btn-check) + a,
 .forum-teaser .more-link .btn-group > :not(.btn-check) + a,
 .user-anonymous #block-kin-account-menu li .btn-group > :not(.btn-check) + a,
 .node-preview-container .btn-group > :not(.btn-check) + .node-preview-backlink,
 .btn-group > :not(.btn-check) + .button,
 .btn-group > :not(.btn-check) + button.link,
 .btn-group > .btn-group:not(:first-child) > .btn,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group > .btn-group:not(:first-child) > a,
 .forum-teaser .more-link .btn-group > .btn-group:not(:first-child) > a,
 .user-anonymous #block-kin-account-menu li .btn-group > .btn-group:not(:first-child) > a,
 .node-preview-container .btn-group > .btn-group:not(:first-child) > .node-preview-backlink,
@@ -3813,12 +3835,12 @@ textarea.form-control-lg {
   margin-right: 0;
 }
 
-.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .forum-teaser .more-link .btn-group-sm > a + .dropdown-toggle-split, .user-anonymous #block-kin-account-menu li .btn-group-sm > a + .dropdown-toggle-split, .node-preview-container .btn-group-sm > .node-preview-backlink + .dropdown-toggle-split, .btn-group-sm > .button + .dropdown-toggle-split, .btn-group-sm > button.link + .dropdown-toggle-split {
+.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-sm > a + .dropdown-toggle-split, .forum-teaser .more-link .btn-group-sm > a + .dropdown-toggle-split, .user-anonymous #block-kin-account-menu li .btn-group-sm > a + .dropdown-toggle-split, .node-preview-container .btn-group-sm > .node-preview-backlink + .dropdown-toggle-split, .btn-group-sm > .button + .dropdown-toggle-split, .btn-group-sm > button.link + .dropdown-toggle-split {
   padding-right: 0.375rem;
   padding-left: 0.375rem;
 }
 
-.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .forum-teaser .more-link .btn-group-lg > a + .dropdown-toggle-split, .user-anonymous #block-kin-account-menu li .btn-group-lg > a + .dropdown-toggle-split, .node-preview-container .btn-group-lg > .node-preview-backlink + .dropdown-toggle-split, .btn-group-lg > .button + .dropdown-toggle-split, .btn-group-lg > button.link + .dropdown-toggle-split {
+.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-lg > a + .dropdown-toggle-split, .forum-teaser .more-link .btn-group-lg > a + .dropdown-toggle-split, .user-anonymous #block-kin-account-menu li .btn-group-lg > a + .dropdown-toggle-split, .node-preview-container .btn-group-lg > .node-preview-backlink + .dropdown-toggle-split, .btn-group-lg > .button + .dropdown-toggle-split, .btn-group-lg > button.link + .dropdown-toggle-split {
   padding-right: 0.75rem;
   padding-left: 0.75rem;
 }
@@ -3828,16 +3850,17 @@ textarea.form-control-lg {
   align-items: flex-start;
   justify-content: center;
 }
-.btn-group-vertical > .btn, .forum-teaser .more-link .btn-group-vertical > a, .user-anonymous #block-kin-account-menu li .btn-group-vertical > a, .node-preview-container .btn-group-vertical > .node-preview-backlink, .btn-group-vertical > .button, .btn-group-vertical > button.link,
+.btn-group-vertical > .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > a, .forum-teaser .more-link .btn-group-vertical > a, .user-anonymous #block-kin-account-menu li .btn-group-vertical > a, .node-preview-container .btn-group-vertical > .node-preview-backlink, .btn-group-vertical > .button, .btn-group-vertical > button.link,
 .btn-group-vertical > .btn-group {
   width: 100%;
 }
-.btn-group-vertical > .btn:not(:first-child), .forum-teaser .more-link .btn-group-vertical > a:not(:first-child), .user-anonymous #block-kin-account-menu li .btn-group-vertical > a:not(:first-child), .node-preview-container .btn-group-vertical > .node-preview-backlink:not(:first-child), .btn-group-vertical > .button:not(:first-child), .btn-group-vertical > button.link:not(:first-child),
+.btn-group-vertical > .btn:not(:first-child), .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > a:not(:first-child), .forum-teaser .more-link .btn-group-vertical > a:not(:first-child), .user-anonymous #block-kin-account-menu li .btn-group-vertical > a:not(:first-child), .node-preview-container .btn-group-vertical > .node-preview-backlink:not(:first-child), .btn-group-vertical > .button:not(:first-child), .btn-group-vertical > button.link:not(:first-child),
 .btn-group-vertical > .btn-group:not(:first-child) {
   margin-top: calc(var(--bs-border-width) * -1);
 }
-.btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle), .forum-teaser .more-link .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle), .user-anonymous #block-kin-account-menu li .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle), .node-preview-container .btn-group-vertical > .node-preview-backlink:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .button:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > button.link:not(:last-child):not(.dropdown-toggle),
+.btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle), .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle), .forum-teaser .more-link .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle), .user-anonymous #block-kin-account-menu li .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle), .node-preview-container .btn-group-vertical > .node-preview-backlink:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > .button:not(:last-child):not(.dropdown-toggle), .btn-group-vertical > button.link:not(:last-child):not(.dropdown-toggle),
 .btn-group-vertical > .btn-group:not(:last-child) > .btn,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > .btn-group:not(:last-child) > a,
 .forum-teaser .more-link .btn-group-vertical > .btn-group:not(:last-child) > a,
 .user-anonymous #block-kin-account-menu li .btn-group-vertical > .btn-group:not(:last-child) > a,
 .node-preview-container .btn-group-vertical > .btn-group:not(:last-child) > .node-preview-backlink,
@@ -3846,8 +3869,9 @@ textarea.form-control-lg {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.btn-group-vertical > .btn ~ .btn, .forum-teaser .more-link .btn-group-vertical > a ~ .btn, .forum-teaser .more-link .btn-group-vertical > .btn ~ a, .forum-teaser .more-link .btn-group-vertical > a ~ a, .user-anonymous #block-kin-account-menu li .btn-group-vertical > a ~ .btn, .user-anonymous #block-kin-account-menu li .btn-group-vertical > .btn ~ a, .user-anonymous #block-kin-account-menu li .btn-group-vertical > a ~ a, .node-preview-container .btn-group-vertical > .node-preview-backlink ~ .btn, .node-preview-container .forum-teaser .more-link .btn-group-vertical > .node-preview-backlink ~ a, .forum-teaser .more-link .node-preview-container .btn-group-vertical > .node-preview-backlink ~ a, .node-preview-container .user-anonymous #block-kin-account-menu li .btn-group-vertical > .node-preview-backlink ~ a, .user-anonymous #block-kin-account-menu li .node-preview-container .btn-group-vertical > .node-preview-backlink ~ a, .node-preview-container .btn-group-vertical > .btn ~ .node-preview-backlink, .node-preview-container .forum-teaser .more-link .btn-group-vertical > a ~ .node-preview-backlink, .forum-teaser .more-link .node-preview-container .btn-group-vertical > a ~ .node-preview-backlink, .node-preview-container .user-anonymous #block-kin-account-menu li .btn-group-vertical > a ~ .node-preview-backlink, .user-anonymous #block-kin-account-menu li .node-preview-container .btn-group-vertical > a ~ .node-preview-backlink, .node-preview-container .btn-group-vertical > .node-preview-backlink ~ .node-preview-backlink, .btn-group-vertical > .button ~ .btn, .forum-teaser .more-link .btn-group-vertical > .button ~ a, .user-anonymous #block-kin-account-menu li .btn-group-vertical > .button ~ a, .node-preview-container .btn-group-vertical > .button ~ .node-preview-backlink, .btn-group-vertical > .btn ~ .button, .forum-teaser .more-link .btn-group-vertical > a ~ .button, .user-anonymous #block-kin-account-menu li .btn-group-vertical > a ~ .button, .node-preview-container .btn-group-vertical > .node-preview-backlink ~ .button, .btn-group-vertical > .button ~ .button, .btn-group-vertical > button.link ~ .btn, .forum-teaser .more-link .btn-group-vertical > button.link ~ a, .user-anonymous #block-kin-account-menu li .btn-group-vertical > button.link ~ a, .node-preview-container .btn-group-vertical > button.link ~ .node-preview-backlink, .btn-group-vertical > button.link ~ .button, .btn-group-vertical > .btn ~ button.link, .forum-teaser .more-link .btn-group-vertical > a ~ button.link, .user-anonymous #block-kin-account-menu li .btn-group-vertical > a ~ button.link, .node-preview-container .btn-group-vertical > .node-preview-backlink ~ button.link, .btn-group-vertical > .button ~ button.link, .btn-group-vertical > button.link ~ button.link,
+.btn-group-vertical > .btn ~ .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > a ~ .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > .btn ~ a, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > a ~ a, .forum-teaser .more-link .btn-group-vertical > a ~ .btn, .forum-teaser .more-link .btn-group-vertical > .btn ~ a, .forum-teaser .more-link .btn-group-vertical > a ~ a, .user-anonymous #block-kin-account-menu li .btn-group-vertical > a ~ .btn, .user-anonymous #block-kin-account-menu li .btn-group-vertical > .btn ~ a, .user-anonymous #block-kin-account-menu li .btn-group-vertical > a ~ a, .node-preview-container .btn-group-vertical > .node-preview-backlink ~ .btn, .node-preview-container .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > .node-preview-backlink ~ a, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .node-preview-container .btn-group-vertical > .node-preview-backlink ~ a, .node-preview-container .forum-teaser .more-link .btn-group-vertical > .node-preview-backlink ~ a, .forum-teaser .more-link .node-preview-container .btn-group-vertical > .node-preview-backlink ~ a, .node-preview-container .user-anonymous #block-kin-account-menu li .btn-group-vertical > .node-preview-backlink ~ a, .user-anonymous #block-kin-account-menu li .node-preview-container .btn-group-vertical > .node-preview-backlink ~ a, .node-preview-container .btn-group-vertical > .btn ~ .node-preview-backlink, .node-preview-container .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > a ~ .node-preview-backlink, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .node-preview-container .btn-group-vertical > a ~ .node-preview-backlink, .node-preview-container .forum-teaser .more-link .btn-group-vertical > a ~ .node-preview-backlink, .forum-teaser .more-link .node-preview-container .btn-group-vertical > a ~ .node-preview-backlink, .node-preview-container .user-anonymous #block-kin-account-menu li .btn-group-vertical > a ~ .node-preview-backlink, .user-anonymous #block-kin-account-menu li .node-preview-container .btn-group-vertical > a ~ .node-preview-backlink, .node-preview-container .btn-group-vertical > .node-preview-backlink ~ .node-preview-backlink, .btn-group-vertical > .button ~ .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > .button ~ a, .forum-teaser .more-link .btn-group-vertical > .button ~ a, .user-anonymous #block-kin-account-menu li .btn-group-vertical > .button ~ a, .node-preview-container .btn-group-vertical > .button ~ .node-preview-backlink, .btn-group-vertical > .btn ~ .button, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > a ~ .button, .forum-teaser .more-link .btn-group-vertical > a ~ .button, .user-anonymous #block-kin-account-menu li .btn-group-vertical > a ~ .button, .node-preview-container .btn-group-vertical > .node-preview-backlink ~ .button, .btn-group-vertical > .button ~ .button, .btn-group-vertical > button.link ~ .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > button.link ~ a, .forum-teaser .more-link .btn-group-vertical > button.link ~ a, .user-anonymous #block-kin-account-menu li .btn-group-vertical > button.link ~ a, .node-preview-container .btn-group-vertical > button.link ~ .node-preview-backlink, .btn-group-vertical > button.link ~ .button, .btn-group-vertical > .btn ~ button.link, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > a ~ button.link, .forum-teaser .more-link .btn-group-vertical > a ~ button.link, .user-anonymous #block-kin-account-menu li .btn-group-vertical > a ~ button.link, .node-preview-container .btn-group-vertical > .node-preview-backlink ~ button.link, .btn-group-vertical > .button ~ button.link, .btn-group-vertical > button.link ~ button.link,
 .btn-group-vertical > .btn-group:not(:first-child) > .btn,
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-vertical > .btn-group:not(:first-child) > a,
 .forum-teaser .more-link .btn-group-vertical > .btn-group:not(:first-child) > a,
 .user-anonymous #block-kin-account-menu li .btn-group-vertical > .btn-group:not(:first-child) > a,
 .node-preview-container .btn-group-vertical > .btn-group:not(:first-child) > .node-preview-backlink,
@@ -4945,7 +4969,7 @@ footer.footer.navbar > div,
   display: none;
 }
 
-.btn .badge, .forum-teaser .more-link a .badge, .user-anonymous #block-kin-account-menu li a .badge, .node-preview-container .node-preview-backlink .badge, .button .badge, button.link .badge {
+.btn .badge, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a .badge, .forum-teaser .more-link a .badge, .user-anonymous #block-kin-account-menu li a .badge, .node-preview-container .node-preview-backlink .badge, .button .badge, button.link .badge {
   position: relative;
   top: -1px;
 }
@@ -6891,7 +6915,7 @@ footer.footer.navbar > div,
   background-color: currentcolor;
   opacity: 0.5;
 }
-.placeholder.btn::before, .forum-teaser .more-link a.placeholder::before, .user-anonymous #block-kin-account-menu li a.placeholder::before, .node-preview-container .placeholder.node-preview-backlink::before, .placeholder.button::before, button.placeholder.link::before {
+.placeholder.btn::before, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a.placeholder::before, .forum-teaser .more-link a.placeholder::before, .user-anonymous #block-kin-account-menu li a.placeholder::before, .node-preview-container .placeholder.node-preview-backlink::before, .placeholder.button::before, button.placeholder.link::before {
   display: inline-block;
   content: "";
 }
@@ -12119,10 +12143,10 @@ a.button.button--small {
   --bs-btn-border-radius: var(--bs-border-radius-sm);
 }
 
-.btn-primary a, .forum-teaser .more-link a a {
+.btn-primary a, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a a, .forum-teaser .more-link a a {
   color: #fff;
 }
-.btn-primary a:hover, .forum-teaser .more-link a a:hover {
+.btn-primary a:hover, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a a:hover, .forum-teaser .more-link a a:hover {
   color: #fff;
   text-decoration: none;
 }
@@ -12247,20 +12271,20 @@ a.button.button--small {
   text-decoration: none;
 }
 
-.btn, .forum-teaser .more-link a, .user-anonymous #block-kin-account-menu li a, .node-preview-container .node-preview-backlink, button.link,
+.btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a, .forum-teaser .more-link a, .user-anonymous #block-kin-account-menu li a, .node-preview-container .node-preview-backlink, button.link,
 .button, a.button {
   margin: 0 0.5rem;
 }
-.btn:first-child, .forum-teaser .more-link a:first-child, .user-anonymous #block-kin-account-menu li a:first-child, .node-preview-container .node-preview-backlink:first-child, button.link:first-child,
+.btn:first-child, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a:first-child, .forum-teaser .more-link a:first-child, .user-anonymous #block-kin-account-menu li a:first-child, .node-preview-container .node-preview-backlink:first-child, button.link:first-child,
 .button:first-child {
   margin-left: 0;
 }
-.btn:last-child, .forum-teaser .more-link a:last-child, .user-anonymous #block-kin-account-menu li a:last-child, .node-preview-container .node-preview-backlink:last-child, button.link:last-child,
+.btn:last-child, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a:last-child, .forum-teaser .more-link a:last-child, .user-anonymous #block-kin-account-menu li a:last-child, .node-preview-container .node-preview-backlink:last-child, button.link:last-child,
 .button:last-child {
   margin-right: 0;
 }
 
-.btn-group .btn, .btn-group .forum-teaser .more-link a, .forum-teaser .more-link .btn-group a, .btn-group .user-anonymous #block-kin-account-menu li a, .user-anonymous #block-kin-account-menu li .btn-group a, .btn-group .node-preview-container .node-preview-backlink, .node-preview-container .btn-group .node-preview-backlink, .btn-group button.link,
+.btn-group .btn, .btn-group .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group a, .btn-group .forum-teaser .more-link a, .forum-teaser .more-link .btn-group a, .btn-group .user-anonymous #block-kin-account-menu li a, .user-anonymous #block-kin-account-menu li .btn-group a, .btn-group .node-preview-container .node-preview-backlink, .node-preview-container .btn-group .node-preview-backlink, .btn-group button.link,
 .btn-group .button {
   margin: 0;
 }
@@ -12363,7 +12387,7 @@ td > .form-item {
   font-weight: 700;
 }
 
-.paragraphs-dropdown-action.button.btn-primary, .forum-teaser .more-link a.paragraphs-dropdown-action.button {
+.paragraphs-dropdown-action.button.btn-primary, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a.paragraphs-dropdown-action.button, .forum-teaser .more-link a.paragraphs-dropdown-action.button {
   background-color: #2D4C9B;
 }
 .paragraphs-dropdown-action.button.btn-danger {
@@ -12681,11 +12705,11 @@ tr.region-title td {
   line-height: 20px;
   padding: 0.1em 0.5em;
 }
-.views-admin .dropbutton .dropbutton-action .btn-primary, .views-admin .dropbutton .dropbutton-action .forum-teaser .more-link a, .forum-teaser .more-link .views-admin .dropbutton .dropbutton-action a {
+.views-admin .dropbutton .dropbutton-action .btn-primary, .views-admin .dropbutton .dropbutton-action .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .views-admin .dropbutton .dropbutton-action a, .views-admin .dropbutton .dropbutton-action .forum-teaser .more-link a, .forum-teaser .more-link .views-admin .dropbutton .dropbutton-action a {
   color: #2D4C9B;
   text-decoration: underline;
 }
-.views-admin .dropbutton .dropbutton-action .btn-primary:hover, .views-admin .dropbutton .dropbutton-action .forum-teaser .more-link a:hover, .forum-teaser .more-link .views-admin .dropbutton .dropbutton-action a:hover {
+.views-admin .dropbutton .dropbutton-action .btn-primary:hover, .views-admin .dropbutton .dropbutton-action .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a:hover, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .views-admin .dropbutton .dropbutton-action a:hover, .views-admin .dropbutton .dropbutton-action .forum-teaser .more-link a:hover, .forum-teaser .more-link .views-admin .dropbutton .dropbutton-action a:hover {
   color: rgb(36, 60.8, 124);
   text-decoration: none;
 }
@@ -12916,7 +12940,7 @@ ol li {
   margin-bottom: 0.6rem;
 }
 
-.btn-primary, .forum-teaser .more-link a {
+.btn-primary, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a, .forum-teaser .more-link a {
   background-color: #E6460F;
   color: #fff;
   border: none;
@@ -13068,7 +13092,7 @@ a:hover {
   margin-left: 0;
 }
 
-.btn-lg, .btn-group-lg > .btn, .forum-teaser .more-link .btn-group-lg > a, .btn-group-lg > button.link, .btn-group-lg > .button, .node-preview-container .btn-group-lg > .node-preview-backlink, .user-anonymous #block-kin-account-menu li .btn-group-lg > a {
+.btn-lg, .btn-group-lg > .btn, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .btn-group-lg > a, .forum-teaser .more-link .btn-group-lg > a, .btn-group-lg > button.link, .btn-group-lg > .button, .node-preview-container .btn-group-lg > .node-preview-backlink, .user-anonymous #block-kin-account-menu li .btn-group-lg > a {
   font-size: 1.5rem;
 }
 
@@ -13271,11 +13295,11 @@ legend {
 .block:not(.no-style) .member-block a, main .block:not(.no-style) .content-block a {
   color: #2D4C9B;
 }
-.block:not(.no-style) .member-block a.btn-primary, .block:not(.no-style) .member-block .forum-teaser .more-link a, .forum-teaser .more-link .block:not(.no-style) .member-block a, .block:not(.no-style) .member-block a.btn-secondary, main .block:not(.no-style) .content-block a.btn-primary, main .block:not(.no-style) .content-block .forum-teaser .more-link a, .forum-teaser .more-link main .block:not(.no-style) .content-block a, main .block:not(.no-style) .content-block a.btn-secondary {
+.block:not(.no-style) .member-block a.btn-primary, .block:not(.no-style) .member-block .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .block:not(.no-style) .member-block a, .block:not(.no-style) .member-block .forum-teaser .more-link a, .forum-teaser .more-link .block:not(.no-style) .member-block a, .block:not(.no-style) .member-block a.btn-secondary, main .block:not(.no-style) .content-block a.btn-primary, .page---shares main > div > div.row > div:first-of-type .block:not(.no-style) .content-block .views-row:last-of-type a, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .block:not(.no-style) .content-block a, main .block:not(.no-style) .content-block .forum-teaser .more-link a, .forum-teaser .more-link main .block:not(.no-style) .content-block a, main .block:not(.no-style) .content-block a.btn-secondary {
   color: #fff;
   border: none;
 }
-.block:not(.no-style) .member-block a.btn-primary:hover, .block:not(.no-style) .member-block .forum-teaser .more-link a:hover, .forum-teaser .more-link .block:not(.no-style) .member-block a:hover, .block:not(.no-style) .member-block a.btn-secondary:hover, main .block:not(.no-style) .content-block a.btn-primary:hover, main .block:not(.no-style) .content-block .forum-teaser .more-link a:hover, .forum-teaser .more-link main .block:not(.no-style) .content-block a:hover, main .block:not(.no-style) .content-block a.btn-secondary:hover {
+.block:not(.no-style) .member-block a.btn-primary:hover, .block:not(.no-style) .member-block .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a:hover, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .block:not(.no-style) .member-block a:hover, .block:not(.no-style) .member-block .forum-teaser .more-link a:hover, .forum-teaser .more-link .block:not(.no-style) .member-block a:hover, .block:not(.no-style) .member-block a.btn-secondary:hover, main .block:not(.no-style) .content-block a.btn-primary:hover, .page---shares main > div > div.row > div:first-of-type .block:not(.no-style) .content-block .views-row:last-of-type a:hover, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .block:not(.no-style) .content-block a:hover, main .block:not(.no-style) .content-block .forum-teaser .more-link a:hover, .forum-teaser .more-link main .block:not(.no-style) .content-block a:hover, main .block:not(.no-style) .content-block a.btn-secondary:hover {
   color: #fff;
 }
 .block:not(.no-style) .member-block a:hover, main .block:not(.no-style) .content-block a:hover {
@@ -13697,7 +13721,7 @@ table tbody tr.gift > *, table tbody tr:nth-of-type(odd).gift > * {
 .gift-details .views-field-id-2 {
   display: inline-block;
 }
-.gift-details .views-field-id-2 .btn-primary, .gift-details .views-field-id-2 .forum-teaser .more-link a, .forum-teaser .more-link .gift-details .views-field-id-2 a {
+.gift-details .views-field-id-2 .btn-primary, .gift-details .views-field-id-2 .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .gift-details .views-field-id-2 a, .gift-details .views-field-id-2 .forum-teaser .more-link a, .forum-teaser .more-link .gift-details .views-field-id-2 a {
   margin: 1rem 0;
 }
 .gift-details .views-field-nothing {
@@ -14003,7 +14027,7 @@ div.block.vertical .field--name-body {
 div.block.vertical .field--name-body p {
   margin: 0;
 }
-div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-body p button.link, div.block.vertical .field--name-body p .button, div.block.vertical .field--name-body p .node-preview-container .node-preview-backlink, .node-preview-container div.block.vertical .field--name-body p .node-preview-backlink, div.block.vertical .field--name-body p .user-anonymous #block-kin-account-menu li a, .user-anonymous #block-kin-account-menu li div.block.vertical .field--name-body p a, div.block.vertical .field--name-body p .forum-teaser .more-link a, .forum-teaser .more-link div.block.vertical .field--name-body p a {
+div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-body p .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type div.block.vertical .field--name-body p a, div.block.vertical .field--name-body p button.link, div.block.vertical .field--name-body p .button, div.block.vertical .field--name-body p .node-preview-container .node-preview-backlink, .node-preview-container div.block.vertical .field--name-body p .node-preview-backlink, div.block.vertical .field--name-body p .user-anonymous #block-kin-account-menu li a, .user-anonymous #block-kin-account-menu li div.block.vertical .field--name-body p a, div.block.vertical .field--name-body p .forum-teaser .more-link a, .forum-teaser .more-link div.block.vertical .field--name-body p a {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -14280,7 +14304,7 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
 .webform-submission-join-mailing-list-form .captcha legend, .webform-submission-join-mailing-list-form .captcha .description {
   display: none;
 }
-.webform-submission-join-mailing-list-form .btn-primary:hover, .webform-submission-join-mailing-list-form .forum-teaser .more-link a:hover, .forum-teaser .more-link .webform-submission-join-mailing-list-form a:hover {
+.webform-submission-join-mailing-list-form .btn-primary:hover, .webform-submission-join-mailing-list-form .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a:hover, .page---shares main > div > div.row > div:first-of-type .views-row:last-of-type .webform-submission-join-mailing-list-form a:hover, .webform-submission-join-mailing-list-form .forum-teaser .more-link a:hover, .forum-teaser .more-link .webform-submission-join-mailing-list-form a:hover {
   background-color: #FDC652;
   color: #000;
 }
@@ -14321,6 +14345,10 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
 }
 .page---shares main > div > div.row > div:first-of-type .views-row {
   position: relative;
+}
+.page---shares main > div > div.row > div:first-of-type .views-row:last-of-type a {
+  color: #fff;
+  margin-top: 0.4rem;
 }
 .page---shares main > div > div.row > div:first-of-type .views-row a {
   color: #2D4C9B;
