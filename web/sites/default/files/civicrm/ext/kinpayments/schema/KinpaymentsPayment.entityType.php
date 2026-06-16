@@ -24,9 +24,35 @@ return [
       ],
       'unique' => TRUE,
     ],
+    'contact_id' => [
+      'fields' => [
+        'contact_id' => TRUE,
+      ],
+      'unique' => TRUE,
+    ],
     'index_status_id' => [
       'fields' => [
         'payment_status_id' => TRUE,
+      ],
+    ],
+    'match_score' => [
+      'fields' => [
+        'match_score' => TRUE,
+      ]
+    ],
+    'bank_reference' => [
+      'fields' => [
+        'bank_reference' => TRUE,
+      ],
+    ],
+    'customer_reference' => [
+      'fields' => [
+        'customer_reference' => TRUE,
+      ],
+    ],
+    'customer_account_number' => [
+      'fields' => [
+        'customer_account_number' => TRUE,
       ],
     ],
     'unique_bank_payment' => [
@@ -121,7 +147,7 @@ return [
     ],
     'match_score' => [
       'title' => E::ts('Match Score'),
-      'sql_type' => 'tinyint unsigned',
+      'sql_type' => 'int',
       'input_type' => 'Number',
       'description' => E::ts('Matching confidence score 0-100. 0 = no match, 100 = certainty.'),
       'default' => 0,

@@ -90,6 +90,7 @@ function kinpayments_civicrm_import_post_import(string $objectName, array $impor
  * @param string $formName
  * @param object $form
  */
+/*
 function kinpayments_civicrm_postProcess(string $formName, $form): void {
   // nz.co.fuzion.csvimport form class name – adjust if the extension uses a different name
   $csvImportForms = [
@@ -123,3 +124,4 @@ function kinpayments_civicrm_postProcess(string $formName, $form): void {
     \Civi::log()->error('kinpayments: postProcess matching failed: ' . $e->getMessage());
   }
 }
+*/
