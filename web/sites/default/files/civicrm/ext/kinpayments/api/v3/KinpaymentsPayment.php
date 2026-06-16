@@ -181,3 +181,54 @@ function civicrm_api3_kinpayments_payment_getunique($params) {
     ['id']
   ], $params);
 }
+
+
+/**
+ * APIv3 wrapper for KinpaymentsPayment.match_payments.
+ *
+ * This lets the action be registered as a CiviCRM Scheduled Job so it can
+ * be triggered automatically after a CSV import or on a cron schedule.
+ *
+ * Scheduled Job settings (Administer → System Settings → Scheduled Jobs):
+ *   API entity  : KinpaymentsPayment
+ *   API action  : match_payments
+ *   Parameters  : include_unmatched=0   (set to 1 to reprocess unmatched)
+ */
+
+/**
+ * KinpaymentsPayment.match_payments API spec.
+ *
+ * @param array $spec
+ */
+function _civicrm_api3_kinpayments_payment_match_payments_spec(array &$spec): void
+{
+  $spec['include_unmatched'] = [
+    'title' => 'Include Unmatched',
+    'description' => 'Set to 1 to also reprocess records with status Not Matched (2).',
+    'type' => \CRM_Utils_Type::T_BOOLEAN,
+    'api.default' => 0,
+  ];
+  $spec['dry_run'] = [
+    'title' => 'Dry Run',
+    'description' => 'Set to 1 to score matches without writing to the database.',
+    'type' => \CRM_Utils_Type::T_BOOLEAN,
+    'api.default' => 0,
+  ];
+}
+
+/**
+ * KinpaymentsPayment.match_payments API action.
+ *
+ * @param array $params
+ * @return array
+ */
+function civicrm_api3_kinpayments_payment_match_payments(array $params): array
+{
+  $summary = \Civi\Api4\KinpaymentsPayment::matchPayments(FALSE)
+    ->setIncludeUnmatched(!empty($params['include_unmatched']))
+    ->setDryRun(!empty($params['dry_run']))
+    ->execute()
+    ->first();
+
+  return civicrm_api3_create_success($summary, $params, 'KinpaymentsPayment', 'match_payments');
+}

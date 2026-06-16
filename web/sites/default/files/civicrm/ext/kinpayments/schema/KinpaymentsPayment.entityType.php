@@ -1,4 +1,5 @@
 <?php
+
 use CRM_Kinpayments_ExtensionUtil as E;
 
 return [
@@ -118,17 +119,27 @@ return [
         'on_delete' => 'RESTRICT',
       ],
     ],
+    'match_score' => [
+      'title' => E::ts('Match Score'),
+      'sql_type' => 'tinyint unsigned',
+      'input_type' => 'Number',
+      'description' => E::ts('Matching confidence score 0-100. 0 = no match, 100 = certainty.'),
+      'default' => 0,
+      'input_attrs' => [
+        'min' => 0,
+        'max' => 100,
+      ],
+    ],
     'notes' => [
       'title' => E::ts('Notes'),
       'sql_type' => 'longtext',
       'input_type' => 'RichTextEditor',
-      'description' => E::ts('User generated notes about the pament'),
+      'description' => E::ts('User generated notes about the payment'),
       'input_attrs' => [
         'rows' => 4,
         'cols' => 60,
       ],
     ],
-
   ],
   'getPaths' => fn() => [],
 ];
