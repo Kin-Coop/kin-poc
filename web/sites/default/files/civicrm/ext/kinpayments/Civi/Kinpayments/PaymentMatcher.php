@@ -114,7 +114,7 @@ class PaymentMatcher {
     // with a score of 95 (not 100 — we can't rule out data entry errors where
     // two contributions share the same reference, but it's near-certain).
     if ($bankRef !== '') {
-      $directMatch = $this->findContributionByUniqueRef($bankRef);
+      $directMatch = $this->findContributionByUniqueRef($bankRef, $payment);
       if ($directMatch) {
         return $this->applyMatch($payment, $directMatch, (int) $directMatch['contact_id'], 95);
       }
@@ -206,6 +206,11 @@ class PaymentMatcher {
       return NULL;
     }
 
+    $paymentDate = new \DateTime($payment['datetime']);
+    $dateFrom    = (clone $paymentDate)->modify('-' . self::DATE_TOLERANCE_DAYS . ' days')->format('Y-m-d');
+    $dateTo      = (clone $paymentDate)->modify('+' . self::DATE_TOLERANCE_DAYS . ' days')->format('Y-m-d');
+    $amount      = (float) $payment['amount'];
+
     $results = \Civi\Api4\Contribution::get(FALSE)
       ->addSelect(
         'id',
@@ -220,6 +225,10 @@ class PaymentMatcher {
         'contact_id.' . self::FIELD_BANK_NUMBER
       )
       ->addWhere(self::FIELD_UNIQUE_REF, '=', $bankRef)
+      ->addWhere('total_amount', '=', $amount)
+      ->addWhere('receive_date', '>=', $dateFrom . ' 00:00:00')
+      ->addWhere('receive_date', '<=', $dateTo . ' 23:59:59')
+      //->addWhere('contribution_status_id', '=', 2) // Pending contributions only
       ->execute()
       ->getArrayCopy();
 
