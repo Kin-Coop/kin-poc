@@ -1924,6 +1924,15 @@ div.block.vertical {
 
           .views-row {
             position: relative;
+
+            &:last-of-type {
+              a {
+                @extend .btn;
+                @extend .btn-primary;
+                color: #fff;
+                margin-top: .4rem;
+              }
+            }
             a {
               color: $primary;
 
@@ -1940,7 +1949,6 @@ div.block.vertical {
               }
             }
           }
-
         }
       }
     }
