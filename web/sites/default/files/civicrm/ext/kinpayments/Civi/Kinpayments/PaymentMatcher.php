@@ -5,18 +5,36 @@ namespace Civi\Kinpayments;
 /**
  * Matches KinpaymentsPayment records to CiviCRM Contributions.
  *
+ * Matching pipeline (in priority order):
+ *
+ *  Step 1 — Direct bank_reference → custom_61 lookup (score 95, bypass scoring)
+ *            If bank_reference exactly matches any contribution's
+ *            Unique_Contribution_Reference field, that contribution and its
+ *            contact are used immediately. No further checks needed.
+ *
+ *  Step 2 — Fast path via bank account number (custom_154)
+ *            If customer_account_number already matches a contact's stored
+ *            Bank_Number, narrow the search to that contact, then score.
+ *
+ *  Step 3 — Scored candidate search
+ *            Fetch contributions by amount (hard gate) and date window (±5 days).
+ *            If the bank_reference prefix looks like a contact ID, try narrowing
+ *            to that contact first. If the prefix is absent, zero, or doesn't
+ *            match any contact (legacy / malformed references), fall back to a
+ *            full broad search across all contacts — the prefix is a hint, not
+ *            a hard filter.
+ *
  * Scoring breakdown (max 100):
- *  - Bank reference exact match to custom_61    : 40 pts  → strong signal, auto-match
- *  - Contact ID prefix in bank reference         : 15 pts  → structural hint
- *  - customer_account_number matches contact
- *    Kin_Groups.Bank_Number (custom_154)         : 30 pts  → reliable once populated
- *  - Amount exact match (required gate)          :  0 pts added, but gates all other scoring
- *  - Date within tolerance (±5 days)             : 15 pts  → scaled by proximity
- *  - Customer reference name similarity          : 15 pts  → fuzzy name match
+ *  - Bank reference exact match to custom_61    : 40 pts
+ *  - Contact ID prefix in bank reference         : 15 pts
+ *  - customer_account_number matches custom_154  : 30 pts
+ *  - Amount exact match                          :  0 pts (hard gate only)
+ *  - Date proximity (±5 days, linear decay)      : 15 pts
+ *  - Customer reference name similarity          : 15 pts
  *
  * Auto-match threshold  : score >= 60
  * Auto-reject threshold : score <  30
- * Between 30–59         : recorded but left as pending for manual review
+ * Between 30–59         : score stored, left as pending for manual review
  */
 class PaymentMatcher {
 
@@ -88,7 +106,23 @@ class PaymentMatcher {
    * @return string  'matched' | 'unmatched' | 'pending'
    */
   public function matchOne(array $payment): string {
-    // ── Step 1: fast path via bank_number (most reliable) ─────────────────
+    $bankRef = trim($payment['bank_reference'] ?? '');
+
+    // ── Step 1: direct bank_reference → custom_61 lookup ─────────────────
+    // This is the highest-confidence path. If bank_reference exactly matches
+    // a contribution's Unique_Contribution_Reference, we accept it immediately
+    // with a score of 95 (not 100 — we can't rule out data entry errors where
+    // two contributions share the same reference, but it's near-certain).
+    if ($bankRef !== '') {
+      $directMatch = $this->findContributionByUniqueRef($bankRef);
+      if ($directMatch) {
+        return $this->applyMatch($payment, $directMatch, (int) $directMatch['contact_id'], 95);
+      }
+    }
+
+    // ── Step 2: fast path via stored bank account number (custom_154) ─────
+    // Once a contact's bank account number has been recorded on a previous
+    // match, we can go straight to them.
     if (!empty($payment['customer_account_number'])) {
       $contactId = $this->findContactByBankNumber($payment['customer_account_number']);
       if ($contactId) {
@@ -96,11 +130,10 @@ class PaymentMatcher {
           $contactId,
           (float) $payment['amount'],
           $payment['datetime'],
-          $payment['bank_reference'] ?? ''
+          $bankRef
         );
         if ($contribution) {
           $score = $this->scoreMatch($payment, $contribution, $contactId);
-          // Even on the fast path we require a decent score to avoid false positives
           if ($score >= self::SCORE_AUTO_MATCH) {
             return $this->applyMatch($payment, $contribution, $contactId, $score);
           }
@@ -108,7 +141,10 @@ class PaymentMatcher {
       }
     }
 
-    // ── Step 2: candidate search from contributions ────────────────────────
+    // ── Step 3: scored candidate search ───────────────────────────────────
+    // Fetch by amount + date. The prefix contact ID is a hint: if it resolves
+    // to a real contact we search that contact first; if not (legacy / malformed
+    // reference) we search broadly across all contacts.
     $candidates = $this->findCandidateContributions($payment);
 
     if (empty($candidates)) {
@@ -136,7 +172,7 @@ class PaymentMatcher {
       return $this->applyNoMatch($payment, $bestScore);
     }
 
-    // Ambiguous – record the score but leave as pending for human review
+    // Ambiguous – record the score but leave as pending for manual review
     if (!$this->options['dry_run']) {
       \Civi\Api4\KinpaymentsPayment::update(FALSE)
         ->addWhere('id', '=', $payment['id'])
@@ -149,19 +185,28 @@ class PaymentMatcher {
   // ── Candidate retrieval ──────────────────────────────────────────────────
 
   /**
-   * Return contribution candidates using a broad, indexed filter set.
-   * We widen the net here and rely on scoring to narrow it down.
+   * Look up a contribution directly by its Unique_Contribution_Reference
+   * (custom_61) matching bank_reference exactly.
+   *
+   * When exactly one contribution matches, it is returned immediately.
+   *
+   * When multiple contributions share the same reference (data entry error, or
+   * a contact making the same type of contribution repeatedly), we tie-break:
+   *  1. Prefer contributions whose amount matches the payment amount exactly.
+   *  2. Among those, prefer the one with the closest receive_date.
+   *  3. If no amount match exists, pick the closest date overall.
+   *
+   * Returns NULL if no contributions carry this reference.
+   *
+   * @param string $bankRef  The bank_reference value to look up.
+   * @param array  $payment  The KinpaymentsPayment record (used for tie-breaking).
    */
-  private function findCandidateContributions(array $payment): array {
-    $paymentDate = new \DateTime($payment['datetime']);
-    $dateFrom    = (clone $paymentDate)->modify('-' . self::DATE_TOLERANCE_DAYS . ' days')->format('Y-m-d');
-    $dateTo      = (clone $paymentDate)->modify('+' . self::DATE_TOLERANCE_DAYS . ' days')->format('Y-m-d');
-    $amount      = (float) $payment['amount'];
+  private function findContributionByUniqueRef(string $bankRef, array $payment): ?array {
+    if ($bankRef === '') {
+      return NULL;
+    }
 
-    // --- Try contact ID from bank_reference prefix first (18 digits prefix) --
-    $prefixContactId = $this->extractContactIdFromReference($payment['bank_reference'] ?? '');
-
-    $query = \Civi\Api4\Contribution::get(FALSE)
+    $results = \Civi\Api4\Contribution::get(FALSE)
       ->addSelect(
         'id',
         'contact_id',
@@ -174,13 +219,92 @@ class PaymentMatcher {
         'contact_id.display_name',
         'contact_id.' . self::FIELD_BANK_NUMBER
       )
+      ->addWhere(self::FIELD_UNIQUE_REF, '=', $bankRef)
+      ->execute()
+      ->getArrayCopy();
+
+    if (empty($results)) {
+      return NULL;
+    }
+
+    if (count($results) === 1) {
+      return $results[0];
+    }
+
+    // Multiple hits — tie-break by amount match then date proximity.
+    $paymentAmount = (float) $payment['amount'];
+    $paymentDate   = new \DateTime($payment['datetime']);
+
+    $amountMatches = array_filter($results, fn($r) => (float) $r['total_amount'] === $paymentAmount);
+    $pool          = !empty($amountMatches) ? array_values($amountMatches) : $results;
+
+    usort($pool, function (array $a, array $b) use ($paymentDate): int {
+      $daysA = abs((int) (new \DateTime($a['receive_date']))->diff($paymentDate)->days);
+      $daysB = abs((int) (new \DateTime($b['receive_date']))->diff($paymentDate)->days);
+      return $daysA <=> $daysB;
+    });
+
+    return $pool[0];
+  }
+
+  /**
+   * Return contribution candidates using a broad, indexed filter set.
+   * Scoring narrows the field; this method casts a wide net.
+   *
+   * Strategy for the bank_reference prefix:
+   *  - If the prefix looks like a contact ID AND that contact exists in CiviCRM,
+   *    restrict the search to that contact (fast, precise).
+   *  - If the prefix is absent, zero, or the contact doesn't exist (legacy or
+   *    malformed reference), fall back to a full search on amount + date only.
+   *    The prefix is a hint, not a hard filter.
+   */
+  private function findCandidateContributions(array $payment): array {
+    $paymentDate = new \DateTime($payment['datetime']);
+    $dateFrom    = (clone $paymentDate)->modify('-' . self::DATE_TOLERANCE_DAYS . ' days')->format('Y-m-d');
+    $dateTo      = (clone $paymentDate)->modify('+' . self::DATE_TOLERANCE_DAYS . ' days')->format('Y-m-d');
+    $amount      = (float) $payment['amount'];
+
+    $selectFields = [
+      'id',
+      'contact_id',
+      'total_amount',
+      'receive_date',
+      'contribution_status_id',
+      self::FIELD_UNIQUE_REF,
+      'contact_id.first_name',
+      'contact_id.last_name',
+      'contact_id.display_name',
+      'contact_id.' . self::FIELD_BANK_NUMBER,
+    ];
+
+    // Determine whether the prefix resolves to a real contact
+    $prefixContactId = $this->extractContactIdFromReference($payment['bank_reference'] ?? '');
+    $narrowToContact = NULL;
+
+    if ($prefixContactId) {
+      $exists = \Civi\Api4\Contact::get(FALSE)
+        ->addSelect('id')
+        ->addWhere('id', '=', $prefixContactId)
+        ->addWhere('is_deleted', '=', FALSE)
+        ->setLimit(1)
+        ->execute()
+        ->count();
+
+      if ($exists) {
+        $narrowToContact = $prefixContactId;
+      }
+      // If the prefix doesn't match any contact, $narrowToContact stays NULL
+      // and we do a broad search below.
+    }
+
+    $query = \Civi\Api4\Contribution::get(FALSE)
+      ->addSelect(...$selectFields)
       ->addWhere('total_amount', '=', $amount)
       ->addWhere('receive_date', '>=', $dateFrom . ' 00:00:00')
       ->addWhere('receive_date', '<=', $dateTo . ' 23:59:59');
 
-    if ($prefixContactId) {
-      // Narrow to this contact – much faster
-      $query->addWhere('contact_id', '=', $prefixContactId);
+    if ($narrowToContact !== NULL) {
+      $query->addWhere('contact_id', '=', $narrowToContact);
     }
 
     return $query->execute()->getArrayCopy();
@@ -221,7 +345,7 @@ class PaymentMatcher {
     // If multiple, prefer one where the unique ref matches
     foreach ($results as $r) {
       if (!empty($r[self::FIELD_UNIQUE_REF]) && !empty($bankRef) &&
-          strtolower(trim($r[self::FIELD_UNIQUE_REF])) === strtolower(trim($bankRef))) {
+        strtolower(trim($r[self::FIELD_UNIQUE_REF])) === strtolower(trim($bankRef))) {
         return $r;
       }
     }
@@ -319,9 +443,9 @@ class PaymentMatcher {
     $lastName   = strtolower(trim($contribution['contact_id.last_name'] ?? ''));
 
     $surnameMatch = ($refSurname && $lastName && (
-      $refSurname === $lastName ||
-      levenshtein($refSurname, $lastName) <= 2
-    ));
+        $refSurname === $lastName ||
+        levenshtein($refSurname, $lastName) <= 2
+      ));
 
     // Check initial(s) in ref against first name(s)
     $initialMatch = FALSE;
@@ -333,9 +457,9 @@ class PaymentMatcher {
         }
         // Full first-name token
         if (strlen($token) > 1 && (
-          $token === $firstName ||
-          levenshtein($token, $firstName) <= 2
-        )) {
+            $token === $firstName ||
+            levenshtein($token, $firstName) <= 2
+          )) {
           $initialMatch = TRUE;
           break;
         }
