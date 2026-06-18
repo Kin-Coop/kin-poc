@@ -145,7 +145,11 @@ class PaymentMatcher {
     // Fetch by amount + date. The prefix contact ID is a hint: if it resolves
     // to a real contact we search that contact first; if not (legacy / malformed
     // reference) we search broadly across all contacts.
-    $candidates = $this->findCandidateContributions($payment);
+
+    // Get name parts from customer reference
+    $customerNames = $this->getNameParts($payment['customer_reference'] ?? '');
+
+    $candidates = $this->findCandidateContributions($payment, $customerNames);
 
     if (empty($candidates)) {
       return $this->applyNoMatch($payment);
@@ -267,7 +271,7 @@ class PaymentMatcher {
    *    malformed reference), fall back to a full search on amount + date only.
    *    The prefix is a hint, not a hard filter.
    */
-  private function findCandidateContributions(array $payment): array {
+  private function findCandidateContributions(array $payment, array $customerNames = NULL): array {
     $paymentDate = new \DateTime($payment['datetime']);
     $dateFrom    = (clone $paymentDate)->modify('-' . self::DATE_TOLERANCE_DAYS . ' days')->format('Y-m-d');
     $dateTo      = (clone $paymentDate)->modify('+' . self::DATE_TOLERANCE_DAYS . ' days')->format('Y-m-d');
@@ -314,6 +318,28 @@ class PaymentMatcher {
 
     if ($narrowToContact !== NULL) {
       $query->addWhere('contact_id', '=', $narrowToContact);
+    }
+
+    if($customerNames) {
+      $first = $customerNames[0] ?? '';
+      $last  = $customerNames[1] ?? '';
+
+      if($first && strlen($first) > 2) {
+        $strWhereFirst = "%$first%";
+      }
+
+      if($last && strlen($last) > 2) {
+        $strWhereLast = "%$last%";
+      }
+    }
+
+    if($strWhereFirst && $strWhereLast) {
+      $query->addClause('OR', ['contact_id.display_name', 'LIKE', $strWhereFirst], ['contact_id.display_name', 'LIKE', $strWhereLast]);
+    } elseif ($strWhereFirst) {
+      $query->addWhere('contact_id.display_name', 'LIKE', $strWhereFirst);
+      // ->addWhere('contact_id.display_name', 'LIKE', '%drummon%')
+    } elseif ($strWhereLast) {
+      $query->addWhere('contact_id.display_name', 'LIKE', $strWhereLast);
     }
 
     return $query->execute()->getArrayCopy();
@@ -418,7 +444,7 @@ class PaymentMatcher {
     $displayName  = trim($contribution['contact_id.display_name'] ?? '');
     if ($customerRef && $displayName) {
       $nameSimilarity = $this->nameMatchScore($customerRef, $displayName, $contribution);
-      $score += (int) round(15 * $nameSimilarity); // 0.0–1.0 → 0–15
+      $score += (int) round(60 * $nameSimilarity); // 0.0–1.0 → 0–60
     }
 
     return min(100, $score);
@@ -451,24 +477,31 @@ class PaymentMatcher {
     $firstName  = strtolower(trim($contribution['contact_id.first_name'] ?? ''));
     $lastName   = strtolower(trim($contribution['contact_id.last_name'] ?? ''));
 
-    $surnameMatch = ($refSurname && $lastName && (
-        $refSurname === $lastName ||
-        levenshtein($refSurname, $lastName) <= 2
-      ));
+    $surnameMatch = str_contains($refNorm, $lastName);
+
+    if($surnameMatch) {
+      $restofname = trim(str_replace($lastName, '', $refNorm));
+      $refTokens  = preg_split('/\s+/', $restofname);
+    }
+
+    //$surnameMatch = ($refSurname && $lastName && (
+        //$refSurname === $lastName ||
+        //levenshtein($refSurname, $lastName) <= 2
+      //));
 
     // Check initial(s) in ref against first name(s)
     $initialMatch = FALSE;
-    if (count($refTokens) > 1) {
-      foreach (array_slice($refTokens, 1) as $token) {
+    $firstInitial = mb_strtolower(mb_substr($firstName, 0, 1, 'UTF-8'), 'UTF-8');
+
+    if (count($refTokens) > 0) {
+      foreach (array_slice($refTokens, 0) as $token) {
         if (strlen($token) === 1 && $firstName && $token[0] === $firstName[0]) {
           $initialMatch = TRUE;
           break;
         }
         // Full first-name token
-        if (strlen($token) > 1 && (
-            $token === $firstName ||
-            levenshtein($token, $firstName) <= 2
-          )) {
+        //if (strlen($token) > 1 && ($token === $firstName || levenshtein($token, $firstName) <= 2)) {
+        if (mb_strtolower(mb_substr($token, 0, 1, 'UTF-8'), 'UTF-8') === $firstInitial) {
           $initialMatch = TRUE;
           break;
         }
@@ -479,7 +512,7 @@ class PaymentMatcher {
       return 0.9;
     }
     if ($surnameMatch) {
-      return 0.6;
+      return 0.8;
     }
 
     // Fallback: similar_text percentage
@@ -575,4 +608,11 @@ class PaymentMatcher {
     return $results->count() ? (int) $results->first()['id'] : NULL;
   }
 
+  private function getNameParts(string $name): array {
+    $parts = preg_split('/\s+/', trim($name));
+    $first = $parts[0] ?? '';
+    $last  = $parts[count($parts) - 1] ?? '';
+    return [$first, $last];
+    //return $parts;
+  }
 }
