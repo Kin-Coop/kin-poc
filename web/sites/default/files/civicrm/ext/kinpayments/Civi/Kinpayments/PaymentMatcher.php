@@ -241,6 +241,12 @@ class PaymentMatcher {
       return NULL;
     }
 
+    // Check if the contribution id already exits for another payment and if it does remove it from the array
+    $results = array_filter($results,
+      fn($contribution) => !$this->checkContributionPaymentExists($contribution['id'])
+    );
+    $results = array_values($results);
+
     if (count($results) === 1) {
       return $results[0];
     }
@@ -617,5 +623,20 @@ class PaymentMatcher {
     $last  = $parts[count($parts) - 1] ?? '';
     return [$first, $last];
     //return $parts;
+  }
+
+  Private function checkContributionPaymentExists(int $contributionId): bool {
+    $kinPayments = \Civi\Api4\KinpaymentsPayment::get(FALSE)
+      ->addSelect('id')
+      ->addWhere('contribution_id', '=', $contributionId)
+      ->setLimit(1)
+      ->execute()
+      ->count();
+
+    if ($kinPayments) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
