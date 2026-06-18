@@ -325,20 +325,21 @@ class PaymentMatcher {
       $last  = $customerNames[1] ?? '';
 
       if($first && strlen($first) > 2) {
-        $strWhereFirst = "'contact_id.display_name', 'LIKE', '$first'";
+        $strWhereFirst = "%$first%";
       }
 
       if($last && strlen($last) > 2) {
-        $strWhereLast = "'contact_id.display_name', 'LIKE', '$last'";
+        $strWhereLast = "%$last%";
       }
     }
 
     if($strWhereFirst && $strWhereLast) {
-      $query->addClause('OR', $strWhereFirst, $strWhereLast);
+      $query->addClause('OR', ['contact_id.display_name', 'LIKE', $strWhereFirst], ['contact_id.display_name', 'LIKE', $strWhereLast]);
     } elseif ($strWhereFirst) {
-      $query->addWhere($strWhereFirst);
+      $query->addWhere('contact_id.display_name', 'LIKE', $strWhereFirst);
+      // ->addWhere('contact_id.display_name', 'LIKE', '%drummon%')
     } elseif ($strWhereLast) {
-      $query->addWhere($strWhereLast);
+      $query->addWhere('contact_id.display_name', 'LIKE', $strWhereLast);
     }
 
     return $query->execute()->getArrayCopy();
@@ -443,7 +444,7 @@ class PaymentMatcher {
     $displayName  = trim($contribution['contact_id.display_name'] ?? '');
     if ($customerRef && $displayName) {
       $nameSimilarity = $this->nameMatchScore($customerRef, $displayName, $contribution);
-      $score += (int) round(15 * $nameSimilarity); // 0.0–1.0 → 0–15
+      $score += (int) round(60 * $nameSimilarity); // 0.0–1.0 → 0–60
     }
 
     return min(100, $score);
@@ -490,6 +491,8 @@ class PaymentMatcher {
 
     // Check initial(s) in ref against first name(s)
     $initialMatch = FALSE;
+    $firstInitial = mb_strtolower(mb_substr($firstName, 0, 1, 'UTF-8'), 'UTF-8');
+
     if (count($refTokens) > 0) {
       foreach (array_slice($refTokens, 0) as $token) {
         if (strlen($token) === 1 && $firstName && $token[0] === $firstName[0]) {
@@ -497,10 +500,8 @@ class PaymentMatcher {
           break;
         }
         // Full first-name token
-        if (strlen($token) > 1 && (
-            $token === $firstName ||
-            levenshtein($token, $firstName) <= 2
-          )) {
+        //if (strlen($token) > 1 && ($token === $firstName || levenshtein($token, $firstName) <= 2)) {
+        if (mb_strtolower(mb_substr($token, 0, 1, 'UTF-8'), 'UTF-8') === $firstInitial) {
           $initialMatch = TRUE;
           break;
         }
@@ -511,7 +512,7 @@ class PaymentMatcher {
       return 0.9;
     }
     if ($surnameMatch) {
-      return 0.6;
+      return 0.8;
     }
 
     // Fallback: similar_text percentage
