@@ -232,6 +232,7 @@ class PaymentMatcher {
       ->addWhere('total_amount', '=', $amount)
       ->addWhere('receive_date', '>=', $dateFrom . ' 00:00:00')
       ->addWhere('receive_date', '<=', $dateTo . ' 23:59:59')
+      ->addWhere('contribution_status_id', '<>', 3) // Do not include cancelled contributions
       //->addWhere('contribution_status_id', '=', 2) // Pending contributions only
       ->execute()
       ->getArrayCopy();
@@ -314,7 +315,8 @@ class PaymentMatcher {
       ->addSelect(...$selectFields)
       ->addWhere('total_amount', '=', $amount)
       ->addWhere('receive_date', '>=', $dateFrom . ' 00:00:00')
-      ->addWhere('receive_date', '<=', $dateTo . ' 23:59:59');
+      ->addWhere('receive_date', '<=', $dateTo . ' 23:59:59')
+      ->addWhere('contribution_status_id', '<>', 3); // Do not include cancelled contributions
 
     if ($narrowToContact !== NULL) {
       $query->addWhere('contact_id', '=', $narrowToContact);
@@ -370,6 +372,7 @@ class PaymentMatcher {
       ->addWhere('total_amount', '=', $amount)
       ->addWhere('receive_date', '>=', $dateFrom . ' 00:00:00')
       ->addWhere('receive_date', '<=', $dateTo . ' 23:59:59')
+      ->addWhere('contribution_status_id', '<>', 3) // Do not include cancelled contributions
       ->execute()
       ->getArrayCopy();
 
