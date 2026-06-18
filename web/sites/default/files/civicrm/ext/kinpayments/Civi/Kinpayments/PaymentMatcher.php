@@ -382,6 +382,12 @@ class PaymentMatcher {
       ->execute()
       ->getArrayCopy();
 
+    // Check if the contribution id already exits for another payment and if it does remove it from the array
+    $results = array_filter($results,
+      fn($contribution) => !$this->checkContributionPaymentExists($contribution['id'])
+    );
+    $results = array_values($results);
+
     if (empty($results)) {
       return NULL;
     }
