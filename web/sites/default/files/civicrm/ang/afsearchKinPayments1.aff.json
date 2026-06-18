@@ -1,0 +1,19 @@
+{
+    "type": "search",
+    "title": "Kin Payments",
+    "placement": [],
+    "placement_filters": [],
+    "icon": "fa-list-alt",
+    "server_route": "civicrm/kin-payments",
+    "permission": [
+        "access CiviCRM"
+    ],
+    "permission_operator": "AND",
+    "navigation": {
+        "parent": "afsearchContributionsStatus",
+        "label": "Kin Payments",
+        "weight": 4
+    },
+    "confirmation_type": "redirect_to_url",
+    "created_id": 2
+}
