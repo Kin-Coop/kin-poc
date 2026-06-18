@@ -237,15 +237,17 @@ class PaymentMatcher {
       ->execute()
       ->getArrayCopy();
 
-    if (empty($results)) {
-      return NULL;
-    }
+
 
     // Check if the contribution id already exits for another payment and if it does remove it from the array
     $results = array_filter($results,
       fn($contribution) => !$this->checkContributionPaymentExists($contribution['id'])
     );
     $results = array_values($results);
+
+    if (empty($results)) {
+      return NULL;
+    }
 
     if (count($results) === 1) {
       return $results[0];
@@ -350,7 +352,17 @@ class PaymentMatcher {
       $query->addWhere('contact_id.display_name', 'LIKE', $strWhereLast);
     }
 
-    return $query->execute()->getArrayCopy();
+    $results = $query->execute()->getArrayCopy();
+
+    // Check contribution not already matched to a payment
+    $results = array_filter($results,
+      fn($contribution) => !$this->checkContributionPaymentExists($contribution['id'])
+    );
+    $results = array_values($results);
+
+    return $results;
+
+    //return $query->execute()->getArrayCopy();
   }
 
   /**
@@ -392,6 +404,7 @@ class PaymentMatcher {
       return NULL;
     }
 
+    /*
     // If multiple, prefer one where the unique ref matches
     foreach ($results as $r) {
       if (!empty($r[self::FIELD_UNIQUE_REF]) && !empty($bankRef) &&
@@ -399,6 +412,19 @@ class PaymentMatcher {
         return $r;
       }
     }
+    return $results[0];
+    */
+
+    if (count($results) === 1) {
+      return $results[0];
+    }
+
+    // Multiple hits — tie-break by date proximity.
+    usort($results, function (array $a, array $b) use ($paymentDate): int {
+      $daysA = abs((int) (new \DateTime($a['receive_date']))->diff($paymentDate)->days);
+      $daysB = abs((int) (new \DateTime($b['receive_date']))->diff($paymentDate)->days);
+      return $daysA <=> $daysB;
+    });
 
     return $results[0];
   }
