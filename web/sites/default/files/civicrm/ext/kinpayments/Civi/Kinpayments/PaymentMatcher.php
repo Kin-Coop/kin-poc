@@ -237,6 +237,14 @@ class PaymentMatcher {
       ->execute()
       ->getArrayCopy();
 
+
+
+    // Check if the contribution id already exits for another payment and if it does remove it from the array
+    $results = array_filter($results,
+      fn($contribution) => !$this->checkContributionPaymentExists($contribution['id'])
+    );
+    $results = array_values($results);
+
     if (empty($results)) {
       return NULL;
     }
@@ -335,16 +343,26 @@ class PaymentMatcher {
       }
     }
 
-    if($strWhereFirst && $strWhereLast) {
+    if(isset($strWhereFirst) && isset($strWhereLast)) {
       $query->addClause('OR', ['contact_id.display_name', 'LIKE', $strWhereFirst], ['contact_id.display_name', 'LIKE', $strWhereLast]);
-    } elseif ($strWhereFirst) {
+    } elseif (isset($strWhereFirst)) {
       $query->addWhere('contact_id.display_name', 'LIKE', $strWhereFirst);
       // ->addWhere('contact_id.display_name', 'LIKE', '%drummon%')
-    } elseif ($strWhereLast) {
+    } elseif (isset($strWhereLast)) {
       $query->addWhere('contact_id.display_name', 'LIKE', $strWhereLast);
     }
 
-    return $query->execute()->getArrayCopy();
+    $results = $query->execute()->getArrayCopy();
+
+    // Check contribution not already matched to a payment
+    $results = array_filter($results,
+      fn($contribution) => !$this->checkContributionPaymentExists($contribution['id'])
+    );
+    $results = array_values($results);
+
+    return $results;
+
+    //return $query->execute()->getArrayCopy();
   }
 
   /**
@@ -376,10 +394,17 @@ class PaymentMatcher {
       ->execute()
       ->getArrayCopy();
 
+    // Check if the contribution id already exits for another payment and if it does remove it from the array
+    $results = array_filter($results,
+      fn($contribution) => !$this->checkContributionPaymentExists($contribution['id'])
+    );
+    $results = array_values($results);
+
     if (empty($results)) {
       return NULL;
     }
 
+    /*
     // If multiple, prefer one where the unique ref matches
     foreach ($results as $r) {
       if (!empty($r[self::FIELD_UNIQUE_REF]) && !empty($bankRef) &&
@@ -387,6 +412,19 @@ class PaymentMatcher {
         return $r;
       }
     }
+    return $results[0];
+    */
+
+    if (count($results) === 1) {
+      return $results[0];
+    }
+
+    // Multiple hits — tie-break by date proximity.
+    usort($results, function (array $a, array $b) use ($paymentDate): int {
+      $daysA = abs((int) (new \DateTime($a['receive_date']))->diff($paymentDate)->days);
+      $daysB = abs((int) (new \DateTime($b['receive_date']))->diff($paymentDate)->days);
+      return $daysA <=> $daysB;
+    });
 
     return $results[0];
   }
@@ -480,11 +518,25 @@ class PaymentMatcher {
     $firstName  = strtolower(trim($contribution['contact_id.first_name'] ?? ''));
     $lastName   = strtolower(trim($contribution['contact_id.last_name'] ?? ''));
 
-    $surnameMatch = str_contains($refNorm, $lastName);
+    $surnameMatch = FALSE;
+    // make sure last name is at least 3 characters to match
+    if(strlen($lastName) > 2) {
+      $surnameMatch = str_contains($refNorm, $lastName);
+    }
 
     if($surnameMatch) {
       $restofname = trim(str_replace($lastName, '', $refNorm));
       $refTokens  = preg_split('/\s+/', $restofname);
+    }
+
+    $firstNameMatch = FALSE;
+    // make sure first name is at least 3 characters to match
+    if(strlen($firstName) > 2) {
+      $firstNameMatch = str_contains(isset($restofname) ? $restofname : $refNorm, $firstName);
+    }
+
+    if ($surnameMatch && $firstNameMatch) {
+      return 1;
     }
 
     //$surnameMatch = ($refSurname && $lastName && (
@@ -516,6 +568,9 @@ class PaymentMatcher {
     }
     if ($surnameMatch) {
       return 0.8;
+    }
+    if ($firstNameMatch) {
+      return 0.7;
     }
 
     // Fallback: similar_text percentage
@@ -617,5 +672,20 @@ class PaymentMatcher {
     $last  = $parts[count($parts) - 1] ?? '';
     return [$first, $last];
     //return $parts;
+  }
+
+  Private function checkContributionPaymentExists(int $contributionId): bool {
+    $kinPayments = \Civi\Api4\KinpaymentsPayment::get(FALSE)
+      ->addSelect('id')
+      ->addWhere('contribution_id', '=', $contributionId)
+      ->setLimit(1)
+      ->execute()
+      ->count();
+
+    if ($kinPayments) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
