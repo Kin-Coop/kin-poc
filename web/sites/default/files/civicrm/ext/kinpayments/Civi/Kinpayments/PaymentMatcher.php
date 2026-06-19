@@ -343,12 +343,12 @@ class PaymentMatcher {
       }
     }
 
-    if($strWhereFirst && $strWhereLast) {
+    if(isset($strWhereFirst) && isset($strWhereLast)) {
       $query->addClause('OR', ['contact_id.display_name', 'LIKE', $strWhereFirst], ['contact_id.display_name', 'LIKE', $strWhereLast]);
-    } elseif ($strWhereFirst) {
+    } elseif (isset($strWhereFirst)) {
       $query->addWhere('contact_id.display_name', 'LIKE', $strWhereFirst);
       // ->addWhere('contact_id.display_name', 'LIKE', '%drummon%')
-    } elseif ($strWhereLast) {
+    } elseif (isset($strWhereLast)) {
       $query->addWhere('contact_id.display_name', 'LIKE', $strWhereLast);
     }
 
@@ -518,11 +518,25 @@ class PaymentMatcher {
     $firstName  = strtolower(trim($contribution['contact_id.first_name'] ?? ''));
     $lastName   = strtolower(trim($contribution['contact_id.last_name'] ?? ''));
 
-    $surnameMatch = str_contains($refNorm, $lastName);
+    $surnameMatch = FALSE;
+    // make sure last name is at least 3 characters to match
+    if(strlen($lastName) > 2) {
+      $surnameMatch = str_contains($refNorm, $lastName);
+    }
 
     if($surnameMatch) {
       $restofname = trim(str_replace($lastName, '', $refNorm));
       $refTokens  = preg_split('/\s+/', $restofname);
+    }
+
+    $firstNameMatch = FALSE;
+    // make sure first name is at least 3 characters to match
+    if(strlen($firstName) > 2) {
+      $firstNameMatch = str_contains(isset($restofname) ? $restofname : $refNorm, $firstName);
+    }
+
+    if ($surnameMatch && $firstNameMatch) {
+      return 1;
     }
 
     //$surnameMatch = ($refSurname && $lastName && (
@@ -554,6 +568,9 @@ class PaymentMatcher {
     }
     if ($surnameMatch) {
       return 0.8;
+    }
+    if ($firstNameMatch) {
+      return 0.7;
     }
 
     // Fallback: similar_text percentage
