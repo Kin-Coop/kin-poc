@@ -48,7 +48,7 @@ class PaymentMatcher {
   const SCORE_AUTO_REJECT  = 30;
 
   // Days either side of the payment date we will still consider a contribution
-  const DATE_TOLERANCE_DAYS = 3;
+  const DATE_TOLERANCE_DAYS = 5;
 
   // Custom field API names
   const FIELD_UNIQUE_REF   = 'Unique_Contribution_ID.Unique_Contribution_Reference'; // custom_61
@@ -148,7 +148,6 @@ class PaymentMatcher {
 
     // Get name parts from customer reference
     $customerNames = $this->getNameParts($payment['customer_reference'] ?? '');
-
     $candidates = $this->findCandidateContributions($payment, $customerNames);
 
     if (empty($candidates)) {
@@ -326,8 +325,23 @@ class PaymentMatcher {
       ->addWhere('receive_date', '<=', $dateTo . ' 23:59:59')
       ->addWhere('contribution_status_id', '<>', 3); // Do not include cancelled contributions
 
+    // Try getting results based on prefix, however this may be the wrong prefix!!
+    // So if this doesn't return results try again based on name
     if ($narrowToContact !== NULL) {
-      $query->addWhere('contact_id', '=', $narrowToContact);
+      $cidQuery = clone $query;
+      $cidQuery->addWhere('contact_id', '=', $narrowToContact);
+      $results = $cidQuery->execute()->getArrayCopy();
+
+      if($results) {
+        $results = array_filter($results,
+          fn($contribution) => !$this->checkContributionPaymentExists($contribution['id'])
+        );
+        $results = array_values($results);
+
+        if (count($results) > 0) {
+          return $results;
+        }
+      }
     }
 
     if($customerNames) {
@@ -511,66 +525,23 @@ class PaymentMatcher {
 
     // Normalise to tokens
     $refTokens  = preg_split('/\s+/', $refNorm);
-    $nameTokens = preg_split('/\s+/', $dispNorm);
+    //$nameTokens = preg_split('/\s+/', $dispNorm);
+    //$firstName  = strtolower(trim($contribution['contact_id.first_name'] ?? ''));
+    //$lastName   = strtolower(trim($contribution['contact_id.last_name'] ?? ''));
 
-    // Try surname match (bank refs usually lead with surname)
-    $refSurname = $refTokens[0] ?? '';
-    $firstName  = strtolower(trim($contribution['contact_id.first_name'] ?? ''));
-    $lastName   = strtolower(trim($contribution['contact_id.last_name'] ?? ''));
-
-    $surnameMatch = FALSE;
-    // make sure last name is at least 3 characters to match
-    if(strlen($lastName) > 2) {
-      $surnameMatch = str_contains($refNorm, $lastName);
-    }
-
-    if($surnameMatch) {
-      $restofname = trim(str_replace($lastName, '', $refNorm));
-      $refTokens  = preg_split('/\s+/', $restofname);
-    }
-
-    $firstNameMatch = FALSE;
-    // make sure first name is at least 3 characters to match
-    if(strlen($firstName) > 2) {
-      $firstNameMatch = str_contains(isset($restofname) ? $restofname : $refNorm, $firstName);
-    }
-
-    if ($surnameMatch && $firstNameMatch) {
-      return 1;
-    }
-
-    //$surnameMatch = ($refSurname && $lastName && (
-        //$refSurname === $lastName ||
-        //levenshtein($refSurname, $lastName) <= 2
-      //));
-
-    // Check initial(s) in ref against first name(s)
-    $initialMatch = FALSE;
-    $firstInitial = mb_strtolower(mb_substr($firstName, 0, 1, 'UTF-8'), 'UTF-8');
-
-    if (count($refTokens) > 0) {
-      foreach (array_slice($refTokens, 0) as $token) {
-        if (strlen($token) === 1 && $firstName && $token[0] === $firstName[0]) {
-          $initialMatch = TRUE;
-          break;
-        }
-        // Full first-name token
-        //if (strlen($token) > 1 && ($token === $firstName || levenshtein($token, $firstName) <= 2)) {
-        if (mb_strtolower(mb_substr($token, 0, 1, 'UTF-8'), 'UTF-8') === $firstInitial) {
-          $initialMatch = TRUE;
-          break;
+    $nameMatch = 0;
+    foreach ($refTokens as $token) {
+      if (strlen($token) > 2) {
+        if (str_contains($dispNorm, $token)) {
+          $nameMatch += 1;
         }
       }
     }
 
-    if ($surnameMatch && $initialMatch) {
-      return 0.9;
-    }
-    if ($surnameMatch) {
+    if ($nameMatch > 1) {
+      return 1.0;
+    } elseif ($nameMatch === 1) {
       return 0.8;
-    }
-    if ($firstNameMatch) {
-      return 0.7;
     }
 
     // Fallback: similar_text percentage
