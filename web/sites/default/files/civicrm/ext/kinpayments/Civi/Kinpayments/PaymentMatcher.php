@@ -48,7 +48,7 @@ class PaymentMatcher {
   const SCORE_AUTO_REJECT  = 30;
 
   // Days either side of the payment date we will still consider a contribution
-  const DATE_TOLERANCE_DAYS = 3;
+  const DATE_TOLERANCE_DAYS = 5;
 
   // Custom field API names
   const FIELD_UNIQUE_REF   = 'Unique_Contribution_ID.Unique_Contribution_Reference'; // custom_61
