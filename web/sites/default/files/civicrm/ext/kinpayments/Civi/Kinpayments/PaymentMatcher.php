@@ -457,8 +457,8 @@ class PaymentMatcher {
     $score = 0;
 
     // ── Signal 1: Bank reference → Unique_Contribution_Reference (max 40) ──
-    $uniqueRef  = $contribution[self::FIELD_UNIQUE_REF] ?? '';
-    $bankRef    = trim($payment['bank_reference'] ?? '');
+    $uniqueRef = $contribution[self::FIELD_UNIQUE_REF] ?? '';
+    $bankRef   = trim(str_replace(' ', '', $payment['bank_reference']) ?? '');
     if ($uniqueRef && $bankRef) {
       if (strtolower($uniqueRef) === strtolower($bankRef)) {
         $score += 40; // exact
