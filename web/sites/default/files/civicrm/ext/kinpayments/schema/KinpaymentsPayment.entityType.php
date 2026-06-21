@@ -28,7 +28,6 @@ return [
       'fields' => [
         'contact_id' => TRUE,
       ],
-      'unique' => TRUE,
     ],
     'index_status_id' => [
       'fields' => [
@@ -159,7 +158,8 @@ return [
     'notes' => [
       'title' => E::ts('Notes'),
       'sql_type' => 'longtext',
-      'input_type' => 'RichTextEditor',
+      'input_type' => 'Textarea',
+      'unique_name' => 'kin_payment_notes',
       'description' => E::ts('User generated notes about the payment'),
       'input_attrs' => [
         'rows' => 4,
