@@ -106,7 +106,8 @@ class PaymentMatcher {
    * @return string  'matched' | 'unmatched' | 'pending'
    */
   public function matchOne(array $payment): string {
-    $bankRef = trim($payment['bank_reference'] ?? '');
+    // Remove all spaces from the bank ref
+    $bankRef = trim(str_replace(' ', '', $payment['bank_reference']) ?? '');
 
     // ── Step 1: direct bank_reference → custom_61 lookup ─────────────────
     // This is the highest-confidence path. If bank_reference exactly matches
