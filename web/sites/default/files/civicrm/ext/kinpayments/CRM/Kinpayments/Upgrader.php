@@ -135,4 +135,19 @@ final class CRM_Kinpayments_Upgrader extends \CRM_Extension_Upgrader_Base {
   //   return TRUE;
   // }
 
+  public function upgrade_1001() {
+
+    CRM_Core_DAO::executeQuery("
+    ALTER TABLE civicrm_kinpayments_payment
+      MODIFY bank_reference VARCHAR(256) DEFAULT '123'
+  ");
+
+    CRM_Core_DAO::executeQuery("
+    ALTER TABLE civicrm_kinpayments_payment
+      MODIFY customer_reference VARCHAR(256) DEFAULT 'ABC'
+  ");
+
+    return TRUE;
+  }
+
 }
