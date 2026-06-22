@@ -150,4 +150,33 @@ final class CRM_Kinpayments_Upgrader extends \CRM_Extension_Upgrader_Base {
     return TRUE;
   }
 
+  public function upgrade_1002() {
+
+    // Replace existing NULL values.
+    CRM_Core_DAO::executeQuery("
+    UPDATE civicrm_kinpayments_payment
+       SET bank_reference = '123'
+     WHERE bank_reference IS NULL
+  ");
+
+    CRM_Core_DAO::executeQuery("
+    UPDATE civicrm_kinpayments_payment
+       SET customer_reference = 'ABC'
+     WHERE customer_reference IS NULL
+  ");
+
+    // Make columns NOT NULL with defaults.
+    CRM_Core_DAO::executeQuery("
+    ALTER TABLE civicrm_kinpayments_payment
+      MODIFY bank_reference VARCHAR(256) NOT NULL DEFAULT '123'
+  ");
+
+    CRM_Core_DAO::executeQuery("
+    ALTER TABLE civicrm_kinpayments_payment
+      MODIFY customer_reference VARCHAR(256) NOT NULL DEFAULT 'ABC'
+  ");
+
+    return TRUE;
+  }
+
 }
