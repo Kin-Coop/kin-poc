@@ -1,11 +1,10 @@
-<div af-fieldset="" store-values="1">
+<div af-fieldset="" store-values="1" class="af-container-style-pane" style="background-color: #97b2e7">
   <af-field name="contribution_status_id" defn="{input_attrs: {multiple: true}}" />
-  <af-field name="Kin_Contributions.Approved" defn="{input_attrs: {multiple: true}}" />
   <af-field name="total_amount" defn="{expose_operator: true, search_operator: '=', input_attrs: {}, required: false}" />
   <af-field name="financial_type_id" defn="{input_attrs: {multiple: true}}" />
-  <af-field name="Contribution_ContributionRecur_contribution_recur_id_01.frequency_unit" defn="{input_attrs: {multiple: true}, label: 'Frequency'}" />
   <af-field name="Kin_Contributions.Household.display_name" defn="{label: 'Group', input_attrs: {}}" />
   <af-field name="contact_id.display_name" defn="{label: 'Member', input_attrs: {}}" />
-  <af-field name="Unique_Contribution_ID.Unique_Contribution_Reference" defn="{label: 'Contribution Reference', input_attrs: {}}" />
+  <af-field name="receive_date" defn="{input_type: 'Select', search_range: true, input_attrs: {}}" />
+  <af-field name="Contribution_KinpaymentsPayment_contribution_id_01.id" defn="{expose_operator: true, search_operator: '=', input_attrs: {multiple: true}}" />
   <crm-search-display-table search-name="Contributions" display-name="Contributions_Table_1"></crm-search-display-table>
 </div>
