@@ -108,12 +108,14 @@ return [
       'title' => E::ts('Customer Reference'),
       'sql_type' => 'varchar(256)',
       'input_type' => 'Text',
+      'default' => 'ABC',
       'description' => E::ts('The member name'),
     ],
     'bank_reference' => [
       'title' => E::ts('Bank Reference'),
       'sql_type' => 'varchar(256)',
       'input_type' => 'Text',
+      'default' => '123',
       'description' => E::ts('The unique reference'),
     ],
     'customer_account_number' => [
