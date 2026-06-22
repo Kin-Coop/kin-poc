@@ -1,0 +1,14 @@
+if (getenv('IS_DDEV_PROJECT') === 'true') {
+  $civicrm_setting['domain']['mailing_backend'] = [
+    'outBound_option' => 0,
+  ];
+}
+or
+$civicrm_setting['domain']['mailing_backend'] = [
+  'outBound_option' => 0,
+  'smtpServer'      => '',
+  'smtpPort'        => 25,
+  'smtpAuth'        => 0,
+  'smtpUsername'    => '',
+  'smtpPassword'    => '',
+];
