@@ -1,6 +1,7 @@
 <div af-fieldset="">
-  <af-field name="payment_status_id" defn="{input_attrs: {multiple: true}}" />
+  <af-field name="payment_status_id" defn="{input_attrs: {multiple: true}, label: 'Status'}" />
   <af-field name="customer_reference" />
   <af-field name="contact_id.display_name" defn="{label: 'Member', input_attrs: {}}" />
+  <af-field name="amount" defn="{label: 'Amount', input_attrs: {}}" />
   <crm-search-display-table search-name="Kin_Payment" display-name="Kin_Payments"></crm-search-display-table>
 </div>
