@@ -109,7 +109,7 @@ return [
       'sql_type' => 'varchar(256)',
       'input_type' => 'Text',
       'required' => TRUE,
-      'default' => 'ABC',
+      'default' => '',
       'description' => E::ts('The member name'),
     ],
     'bank_reference' => [
@@ -117,7 +117,7 @@ return [
       'sql_type' => 'varchar(256)',
       'input_type' => 'Text',
       'required' => TRUE,
-      'default' => '123',
+      'default' => '',
       'description' => E::ts('The unique reference'),
     ],
     'customer_account_number' => [

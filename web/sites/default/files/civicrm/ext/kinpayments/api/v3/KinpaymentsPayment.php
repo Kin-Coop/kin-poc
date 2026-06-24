@@ -156,7 +156,7 @@ function civicrm_api3_kinpayments_payment_getfields($params) {
 
   $fields = [];
 
-  $api4Fields = \Civi\Api4\KinpaymentsPayment::getFields()
+  $api4Fields = \Civi\Api4\KinpaymentsPayment::getFields(FALSE)
     ->execute();
 
   foreach ($api4Fields as $field) {
@@ -167,9 +167,11 @@ function civicrm_api3_kinpayments_payment_getfields($params) {
       'data_type' => $field['data_type'] ?? 'String',
     ];
 
+    /*
     if (!empty($field['required'])) {
       $fields[$field['name']]['api.required'] = 1;
     }
+    */
   }
 
   return civicrm_api3_create_success($fields, $params);
