@@ -14,7 +14,8 @@ class CRM_Civirules_BAO_CiviRulesRuleAction extends CRM_Civirules_DAO_CiviRulesR
    */
   public function unserializeParams(): array {
     if (!empty($this->action_params) && !is_array($this->action_params)) {
-      return unserialize($this->action_params);
+      // Deprecated compatibility check - remove once all data migrated to array storage
+      return is_array($this->action_params) ? $this->action_params : unserialize($this->action_params);
     }
     return [];
   }
@@ -24,7 +25,7 @@ class CRM_Civirules_BAO_CiviRulesRuleAction extends CRM_Civirules_DAO_CiviRulesR
    * @param \Civi\Core\Event\PostEvent $event
    */
   public static function self_hook_civicrm_post(\Civi\Core\Event\PostEvent $event) {
-    if (in_array($event->action, ['create' , 'edit'])) {
+    if (in_array($event->action, ['create', 'edit'])) {
       CRM_Utils_Weight::correctDuplicateWeights('CRM_Civirules_DAO_CiviRulesRuleAction');
     }
   }

@@ -2,22 +2,6 @@
 
 class CRM_CivirulesConditions_Contact_HasType extends CRM_Civirules_Condition {
 
-  private $conditionParams = array();
-
-  /**
-   * Method to set the Rule Condition data
-   *
-   * @param array $ruleCondition
-   * @access public
-   */
-  public function setRuleConditionData($ruleCondition) {
-    parent::setRuleConditionData($ruleCondition);
-    $this->conditionParams = array();
-    if (!empty($this->ruleCondition['condition_params'])) {
-      $this->conditionParams = unserialize($this->ruleCondition['condition_params']);
-    }
-  }
-
   /**
    * This method returns true or false when an condition is valid or not
    *
@@ -26,13 +10,14 @@ class CRM_CivirulesConditions_Contact_HasType extends CRM_Civirules_Condition {
    * @access public
    */
   public function isConditionValid(CRM_Civirules_TriggerData_TriggerData $triggerData) {
-    $isConditionValid = false;
+    $isConditionValid = FALSE;
     $contact = $triggerData->getEntityData('Contact');
 
-    switch($this->conditionParams['operator']) {
+    switch ($this->conditionParams['operator']) {
       case 'is one of':
         $isConditionValid = in_array($contact['contact_type'], $this->conditionParams['type_names']);
         break;
+
       case 'is not one of':
         $isConditionValid = !in_array($contact['contact_type'], $this->conditionParams['type_names']);;
         break;
@@ -71,7 +56,7 @@ class CRM_CivirulesConditions_Contact_HasType extends CRM_Civirules_Condition {
     }
 
     $types = '';
-    foreach($this->conditionParams['type_names'] as $type) {
+    foreach ($this->conditionParams['type_names'] as $type) {
       if (strlen($types)) {
         $types .= ', ';
       }

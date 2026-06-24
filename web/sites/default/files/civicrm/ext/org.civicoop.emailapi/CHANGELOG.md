@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Version 2.27.0 (2026-06-17)
+
+* [!79](https://lab.civicrm.org/extensions/emailapi/-/merge_requests/79) Fix #43 Action 'Send Email to a custom field value' fails at a custom field selection with the "Object of class GuzzleHttp\Psr7\ServerRequest could not be converted to string".
+* [!82](https://lab.civicrm.org/extensions/emailapi/-/merge_requests/82) Add workflow parameter to mailParams in Email.Send API.
+* [!81](https://lab.civicrm.org/extensions/emailapi/-/merge_requests/81) Enhance Email.Send API to support content alteration via hooks and update tests for consistency.
+* [!80](https://lab.civicrm.org/extensions/emailapi/-/merge_requests/80) civirules#282 Mark from email address as already escaped.
+* [!83](https://lab.civicrm.org/extensions/emailapi/-/merge_requests/83) pipeline to publish composer packages.
+
+## Version 2.26.1 (2026-03-27)
+
+* Changed send e-mail to a contact reference so that it can send to multiple contact reference fields.
+
+## Version 2.26.0 (2026-02-11)
+
+* Changed send e-mail to a contact reference so that it can send to multiple contact reference fields.
+
 ## Version 2.25.0 (2026-02-11)
 
 * [#33](https://lab.civicrm.org/extensions/emailapi/-/issues/33) Fixed Send E-mail to a contact reference fails.

@@ -3,24 +3,6 @@
 class CRM_CivirulesConditions_Group_GroupType extends CRM_Civirules_Condition {
 
   /**
-   * @var array
-   */
-  private $conditionParams = [];
-
-  /**
-   * Method to set the Rule Condition data
-   *
-   * @param array $ruleCondition
-   */
-  public function setRuleConditionData($ruleCondition) {
-    parent::setRuleConditionData($ruleCondition);
-    $this->conditionParams = [];
-    if (!empty($this->ruleCondition['condition_params'])) {
-      $this->conditionParams = unserialize($this->ruleCondition['condition_params']);
-    }
-  }
-
-  /**
    * Method to determine if the condition is valid
    *
    * @param CRM_Civirules_TriggerData_TriggerData $triggerData
@@ -39,12 +21,13 @@ class CRM_CivirulesConditions_Group_GroupType extends CRM_Civirules_Condition {
     // Our assumptions is that we have only one case type id per case.
     switch ($this->conditionParams['operator']) {
       case 0:
-        if (in_array( $this->conditionParams['group_type_id'], $group['group_type'])) {
+        if (in_array($this->conditionParams['group_type_id'], $group['group_type'])) {
           $isConditionValid = TRUE;
         }
         break;
+
       case 1:
-        if (!in_array( $this->conditionParams['group_type_id'], $group['group_type'])) {
+        if (!in_array($this->conditionParams['group_type_id'], $group['group_type'])) {
           $isConditionValid = TRUE;
         }
         break;
@@ -93,21 +76,23 @@ class CRM_CivirulesConditions_Group_GroupType extends CRM_Civirules_Condition {
   public function exportConditionParameters() {
     $params = parent::exportConditionParameters();
     if (!empty($params['group_type_id']) && is_array($params['group_type_id'])) {
-      foreach($params['group_type_id'] as $i => $j) {
+      foreach ($params['group_type_id'] as $i => $j) {
         $params['group_type_id'][$i] = civicrm_api3('OptionValue', 'getvalue', [
           'return' => 'name',
           'value' => $j,
           'option_group_id' => 'group_type',
         ]);
       }
-    } elseif (!empty($params['group_type_id'])) {
+    }
+    elseif (!empty($params['group_type_id'])) {
       try {
         $params['group_type_id'] = civicrm_api3('OptionValue', 'getvalue', [
           'return' => 'name',
           'value' => $params['group_type_id'],
           'option_group_id' => 'group_type',
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -122,21 +107,23 @@ class CRM_CivirulesConditions_Group_GroupType extends CRM_Civirules_Condition {
    */
   public function importConditionParameters($condition_params = NULL) {
     if (!empty($condition_params['group_type_id']) && is_array($condition_params['group_type_id'])) {
-      foreach($condition_params['group_type_id'] as $i => $j) {
+      foreach ($condition_params['group_type_id'] as $i => $j) {
         $condition_params['group_type_id'][$i] = civicrm_api3('OptionValue', 'getvalue', [
           'return' => 'name',
           'value' => $j,
           'option_group_id' => 'group_type',
         ]);
       }
-    } elseif (!empty($condition_params['group_type_id'])) {
+    }
+    elseif (!empty($condition_params['group_type_id'])) {
       try {
         $condition_params['group_type_id'] = civicrm_api3('OptionValue', 'getvalue', [
           'return' => 'value',
           'name' => $condition_params['group_type_id'],
           'option_group_id' => 'group_type',
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }

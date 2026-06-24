@@ -9,22 +9,6 @@
  */
 class CRM_CivirulesConditions_Contribution_IsRecurring extends CRM_Civirules_Condition {
 
-  private $conditionParams = array();
-
-  /**
-   * Method to set the Rule Condition data
-   *
-   * @param array $ruleCondition
-   * @access public
-   */
-  public function setRuleConditionData($ruleCondition) {
-    parent::setRuleConditionData($ruleCondition);
-    $this->conditionParams = array();
-    if (!empty($this->ruleCondition['condition_params'])) {
-      $this->conditionParams = unserialize($this->ruleCondition['condition_params']);
-    }
-  }
-
   /**
    * Checks if the condition is met
    *
@@ -36,9 +20,11 @@ class CRM_CivirulesConditions_Contribution_IsRecurring extends CRM_Civirules_Con
     $contribution = $triggerData->getEntityData('Contribution');
     if ($this->conditionParams['test'] == 'is recurring') {
       return !empty($contribution['contribution_recur_id']);
-    } elseif ($this->conditionParams['test'] == 'is not recurring') {
+    }
+    elseif ($this->conditionParams['test'] == 'is not recurring') {
       return empty($contribution['contribution_recur_id']);
-    } else {
+    }
+    else {
       throw new Exception("Invalid operator in 'Is Recurring' Condition", 1);
     }
   }

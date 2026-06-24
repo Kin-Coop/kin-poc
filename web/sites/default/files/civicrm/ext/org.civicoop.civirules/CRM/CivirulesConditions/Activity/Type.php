@@ -8,27 +8,10 @@ use Civi\Api4\Activity;
  * @author Erik Hommel (CiviCooP) <erik.hommel@civicoop.org>
  * @license http://www.gnu.org/licenses/agpl-3.0.html
  */
-
 class CRM_CivirulesConditions_Activity_Type extends CRM_Civirules_Condition {
-
-  private $conditionParams = array();
 
   public function getExtraDataInputUrl($ruleConditionId) {
     return $this->getFormattedExtraDataInputUrl('civicrm/civirule/form/condition/activity_type', $ruleConditionId);
-  }
-
-  /**
-   * Method to set the Rule Condition data
-   *
-   * @param array $ruleCondition
-   * @access public
-   */
-  public function setRuleConditionData($ruleCondition) {
-    parent::setRuleConditionData($ruleCondition);
-    $this->conditionParams = array();
-    if (!empty($this->ruleCondition['condition_params'])) {
-      $this->conditionParams = unserialize($this->ruleCondition['condition_params']);
-    }
   }
 
   /**
@@ -41,12 +24,19 @@ class CRM_CivirulesConditions_Activity_Type extends CRM_Civirules_Condition {
     $params = parent::exportConditionParameters();
     if (!empty($params['activity_type_id'])) {
       try {
-        $params['activity_type_id'] = civicrm_api3('OptionValue', 'getvalue', [
-          'return' => 'name',
-          'value' => $params['activity_type_id'],
-          'option_group_id' => 'activity_type',
+        $optionValues = civicrm_api4('OptionValue', 'get', [
+          'select' => [
+            'name',
+          ],
+          'where' => [
+            ['value', 'IN', $params['activity_type_id']],
+            ['option_group_id:name', '=', 'activity_type'],
+          ],
+          'checkPermissions' => FALSE,
         ]);
-      } catch (\CRM_Core_Exception $e) {
+        $params['activity_type_id'] = array_column(iterator_to_array($optionValues), 'name');
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -67,7 +57,8 @@ class CRM_CivirulesConditions_Activity_Type extends CRM_Civirules_Condition {
           'name' => $condition_params['activity_type_id'],
           'option_group_id' => 'activity_type',
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -103,6 +94,7 @@ class CRM_CivirulesConditions_Activity_Type extends CRM_Civirules_Condition {
           $isConditionValid = TRUE;
         }
         break;
+
       case 1:
         if (!in_array($activityData['activity_type_id'], $this->conditionParams['activity_type_id']) ?? []) {
           $isConditionValid = TRUE;
@@ -111,6 +103,7 @@ class CRM_CivirulesConditions_Activity_Type extends CRM_Civirules_Condition {
     }
     return $isConditionValid;
   }
+
   /**
    * Returns a user friendly text explaining the condition params
    * e.g. 'Older than 65'
@@ -126,13 +119,13 @@ class CRM_CivirulesConditions_Activity_Type extends CRM_Civirules_Condition {
     if ($this->conditionParams['operator'] == 1) {
       $friendlyText = 'Activity Type is NOT one of: ';
     }
-    $actText = array();
+    $actText = [];
     foreach ($this->conditionParams['activity_type_id'] as $actTypeId) {
-      $actText[] = civicrm_api3('OptionValue', 'getvalue', array(
+      $actText[] = civicrm_api3('OptionValue', 'getvalue', [
         'option_group_id' => 'activity_type',
         'value' => $actTypeId,
-        'return' => 'label'
-      ));
+        'return' => 'label',
+      ]);
     }
     if (!empty($actText)) {
       $friendlyText .= implode(", ", $actText);
@@ -155,4 +148,5 @@ class CRM_CivirulesConditions_Activity_Type extends CRM_Civirules_Condition {
   public function doesWorkWithTrigger(CRM_Civirules_Trigger $trigger, CRM_Civirules_BAO_Rule $rule) {
     return $trigger->doesProvideEntity('Activity');
   }
+
 }

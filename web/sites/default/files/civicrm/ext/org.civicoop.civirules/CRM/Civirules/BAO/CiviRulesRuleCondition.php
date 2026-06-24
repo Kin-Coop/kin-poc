@@ -61,27 +61,67 @@ class CRM_Civirules_BAO_CiviRulesRuleCondition extends CRM_Civirules_DAO_RuleCon
    * @param \Civi\Core\Event\PostEvent $event
    */
   public static function self_hook_civicrm_post(\Civi\Core\Event\PostEvent $event) {
-    if (in_array($event->action, ['create' , 'edit'])) {
+    if (isset(\Civi::$statics[__CLASS__]['validateconditionlinks'])) {
+      return;
+    }
+
+    if (in_array($event->action, ['create', 'edit'])) {
       CRM_Utils_Weight::correctDuplicateWeights('CRM_Civirules_DAO_CiviRulesRuleCondition');
     }
-    if ($event->action === 'delete') {
-      if (property_exists($event->object, 'rule_id'))
-      self::emptyConditionLinkForFirstCondition($event->object->rule_id);
+    if (property_exists($event->object, 'rule_id') && !empty($event->object->rule_id)) {
+      $ruleID = $event->object->rule_id;
     }
+    elseif (!empty($event->id)) {
+      $ruleID = \Civi\Api4\CiviRulesRuleCondition::get(FALSE)
+        ->addSelect('rule_id')
+        ->addWhere('id', '=', $event->id)
+        ->execute()
+        ->first()['rule_id'];
+    }
+    if ($ruleID && !isset(\Civi::$statics[__CLASS__]['validateconditionlinks'])) {
+      self::checkAndValidateConditionLinks($ruleID);
+    }
+    unset(\Civi::$statics[__CLASS__]['validateconditionlinks']);
   }
 
-  private static function emptyConditionLinkForFirstCondition($ruleID) {
-    $firstRuleCondition = CiviRulesRuleCondition::get(FALSE)
+  /**
+   * @param int $ruleID
+   *
+   * @return void
+   * @throws \CRM_Core_Exception
+   * @throws \Civi\API\Exception\UnauthorizedException
+   */
+  private static function checkAndValidateConditionLinks(int $ruleID): void {
+    \Civi::$statics[__CLASS__]['validateconditionlinks'] = TRUE;
+    $ruleConditions = CiviRulesRuleCondition::get(FALSE)
       ->addSelect('id', 'condition_link')
       ->addWhere('rule_id', '=', $ruleID)
       ->addOrderBy('weight', 'ASC')
       ->addOrderBy('id', 'ASC')
-      ->execute()
-      ->first();
-    if (!empty($firstRuleCondition) && !empty($firstRuleCondition['condition_link'])) {
-      CiviRulesRuleCondition::update(FALSE)
-        ->addValue('condition_link', NULL)
-        ->addWhere('id', '=', $firstRuleCondition['id'])
+      ->execute();
+    foreach ($ruleConditions as $index => $condition) {
+      if ($index === 0) {
+        if (!empty($condition['condition_link'])) {
+          $records[] = [
+            'id' => $condition['id'],
+            'condition_link' => NULL,
+          ];
+        }
+      }
+      else {
+        if (empty($condition['condition_link'])) {
+          $records[] = [
+            'id' => $condition['id'],
+          // Default to AND if not set.
+            'condition_link' => 'AND',
+          ];
+        }
+      }
+    }
+    if (!empty($records)) {
+      CiviRulesRuleCondition::save(FALSE)
+        ->setRecords($records)
+        ->setMatch(['id'])
         ->execute();
     }
   }
@@ -93,7 +133,8 @@ class CRM_Civirules_BAO_CiviRulesRuleCondition extends CRM_Civirules_DAO_RuleCon
    */
   public function unserializeParams(): array {
     if (!empty($this->condition_params) && !is_array($this->condition_params)) {
-      return unserialize($this->condition_params);
+      // Deprecated compatibility check - remove once all data migrated to array storage
+      return is_array($this->condition_params) ? $this->condition_params : unserialize($this->condition_params);
     }
     return [];
   }

@@ -25,7 +25,7 @@ abstract class CRM_Civirules_Trigger {
    *
    * @var array
    */
-  protected array $triggerParams;
+  protected array $triggerParams = [];
 
   /**
    * @var \CRM_Civirules_TriggerData_TriggerData
@@ -49,6 +49,15 @@ abstract class CRM_Civirules_Trigger {
    * @var array
    */
   protected array $ruleConditions;
+
+  /**
+   * If this trigger is associated with an entity this will return the entity name (eg. Contact)
+   *
+   * @return string|null
+   */
+  public function getEntityName(): ?string {
+    return NULL;
+  }
 
   public function __construct($trigger = NULL) {
     if (isset($trigger)) {
@@ -75,7 +84,8 @@ abstract class CRM_Civirules_Trigger {
    */
   public function setTriggerParams(string $triggerParams) {
     try {
-      $triggerParams = unserialize($triggerParams);
+      // Deprecated compatibility check - remove once all data migrated to array storage
+      $triggerParams = is_array($triggerParams) ? $triggerParams : unserialize($triggerParams);
       // If unserialize fails, FALSE is returned. We need an array
       $this->triggerParams = $triggerParams ?: [];
     }
@@ -148,7 +158,7 @@ abstract class CRM_Civirules_Trigger {
     if (!isset($this->ruleTitle) && !empty($this->ruleId)) {
       $rule = new CRM_Civirules_BAO_Rule();
       $rule->id = $this->ruleId;
-      if ($rule->find(true)) {
+      if ($rule->find(TRUE)) {
         $this->ruleTitle = $rule->label;
       }
     }
@@ -162,7 +172,7 @@ abstract class CRM_Civirules_Trigger {
     if (!isset($this->ruleDebugEnabled) && !empty($this->ruleId)) {
       $rule = new CRM_Civirules_BAO_Rule();
       $rule->id = $this->ruleId;
-      if ($rule->find(true)) {
+      if ($rule->find(TRUE)) {
         $this->ruleDebugEnabled = $rule->is_debug;
       }
     }
@@ -251,7 +261,7 @@ abstract class CRM_Civirules_Trigger {
    */
   public function doesProvideEntities(array $entities): bool {
     $availableEntities = $this->getProvidedEntities();
-    foreach($entities as $entity) {
+    foreach ($entities as $entity) {
       $entityPresent = FALSE;
       foreach ($availableEntities as $providedEntity) {
         if (strtolower($providedEntity->entity) == strtolower($entity)) {

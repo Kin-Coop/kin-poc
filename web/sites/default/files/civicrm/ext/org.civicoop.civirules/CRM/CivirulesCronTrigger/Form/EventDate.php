@@ -24,7 +24,7 @@ class CRM_CivirulesCronTrigger_Form_EventDate extends CRM_CivirulesTrigger_Form_
     $this->add('select', 'event_type_id', E::ts('Event Type'), [E::ts(' - any -')] + $this->getEventType(), TRUE);
     $this->add('select', 'date_field', E::ts('Date Field'), [
       'start_date' => E::ts('Start date'),
-      'end_date' => E::ts('End date')
+      'end_date' => E::ts('End date'),
     ], TRUE);
     $this->add('select', 'offset_unit', E::ts('Offset Unit'), [
       'HOUR' => E::ts('Hour(s)'),
@@ -41,10 +41,11 @@ class CRM_CivirulesCronTrigger_Form_EventDate extends CRM_CivirulesTrigger_Form_
       'class' => 'six',
     ], FALSE);
     $this->add('checkbox', 'enable_offset', E::ts('Give a date offset'), '', FALSE);
+    $this->add('select', 'run_type', E::ts('Trigger for'), ['participant' => E::ts('Every participant'), 'event' => E::ts('Once for each event')], TRUE);
 
     $this->addButtons([
       ['type' => 'next', 'name' => E::ts('Save'), 'isDefault' => TRUE],
-      ['type' => 'cancel', 'name' => E::ts('Cancel')]
+      ['type' => 'cancel', 'name' => E::ts('Cancel')],
     ]);
   }
 
@@ -55,7 +56,8 @@ class CRM_CivirulesCronTrigger_Form_EventDate extends CRM_CivirulesTrigger_Form_
    */
   public function setDefaultValues() {
     $defaultValues = parent::setDefaultValues();
-    $data = unserialize($this->rule->trigger_params);
+    // Deprecated compatibility check - remove once all data migrated to array storage
+    $data = is_array($this->rule->trigger_params) ? $this->rule->trigger_params : unserialize($this->rule->trigger_params);
     if (!empty($data['event_type_id'])) {
       $defaultValues['event_type_id'] = $data['event_type_id'];
     }
@@ -75,6 +77,12 @@ class CRM_CivirulesCronTrigger_Form_EventDate extends CRM_CivirulesTrigger_Form_
     if (empty($data['offset'])) {
       $defaultValues['enable_offset'] = 0;
     }
+    if (!empty($data['run_type'])) {
+      $defaultValues['run_type'] = $data['run_type'];
+    }
+    else {
+      $defaultValues['run_type'] = 'participant';
+    }
     return $defaultValues;
   }
 
@@ -84,13 +92,15 @@ class CRM_CivirulesCronTrigger_Form_EventDate extends CRM_CivirulesTrigger_Form_
    * @throws Exception when rule condition not found
    */
   public function postProcess() {
+    $this->triggerParams['run_type'] = $this->getSubmittedValue('run_type');
     $this->triggerParams['event_type_id'] = $this->getSubmittedValue('event_type_id');
     $this->triggerParams['date_field'] = $this->getSubmittedValue('date_field');
     if ($this->getSubmittedValue('enable_offset')) {
       $this->triggerParams['offset_unit'] = $this->getSubmittedValue('offset_unit');
       $this->triggerParams['offset_type'] = $this->getSubmittedValue('offset_type');
       $this->triggerParams['offset'] = $this->getSubmittedValue('offset');
-    } else {
+    }
+    else {
       $this->triggerParams['offset_unit'] = $this->getSubmittedValue('offset_unit');
       $this->triggerParams['offset_type'] = $this->getSubmittedValue('offset_type');
       $this->triggerParams['offset'] = '';

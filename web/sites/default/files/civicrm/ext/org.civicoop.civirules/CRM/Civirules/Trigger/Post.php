@@ -11,9 +11,9 @@ use CRM_Civirules_ExtensionUtil as E;
 class CRM_Civirules_Trigger_Post extends CRM_Civirules_Trigger {
 
   /**
-   * @var string
+   * @var string|null
    */
-  protected $objectName;
+  protected ?string $objectName = NULL;
 
   /**
    * @var string
@@ -31,9 +31,21 @@ class CRM_Civirules_Trigger_Post extends CRM_Civirules_Trigger {
   }
 
   /**
+   * Get the entity (object) name
+   *
+   * @return string|null
+   */
+  public function getEntityName(): ?string {
+    return $this->getObjectName();
+  }
+
+  /**
    * Getter for object name
    *
-   * @return mixed
+   * @return string
+   *
+   * @deprecated Use getEntityName()
+   *
    */
   public function getObjectName() {
     return $this->objectName;
@@ -67,8 +79,8 @@ class CRM_Civirules_Trigger_Post extends CRM_Civirules_Trigger {
 
     $trigger = new CRM_Civirules_BAO_CiviRulesTrigger();
     $trigger->id = $this->triggerId;
-    if (!$trigger->find(true)) {
-      throw new CRM_Core_Exception('Civirules: could not find trigger with ID: '.$this->triggerId);
+    if (!$trigger->find(TRUE)) {
+      throw new CRM_Core_Exception('Civirules: could not find trigger with ID: ' . $this->triggerId);
     }
     $this->objectName = $trigger->object_name;
     $this->op = $trigger->op;
@@ -121,7 +133,7 @@ class CRM_Civirules_Trigger_Post extends CRM_Civirules_Trigger {
 
     // find matching rules for this objectName and op
     $triggers = CRM_Civirules_BAO_CiviRulesRule::findRulesByObjectNameAndOp($objectName, $op);
-    foreach($triggers as $trigger) {
+    foreach ($triggers as $trigger) {
       if ($trigger instanceof CRM_Civirules_Trigger_Post) {
         if (self::$triggerDataCache) {
           $trigger->setTriggerData(self::$triggerDataCache);
@@ -174,7 +186,8 @@ class CRM_Civirules_Trigger_Post extends CRM_Civirules_Trigger {
       //set also original data with an edit event
       $oldData = CRM_Civirules_Utils_PreData::getPreData($entity, $objectId, $eventID);
       $triggerData = new CRM_Civirules_TriggerData_Edit($entity, $objectId, $data, $oldData, $this);
-    } else {
+    }
+    else {
       $triggerData = new CRM_Civirules_TriggerData_Post($entity, $objectId, $data, $this);
     }
 
@@ -195,7 +208,8 @@ class CRM_Civirules_Trigger_Post extends CRM_Civirules_Trigger {
     $data = [];
     if (is_object($objectRef)) {
       CRM_Core_DAO::storeValues($objectRef, $data);
-    } elseif (is_array($objectRef)) {
+    }
+    elseif (is_array($objectRef)) {
       $data = $objectRef;
     }
 
@@ -239,14 +253,14 @@ class CRM_Civirules_Trigger_Post extends CRM_Civirules_Trigger {
         return $this->getTriggerDescription();
 
       case 'triggerParamsHelp':
-          switch ($this->getOp()) {
-            case 'create|edit':
-              return E::ts('Select if you want to trigger on Create and/or Edit');
+        switch ($this->getOp()) {
+          case 'create|edit':
+            return E::ts('Select if you want to trigger on Create and/or Edit');
 
-            case 'delete':
-            default:
-              return '';
-          }
+          case 'delete':
+          default:
+            return '';
+        }
       default:
         return parent::getHelpText($context);
     }

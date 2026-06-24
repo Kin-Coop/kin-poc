@@ -14,11 +14,11 @@
     <url desc="Support">https://civicoop.org</url>
     <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
-  <releaseDate>2026-02-11</releaseDate>
-  <version>2.25.0</version>
+  <releaseDate>2026-06-17</releaseDate>
+  <version>2.27.0</version>
   <develStage>stable</develStage>
   <compatibility>
-    <ver>6.4</ver>
+    <ver>6.12</ver>
   </compatibility>
   <classloader>
     <psr4 prefix="Civi\" path="Civi"/>
@@ -35,6 +35,7 @@
     <mixin>menu-xml@1.0.0</mixin>
     <mixin>entity-types-php@2.0.0</mixin>
     <mixin>smarty@1.0.3</mixin>
+    <mixin>afform-entity-php@1.0.0</mixin>
   </mixins>
   <upgrader>CiviMix\Schema\Emailapi\AutomaticUpgrader</upgrader>
 </extension>

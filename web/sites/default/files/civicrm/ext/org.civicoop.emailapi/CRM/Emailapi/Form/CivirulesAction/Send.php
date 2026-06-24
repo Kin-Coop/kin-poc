@@ -98,7 +98,8 @@ class CRM_Emailapi_Form_CivirulesAction_Send extends CRM_CivirulesActions_Form_F
     }
     $this->assign('has_case', $this->hasCase);
 
-    $this->add('select', 'from_email_option', E::ts('From Email Address'), $this->getFromEmails());
+    $fromEmailAddressElement = $this->add('select', 'from_email_option', E::ts('From Email Address'), $this->getFromEmails());
+    $fromEmailAddressElement->setOptionTextEscaped();
 
     // add buttons
     $this->addButtons([

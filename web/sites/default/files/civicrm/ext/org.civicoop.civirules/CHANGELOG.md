@@ -1,5 +1,53 @@
 # CHANGELOG
 
+# Version 3.38.0 (2026-06-18)
+
+* [!357](https://lab.civicrm.org/extensions/civirules/-/merge_requests/357) -  fix for issue #290 - trigger activity does not respect activity type email
+
+# Version 3.37.0 (2026-06-18)
+
+* [!354](https://lab.civicrm.org/extensions/civirules/-/merge_requests/354) Optimize SavedSearch CiviRules Rule Log Search by using LEFT JOIN to force index-ordered scan.
+* [!352](https://lab.civicrm.org/extensions/civirules/-/merge_requests/352) fix exporter, activity type id is a one of many condition, raise to civicrm_api4
+* [!353](https://lab.civicrm.org/extensions/civirules/-/merge_requests/353) Add index on log_date field in civirule_rule_log
+* [!350](https://lab.civicrm.org/extensions/civirules/-/merge_requests/350) Fix slow query in CiviRules search display
+* [!351](https://lab.civicrm.org/extensions/civirules/-/merge_requests/351) Clean up @property annotations in DAO classes.
+* [!349](https://lab.civicrm.org/extensions/civirules/-/merge_requests/349) Manage Rules - Improve filters section
+* [!348](https://lab.civicrm.org/extensions/civirules/-/merge_requests/348) Don't translate NULL
+* [!346](https://lab.civicrm.org/extensions/civirules/-/merge_requests/346) Fix syntax error in default case of Date.php.
+* [!347](https://lab.civicrm.org/extensions/civirules/-/merge_requests/347) CiviCase - Remove references to is_current_revision from activity queries.
+
+# Version 3.36.0 (2026-06-02)
+
+* Added action: Switch Head of Household. This action is needed when a person is marked as deceased. We will then mark the other household member as head of household.
+* [!344](https://lab.civicrm.org/extensions/civirules/-/merge_requests/344) Fix caching of isDate
+* [!343](https://lab.civicrm.org/extensions/civirules/-/merge_requests/343) Fix #284 - Reordering last rule condition results in error
+* [!341](https://lab.civicrm.org/extensions/civirules/-/merge_requests/341) Implement getEntityName for trigger
+* [!340](https://lab.civicrm.org/extensions/civirules/-/merge_requests/340) Schema - Add serialize metadata
+* [!342](https://lab.civicrm.org/extensions/civirules/-/merge_requests/342) Fix unserialize of condition params
+
+# Version 3.35.0 (2026-05-06)
+
+* Fix fatal error on add condition.
+
+# Version 3.34.0 (2026-04-13)
+
+* [!338](https://lab.civicrm.org/extensions/civirules/-/merge_requests/338) Remove related contact from group.
+* [!339](https://lab.civicrm.org/extensions/civirules/-/merge_requests/339) Partly revert MR 331 - prevent endless loops.
+
+# Version 3.33.0 (2026-04-03)
+
+* [!337](https://lab.civicrm.org/extensions/civirules/-/merge_requests/337) Ensure AfformSubmission triggerData entityData is complete.
+* [!335](https://lab.civicrm.org/extensions/civirules/-/merge_requests/335) Fix FormBuilder trigger firing on all submissions.
+* Fix minor issue with upcoming events.
+* [!333](https://lab.civicrm.org/extensions/civirules/-/merge_requests/333) Add composer publishing CI job.
+* [!336](https://lab.civicrm.org/extensions/civirules/-/merge_requests/336) Add help text to activity text matching conditions.
+* [!327](https://lab.civicrm.org/extensions/civirules/-/merge_requests/327) Validate string instead of array.
+* [!331](https://lab.civicrm.org/extensions/civirules/-/merge_requests/331) Fix memory leak in PreData::pre() and Activity trigger during bulk operations.
+* [!332](https://lab.civicrm.org/extensions/civirules/-/merge_requests/332) Fix Relationship End Action.
+* [!330](https://lab.civicrm.org/extensions/civirules/-/merge_requests/330) Fix passing null value to Field Value Comparison wih contains.
+* Update docs to reflect managed entity way of adding triggers/conditions/actions.
+* Cron trigger for event changed so it can run for events without participants.
+
 # Version 3.32.0 (2026-02-09)
 
 * Added condition for there are upcoming events.

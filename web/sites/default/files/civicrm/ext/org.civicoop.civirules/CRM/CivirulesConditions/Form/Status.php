@@ -10,12 +10,12 @@ use CRM_Civirules_ExtensionUtil as E;
 class CRM_CivirulesConditions_Form_Status extends CRM_CivirulesConditions_Form_Form {
 
   /**
-   * @var string the entity name
+   * @var stringtheentityname
    */
   protected $ruleConditionEntity;
 
   /**
-   * @var string the name of the field for the options
+   * @var stringthenameofthefieldfortheoptions
    */
   protected $ruleConditionField;
 
@@ -34,7 +34,7 @@ class CRM_CivirulesConditions_Form_Status extends CRM_CivirulesConditions_Form_F
       $entityCondition = new $className();
       return $entityCondition->getEntityStatusFieldName();
     }
-    Throw new Exception("Entity {$entity} does not implement status condition");
+    throw new Exception("Entity {$entity} does not implement status condition");
   }
 
   /**
@@ -56,13 +56,13 @@ class CRM_CivirulesConditions_Form_Status extends CRM_CivirulesConditions_Form_F
 
     $this->add('select', 'status_id', $label, $options, TRUE, [
       'multiple' => TRUE,
-      'class' => 'crm-select2'
+      'class' => 'crm-select2',
     ]);
     $this->add('select', 'operator', ts('Operator'), [0 => ts('is one of'), 1 => ts('is NOT one of')], TRUE);
 
     $this->addButtons([
-      ['type' => 'next', 'name' => ts('Save'), 'isDefault' => TRUE,],
-      ['type' => 'cancel', 'name' => ts('Cancel')]
+      ['type' => 'next', 'name' => ts('Save'), 'isDefault' => TRUE],
+      ['type' => 'cancel', 'name' => ts('Cancel')],
     ]);
   }
 
@@ -74,7 +74,8 @@ class CRM_CivirulesConditions_Form_Status extends CRM_CivirulesConditions_Form_F
   public function setDefaultValues() {
     $defaultValues = parent::setDefaultValues();
     $defaultValues['entity'] = $this->ruleConditionEntity;
-    $data = !empty($this->ruleCondition->condition_params) ? unserialize($this->ruleCondition->condition_params) : [];
+    // Deprecated compatibility check - remove once all data migrated to array storage
+    $data = !empty($this->ruleCondition->condition_params) ? (is_array($this->ruleCondition->condition_params) ? $this->ruleCondition->condition_params : unserialize($this->ruleCondition->condition_params)) : [];
 
     // Old versions may have stored the condition param as eg membership_status_id instead of the generic status_id.
     // Also may not have been array but a single value, so convert here.

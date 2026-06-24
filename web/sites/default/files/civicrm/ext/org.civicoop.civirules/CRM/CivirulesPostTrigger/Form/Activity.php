@@ -18,15 +18,15 @@ class CRM_CivirulesPostTrigger_Form_Activity extends CRM_CivirulesTrigger_Form_F
       'field' => 'record_type_id',
     ]);
     $options[0] = E::ts('All contacts');
-    foreach($result['values'] as $val => $opt) {
+    foreach ($result['values'] as $val => $opt) {
       $options[$val] = $opt;
     }
 
-    $this->add('select', 'record_type', E::ts('Trigger for'), $options, true, ['class' => 'crm-select2 huge']);
+    $this->add('select', 'record_type', E::ts('Trigger for'), $options, TRUE, ['class' => 'crm-select2 huge']);
 
     $this->addButtons([
-      ['type' => 'next', 'name' => ts('Save'), 'isDefault' => TRUE,],
-      ['type' => 'cancel', 'name' => ts('Cancel')]
+      ['type' => 'next', 'name' => ts('Save'), 'isDefault' => TRUE],
+      ['type' => 'cancel', 'name' => ts('Cancel')],
     ]);
   }
 
@@ -38,7 +38,8 @@ class CRM_CivirulesPostTrigger_Form_Activity extends CRM_CivirulesTrigger_Form_F
   public function setDefaultValues() {
     $defaultValues = parent::setDefaultValues();
     if (isset($this->rule->trigger_params)) {
-      $data = unserialize($this->rule->trigger_params);
+      // Deprecated compatibility check - remove once all data migrated to array storage
+      $data = is_array($this->rule->trigger_params) ? $this->rule->trigger_params : unserialize($this->rule->trigger_params);
       // Default to all record types. This creates backwards compatibility.
       $defaultValues['record_type'] = $data['record_type'] ?? 0;
     }

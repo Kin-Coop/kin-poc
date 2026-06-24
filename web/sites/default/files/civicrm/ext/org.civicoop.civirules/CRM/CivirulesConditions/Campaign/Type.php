@@ -6,27 +6,10 @@
  * @date 9 Dec 2019
  * @license http://www.gnu.org/licenses/agpl-3.0.html
  */
-
 class CRM_CivirulesConditions_Campaign_Type extends CRM_Civirules_Condition {
-
-  private $_conditionParams = array();
 
   public function getExtraDataInputUrl($ruleConditionId) {
     return $this->getFormattedExtraDataInputUrl('civicrm/civirule/form/condition/campaign_type', $ruleConditionId);
-  }
-
-  /**
-   * Method to set the Rule Condition data
-   *
-   * @param array $ruleCondition
-   * @access public
-   */
-  public function setRuleConditionData($ruleCondition) {
-    parent::setRuleConditionData($ruleCondition);
-    $this->_conditionParams = [];
-    if (!empty($this->ruleCondition['condition_params'])) {
-      $this->_conditionParams = unserialize($this->ruleCondition['condition_params']);
-    }
   }
 
   /**
@@ -43,20 +26,22 @@ class CRM_CivirulesConditions_Campaign_Type extends CRM_Civirules_Condition {
     if (!isset($campaignData['campaign_type_id'])) {
       $campaignData = CRM_CivirulesConditions_Generic_Campaign::getCampaignData((int) $campaignData['id']);
     }
-    switch ($this->_conditionParams['operator']) {
+    switch ($this->conditionParams['operator']) {
       case '0':
-        if (in_array($campaignData['campaign_type_id'], $this->_conditionParams['campaign_type_id'])) {
+        if (in_array($campaignData['campaign_type_id'], $this->conditionParams['campaign_type_id'])) {
           $isConditionValid = TRUE;
         }
         break;
+
       case '1':
-        if (!in_array($campaignData['campaign_type_id'], $this->_conditionParams['campaign_type_id'])) {
+        if (!in_array($campaignData['campaign_type_id'], $this->conditionParams['campaign_type_id'])) {
           $isConditionValid = TRUE;
         }
         break;
     }
     return $isConditionValid;
   }
+
   /**
    * Returns a user friendly text explaining the condition params
    * e.g. 'Older than 65'
@@ -66,19 +51,19 @@ class CRM_CivirulesConditions_Campaign_Type extends CRM_Civirules_Condition {
    */
   public function userFriendlyConditionParams() {
     $friendlyText = "";
-    if ($this->_conditionParams['operator'] == 0) {
+    if ($this->conditionParams['operator'] == 0) {
       $friendlyText = 'Campaign Type is one of: ';
     }
-    if ($this->_conditionParams['operator'] == 1) {
+    if ($this->conditionParams['operator'] == 1) {
       $friendlyText = 'Campaign Type is NOT one of: ';
     }
     $campaignText = [];
-    foreach ($this->_conditionParams['campaign_type_id'] as $campaignTypeId) {
+    foreach ($this->conditionParams['campaign_type_id'] as $campaignTypeId) {
       try {
         $campaignText[] = civicrm_api3('OptionValue', 'getvalue', [
           'option_group_id' => 'campaign_type',
           'value' => $campaignTypeId,
-          'return' => 'label'
+          'return' => 'label',
         ]);
 
       }
@@ -106,7 +91,8 @@ class CRM_CivirulesConditions_Campaign_Type extends CRM_Civirules_Condition {
           'value' => $params['campaign_type_id'],
           'option_group_id' => 'campaign_type',
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -127,7 +113,8 @@ class CRM_CivirulesConditions_Campaign_Type extends CRM_Civirules_Condition {
           'name' => $condition_params['campaign_type_id'],
           'option_group_id' => 'campaign_type',
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -149,4 +136,5 @@ class CRM_CivirulesConditions_Campaign_Type extends CRM_Civirules_Condition {
   public function doesWorkWithTrigger(CRM_Civirules_Trigger $trigger, CRM_Civirules_BAO_Rule $rule) {
     return $trigger->doesProvideEntity('Campaign');
   }
+
 }

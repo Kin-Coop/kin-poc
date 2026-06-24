@@ -6,27 +6,10 @@
  * @date 3 May 2018
  * @license http://www.gnu.org/licenses/agpl-3.0.html
  */
-
 class CRM_CivirulesConditions_Activity_Campaign extends CRM_Civirules_Condition {
-
-  private $_conditionParams = array();
 
   public function getExtraDataInputUrl($ruleConditionId) {
     return $this->getFormattedExtraDataInputUrl('civicrm/civirule/form/condition/activity/campaign', $ruleConditionId);
-  }
-
-  /**
-   * Method to set the Rule Condition data
-   *
-   * @param array $ruleCondition
-   * @access public
-   */
-  public function setRuleConditionData($ruleCondition) {
-    parent::setRuleConditionData($ruleCondition);
-    $this->_conditionParams = array();
-    if (!empty($this->ruleCondition['condition_params'])) {
-      $this->_conditionParams = unserialize($this->ruleCondition['condition_params']);
-    }
   }
 
   /**
@@ -41,9 +24,10 @@ class CRM_CivirulesConditions_Activity_Campaign extends CRM_Civirules_Condition 
       try {
         $params['campaign_id'] = civicrm_api3('Campaign', 'getvalue', [
           'return' => 'name',
-          'id' => $params['campaign_id']
+          'id' => $params['campaign_id'],
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -61,15 +45,15 @@ class CRM_CivirulesConditions_Activity_Campaign extends CRM_Civirules_Condition 
       try {
         $condition_params['campaign_id'] = civicrm_api3('Campaign', 'getvalue', [
           'return' => 'id',
-          'name' => $condition_params['campaign_id']
+          'name' => $condition_params['campaign_id'],
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
     return parent::importConditionParameters($condition_params);
   }
-
 
   /**
    * Method to check if the condition is valid, will check if the contact
@@ -84,10 +68,10 @@ class CRM_CivirulesConditions_Activity_Campaign extends CRM_Civirules_Condition 
     $activityData = $triggerData->getEntityData('Activity');
     if (!isset($activityData['campaign_id'])) {
       try {
-        $campaignId = civicrm_api3('Activity', 'getvalue', array(
+        $campaignId = civicrm_api3('Activity', 'getvalue', [
           'id' => $activityData['id'],
           'return' => 'campaign_id',
-        ));
+        ]);
       }
       catch (CRM_Core_Exception $ex) {
         $campaignId = NULL;
@@ -96,14 +80,15 @@ class CRM_CivirulesConditions_Activity_Campaign extends CRM_Civirules_Condition 
     else {
       $campaignId = $activityData['campaign_id'];
     }
-    switch ($this->_conditionParams['operator']) {
+    switch ($this->conditionParams['operator']) {
       case 0:
-        if (in_array($campaignId, $this->_conditionParams['campaign_id'])) {
+        if (in_array($campaignId, $this->conditionParams['campaign_id'])) {
           $isConditionValid = TRUE;
         }
         break;
+
       case 1:
-        if (!in_array($campaignId, $this->_conditionParams['campaign_id'])) {
+        if (!in_array($campaignId, $this->conditionParams['campaign_id'])) {
           $isConditionValid = TRUE;
         }
         break;
@@ -120,19 +105,19 @@ class CRM_CivirulesConditions_Activity_Campaign extends CRM_Civirules_Condition 
    */
   public function userFriendlyConditionParams() {
     $friendlyText = "";
-    if ($this->_conditionParams['operator'] == 0) {
+    if ($this->conditionParams['operator'] == 0) {
       $friendlyText = 'Campaign is one of: ';
     }
-    if ($this->_conditionParams['operator'] == 1) {
+    if ($this->conditionParams['operator'] == 1) {
       $friendlyText = 'Campaign is NOT one of: ';
     }
-    $campaignTitles = array();
-    foreach ($this->_conditionParams['campaign_id'] as $campaignId) {
+    $campaignTitles = [];
+    foreach ($this->conditionParams['campaign_id'] as $campaignId) {
       try {
-        $campaignTitles[] = civicrm_api3('Campaign', 'getvalue', array(
+        $campaignTitles[] = civicrm_api3('Campaign', 'getvalue', [
           'id' => $campaignId,
-          'return' => 'title'
-        ));
+          'return' => 'title',
+        ]);
       }
       catch (CRM_Core_Exception $ex) {
       }
@@ -141,7 +126,7 @@ class CRM_CivirulesConditions_Activity_Campaign extends CRM_Civirules_Condition 
       $friendlyText .= implode(", ", $campaignTitles);
     }
     else {
-      $friendlyText .= implode(', ' , $this->_conditionParams['campaign_id']);
+      $friendlyText .= implode(', ', $this->conditionParams['campaign_id']);
     }
     return $friendlyText;
   }
@@ -161,4 +146,5 @@ class CRM_CivirulesConditions_Activity_Campaign extends CRM_Civirules_Condition 
   public function doesWorkWithTrigger(CRM_Civirules_Trigger $trigger, CRM_Civirules_BAO_Rule $rule) {
     return $trigger->doesProvideEntity('Activity');
   }
+
 }

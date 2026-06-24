@@ -5,27 +5,10 @@
  * @author Erik Hommel (CiviCooP) <erik.hommel@civicoop.org>
  * @license http://www.gnu.org/licenses/agpl-3.0.html
  */
-
 class CRM_CivirulesConditions_Activity_RecordType extends CRM_Civirules_Condition {
-
-  private $conditionParams = array();
 
   public function getExtraDataInputUrl($ruleConditionId) {
     return $this->getFormattedExtraDataInputUrl('civicrm/civirule/form/condition/activity_contact_record_type', $ruleConditionId);
-  }
-
-  /**
-   * Method to set the Rule Condition data
-   *
-   * @param array $ruleCondition
-   * @access public
-   */
-  public function setRuleConditionData($ruleCondition) {
-    parent::setRuleConditionData($ruleCondition);
-    $this->conditionParams = array();
-    if (!empty($this->ruleCondition['condition_params'])) {
-      $this->conditionParams = unserialize($this->ruleCondition['condition_params']);
-    }
   }
 
   /**
@@ -39,10 +22,11 @@ class CRM_CivirulesConditions_Activity_RecordType extends CRM_Civirules_Conditio
   public function isConditionValid(CRM_Civirules_TriggerData_TriggerData $triggerData) {
     $ActivityContact = $triggerData->getEntityData('ActivityContact');
     if ($ActivityContact['record_type_id'] == $this->conditionParams['record_type_id']) {
-      return true;
+      return TRUE;
     }
-    return false;
+    return FALSE;
   }
+
   /**
    * Returns a user friendly text explaining the condition params
    * e.g. 'Older than 65'
@@ -53,7 +37,7 @@ class CRM_CivirulesConditions_Activity_RecordType extends CRM_Civirules_Conditio
   public function userFriendlyConditionParams() {
     $activityTypeLabel = CRM_Civirules_Utils::getOptionLabelWithValue(CRM_Civirules_Utils::getOptionGroupIdWithName('activity_contacts'), $this->conditionParams['record_type_id']);
     if (!empty($activityTypeLabel)) {
-      return ts('For all %1', array(1 => $activityTypeLabel));
+      return ts('For all %1', [1 => $activityTypeLabel]);
     }
     return '';
   }
@@ -73,7 +57,8 @@ class CRM_CivirulesConditions_Activity_RecordType extends CRM_Civirules_Conditio
           'value' => $params['record_type_id'],
           'option_group_id' => 'activity_contacts',
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -94,7 +79,8 @@ class CRM_CivirulesConditions_Activity_RecordType extends CRM_Civirules_Conditio
           'name' => $params['record_type_id'],
           'option_group_id' => 'activity_contacts',
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -114,6 +100,7 @@ class CRM_CivirulesConditions_Activity_RecordType extends CRM_Civirules_Conditio
    * @return bool
    */
   public function doesWorkWithTrigger(CRM_Civirules_Trigger $trigger, CRM_Civirules_BAO_Rule $rule) {
-    return $trigger->doesProvideEntities(array('Activity', 'ActivityContact'));
+    return $trigger->doesProvideEntities(['Activity', 'ActivityContact']);
   }
+
 }

@@ -2,8 +2,6 @@
 
 class CRM_CivirulesConditions_Membership_HasNotActiveMembership extends CRM_Civirules_Condition {
 
-  private $_conditionParams = array();
-
   /**
    * This method returns true or false when an condition is valid or not
    *
@@ -13,15 +11,15 @@ class CRM_CivirulesConditions_Membership_HasNotActiveMembership extends CRM_Civi
    * @abstract
    */
   public function isConditionValid(CRM_Civirules_TriggerData_TriggerData $triggerData) {
-    $params['membership_type_id'] = $this->_conditionParams['membership_type_id'];
+    $params['membership_type_id'] = $this->conditionParams['membership_type_id'];
     $params['contact_id'] = $triggerData->getContactId();
     $params['active_only'] = 1;
 
     $memberships = civicrm_api3('Membership', 'get', $params);
     if (isset($memberships['values']) && count($memberships['values']) > 0) {
-      return false;
+      return FALSE;
     }
-    return true;
+    return TRUE;
   }
 
   /**
@@ -38,7 +36,8 @@ class CRM_CivirulesConditions_Membership_HasNotActiveMembership extends CRM_Civi
           'return' => 'name',
           'id' => $params['membership_type_id'],
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -58,7 +57,8 @@ class CRM_CivirulesConditions_Membership_HasNotActiveMembership extends CRM_Civi
           'return' => 'id',
           'name' => $condition_params['membership_type_id'],
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -87,34 +87,22 @@ class CRM_CivirulesConditions_Membership_HasNotActiveMembership extends CRM_Civi
    * @access public
    */
   public function userFriendlyConditionParams() {
-    $params = array(
+    $params = [
       'is_active' => 1,
-       'options' => array('limit' => 0, 'sort' => "name ASC"),
-    );
+      'options' => ['limit' => 0, 'sort' => "name ASC"],
+    ];
     try {
       $membershipTypes = civicrm_api3('MembershipType', 'Get', $params);
       $operator = 'equals';
       foreach ($membershipTypes['values'] as $membershipType) {
-        if ($membershipType['id'] == $this->_conditionParams['membership_type_id']) {
-          return "Membership Type ".$operator." ".$membershipType['name'];
+        if ($membershipType['id'] == $this->conditionParams['membership_type_id']) {
+          return "Membership Type " . $operator . " " . $membershipType['name'];
         }
       }
-    } catch (CRM_Core_Exception $ex) {}
-    return '';
-  }
-
-  /**
-   * Method to set the Rule Condition data
-   *
-   * @param array $ruleCondition
-   * @access public
-   */
-  public function setRuleConditionData($ruleCondition) {
-    parent::setRuleConditionData($ruleCondition);
-    $this->_conditionParams = array();
-    if (!empty($this->ruleCondition['condition_params'])) {
-      $this->_conditionParams = unserialize($this->ruleCondition['condition_params']);
     }
+    catch (CRM_Core_Exception $ex) {
+    }
+    return '';
   }
 
 }

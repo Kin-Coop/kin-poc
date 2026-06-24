@@ -12,11 +12,11 @@ class CRM_CivirulesCronTrigger_Form_ActivityScheduledDate extends CRM_CivirulesC
     parent::buildQuickForm();
     $this->add('select', 'activity_type_id', ts('Activity Type'), $this->getActivityType(), TRUE, [
       'multiple' => TRUE,
-      'class' => 'crm-select2'
+      'class' => 'crm-select2',
     ]);
     $this->add('select', 'activity_status_id', ts('Activity Status'), $this->getActivityStatus(), TRUE, [
       'multiple' => TRUE,
-      'class' => 'crm-select2'
+      'class' => 'crm-select2',
     ]);
 
     $this->add('select', 'interval_unit', ts('Interval'), CRM_CivirulesCronTrigger_ActivityScheduledDate::intervals(), TRUE);
@@ -31,7 +31,8 @@ class CRM_CivirulesCronTrigger_Form_ActivityScheduledDate extends CRM_CivirulesC
    */
   public function setDefaultValues() {
     $defaultValues = parent::setDefaultValues();
-    $data = unserialize($this->rule->trigger_params);
+    // Deprecated compatibility check - remove once all data migrated to array storage
+    $data = is_array($this->rule->trigger_params) ? $this->rule->trigger_params : unserialize($this->rule->trigger_params);
     if (!empty($data['activity_type_id'])) {
       $defaultValues['activity_type_id'] = $data['activity_type_id'];
     }
@@ -41,8 +42,10 @@ class CRM_CivirulesCronTrigger_Form_ActivityScheduledDate extends CRM_CivirulesC
 
     if (!empty($data['record_type'])) {
       $defaultValues['record_type'] = $data['record_type'];
-    } else {
-      $defaultValues['record_type'] = 3; // Default to only targets
+    }
+    else {
+      // Default to only targets
+      $defaultValues['record_type'] = 3;
     }
 
     $defaultValues['case_activity'] = $data['case_activity'] ?? FALSE;

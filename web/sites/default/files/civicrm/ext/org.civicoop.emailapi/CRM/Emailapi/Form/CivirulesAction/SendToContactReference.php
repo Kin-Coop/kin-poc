@@ -44,6 +44,7 @@ class CRM_Emailapi_Form_CivirulesAction_SendToContactReference extends CRM_Email
     $this->addEntityRef('contact_reference', ts('Contact Reference Field'), [
       'entity' => 'CustomField',
       'placeholder' => ts('-- select --'),
+      'multiple' => true,
       'select' => ['minimumInputLength' => 0],
       'api' => [
         'params' => [
@@ -68,6 +69,9 @@ class CRM_Emailapi_Form_CivirulesAction_SendToContactReference extends CRM_Email
       $defaultValues['entity'] = $data['entity'];
     }
     if (!empty($data['contact_reference'])) {
+      if (!is_array($data['contact_reference'])) {
+        $data['contact_reference'] = explode(",", $data['contact_reference']);
+      }
       $defaultValues['contact_reference'] = $data['contact_reference'];
     }
     return $defaultValues;

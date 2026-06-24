@@ -50,7 +50,7 @@ class CRM_CivirulesActions_Relationship_End extends CRM_Civirules_Action {
         ->execute();
     }
     catch (\Exception $ex) {
-      Civi::log()->error(E::ts("Could not delete relationships with CiviRules in ") . __METHOD__ . ", error from API4 Relationship delete: ". $ex->getMessage());
+      Civi::log()->error(E::ts("Could not delete relationships with CiviRules in ") . __METHOD__ . ", error from API4 Relationship delete: " . $ex->getMessage());
     }
   }
 
@@ -75,10 +75,11 @@ class CRM_CivirulesActions_Relationship_End extends CRM_Civirules_Action {
         ->addValue('is_active', FALSE)
         ->addWhere('relationship_type_id', '=', (int) $actionParams['relationship_type_id'])
         ->addClause('OR', ['contact_id_a', '=', $contactId], ['contact_id_b', '=', $contactId])
+        ->addWhere('is_current', '=', TRUE)
         ->execute();
     }
     catch (\Exception $ex) {
-      Civi::log()->error(E::ts("Could not disable relationships with CiviRules in ") . __METHOD__ . ", error from API4 Relationship update: ". $ex->getMessage());
+      Civi::log()->error(E::ts("Could not disable relationships with CiviRules in ") . __METHOD__ . ", error from API4 Relationship update: " . $ex->getMessage());
     }
   }
 
@@ -130,7 +131,8 @@ class CRM_CivirulesActions_Relationship_End extends CRM_Civirules_Action {
         'return' => 'name_a_b',
         'id' => $action_params['relationship_type_id'],
       ]);
-    } catch (CRM_Core_Exception $e) {
+    }
+    catch (CRM_Core_Exception $e) {
     }
     return $action_params;
   }
@@ -149,7 +151,8 @@ class CRM_CivirulesActions_Relationship_End extends CRM_Civirules_Action {
         'return' => 'id',
         'name_a_b' => $action_params['relationship_type_id'],
       ]);
-    } catch (CRM_Core_Exception $e) {
+    }
+    catch (CRM_Core_Exception $e) {
     }
     return parent::importActionParameters($action_params);
   }

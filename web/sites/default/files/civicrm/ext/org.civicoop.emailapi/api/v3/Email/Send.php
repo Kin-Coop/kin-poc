@@ -37,7 +37,7 @@ function _civicrm_api3_email_send_spec(&$spec) {
   $spec['event_id'] = [
     'title' => 'Event ID',
     'type' => CRM_Utils_Type::T_INT,
-  ];  
+  ];
   $spec['location_type_id'] = [
     'title' => 'Location type id',
     'type' => CRM_Utils_Type::T_INT,
@@ -203,9 +203,27 @@ function civicrm_api3_email_send($params) {
     $message_params['contact_id'] = $contactId;
     list('messageSubject' => $messageSubject, 'html' => $html, 'text' => $text) = CRM_Emailapi_Utils_Tokens::replaceTokens($contactId, $message, $message_params, $preferred_language);
 
+    // Keep behavior consistent with MessageTemplate pipelines that allow listeners
+    // to mutate finalized subject/body before send.
+    $mailContent = [
+      'subject' => $messageSubject,
+      'html' => $html,
+      'text' => $text,
+      'groupName' => 'Email from API',
+      'valueName' => 'messageTemplate',
+      'messageTemplateID' => $messageTemplates->id,
+      'contactId' => $contactId,
+      'api_params' => $params,
+    ];
+    CRM_Utils_Hook::alterMailContent($mailContent);
+    $messageSubject = $mailContent['subject'] ?? $messageSubject;
+    $html = $mailContent['html'] ?? $html;
+    $text = $mailContent['text'] ?? $text;
+
     // set up the parameters for CRM_Utils_Mail::send
     $mailParams = [
       'groupName' => 'Email from API',
+      'workflow' => 'emailapi_send',
       'from' => $from,
       'toName' => $toName,
       'toEmail' => $toEmail,

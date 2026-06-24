@@ -2,22 +2,6 @@
 
 class CRM_CivirulesConditions_ContributionSoft_SoftCreditType extends CRM_Civirules_Condition {
 
-  private $conditionParams = array();
-
-  /**
-   * Method to set the Rule Condition data
-   *
-   * @param array $ruleCondition
-   * @access public
-   */
-  public function setRuleConditionData($ruleCondition) {
-    parent::setRuleConditionData($ruleCondition);
-    $this->conditionParams = array();
-    if (!empty($this->ruleCondition['condition_params'])) {
-      $this->conditionParams = unserialize($this->ruleCondition['condition_params']);
-    }
-  }
-
   /**
    * Method to determine if the condition is valid
    *
@@ -106,7 +90,8 @@ class CRM_CivirulesConditions_ContributionSoft_SoftCreditType extends CRM_Civiru
           'value' => $params['soft_credit_type_id'],
           'option_group_id' => 'soft_credit_type',
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -127,7 +112,8 @@ class CRM_CivirulesConditions_ContributionSoft_SoftCreditType extends CRM_Civiru
           'name' => $params['soft_credit_type_id'],
           'option_group_id' => 'soft_credit_type',
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }

@@ -4,8 +4,6 @@ use Civi\Api4\CiviRulesRuleCondition;
 
 abstract class CRM_CivirulesConditions_Generic_Status extends CRM_Civirules_Condition {
 
-  protected $conditionParams = [];
-
   /**
    * The entity name (eg. Membership)
    * @return string
@@ -53,7 +51,9 @@ abstract class CRM_CivirulesConditions_Generic_Status extends CRM_Civirules_Cond
       foreach ($options as $option) {
         $return[$option['value']] = $option['label'];
       }
-    } catch (CRM_Core_Exception $ex) {}
+    }
+    catch (CRM_Core_Exception $ex) {
+    }
     return $return;
   }
 
@@ -64,9 +64,7 @@ abstract class CRM_CivirulesConditions_Generic_Status extends CRM_Civirules_Cond
    */
   public function setRuleConditionData(array $ruleCondition) {
     parent::setRuleConditionData($ruleCondition);
-    $this->conditionParams = [];
     if (!empty($this->ruleCondition['condition_params'])) {
-      $this->conditionParams = unserialize($this->ruleCondition['condition_params']);
       $oldFieldName = strtolower($this->getEntity()) . '_status_id';
       if (isset($this->conditionParams[$oldFieldName]) && !isset($this->conditionParams['status_id'])) {
         // Some old conditions saved using the entity specific name (eg. membership_status_id)
@@ -176,7 +174,7 @@ abstract class CRM_CivirulesConditions_Generic_Status extends CRM_Civirules_Cond
    */
   public function userFriendlyConditionParams() {
     $statusList = $this->getEntityStatusList(TRUE, TRUE);
-    $operator = null;
+    $operator = NULL;
     if ($this->conditionParams['operator'] == 0) {
       $operator = self::getOperatorOptions()[0];
     }

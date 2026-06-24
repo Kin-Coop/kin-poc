@@ -2,22 +2,6 @@
 
 class CRM_CivirulesConditions_Case_CaseType extends CRM_Civirules_Condition {
 
-  private $conditionParams = array();
-
-  /**
-   * Method to set the Rule Condition data
-   *
-   * @param array $ruleCondition
-   * @access public
-   */
-  public function setRuleConditionData($ruleCondition) {
-    parent::setRuleConditionData($ruleCondition);
-    $this->conditionParams = array();
-    if (!empty($this->ruleCondition['condition_params'])) {
-      $this->conditionParams = unserialize($this->ruleCondition['condition_params']);
-    }
-  }
-
   /**
    * Returns condition data as an array and ready for export.
    * E.g. replace ids for names.
@@ -33,7 +17,8 @@ class CRM_CivirulesConditions_Case_CaseType extends CRM_Civirules_Condition {
           'value' => $params['case_type_id'],
           'option_group_id' => 'case_type',
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -54,7 +39,8 @@ class CRM_CivirulesConditions_Case_CaseType extends CRM_Civirules_Condition {
           'name' => $condition_params['case_type_id'],
           'option_group_id' => 'case_type',
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -82,6 +68,7 @@ class CRM_CivirulesConditions_Case_CaseType extends CRM_Civirules_Condition {
           $isConditionValid = TRUE;
         }
         break;
+
       case 1:
         if (!in_array($case_type_id, $this->conditionParams['case_type_id'])) {
           $isConditionValid = TRUE;
@@ -121,7 +108,7 @@ class CRM_CivirulesConditions_Case_CaseType extends CRM_Civirules_Condition {
     if ($this->conditionParams['operator'] == 1) {
       $friendlyText = 'Case Type is NOT one of: ';
     }
-    $caseText = array();
+    $caseText = [];
     foreach ($this->conditionParams['case_type_id'] as $caseTypeId) {
       $caseText[] = $caseTypes[$caseTypeId];
     }

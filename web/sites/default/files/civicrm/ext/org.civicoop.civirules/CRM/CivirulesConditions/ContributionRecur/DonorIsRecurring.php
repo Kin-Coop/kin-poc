@@ -1,6 +1,7 @@
 <?php
 
 use CRM_Civirules_ExtensionUtil as E;
+
 /**
  * Class for CiviRule Condition DonorIsRecurring
  *
@@ -11,28 +12,12 @@ use CRM_Civirules_ExtensionUtil as E;
  */
 class CRM_CivirulesConditions_ContributionRecur_DonorIsRecurring extends CRM_Civirules_Condition {
 
-  private $conditionParams = array();
-
   /**
    * The (internal) name of the condition
    * @return string
    */
   protected function getConditionName() {
     return 'donor_has_recurring';
-  }
-
-  /**
-   * Method to set the Rule Condition data
-   *
-   * @param array $ruleCondition
-   * @access public
-   */
-  public function setRuleConditionData($ruleCondition) {
-    parent::setRuleConditionData($ruleCondition);
-    $this->conditionParams = array();
-    if (!empty($this->ruleCondition['condition_params'])) {
-      $this->conditionParams = unserialize($this->ruleCondition['condition_params']);
-    }
   }
 
   /**
@@ -59,20 +44,25 @@ class CRM_CivirulesConditions_ContributionRecur_DonorIsRecurring extends CRM_Civ
       if ($donorHasAny) {
         if ($this->conditionParams['has_recurring']) {
           $isConditionValid = TRUE;
-        } else {
+        }
+        else {
           $isConditionValid = FALSE;
         }
-      } else {
+      }
+      else {
         if ($this->conditionParams['has_recurring']) {
           $isConditionValid = FALSE;
-        } else {
+        }
+        else {
           $isConditionValid = TRUE;
         }
       }
-    } catch (CRM_Core_Exception $ex) {
+    }
+    catch (CRM_Core_Exception $ex) {
       if ($this->conditionParams['has_recurring']) {
         $isConditionValid = FALSE;
-      } else {
+      }
+      else {
         $isConditionValid = TRUE;
       }
     }
@@ -107,10 +97,12 @@ class CRM_CivirulesConditions_ContributionRecur_DonorIsRecurring extends CRM_Civ
     if (isset($this->conditionParams['has_recurring'])) {
       if ($this->conditionParams['has_recurring'] == 0) {
         return 'Donor has no active recurring contributions today';
-      } else {
+      }
+      else {
         return 'Donor has active recurring contributions today';
       }
-    } else {
+    }
+    else {
       return '';
     }
   }
@@ -130,4 +122,5 @@ class CRM_CivirulesConditions_ContributionRecur_DonorIsRecurring extends CRM_Civ
   public function doesWorkWithTrigger(CRM_Civirules_Trigger $trigger, CRM_Civirules_BAO_Rule $rule) {
     return $trigger->doesProvideEntity('Contact');
   }
+
 }

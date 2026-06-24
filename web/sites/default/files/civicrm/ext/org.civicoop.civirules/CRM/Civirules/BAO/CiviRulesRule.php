@@ -5,7 +5,7 @@
  * @author Erik Hommel (CiviCooP) <erik.hommel@civicoop.org>
  * @license http://www.gnu.org/licenses/agpl-3.0.html
  */
-class CRM_Civirules_BAO_CiviRulesRule extends CRM_Civirules_DAO_Rule {
+class CRM_Civirules_BAO_CiviRulesRule extends CRM_Civirules_DAO_Rule implements \Civi\Core\HookInterface {
 
   /**
    * Function to get values
@@ -87,7 +87,7 @@ class CRM_Civirules_BAO_CiviRulesRule extends CRM_Civirules_DAO_Rule {
     }
     $rule = new CRM_Civirules_BAO_Rule();
     $rule->id = $ruleId;
-    $rule->find(true);
+    $rule->find(TRUE);
     return $rule->label;
   }
 
@@ -123,7 +123,8 @@ class CRM_Civirules_BAO_CiviRulesRule extends CRM_Civirules_DAO_Rule {
       // If $objectName is a Contact Type, also search for "Contact".
       if ($objectName == 'Individual' || $objectName == 'Organization' || $objectName == 'Household') {
         $sqlWhere = " WHERE r.`is_active` = 1 AND t.cron = 0 AND (t.object_name = %1 OR t.object_name = 'Contact') AND t.op LIKE %2";
-      } else {
+      }
+      else {
         $sqlWhere = " WHERE r.`is_active` = 1 AND t.cron = 0 AND t.object_name = %1 AND t.op LIKE %2";
       }
       $sql .= $sqlWhere;
@@ -147,7 +148,9 @@ class CRM_Civirules_BAO_CiviRulesRule extends CRM_Civirules_DAO_Rule {
     // But downstream code modifies the triggers to add triggerData etc. that is specific to the instance of the rule
     // Eg. If we trigger on Activity Create and then create an Activity as an action we will trigger the same rule again
     //   but with different triggerData. So we need to return the clean triggerObject *without* any modifications.
-    $clonedTriggerObjects = array_map(function ($object) { return clone $object; }, \Civi::$statics[__CLASS__]['findRulesByObjectNameAndOp'][$objectName][$op]);
+    $clonedTriggerObjects = array_map(function ($object) {
+      return clone $object;
+    }, \Civi::$statics[__CLASS__]['findRulesByObjectNameAndOp'][$objectName][$op]);
     return $clonedTriggerObjects;
   }
 
@@ -215,7 +218,7 @@ class CRM_Civirules_BAO_CiviRulesRule extends CRM_Civirules_DAO_Rule {
       if (isset($dao->data)) {
         $queueItemData = @unserialize($dao->data);
         if ($queueItemData) {
-          foreach($queueItemData->arguments as $dataArgument) {
+          foreach ($queueItemData->arguments as $dataArgument) {
             if (is_subclass_of($dataArgument, 'CRM_Civirules_Action')) {
               if ($dataArgument->getRuleId() == $ruleId) {
                 return TRUE;
@@ -235,9 +238,40 @@ class CRM_Civirules_BAO_CiviRulesRule extends CRM_Civirules_DAO_Rule {
    */
   public function unserializeParams(): array {
     if (!empty($this->trigger_params) && !is_array($this->trigger_params)) {
-      return unserialize($this->trigger_params);
+      // Deprecated compatibility check - remove once all data migrated to array storage
+      return is_array($this->trigger_params) ? $this->trigger_params : unserialize($this->trigger_params);
     }
     return [];
+  }
+
+  /**
+   * Event fired after an action is taken on a CiviRulesRule record.
+   * @param \Civi\Core\Event\PostEvent $event
+   */
+  public static function self_hook_civicrm_post(\Civi\Core\Event\PostEvent $event) {
+    if (
+      in_array($event->action, ['create', 'edit'], TRUE) &&
+      isset($event->params['tag_id']) && $event->id
+    ) {
+      $tags = (array) ($event->params['tag_id'] ?: []);
+      $newTags = [];
+      foreach ($tags as $tagId) {
+        if ($tagId) {
+          $newTags[] = ['rule_tag_id' => $tagId];
+        }
+      }
+      if ($newTags) {
+        \Civi\Api4\CiviRulesRuleTag::replace(FALSE)
+          ->addWhere('rule_id', '=', $event->id)
+          ->setRecords($newTags)
+          ->execute();
+      }
+      else {
+        \Civi\Api4\CiviRulesRuleTag::delete(FALSE)
+          ->addWhere('rule_id', '=', $event->id)
+          ->execute();
+      }
+    }
   }
 
 }

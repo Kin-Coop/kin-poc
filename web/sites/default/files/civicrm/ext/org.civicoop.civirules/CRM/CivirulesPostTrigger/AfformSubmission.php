@@ -1,6 +1,7 @@
 <?php
 
 use Civi\Api4\Afform;
+use Civi\Api4\AfformSubmission;
 use CRM_Civirules_ExtensionUtil as E;
 
 class CRM_CivirulesPostTrigger_AfformSubmission extends CRM_Civirules_Trigger_Post {
@@ -62,9 +63,9 @@ class CRM_CivirulesPostTrigger_AfformSubmission extends CRM_Civirules_Trigger_Po
     // But there doesn't seem to be an easy way to get that info using Afform::get()
     // For now just hardcode a few.
     $entities = parent::getAdditionalEntities();
-    $entities[] = new CRM_Civirules_TriggerData_EntityDefinition('Activity', 'Activity', 'CRM_Activity_DAO_Activity' , 'Activity');
-    $entities[] = new CRM_Civirules_TriggerData_EntityDefinition('ActivityContact', 'ActivityContact', 'CRM_Activity_DAO_ActivityContact' , 'ActivityContact');
-    $entities[] = new CRM_Civirules_TriggerData_EntityDefinition('Case', 'Case', 'CRM_Case_DAO_Case' , 'Case');
+    $entities[] = new CRM_Civirules_TriggerData_EntityDefinition('Activity', 'Activity', 'CRM_Activity_DAO_Activity', 'Activity');
+    $entities[] = new CRM_Civirules_TriggerData_EntityDefinition('ActivityContact', 'ActivityContact', 'CRM_Activity_DAO_ActivityContact', 'ActivityContact');
+    $entities[] = new CRM_Civirules_TriggerData_EntityDefinition('Case', 'Case', 'CRM_Case_DAO_Case', 'Case');
     return $entities;
   }
 
@@ -163,6 +164,12 @@ class CRM_CivirulesPostTrigger_AfformSubmission extends CRM_Civirules_Trigger_Po
    */
   public function alterTriggerData(CRM_Civirules_TriggerData_TriggerData &$triggerData) {
     $afformSubmission = $triggerData->getEntityData('AfformSubmission');
+    // Submission data isn't necessarily the complete record, so let's merge the db data in.
+    $dataInDatabase = AfformSubmission::get(FALSE)
+      ->addWhere('id', '=', $afformSubmission['id'])
+      ->execute()
+      ->first();
+    $triggerData->setEntityData('AfformSubmission', array_merge($dataInDatabase, $afformSubmission));
     $submissionData = json_decode($afformSubmission['data'], TRUE);
 
     foreach ($submissionData as $entityName => $data) {
@@ -201,6 +208,24 @@ class CRM_CivirulesPostTrigger_AfformSubmission extends CRM_Civirules_Trigger_Po
     }
 
     parent::alterTriggerData($triggerData);
+  }
+
+  /**
+   * Trigger a rule for this trigger
+   *
+   * @param string $op
+   * @param string $objectName
+   * @param int $objectId
+   * @param object $objectRef
+   * @param string $eventID
+   */
+  public function triggerTrigger($op, $objectName, $objectId, $objectRef, $eventID) {
+    $this->setTriggerData($this->getTriggerDataFromPost($op, $objectName, $objectId, $objectRef, $eventID));
+    $afforms = explode(',', $this->getTriggerParams()['rule_afform_select'] ?? '');
+    $submittedAfformName = $this->getTriggerData()->getEntityData('AfformSubmission')['afform_name'];
+    if (in_array($submittedAfformName, $afforms)) {
+      parent::triggerTrigger($op, $objectName, $objectId, $objectRef, $eventID);
+    }
   }
 
 }

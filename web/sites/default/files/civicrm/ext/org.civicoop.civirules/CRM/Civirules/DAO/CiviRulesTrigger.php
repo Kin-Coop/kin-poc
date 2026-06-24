@@ -8,18 +8,14 @@
  *
  * This stub provides compatibility. It is not intended to be modified in a
  * substantive way. Property annotations may be added, but are not required.
- * @property string $id 
- * @property string $name 
- * @property string $label 
- * @property string $object_name 
- * @property string $op 
- * @property bool|string $cron 
- * @property string $class_name 
- * @property bool|string $is_active 
- * @property string $created_date 
- * @property string $created_user_id 
- * @property string $modified_date 
- * @property string $modified_user_id 
+ * @property string $id
+ * @property string $name
+ * @property string $label
+ * @property string $object_name
+ * @property string $op
+ * @property bool|string $cron
+ * @property string $class_name
+ * @property bool|string $is_active
  */
 class CRM_Civirules_DAO_CiviRulesTrigger extends CRM_Civirules_DAO_Base {
 

@@ -2,22 +2,6 @@
 
 class CRM_CivirulesConditions_ContributionRecur_xthContribution extends CRM_Civirules_Condition {
 
-  private $conditionParams = array();
-
-  /**
-   * Method to set the Rule Condition data
-   *
-   * @param array $ruleCondition
-   * @access public
-   */
-  public function setRuleConditionData($ruleCondition) {
-    parent::setRuleConditionData($ruleCondition);
-    $this->conditionParams = array();
-    if (!empty($this->ruleCondition['condition_params'])) {
-      $this->conditionParams = unserialize($this->ruleCondition['condition_params']);
-    }
-  }
-
   /**
    * Method to determine if the condition is valid
    *
@@ -42,32 +26,37 @@ class CRM_CivirulesConditions_ContributionRecur_xthContribution extends CRM_Civi
         if ($contributions['count'] != $this->conditionParams['no_of_recurring']) {
           $isConditionValid = TRUE;
         }
-      break;
+        break;
+
       case 2:
         if ($contributions['count'] > $this->conditionParams['no_of_recurring']) {
           $isConditionValid = TRUE;
         }
-      break;
+        break;
+
       case 3:
         if ($contributions['count'] >= $this->conditionParams['no_of_recurring']) {
-        $isConditionValid = TRUE;
-      }
-      break;
+          $isConditionValid = TRUE;
+        }
+        break;
+
       case 4:
         if ($contributions['count'] < $this->conditionParams['no_of_recurring']) {
-        $isConditionValid = TRUE;
-      }
-      break;
+          $isConditionValid = TRUE;
+        }
+        break;
+
       case 5:
         if ($contributions['count'] <= $this->conditionParams['no_of_recurring']) {
-        $isConditionValid = TRUE;
-      }
-      break;
+          $isConditionValid = TRUE;
+        }
+        break;
+
       default:
         if ($contributions['count'] == $this->conditionParams['no_of_recurring']) {
           $isConditionValid = TRUE;
         }
-      break;
+        break;
     }
     return $isConditionValid;
   }
@@ -93,28 +82,33 @@ class CRM_CivirulesConditions_ContributionRecur_xthContribution extends CRM_Civi
    * @access public
    */
   public function userFriendlyConditionParams() {
-    $operator = null;
+    $operator = NULL;
     switch ($this->conditionParams['operator']) {
       case 1:
         $operator = 'is not equal to';
         break;
+
       case 2:
         $operator = 'more than';
         break;
+
       case 3:
         $operator = 'more than or equal to';
         break;
+
       case 4:
         $operator = 'less than';
         break;
+
       case 5:
         $operator = 'less than or equal to';
         break;
+
       default:
         $operator = 'is equal to';
         break;
     }
-    return ts('Contribution number of a recurring ').$operator.' '.$this->conditionParams['no_of_recurring'];
+    return ts('Contribution number of a recurring ') . $operator . ' ' . $this->conditionParams['no_of_recurring'];
   }
 
   /**

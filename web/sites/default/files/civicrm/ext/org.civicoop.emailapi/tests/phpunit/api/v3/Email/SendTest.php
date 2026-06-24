@@ -14,6 +14,8 @@ class api_v3_Email_SendTest extends \PHPUnit\Framework\TestCase implements Headl
   use \Civi\Test\Api3TestTrait;
 
   protected static $sentMail = [];
+  protected static $hookAlterSubject;
+  protected static $hookAlterSuffix;
   /** @var array of message tpl ids. */
   protected $messageTemplates = [];
   /** @var int */
@@ -36,6 +38,9 @@ class api_v3_Email_SendTest extends \PHPUnit\Framework\TestCase implements Headl
    */
   public function setUp(): void {
     parent::setUp();
+
+    static::$hookAlterSubject = NULL;
+    static::$hookAlterSuffix = NULL;
 
     CRM_Core_BAO_ConfigSetting::disableComponent('CiviCase');
     CRM_Core_BAO_ConfigSetting::enableComponent('CiviCase');
@@ -94,7 +99,22 @@ class api_v3_Email_SendTest extends \PHPUnit\Framework\TestCase implements Headl
    * This can be used for cleanup.
    */
   public function tearDown(): void {
+    static::$hookAlterSubject = NULL;
+    static::$hookAlterSuffix = NULL;
     parent::tearDown();
+  }
+
+  /**
+   * Test-local hook implementation. Enabled only when static flags are set.
+   */
+  public function civicrm_alterMailContent(&$content): void {
+    if (static::$hookAlterSubject !== NULL) {
+      $content['subject'] = static::$hookAlterSubject;
+    }
+    if (static::$hookAlterSuffix !== NULL) {
+      $content['html'] .= static::$hookAlterSuffix;
+      $content['text'] .= static::$hookAlterSuffix;
+    }
   }
 
   /**
@@ -136,6 +156,27 @@ class api_v3_Email_SendTest extends \PHPUnit\Framework\TestCase implements Headl
     $sent = $mock->sentMessages[0];
     $this->assertEquals(['testy@example.org'], $sent['recipients']);
     $this->assertEquals('Custom subject Testy', $sent['headers']['Subject']);
+  }
+
+  /**
+   * Ensure Email.Send runs hook_civicrm_alterMailContent and uses altered content.
+   */
+  public function testAlterMailContentHookIsApplied() {
+    static::$hookAlterSubject = 'Hooked Subject';
+    static::$hookAlterSuffix = ' [hooked]';
+
+    civicrm_api3('Email', 'send', [
+      'contact_id' => $this->contactID,
+      'template_id' => $this->messageTemplates[0],
+    ]);
+
+    list($mock, $recipientEmail, $message) = array_shift(static::$sentMail);
+    $this->assertInstanceOf(\Mail_mock::class, $mock);
+    $this->assertCount(1, $mock->sentMessages);
+    $sent = $mock->sentMessages[0];
+    $this->assertEquals(['testy@example.org'], $sent['recipients']);
+    $this->assertEquals('Hooked Subject', $sent['headers']['Subject']);
+    $this->assertContains('[hooked]', $sent['body']);
   }
 
   /**

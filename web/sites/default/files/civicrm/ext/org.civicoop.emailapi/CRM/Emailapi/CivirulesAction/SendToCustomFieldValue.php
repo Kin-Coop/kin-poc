@@ -72,36 +72,44 @@ class CRM_Emailapi_CivirulesAction_SendToCustomFieldValue extends CRM_Civirules_
   /**
    * Ajax endpoint to adjust select options when entity field changes.
    */
-  public static function getCustomFieldsForEntity($entity = NULL) {
-    return CRM_Utils_JSON::output(self::_getCustomFieldsForEntity($entity));
+   public static function getCustomFieldsForEntity() {
+    $entity = CRM_Utils_Request::retrieve('entity', 'String');
+    return CRM_Utils_System::sendJSONResponse(self::_getCustomFieldsForEntity($entity));
   }
 
   /**
    * List the custom fields for an entity.
    */
-  public static function _getCustomFieldsForEntity($entity = NULL) {
-    if (!$entity) {
+   public static function _getCustomFieldsForEntity($entity = NULL) {
+    // If $entity was passed as an object (fallback safety), cast to NULL
+    if (is_object($entity)) {
       $entity = CRM_Utils_Request::retrieve('entity', 'String');
     }
+
     $return = [];
+
     $params = [
       'data_type' => 'String',
       'options' => ['limit' => 0],
       'return' => ['id', 'label', 'custom_group_id.title'],
     ];
-    if ($entity) {
+
+    if (!empty($entity) && is_string($entity)) {
       $params['custom_group_id.extends'] = $entity;
     }
+
     try {
       $result = civicrm_api3('CustomField', 'get', $params)['values'];
+      foreach ($result as $field) {
+        $title = $field['custom_group_id.title'] ?? 'Global';
+        $return[$field['id']] = $title . '::' . $field['label'];
+      }
+      asort($return);
     }
     catch (CRM_Core_Exception $e) {
-      $result = [];
+      return [];
     }
-    foreach ($result as $field) {
-      $return[$field['id']] = $field['custom_group_id.title'] . '::' . $field['label'];
-    }
-    asort($return);
+
     return $return;
   }
 

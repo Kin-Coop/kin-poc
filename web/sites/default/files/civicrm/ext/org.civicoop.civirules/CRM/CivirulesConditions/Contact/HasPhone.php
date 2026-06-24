@@ -2,22 +2,6 @@
 
 class CRM_CivirulesConditions_Contact_HasPhone extends CRM_Civirules_Condition {
 
-  private $conditionParams = array();
-
-  /**
-   * Method to set the Rule Condition data
-   *
-   * @param array $ruleCondition
-   * @access public
-   */
-  public function setRuleConditionData($ruleCondition) {
-    parent::setRuleConditionData($ruleCondition);
-    $this->conditionParams = array();
-    if (!empty($this->ruleCondition['condition_params'])) {
-      $this->conditionParams = unserialize($this->ruleCondition['condition_params']);
-    }
-  }
-
   /**
    * This method returns true or false when an condition is valid or not
    *
@@ -34,9 +18,9 @@ class CRM_CivirulesConditions_Contact_HasPhone extends CRM_Civirules_Condition {
     }
     $count = civicrm_api3('Phone', 'getCount', $apiParams);
     if ($count) {
-      return true;
+      return TRUE;
     }
-    return false;
+    return FALSE;
   }
 
   /**
@@ -62,25 +46,26 @@ class CRM_CivirulesConditions_Contact_HasPhone extends CRM_Civirules_Condition {
    */
   public function userFriendlyConditionParams() {
     $phoneType = $this->conditionParams['phone_type'];
-    $phoneTypes = CRM_Core_OptionGroup::values('phone_type', false, false, false, false, 'label', false);
+    $phoneTypes = CRM_Core_OptionGroup::values('phone_type', FALSE, FALSE, FALSE, FALSE, 'label', FALSE);
     $phoneTypeLabel = ts('Any phone type');
     if ($phoneType && isset($phoneTypes[$phoneType])) {
-      $phoneTypeLabel = ts('Phone type is %1', array(
+      $phoneTypeLabel = ts('Phone type is %1', [
         1 => $phoneTypes[$phoneType],
-      ));
+      ]);
     }
     $locationType = $this->conditionParams['location_type'];
     $locationTypeLabel = ts('Any location');
     if ($locationType) {
       try {
-        $locationTypeLabel = ts('Location is %1', array(
-          1 => civicrm_api3('LocationType', 'getvalue', array('id' => $locationType, 'return' => 'display_name'))
-        ));
-      } catch (Exception $e) {
+        $locationTypeLabel = ts('Location is %1', [
+          1 => civicrm_api3('LocationType', 'getvalue', ['id' => $locationType, 'return' => 'display_name']),
+        ]);
+      }
+      catch (Exception $e) {
         //do nothing
       }
     }
-    return $phoneTypeLabel . ts(' and ').$locationTypeLabel;
+    return $phoneTypeLabel . ts(' and ') . $locationTypeLabel;
   }
 
   /**
@@ -98,7 +83,8 @@ class CRM_CivirulesConditions_Contact_HasPhone extends CRM_Civirules_Condition {
           'value' => $params['phone_type'],
           'option_group_id' => 'phone_type',
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -108,7 +94,8 @@ class CRM_CivirulesConditions_Contact_HasPhone extends CRM_Civirules_Condition {
           'return' => 'name',
           'id' => $params['location_type'],
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -129,7 +116,8 @@ class CRM_CivirulesConditions_Contact_HasPhone extends CRM_Civirules_Condition {
           'name' => $condition_params['phone_type'],
           'option_group_id' => 'phone_type',
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }
@@ -139,7 +127,8 @@ class CRM_CivirulesConditions_Contact_HasPhone extends CRM_Civirules_Condition {
           'return' => 'id',
           'name' => $condition_params['location_type'],
         ]);
-      } catch (\CRM_Core_Exception $e) {
+      }
+      catch (\CRM_Core_Exception $e) {
         // Do nothing.
       }
     }

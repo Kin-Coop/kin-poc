@@ -8,10 +8,14 @@ use CRM_Civirules_ExtensionUtil as E;
  */
 class CRM_CivirulesCronTrigger_NoCaseActivitySince extends CRM_Civirules_Trigger_Cron {
 
-  /*
-   * @var CRM_Core_DAO|FALSE
+  /**
+   * @var \CRM_Case_DAO_CaseActivity
    */
-  private ?CRM_Core_DAO $dao = NULL;
+  private $dao = NULL;
+
+  public function getEntityName(): ?string {
+    return 'CaseActivity';
+  }
 
   /**
    * This function returns a CRM_Civirules_TriggerData_TriggerData this entity is used for triggering the rule
@@ -45,7 +49,7 @@ class CRM_CivirulesCronTrigger_NoCaseActivitySince extends CRM_Civirules_Trigger
    * @return CRM_Civirules_TriggerData_EntityDefinition
    */
   protected function reactOnEntity() {
-    return new CRM_Civirules_TriggerData_EntityDefinition('CaseActivity', 'CaseActivity', 'CRM_Case_DAO_CaseActivity' , 'CaseActivity');
+    return new CRM_Civirules_TriggerData_EntityDefinition('CaseActivity', 'CaseActivity', 'CRM_Case_DAO_CaseActivity', 'CaseActivity');
   }
 
   /**
@@ -80,11 +84,11 @@ class CRM_CivirulesCronTrigger_NoCaseActivitySince extends CRM_Civirules_Trigger
             INNER JOIN `civicrm_case` `c` ON `c`.`id` = `ca`.`case_id`
             LEFT JOIN `civirule_rule_log` `rule_log` ON `rule_log`.entity_table = 'civicrm_case_activity' AND `rule_log`.entity_id = ca.id AND `rule_log`.`rule_id` = %1
             LEFT JOIN `civirule_rule` `rule` ON `rule`.`id` = %1
-            WHERE `c`.`is_deleted` = 0 AND `a`.`is_deleted` = '0' AND `a`.`is_current_revision` = '1'
+            WHERE `c`.`is_deleted` = 0 AND `a`.`is_deleted` = '0'
             AND " . implode(" AND ", $clauses) . "
             AND `rule_log`.`id` IS NULL
             GROUP BY `ca`.`case_id`
-            HAVING DATE_ADD(MAX(`a`.`" . $dateField . "`), INTERVAL ".$offset." ".$unit .") <= NOW()";
+            HAVING DATE_ADD(MAX(`a`.`" . $dateField . "`), INTERVAL " . $offset . " " . $unit . ") <= NOW()";
     $params[1] = [$this->ruleId, 'Integer'];
     $this->dao = CRM_Core_DAO::executeQuery($sql, $params, TRUE, 'CRM_Case_DAO_CaseActivity');
 
@@ -163,7 +167,7 @@ class CRM_CivirulesCronTrigger_NoCaseActivitySince extends CRM_Civirules_Trigger
         'DAY' => E::ts('Day(s)'),
         'WEEK' => E::ts('Week(s)'),
         'MONTH' => E::ts('Month(s)'),
-        'YEAR' => E::ts('Year(s)')
+        'YEAR' => E::ts('Year(s)'),
       ];
       $offsetLabel = "{$this->triggerParams['offset']} {$offsetUnits[$this->triggerParams['offset_unit']]} {$offsetTypes[$this->triggerParams['offset_type']]}";
     }
@@ -173,11 +177,11 @@ class CRM_CivirulesCronTrigger_NoCaseActivitySince extends CRM_Civirules_Trigger
       $eventTypeLabel = CRM_Civirules_Utils::getOptionLabelWithValue(CRM_Civirules_Utils::getOptionGroupIdWithName('event_type'), $this->triggerParams['event_type_id']);
     }
     $description = E::ts('Trigger for Event with type "%1" %3 "%2".', [
-        1 => $eventTypeLabel,
-        2 => $fieldLabel,
-        3 => $offsetLabel
-      ]);
-    $description .=  ' <br/><em>This rule will not trigger for event dates before the rule was created.</em>';
+      1 => $eventTypeLabel,
+      2 => $fieldLabel,
+      3 => $offsetLabel,
+    ]);
+    $description .= ' <br/><em>This rule will not trigger for event dates before the rule was created.</em>';
     return $description;
   }
 
