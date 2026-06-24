@@ -110,3 +110,4 @@ cron*.sh
 .DS_Store
 
 /web/google*html
+/web/sites/default/files/civicrm/ext/com.drastikbydesign.stripe/vendor/stripe/stripe-php/README.md
