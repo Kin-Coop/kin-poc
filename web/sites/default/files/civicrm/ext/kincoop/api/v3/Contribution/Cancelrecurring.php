@@ -44,7 +44,7 @@ function civicrm_api3_contribution_Cancelrecurring($params) {
 
       try {
         // Cancel recurring contribution
-        ContributionRecur::update(FALSE)
+        \Civi\Api4\ContributionRecur::update(FALSE)
          ->addValue('contribution_status_id', 3) // "Cancelled"
          ->addValue('cancel_reason', 'Automatic civirule after contribution failed for 10 days')
          ->addWhere('id', '=', $contribution['contribution_recur_id'])
