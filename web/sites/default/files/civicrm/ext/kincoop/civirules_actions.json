@@ -18,5 +18,10 @@
     "name": "send_email_household_admins",
     "label": "Send Email to all Household Admins of referenced household",
     "class_name": "CRM_CivirulesActions_Contribution_SendEmailToHouseholdAdmins"
+  },
+  {
+    "name": "cancel_membership_recurring_contribution",
+    "label": "Cancel the recurring contribution for a membership payment",
+    "class_name": "CRM_CivirulesActions_Contribution_CancelMembershipRC"
   }
 ]
