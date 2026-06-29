@@ -6,9 +6,8 @@ dependencies:
     - field.storage.taxonomy_term.field_anchor
     - field.storage.taxonomy_term.field_block
     - taxonomy.vocabulary.kin_shares
-    - user.role.administrator
-    - user.role.content_editor
-    - user.role.member
+    - user.role.anonymous
+    - user.role.authenticated
   module:
     - block_field
     - taxonomy
@@ -242,9 +241,8 @@ display:
         type: role
         options:
           role:
-            member: member
-            content_editor: content_editor
-            administrator: administrator
+            anonymous: anonymous
+            authenticated: authenticated
       cache:
         type: tag
         options: {  }
@@ -287,6 +285,11 @@ display:
           plugin_id: bundle
           value:
             kin_shares: kin_shares
+          group: 1
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
       style:
         type: default
         options:

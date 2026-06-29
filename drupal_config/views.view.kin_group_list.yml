@@ -1745,7 +1745,7 @@ display:
           group_type: group
           admin_label: 'Relationship Status'
           entity_type: civicrm_relationship
-          entity_field: custom_40
+          entity_field: relationship_status_40
           plugin_id: civicrm_entity_custom_field
           label: ''
           exclude: true
@@ -1966,6 +1966,70 @@ display:
           or: ' - {{ view }}'
           or_translate: true
           strip_tags: false
+        label:
+          id: label
+          table: civicrm_tag
+          field: label
+          relationship: civicrm_tag
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_tag
+          entity_field: label
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         views_conditional_field_1:
           id: views_conditional_field_1
           table: views_conditional
@@ -1975,7 +2039,7 @@ display:
           admin_label: Output
           plugin_id: views_conditional_field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -2023,6 +2087,55 @@ display:
           or: '<a href="/member/group/{{ id }}">{{ display_name }} ({{ views_conditional_field }})</a> {{ views_conditional_field_2 }}'
           or_translate: true
           strip_tags: false
+        nothing:
+          id: nothing
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: custom
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: "{% if id == '425' %}\r\n  <a href=\"/member/group/{{ id }}\">{{ display_name }} ({{ label|lower }})</a>\r\n{% elseif 'pending' in views_conditional_field|lower %}\r\n  {{ display_name }} <span class=\"no-caps\">(pending)</span>\r\n{% else %}\r\n  <a href=\"/member/group/{{ id }}\">{{ display_name }} ({{ views_conditional_field }})</a> {{ views_conditional_field_2 }}\r\n{% endif %}"
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
       access:
         type: household_access
         options:
@@ -2184,6 +2297,16 @@ display:
           entity_field: relationship_type_id
           plugin_id: standard
           required: true
+        civicrm_tag:
+          id: civicrm_tag
+          table: civicrm_contact
+          field: civicrm_tag
+          relationship: contact_id_a
+          group_type: group
+          admin_label: 'CiviCRM tag'
+          entity_type: civicrm_contact
+          plugin_id: civicrm_entity_civicrm_bridge
+          required: false
       css_class: 'member-block my-groups'
       display_description: ''
       header:
@@ -8099,7 +8222,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<div class=\"col-md-6\">&nbsp;</div><div class=\"member-block col-md-6\">\r\n    <h2>\r\n        Buy Shares\r\n    </h2>\r\n    <p>\r\n      See the <a href=\"/faq\" target=\"_blank\">contributions FAQ.</a>\r\n    <p>\r\n        <a class=\"btn btn-primary mb-3 ms-0 me-3\" href=\"/civicrm/contribute/transact?reset=1&id=9&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Buy Shares</a>\r\n    </p>\r\n</div>"
+            value: "<div class=\"col-md-6\">&nbsp;</div><div class=\"member-block col-md-6\">\r\n    <h2>\r\n        Buy Shares\r\n    </h2>\r\n    <p>\r\n        <a class=\"btn btn-primary mb-3 ms-0 me-3\" href=\"/civicrm/contribute/transact?reset=1&id=9&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Buy Shares</a>\r\n    </p>\r\n</div>"
             format: full_html
           tokenize: true
         area_2:
@@ -8112,7 +8235,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<div class=\"member-block col-md-6\">\r\n    <h2>\r\n        Sell Shares\r\n    </h2>\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/form/sell-shares\">Sell Shares</a>\r\n    </p>\r\n</div>"
+            value: "<div class=\"member-block col-md-6\">\r\n    <h2>\r\n        Sell Shares\r\n    </h2>\r\n    <p>\r\n        <a class=\"btn btn-primary\" href=\"/form/sell-shares\">Sell Shares</a>\r\n    </p>\r\n   <p>\r\n</div>"
             format: full_html
           tokenize: true
         view_1:
