@@ -1501,7 +1501,7 @@ div.block.vertical {
 }
 
 .my-groups {
-  .views-field-views-conditional-field-1 {
+  .views-field-views-conditional-field-1, .views-field-nothing {
     div {
       display: inline-block;
       color: darken($secondary, 10%);
@@ -1915,7 +1915,7 @@ div.block.vertical {
       > div.row {
         > div:first-of-type {
           margin-top: 46px;
-          
+
           @include media-breakpoint-up(lg) {
             height: fit-content;
             top: 10%;

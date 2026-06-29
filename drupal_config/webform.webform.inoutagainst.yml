@@ -1,62 +1,48 @@
-uuid: a8c1c23c-636c-41f3-95d2-c561225645d3
+uuid: 844409c2-46c9-43f8-b3f3-91c36db9a0a8
 langcode: en-gb
 status: open
 dependencies: {  }
 weight: 0
 open: null
 close: null
-uid: 1
+uid: 3
 template: false
 archive: false
-id: kin_workshop_income
-title: 'Kin Workshop Income'
+id: inoutagainst
+title: INOUTAGAINST
 description: ''
 categories: {  }
 elements: |-
-  intro:
-    '#type': webform_markup
-    '#markup': '<p>This form is anonymous.</p><p>Please fill out the fields below. Estimates are fine.</p>'
-  monthly_income:
-    '#type': number
-    '#title': 'Monthly Income'
-    '#description': '<p>including pension (monthly)</p>'
-    '#required': true
-  assets:
-    '#type': number
-    '#title': Assets
-    '#description': '<p>Savings, shares, investments, 2nd homes. Please enter zero if you have no assets.</p>'
-    '#default_value': '0'
-    '#min': 0
-    '#required': true
-  house_value:
-    '#type': number
-    '#title': 'House Value'
-    '#description': '<p>If owned or mortgaged. Please leave at zero if you are renting.</p>'
-    '#default_value': '0'
-    '#min': 0
-    '#required': true
-  monthly_rent_mortgage:
-    '#type': number
-    '#title': 'Monthly Rent or Mortgage'
-    '#description': '<p>If primary home (monthly). Please add a minus sign to enter a negative value.</p>'
-    '#required': true
-    '#default_value': '0'
-  debt:
-    '#type': number
-    '#title': Debt
-    '#description': '<p>Student loans, overdraft, payday etc.&nbsp;</p>'
-    '#required': true
-    '#default_value': '0'
-  remaining_mortgage:
-    '#type': number
-    '#title': 'Remaining Mortgage'
-    '#description': '<p>If owned or mortgaged.&nbsp;</p>'
-    '#required': true
-    '#default_value': '0'
-  workshop:
-    '#type': hidden
-    '#title': Workshop
-    '#default_value': 'Workers Coop'
+  group_name:
+    '#type': textfield
+    '#title': 'Group name'
+  within:
+    '#type': webform_message
+    '#message_message': '<p>IN</p>'
+  first_demand_of_the_state_working_within:
+    '#type': textarea
+    '#title': 'First demand of the state / working within'
+  second_demand_of_the_state_working_within:
+    '#type': textarea
+    '#title': 'Second demand of the state / working within'
+  outside:
+    '#type': webform_message
+    '#message_message': '<p>OUT</p>'
+  first_activity_outside_of_the_state:
+    '#type': textarea
+    '#title': 'First activity outside of the state'
+  second_activity_outside_of_the_state:
+    '#type': textarea
+    '#title': 'Second activity outside of the state'
+  againstthestate:
+    '#type': webform_message
+    '#message_message': '<p>AGAINST</p>'
+  first_activity_agianst_the_state:
+    '#type': textarea
+    '#title': 'First activity agianst the state'
+  second_activity_agianst_the_state:
+    '#type': textarea
+    '#title': 'Second activity agianst the state'
 css: ''
 javascript: ''
 settings:
@@ -69,12 +55,12 @@ settings:
   page_submit_path: ''
   page_confirm_path: ''
   page_theme_name: ''
-  form_title: source_entity_webform
+  form_title: both
   form_submit_once: false
   form_open_message: ''
   form_close_message: ''
   form_exception_message: ''
-  form_previous_submissions: false
+  form_previous_submissions: true
   form_confidential: false
   form_confidential_message: ''
   form_disable_remote_addr: false
@@ -127,7 +113,7 @@ settings:
   autofill: false
   autofill_message: ''
   autofill_excluded_elements: {  }
-  wizard_progress_bar: false
+  wizard_progress_bar: true
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_progress_link: false
@@ -164,10 +150,10 @@ settings:
   draft_pending_multiple_message: ''
   confirmation_type: page
   confirmation_url: ''
-  confirmation_title: Success!
-  confirmation_message: '<p>Thank you for completing this form.</p>'
+  confirmation_title: ''
+  confirmation_message: ''
   confirmation_attributes: {  }
-  confirmation_back: false
+  confirmation_back: true
   confirmation_back_label: ''
   confirmation_back_attributes: {  }
   confirmation_exclude_query: false
@@ -177,8 +163,8 @@ settings:
   limit_total_interval: null
   limit_total_message: ''
   limit_total_unique: false
-  limit_user: 2
-  limit_user_interval: 3600
+  limit_user: null
+  limit_user_interval: null
   limit_user_message: ''
   limit_user_unique: false
   entity_limit_total: null

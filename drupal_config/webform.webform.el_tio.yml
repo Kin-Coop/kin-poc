@@ -1,58 +1,80 @@
-uuid: a8c1c23c-636c-41f3-95d2-c561225645d3
+uuid: cb4077f1-5e37-492a-b676-92bd79580bf7
 langcode: en-gb
 status: open
 dependencies: {  }
 weight: 0
 open: null
 close: null
-uid: 1
+uid: 3
 template: false
 archive: false
-id: kin_workshop_income
-title: 'Kin Workshop Income'
+id: el_tio
+title: 'El Tio'
 description: ''
 categories: {  }
 elements: |-
-  intro:
-    '#type': webform_markup
-    '#markup': '<p>This form is anonymous.</p><p>Please fill out the fields below. Estimates are fine.</p>'
+  intro_message:
+    '#type': webform_message
+    '#message_message': '<p><strong>This form is anonymous.</strong></p><p>Please fill all fields with positive numbers. Close estimates are fine.</p>'
   monthly_income:
     '#type': number
     '#title': 'Monthly Income'
     '#description': '<p>including pension (monthly)</p>'
     '#required': true
-  assets:
-    '#type': number
-    '#title': Assets
-    '#description': '<p>Savings, shares, investments, 2nd homes. Please enter zero if you have no assets.</p>'
     '#default_value': '0'
     '#min': 0
-    '#required': true
-  house_value:
-    '#type': number
-    '#title': 'House Value'
-    '#description': '<p>If owned or mortgaged. Please leave at zero if you are renting.</p>'
-    '#default_value': '0'
-    '#min': 0
-    '#required': true
+    '#max': 200000
   monthly_rent_mortgage:
     '#type': number
     '#title': 'Monthly Rent or Mortgage'
-    '#description': '<p>If primary home (monthly). Please add a minus sign to enter a negative value.</p>'
+    '#description': '<p>If primary home (monthly).</p>'
     '#required': true
     '#default_value': '0'
+    '#min': 0
+    '#max': 200000
+  assets:
+    '#type': number
+    '#title': Assets
+    '#description': '<p>Savings, shares, investments, 2<sup>nd</sup> homes.&nbsp;</p>'
+    '#required': true
+    '#default_value': '0'
+    '#min': 0
+    '#max': 100000000
   debt:
     '#type': number
     '#title': Debt
     '#description': '<p>Student loans, overdraft, payday etc.&nbsp;</p>'
     '#required': true
     '#default_value': '0'
+    '#min': 0
+    '#max': 10000000
+  do_you_own_a_home_have_a_mortgage:
+    '#type': radios
+    '#title': 'Do you own a home / have a mortgage?'
+    '#options': yes_no
+    '#required': true
+  house_value:
+    '#type': number
+    '#title': 'House Value'
+    '#required': true
+    '#states':
+      visible:
+        ':input[name="do_you_own_a_home_have_a_mortgage"]':
+          value: 'Yes'
+    '#default_value': '0'
+    '#min': 0
+    '#max': 50000000
   remaining_mortgage:
     '#type': number
     '#title': 'Remaining Mortgage'
-    '#description': '<p>If owned or mortgaged.&nbsp;</p>'
     '#required': true
+    '#states':
+      visible:
+        ':input[name="do_you_own_a_home_have_a_mortgage"]':
+          value: 'Yes'
     '#default_value': '0'
+    '#min': 0
+    '#max': 50000000
   workshop:
     '#type': hidden
     '#title': Workshop

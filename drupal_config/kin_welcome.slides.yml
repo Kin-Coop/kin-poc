@@ -3,7 +3,7 @@ _core:
 slides:
   slide_1:
     title: 'Welcome to Kin!'
-    body: '<p>This is <strong>your member page</strong>.</p><p>From here, you can:</p><ul><li data-list-item-id="ee75569ac1cd3e03d1ba61d5b5a0a4f98">create a new group</li><li data-list-item-id="eeb0b0ab53b0beb3ffca83adf119473f5">search for groups to join</li><li data-list-item-id="e6726de27a3900500bbc2272cbc1c5bcf">manage your contributions&nbsp;</li><li data-list-item-id="e9ad3d721efd4557b8e58f654a01a5704">change personal settings</li></ul><p>In the <strong>My Groups</strong> section, click on the group name to visit that group’s page.<br>&nbsp;</p>'
+    body: '<p>This is <strong>your member page</strong>.</p><p>From here, you can:</p><ul><li data-list-item-id="ee75569ac1cd3e03d1ba61d5b5a0a4f98">create a new group</li><li data-list-item-id="eeb0b0ab53b0beb3ffca83adf119473f5">search for groups to join</li><li data-list-item-id="e6726de27a3900500bbc2272cbc1c5bcf">manage your contributions&nbsp;</li><li data-list-item-id="e327d02b65f7113df2dfe43e5021e1253">buy shares</li><li data-list-item-id="e9ad3d721efd4557b8e58f654a01a5704">change personal settings</li></ul><p>In the <strong>My Groups</strong> section, click on the group name to visit that group’s page.<br>&nbsp;</p>'
     body_format: basic_html
   slide_2:
     title: 'Contributions (Important!)'
@@ -11,7 +11,7 @@ slides:
     body_format: full_html
   slide_3:
     title: 'Your Membership'
-    body: '<p>Kin is a member-supported not for profit cooperative. There are no transaction fees, no interest and no ads.</p><p>To use Kin, you must become a member of Kin Cooperative by <strong>making a membership contribution</strong> of at least £1 per month<strong>*.</strong></p><p><em>*If you are in a position to help others, please contribute more. If a regular membership payment is too much for you, </em><a href="/contact" target="_blank"><em>please get in touch</em></a><em> about solidarity membership.</em></p>'
+    body: '<p>Kin is a member-supported not for profit cooperative. There are no transaction fees, no interest and no ads.</p><p>All Kin users must become a member of Kin Cooperative by <strong>making a membership contribution</strong> of at least £1 per month<strong>*.</strong></p><p><em>*If you are in a position to help others, please contribute more. If a regular membership payment is too much for you, </em><a href="/contact" target="_blank"><em>please get in touch</em></a><em> about solidarity membership.</em></p>'
     body_format: full_html
   slide_4:
     title: 'Complete Your Membership'
