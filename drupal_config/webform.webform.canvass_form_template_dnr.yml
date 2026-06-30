@@ -581,6 +581,365 @@ elements: |-
     '#title': 'What appeals to you most about the idea of people in your local area cooperating economically?'
     '#required': '0'
     '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_181:
+    '#type': civicrm_options
+    '#extra':
+      multiple: 1
+      aslist: 0
+      items: |-
+        1|Cheaper food
+        2|Meeting others
+        3|Something else
+      description: ''
+      description_above: null
+    '#data_type': String
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_181
+    '#options':
+      1: 'Cheaper food'
+      2: 'Meeting others'
+      3: 'Something else'
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'What interests you most?'
+    '#civicrm_live_options': 1
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_182:
+    '#type': civicrm_options
+    '#extra':
+      multiple: 1
+      aslist: 0
+      items: |-
+        1|£1-3
+        2|£3-5
+        3|£5-8
+        4|It depends
+      description: ''
+      description_above: null
+    '#data_type': String
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_182
+    '#options':
+      1: £1-3
+      2: £3-5
+      3: £5-8
+      4: 'It depends'
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'How much would you be prepared to spend per shop?'
+    '#civicrm_live_options': 1
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_183:
+    '#type': civicrm_options
+    '#extra':
+      aslist: 0
+      items: |-
+        1|Yes
+        2|No
+      description: ''
+      description_above: null
+    '#data_type': String
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_183
+    '#options':
+      1: 'Yes'
+      2: 'No'
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'Do you have any requirements or preferences for the food you need (eg. halal, gluten free, vegan, organic, local source, food from my cultural background)'
+    '#civicrm_live_options': 1
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_184:
+    '#type': textarea
+    '#data_type': Memo
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#extra':
+      cols: '60'
+      rows: '4'
+      description: ''
+      description_above: null
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_184
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'Food requirements or preferences'
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_185:
+    '#type': textarea
+    '#data_type': Memo
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#extra':
+      cols: '60'
+      rows: '4'
+      description: ''
+      description_above: null
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_185
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'What interests them most (other)'
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_186:
+    '#type': textarea
+    '#data_type': Memo
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#extra':
+      cols: '60'
+      rows: '4'
+      description: ''
+      description_above: null
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_186
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'Food shop cost dependency'
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_187:
+    '#type': civicrm_options
+    '#extra':
+      multiple: 1
+      aslist: 0
+      items: |-
+        1|Every week
+        2|Every 2 weeks
+        3|Monthly
+        4|Not sure
+      description: ''
+      description_above: null
+    '#data_type': String
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_187
+    '#options':
+      1: 'Every week'
+      2: 'Every 2 weeks'
+      3: Monthly
+      4: 'Not sure'
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'How often would you want to order?'
+    '#civicrm_live_options': 1
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_188:
+    '#type': civicrm_options
+    '#extra':
+      multiple: 1
+      aslist: 0
+      items: |-
+        2|Yes
+        4|Maybe
+        3|No
+      description: ''
+      description_above: null
+    '#data_type': String
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_188
+    '#options':
+      2: 'Yes'
+      4: Maybe
+      3: 'No'
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'Would you be interested in joining a local cooperation fund?'
+    '#civicrm_live_options': 1
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_189:
+    '#type': textarea
+    '#data_type': Memo
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#extra':
+      cols: '60'
+      rows: '4'
+      description: ''
+      description_above: null
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_189
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'More savings club interest'
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_190:
+    '#type': textarea
+    '#data_type': Memo
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#extra':
+      cols: '60'
+      rows: '4'
+      description: ''
+      description_above: null
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_190
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'What kinds of cooperation do you want to see more of?'
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_191:
+    '#type': civicrm_options
+    '#extra':
+      multiple: 1
+      aslist: 0
+      items: |-
+        1|Easy, I know plenty of local people who'd come
+        2|I could probably get a handful
+        3|Hard, I don't really know my neighbours like that
+      description: ''
+      description_above: null
+    '#data_type': String
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_191
+    '#options':
+      1: "Easy, I know plenty of local people who'd come"
+      2: 'I could probably get a handful'
+      3: "Hard, I don't really know my neighbours like that"
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'How difficult would you find it to gather the people in your neighborhood together for a meeting?'
+    '#civicrm_live_options': 1
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_192:
+    '#type': textfield
+    '#data_type': String
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#counter_type': character
+    '#counter_maximum': 255
+    '#counter_maximum_message': ' '
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_192
+    '#extra':
+      width: 20
+      description: ''
+      description_above: null
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': Language
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_193:
+    '#type': civicrm_options
+    '#extra':
+      aslist: 0
+      items: |-
+        1|English
+        2|Other
+      description: ''
+      description_above: null
+    '#data_type': String
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_193
+    '#options':
+      1: English
+      2: Other
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'Langauge English / Other'
+    '#civicrm_live_options': 1
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_194:
+    '#type': textfield
+    '#data_type': String
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#counter_type': character
+    '#counter_maximum': 255
+    '#counter_maximum_message': ' '
+    '#nid': canvass_form_template_dnr
+    '#form_key': civicrm_1_contact_1_cg33_custom_194
+    '#extra':
+      width: 20
+      description: ''
+      description_above: null
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'Language preference'
+    '#required': '0'
+    '#default_value': ''
 css: ''
 javascript: ''
 settings:

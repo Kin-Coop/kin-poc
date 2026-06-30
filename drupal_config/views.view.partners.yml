@@ -8,9 +8,9 @@ dependencies:
     - image.style.media_library
     - node.type.partners
   module:
-    - image
     - link
     - node
+    - svg_image
 id: partners
 label: Partners
 module: views
@@ -150,6 +150,10 @@ display:
             image_style: media_library
             image_loading:
               attribute: lazy
+            svg_attributes:
+              width: null
+              height: null
+            svg_render_as_image: true
           group_column: ''
           group_columns: {  }
           group_rows: true

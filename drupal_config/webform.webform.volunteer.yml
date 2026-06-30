@@ -58,7 +58,7 @@ elements: |-
       '#parent': civicrm_1_contact_1_cg41_fieldset
     what_are_you_interested_in:
       '#type': webform_section
-      '#title': 'What are you interested in?'
+      '#title': 'What local organising roles are you interested in?'
       '#title_tag': h4
       '#states':
         visible-slide:
@@ -121,6 +121,14 @@ elements: |-
       '#nid': volunteer
       '#form_key': civicrm_1_contact_1_cg41_custom_173
       '#parent': civicrm_1_contact_1_cg41_fieldset
+    creative_and_contenttitle:
+      '#type': webform_section
+      '#title': 'Creative and content '
+      '#title_tag': h4
+      '#states':
+        visible-slide:
+          ':input[name="creative_and_content"]':
+            checked: true
     civicrm_1_contact_1_cg41_custom_174:
       '#type': textarea
       '#title': 'Tell us what you are interested to do.'
@@ -145,6 +153,14 @@ elements: |-
       '#nid': volunteer
       '#form_key': civicrm_1_contact_1_cg41_custom_174
       '#parent': civicrm_1_contact_1_cg41_fieldset
+    something_else_eh:
+      '#type': webform_section
+      '#title': 'Something else, eh?'
+      '#title_tag': h4
+      '#states':
+        visible-slide:
+          ':input[name="something_else"]':
+            checked: true
     civicrm_1_contact_1_cg41_custom_175:
       '#type': textarea
       '#title': 'What do you have in mind?'
@@ -413,7 +429,7 @@ elements: |-
     '#form_key': civicrm_1_activity_1_fieldset_fieldset
     civicrm_1_activity_1_cg4_custom_23:
       '#type': civicrm_options
-      '#title': 'I accept that Kin will process my data in accordance with GDPR'
+      '#title': 'I accept that Kin Co-operative is hosting this survey and will process my data in accordance with GDPR.'
       '#description': '<p class="text-black">Read the <a class="text-primary" href="https://kin.coop/kin-privacy-policy" target="_blank">privacy policy</a></p>'
       '#civicrm_live_options': 0
       '#options':
