@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/kinrules/export</path>
+    <page_callback>CRM_Kinrules_Page_Export</page_callback>
+    <title>Export CiviRules to CSV</title>
+    <access_arguments>administer CiviCRM</access_arguments>
+  </item>
+</menu>
