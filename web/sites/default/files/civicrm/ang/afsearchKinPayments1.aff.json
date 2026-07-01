@@ -30,7 +30,7 @@
         "label": "Kin Payments",
         "weight": 4
     },
-    "modified_date": "2026-06-21 17:42:52",
+    "modified_date": "2026-06-23 15:04:46",
     "confirmation_type": "redirect_to_url",
     "confirmation_message": null,
     "created_id": 2,
