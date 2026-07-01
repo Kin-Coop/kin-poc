@@ -34,86 +34,54 @@ function kinrules_civicrm_enable(): void {
   _kinrules_civix_civicrm_enable();
 }
 
+
 /**
  * Implements hook_civicrm_navigationMenu().
  *
- * Adds an "Export CiviRules to CSV" item under Administer > CiviRules.
- * Paste this function into kinrules.php (the file civix generated).
+ * Adds an "Export CiviRules to CSV" item. Paste this into kinrules.php,
+ * REPLACING the previous nav snippet entirely. Make sure
+ *   use CRM_Kinrules_ExtensionUtil as E;
+ * is present near the top of kinrules.php (civix adds it by default).
+ *
+ * This version uses CiviCRM's core _civicrm_insert_navigation_menu()
+ * helper rather than a hand-rolled one, so there is no risk of
+ * redeclaring a function that CiviRules already defines.
  */
-function kinrules_civicrm_navigationMenu(&$menu) {
-  // Try to nest under the existing CiviRules menu; fall back to Administer.
-  $parentName = 'CiviRules';
-  $parentId = _kinrules_find_menu_id($menu, $parentName);
-  if (!$parentId) {
-    $parentName = 'Administer';
-    $parentId = _kinrules_find_menu_id($menu, $parentName);
-  }
 
-  _civirules_insert_navigation_menu($menu, $parentName, [
-    'label'      => E::ts('Export CiviRules to CSV'),
-    'name'       => 'kinrules_export',
-    'url'        => 'civicrm/kinrules/export',
+function kinrules_civicrm_navigationMenu(&$menu)
+{
+  _kinrules_add_nav_item($menu, 'Administer', [
+    'label' => E::ts('Export CiviRules to CSV'),
+    'name' => 'kinrules_export',
+    'url' => 'civicrm/kinrules/export',
     'permission' => 'administer CiviCRM',
-    'operator'   => 'OR',
-    'separator'  => 0,
+    'operator' => 'OR',
+    'separator' => 0,
   ]);
-  _kinrules_navMenu_flush();
+  _kinrules_nav_menu_flush();
 }
 
 /**
- * Helper: insert a menu item under a named parent (mirrors core helper).
+ * Insert under a top-level parent by its menu "name", falling back to
+ * top level if the parent is not found. Uses the core helper.
  */
-function _civirules_insert_navigation_menu(&$menu, $path, $item) {
-  if (empty($path)) {
-    $menu[] = [
-      'attributes' => array_merge([
-        'label'      => $item['label'] ?? NULL,
-        'active'     => 1,
-      ], $item),
-    ];
-    return TRUE;
+function _kinrules_add_nav_item(&$menu, $parentName, $item)
+{
+  // CiviCRM core provides this helper; it walks the tree and inserts.
+  if (function_exists('_civicrm_insert_navigation_menu')) {
+    _civicrm_insert_navigation_menu($menu, $parentName, $item);
+  } else {
+    // Extremely defensive fallback: append at top level.
+    $menu[] = ['attributes' => $item + ['active' => 1]];
   }
-  foreach ($menu as &$entry) {
-    if ($entry['attributes']['name'] == $path) {
-      if (!isset($entry['child'])) {
-        $entry['child'] = [];
-      }
-      $entry['child'][] = [
-        'attributes' => array_merge([
-          'label'  => $item['label'] ?? NULL,
-          'active' => 1,
-        ], $item),
-      ];
-      return TRUE;
-    }
-    if (!empty($entry['child']) && _civirules_insert_navigation_menu($entry['child'], $path, $item)) {
-      return TRUE;
-    }
-  }
-  return FALSE;
 }
 
 /**
- * Helper: find a menu item's name by its label or name.
+ * Flush navigation cache so the item appears.
  */
-function _kinrules_find_menu_id($menu, $name) {
-  foreach ($menu as $entry) {
-    if (($entry['attributes']['name'] ?? '') === $name) {
-      return $entry['attributes']['navID'] ?? TRUE;
-    }
-    if (!empty($entry['child'])) {
-      $found = _kinrules_find_menu_id($entry['child'], $name);
-      if ($found) {
-        return $found;
-      }
-    }
+function _kinrules_nav_menu_flush()
+{
+  if (is_callable(['CRM_Core_BAO_Navigation', 'resetNavigation'])) {
+    CRM_Core_BAO_Navigation::resetNavigation();
   }
-  return NULL;
-}
-
-/**
- * Helper: flush the navigation cache so the new item appears.
- */
-function _kinrules_navMenu_flush() {
-  CRM_Core_BAO_Navigation::resetNavigation();
 }
