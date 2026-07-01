@@ -1,115 +1,115 @@
 <?php
 
-use CRM_Kinrules_ExtensionUtil as E;
-
-/**
- * Builds a flat CSV export of all CiviRules rules, one row per condition
- * and per action (with the rule's core data repeated on every row).
- */
-class CRM_Kinrules_Export {
+  use CRM_Kinrules_ExtensionUtil as E;
 
   /**
-   * Column order for the CSV.
+   * Builds a flat CSV export of all CiviRules rules, one row per condition
+   * and per action (with the rule's core data repeated on every row).
    */
-  const COLUMNS = [
-    'rule_id',
-    'label',
-    'name',
-    'is_enabled',
-    'trigger',
-    'tags',
-    'help_text',
-    'description',
-    'created_date',
-    'modified_date',
-    'row_type',
-    'item_id',
-    'item_name',
-    'item_label',
-    'item_human_readable',
-  ];
+  class CRM_Kinrules_Export {
 
-  /**
-   * Generate the CSV as a string.
-   *
-   * @return string
-   */
-  public static function toCsv() {
-    $rules = self::getRules();
+    /**
+     * Column order for the CSV.
+     */
+    const COLUMNS = [
+      'rule_id',
+      'label',
+      'name',
+      'is_enabled',
+      'trigger',
+      'tags',
+      'help_text',
+      'description',
+      'created_date',
+      'modified_date',
+      'row_type',
+      'item_id',
+      'item_name',
+      'item_label',
+      'item_human_readable',
+    ];
 
-    $fh = fopen('php://temp', 'r+');
-    fputcsv($fh, self::COLUMNS);
+    /**
+     * Generate the CSV as a string.
+     *
+     * @return string
+     */
+    public static function toCsv() {
+      $rules = self::getRules();
 
-    foreach ($rules as $rule) {
-      $base = [
-        'rule_id'       => $rule['id'],
-        'label'         => $rule['label'],
-        'name'          => $rule['name'],
-        'is_enabled'    => $rule['is_active'] ? 'Enabled' : 'Disabled',
-        'trigger'       => $rule['trigger_label'],
-        'tags'          => $rule['tags'],
-        'help_text'     => $rule['help_text'],
-        'description'   => $rule['description'],
-        'created_date'  => $rule['created_date'],
-        'modified_date' => $rule['modified_date'],
-      ];
+      $fh = fopen('php://temp', 'r+');
+      fputcsv($fh, self::COLUMNS);
 
-      $conditions = self::getConditions($rule['id']);
-      $actions = self::getActions($rule['id']);
+      foreach ($rules as $rule) {
+        $base = [
+          'rule_id'       => $rule['id'],
+          'label'         => $rule['label'],
+          'name'          => $rule['name'],
+          'is_enabled'    => $rule['is_active'] ? 'Enabled' : 'Disabled',
+          'trigger'       => $rule['trigger_label'],
+          'tags'          => $rule['tags'],
+          'help_text'     => $rule['help_text'],
+          'description'   => $rule['description'],
+          'created_date'  => $rule['created_date'],
+          'modified_date' => $rule['modified_date'],
+        ];
 
-      // If a rule somehow has no conditions and no actions, still emit one
-      // row so the rule appears in the export.
-      if (empty($conditions) && empty($actions)) {
-        self::writeRow($fh, $base, 'rule', NULL, NULL, NULL, NULL);
-        continue;
+        $conditions = self::getConditions($rule['id']);
+        $actions = self::getActions($rule['id']);
+
+        // If a rule somehow has no conditions and no actions, still emit one
+        // row so the rule appears in the export.
+        if (empty($conditions) && empty($actions)) {
+          self::writeRow($fh, $base, 'rule', NULL, NULL, NULL, NULL);
+          continue;
+        }
+
+        foreach ($conditions as $c) {
+          self::writeRow($fh, $base, 'condition', $c['id'], $c['name'], $c['label'], $c['human_readable']);
+        }
+        foreach ($actions as $a) {
+          self::writeRow($fh, $base, 'action', $a['id'], $a['name'], $a['label'], $a['human_readable']);
+        }
       }
 
-      foreach ($conditions as $c) {
-        self::writeRow($fh, $base, 'condition', $c['id'], $c['name'], $c['label'], $c['human_readable']);
-      }
-      foreach ($actions as $a) {
-        self::writeRow($fh, $base, 'action', $a['id'], $a['name'], $a['label'], $a['human_readable']);
-      }
+      rewind($fh);
+      $csv = stream_get_contents($fh);
+      fclose($fh);
+      return $csv;
     }
 
-    rewind($fh);
-    $csv = stream_get_contents($fh);
-    fclose($fh);
-    return $csv;
-  }
-
-  /**
-   * Write a single CSV row, mapping the associative arrays onto COLUMNS.
-   */
-  private static function writeRow($fh, array $base, $rowType, $itemId, $itemName, $itemLabel, $human) {
-    $row = $base + [
-        'row_type'            => $rowType,
-        'item_id'             => $itemId,
-        'item_name'           => $itemName,
-        'item_label'          => $itemLabel,
-        'item_human_readable' => $human,
-      ];
-    // Re-order to match COLUMNS exactly.
-    $ordered = [];
-    foreach (self::COLUMNS as $col) {
-      $ordered[] = $row[$col] ?? '';
+    /**
+     * Write a single CSV row, mapping the associative arrays onto COLUMNS.
+     */
+    private static function writeRow($fh, array $base, $rowType, $itemId, $itemName, $itemLabel, $human) {
+      $row = $base + [
+          'row_type'            => $rowType,
+          'item_id'             => $itemId,
+          'item_name'           => $itemName,
+          'item_label'          => $itemLabel,
+          'item_human_readable' => $human,
+        ];
+      // Re-order to match COLUMNS exactly.
+      $ordered = [];
+      foreach (self::COLUMNS as $col) {
+        $ordered[] = $row[$col] ?? '';
+      }
+      fputcsv($fh, $ordered);
     }
-    fputcsv($fh, $ordered);
-  }
 
-  /**
-   * Fetch all rules with trigger label and concatenated tags, ordered by
-   * enabled, then trigger, then tag, then id.
-   *
-   * @return array
-   */
-  public static function getRules() {
-    // Concatenate tag labels per rule via GROUP_CONCAT so we can both display
-    // and sort by them. CiviRules tags are stored as option values: the
-    // civirule_rule_tag.rule_tag_id column holds the civicrm_option_value
-    // *value* (not its id) within the 'civirule_rule_tag' option group, and
-    // the human-readable tag is that option value's label.
-    $sql = "
+    /**
+     * Fetch all rules with trigger label and concatenated tags, ordered by
+     * enabled, then trigger, then tag, then id.
+     *
+     * @return array
+     */
+    public static function getRules() {
+      // Concatenate tag labels per rule via GROUP_CONCAT so we can both display
+      // and sort by them. CiviRules tags are stored as option values: the
+      // civirule_rule_tag.rule_tag_id column holds the civicrm_option_value
+      // *value* (not its id) within the 'civirule_rule_tag' option group, and
+      // the human-readable tag is that option value's label.
+      $sql = "
       SELECT
         r.id              AS id,
         r.label           AS label,
@@ -139,34 +139,34 @@ class CRM_Kinrules_Export {
         r.id ASC
     ";
 
-    $dao = CRM_Core_DAO::executeQuery($sql);
-    $rules = [];
-    while ($dao->fetch()) {
-      $rules[] = [
-        'id'            => $dao->id,
-        'label'         => $dao->label,
-        'name'          => $dao->name,
-        'help_text'     => $dao->help_text,
-        'description'   => $dao->description,
-        'created_date'  => $dao->created_date,
-        'modified_date' => $dao->modified_date,
-        'is_active'     => $dao->is_active,
-        'trigger_label' => $dao->trigger_label,
-        'tags'          => $dao->tags ?? '',
-      ];
+      $dao = CRM_Core_DAO::executeQuery($sql);
+      $rules = [];
+      while ($dao->fetch()) {
+        $rules[] = [
+          'id'            => $dao->id,
+          'label'         => $dao->label,
+          'name'          => $dao->name,
+          'help_text'     => $dao->help_text,
+          'description'   => $dao->description,
+          'created_date'  => $dao->created_date,
+          'modified_date' => $dao->modified_date,
+          'is_active'     => $dao->is_active,
+          'trigger_label' => $dao->trigger_label,
+          'tags'          => $dao->tags ?? '',
+        ];
+      }
+      return $rules;
     }
-    return $rules;
-  }
 
-  /**
-   * Fetch the conditions for a rule, with a human-readable description for
-   * each produced by the condition class itself.
-   *
-   * @param int $ruleId
-   * @return array
-   */
-  public static function getConditions($ruleId) {
-    $sql = "
+    /**
+     * Fetch the conditions for a rule, with a human-readable description for
+     * each produced by the condition class itself.
+     *
+     * @param int $ruleId
+     * @return array
+     */
+    public static function getConditions($ruleId) {
+      $sql = "
       SELECT
         rc.id        AS rule_condition_id,
         rc.condition_link AS condition_link,
@@ -180,33 +180,30 @@ class CRM_Kinrules_Export {
       WHERE rc.rule_id = %1
       ORDER BY rc.id ASC
     ";
-    $dao = CRM_Core_DAO::executeQuery($sql, [1 => [$ruleId, 'Integer']]);
+      $dao = CRM_Core_DAO::executeQuery($sql, [1 => [$ruleId, 'Integer']]);
 
-    $conditions = [];
-    while ($dao->fetch()) {
-      $human = self::describeCondition($dao->class_name, $dao->rule_condition_id);
-      // Prefix with AND/OR link where it is a secondary condition.
-      $link = ($dao->condition_link == CRM_CiviRules_BAO_RuleCondition::CONDITION_OR ?? 1)
-        ? 'OR ' : '';
-      $conditions[] = [
-        'id'             => $dao->condition_id,
-        'name'           => $dao->condition_name,
-        'label'          => $dao->condition_label,
-        'human_readable' => $human,
-      ];
+      $conditions = [];
+      while ($dao->fetch()) {
+        $human = self::describeCondition($dao->class_name, $dao->rule_condition_id);
+        $conditions[] = [
+          'id'             => $dao->condition_id,
+          'name'           => $dao->condition_name,
+          'label'          => $dao->condition_label,
+          'human_readable' => $human,
+        ];
+      }
+      return $conditions;
     }
-    return $conditions;
-  }
 
-  /**
-   * Fetch the actions for a rule, with a human-readable description for each
-   * produced by the action class itself.
-   *
-   * @param int $ruleId
-   * @return array
-   */
-  public static function getActions($ruleId) {
-    $sql = "
+    /**
+     * Fetch the actions for a rule, with a human-readable description for each
+     * produced by the action class itself.
+     *
+     * @param int $ruleId
+     * @return array
+     */
+    public static function getActions($ruleId) {
+      $sql = "
       SELECT
         ra.id        AS rule_action_id,
         a.id         AS action_id,
@@ -219,79 +216,120 @@ class CRM_Kinrules_Export {
       WHERE ra.rule_id = %1
       ORDER BY ra.id ASC
     ";
-    $dao = CRM_Core_DAO::executeQuery($sql, [1 => [$ruleId, 'Integer']]);
+      $dao = CRM_Core_DAO::executeQuery($sql, [1 => [$ruleId, 'Integer']]);
 
-    $actions = [];
-    while ($dao->fetch()) {
-      $human = self::describeAction($dao->class_name, $dao->rule_action_id);
-      $actions[] = [
-        'id'             => $dao->action_id,
-        'name'           => $dao->action_name,
-        'label'          => $dao->action_label,
-        'human_readable' => $human,
-      ];
+      $actions = [];
+      while ($dao->fetch()) {
+        $human = self::describeAction($dao->class_name, $dao->rule_action_id);
+        $actions[] = [
+          'id'             => $dao->action_id,
+          'name'           => $dao->action_name,
+          'label'          => $dao->action_label,
+          'human_readable' => $human,
+        ];
+      }
+      return $actions;
     }
-    return $actions;
-  }
 
-  /**
-   * Ask the condition class to describe itself in human-readable terms.
-   *
-   * Every CiviRules condition class extends CRM_CiviRules_Condition and
-   * implements userFriendlyConditionParams(), which is exactly what the
-   * CiviRules admin UI uses to render the "what does this do" text. That
-   * method already resolves IDs to labels (contribution status, membership
-   * type, message template, etc).
-   *
-   * @param string $className
-   * @param int $ruleConditionId
-   * @return string
-   */
-  private static function describeCondition($className, $ruleConditionId) {
-    if (empty($className) || !class_exists($className)) {
-      return '(unknown condition class: ' . $className . ')';
+    /**
+     * Ask the condition class to describe itself in human-readable terms.
+     *
+     * Every CiviRules condition class extends CRM_CiviRules_Condition and
+     * implements userFriendlyConditionParams(), which is exactly what the
+     * CiviRules admin UI uses to render the "what does this do" text. That
+     * method already resolves IDs to labels (contribution status, membership
+     * type, message template, etc).
+     *
+     * @param string $className
+     * @param int $ruleConditionId
+     * @return string
+     */
+    private static function describeCondition($className, $ruleConditionId) {
+      if (empty($className) || !class_exists($className)) {
+        return '(unknown condition class: ' . $className . ')';
+      }
+      try {
+        // Load the civirule_rule_condition row directly rather than relying on
+        // a BAO::getValues() helper, whose signature varies across CiviRules
+        // versions. setRuleConditionData() expects an associative array of the
+        // rule-condition row (it reads 'id', 'rule_id', 'condition_id',
+        // 'condition_params', 'condition_link', etc).
+        $row = self::fetchRow('civirule_rule_condition', $ruleConditionId);
+        if (!$row) {
+          return '(rule condition row not found: ' . $ruleConditionId . ')';
+        }
+        /** @var CRM_Civirules_Condition $object */
+        $object = new $className();
+        $object->setRuleConditionData($row);
+        $text = $object->userFriendlyConditionParams();
+        return is_string($text) ? trim(strip_tags($text)) : '';
+      }
+      catch (Throwable $e) {
+        return '(error describing condition: ' . $e->getMessage() . ')';
+      }
     }
-    try {
-      /** @var CRM_CiviRules_Condition $object */
-      $object = new $className();
-      $object->setRuleConditionData(
-        CRM_CiviRules_BAO_RuleCondition::getValues(['id' => $ruleConditionId])[$ruleConditionId] ?? []
+
+    /**
+     * Ask the action class to describe itself in human-readable terms.
+     *
+     * Every CiviRules action class extends CRM_CiviRules_Action and implements
+     * userFriendlyConditionParams() (the method is named the same on actions),
+     * which the admin UI uses to render the action description, resolving IDs
+     * such as message template, group, tag, activity type to their labels.
+     *
+     * @param string $className
+     * @param int $ruleActionId
+     * @return string
+     */
+    private static function describeAction($className, $ruleActionId) {
+      if (empty($className) || !class_exists($className)) {
+        return '(unknown action class: ' . $className . ')';
+      }
+      try {
+        // Load the civirule_rule_action row directly (see describeCondition for
+        // rationale). setRuleActionData() expects the rule-action row array.
+        $row = self::fetchRow('civirule_rule_action', $ruleActionId);
+        if (!$row) {
+          return '(rule action row not found: ' . $ruleActionId . ')';
+        }
+        /** @var CRM_Civirules_Action $object */
+        $object = new $className();
+        $object->setRuleActionData($row);
+        // Actions expose the human-readable text via userFriendlyConditionParams()
+        // (named the same as on conditions). Some versions/classes may not, so
+        // fall back gracefully.
+        if (method_exists($object, 'userFriendlyConditionParams')) {
+          $text = $object->userFriendlyConditionParams();
+          return is_string($text) ? trim(strip_tags($text)) : '';
+        }
+        return '';
+      }
+      catch (Throwable $e) {
+        return '(error describing action: ' . $e->getMessage() . ')';
+      }
+    }
+
+    /**
+     * Fetch a single row from a civirule table as an associative array.
+     *
+     * @param string $table  Whitelisted table name.
+     * @param int $id
+     * @return array|null
+     */
+    private static function fetchRow($table, $id) {
+      // Whitelist to keep the interpolated table name safe.
+      $allowed = ['civirule_rule_condition', 'civirule_rule_action'];
+      if (!in_array($table, $allowed, TRUE)) {
+        return NULL;
+      }
+      $dao = CRM_Core_DAO::executeQuery(
+        "SELECT * FROM {$table} WHERE id = %1",
+        [1 => [$id, 'Integer']]
       );
-      $text = $object->userFriendlyConditionParams();
-      return is_string($text) ? trim(strip_tags($text)) : '';
+      if ($dao->fetch()) {
+        return $dao->toArray();
+      }
+      return NULL;
     }
-    catch (Exception $e) {
-      return '(error describing condition: ' . $e->getMessage() . ')';
-    }
-  }
 
-  /**
-   * Ask the action class to describe itself in human-readable terms.
-   *
-   * Every CiviRules action class extends CRM_CiviRules_Action and implements
-   * userFriendlyConditionParams() (the method is named the same on actions),
-   * which the admin UI uses to render the action description, resolving IDs
-   * such as message template, group, tag, activity type to their labels.
-   *
-   * @param string $className
-   * @param int $ruleActionId
-   * @return string
-   */
-  private static function describeAction($className, $ruleActionId) {
-    if (empty($className) || !class_exists($className)) {
-      return '(unknown action class: ' . $className . ')';
-    }
-    try {
-      /** @var CRM_CiviRules_Action $object */
-      $object = new $className();
-      $ruleAction = CRM_CiviRules_BAO_RuleAction::getValues(['id' => $ruleActionId]);
-      $object->setRuleActionData($ruleAction[$ruleActionId] ?? []);
-      $text = $object->userFriendlyConditionParams();
-      return is_string($text) ? trim(strip_tags($text)) : '';
-    }
-    catch (Exception $e) {
-      return '(error describing action: ' . $e->getMessage() . ')';
-    }
   }
-
-}
