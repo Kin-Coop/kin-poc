@@ -38,50 +38,89 @@ function kinrules_civicrm_enable(): void {
 /**
  * Implements hook_civicrm_navigationMenu().
  *
- * Adds an "Export CiviRules to CSV" item. Paste this into kinrules.php,
- * REPLACING the previous nav snippet entirely. Make sure
+ * Adds an "Export CiviRules to CSV" item under the Administer menu.
+ *
+ * Paste this into kinrules.php, REPLACING the previous nav snippet and all
+ * its helpers entirely. Make sure
  *   use CRM_Kinrules_ExtensionUtil as E;
  * is present near the top of kinrules.php (civix adds it by default).
  *
- * This version uses CiviCRM's core _civicrm_insert_navigation_menu()
- * helper rather than a hand-rolled one, so there is no risk of
- * redeclaring a function that CiviRules already defines.
+ * This version manipulates the $menu array directly with no calls to any
+ * CiviCRM core helper functions, so it cannot collide with another
+ * extension's function and cannot fatal on a version-specific helper
+ * signature. It walks the tree, finds the Administer parent by name, and
+ * appends a child.
  */
-
 function kinrules_civicrm_navigationMenu(&$menu)
 {
-  _kinrules_add_nav_item($menu, 'Administer', [
-    'label' => E::ts('Export CiviRules to CSV'),
-    'name' => 'kinrules_export',
-    'url' => 'civicrm/kinrules/export',
-    'permission' => 'administer CiviCRM',
-    'operator' => 'OR',
-    'separator' => 0,
-  ]);
-  _kinrules_nav_menu_flush();
-}
+  // Find the highest existing navID so we can assign a new unique one.
+  $maxId = _kinrules_nav_max_id($menu);
+  $newId = $maxId + 1;
 
-/**
- * Insert under a top-level parent by its menu "name", falling back to
- * top level if the parent is not found. Uses the core helper.
- */
-function _kinrules_add_nav_item(&$menu, $parentName, $item)
-{
-  // CiviCRM core provides this helper; it walks the tree and inserts.
-  if (function_exists('_civicrm_insert_navigation_menu')) {
-    _civicrm_insert_navigation_menu($menu, $parentName, $item);
-  } else {
-    // Extremely defensive fallback: append at top level.
-    $menu[] = ['attributes' => $item + ['active' => 1]];
+  $item = [
+    'attributes' => [
+      'label' => E::ts('Export CiviRules to CSV'),
+      'name' => 'kinrules_export',
+      'url' => 'civicrm/kinrules/export',
+      'permission' => 'administer CiviCRM',
+      'operator' => 'OR',
+      'separator' => 0,
+      'active' => 1,
+      'navID' => $newId,
+    ],
+    'child' => NULL,
+  ];
+
+  // Try to nest under "Administer". If not found, append at top level.
+  if (!_kinrules_nav_append_under($menu, 'Administer', $item)) {
+    $item['attributes']['parentID'] = NULL;
+    $menu[$newId] = $item;
   }
 }
 
 /**
- * Flush navigation cache so the item appears.
+ * Recursively find the maximum navID currently in the menu tree.
  */
-function _kinrules_nav_menu_flush()
+function _kinrules_nav_max_id($menu)
 {
-  if (is_callable(['CRM_Core_BAO_Navigation', 'resetNavigation'])) {
-    CRM_Core_BAO_Navigation::resetNavigation();
+  $max = 0;
+  foreach ($menu as $key => $entry) {
+    if (is_numeric($key) && (int)$key > $max) {
+      $max = (int)$key;
+    }
+    if (!empty($entry['attributes']['navID']) && (int)$entry['attributes']['navID'] > $max) {
+      $max = (int)$entry['attributes']['navID'];
+    }
+    if (!empty($entry['child']) && is_array($entry['child'])) {
+      $childMax = _kinrules_nav_max_id($entry['child']);
+      if ($childMax > $max) {
+        $max = $childMax;
+      }
+    }
   }
+  return $max;
+}
+
+/**
+ * Recursively find the parent whose attributes['name'] matches $parentName
+ * and append $item as a child. Returns TRUE if inserted.
+ */
+function _kinrules_nav_append_under(&$menu, $parentName, $item)
+{
+  foreach ($menu as &$entry) {
+    if (isset($entry['attributes']['name']) && $entry['attributes']['name'] === $parentName) {
+      if (empty($entry['child']) || !is_array($entry['child'])) {
+        $entry['child'] = [];
+      }
+      $item['attributes']['parentID'] = $entry['attributes']['navID'] ?? NULL;
+      $entry['child'][$item['attributes']['navID']] = $item;
+      return TRUE;
+    }
+    if (!empty($entry['child']) && is_array($entry['child'])) {
+      if (_kinrules_nav_append_under($entry['child'], $parentName, $item)) {
+        return TRUE;
+      }
+    }
+  }
+  return FALSE;
 }
