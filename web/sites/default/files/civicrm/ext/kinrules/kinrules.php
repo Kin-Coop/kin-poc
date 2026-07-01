@@ -39,12 +39,7 @@ function kinrules_civicrm_enable(): void {
  * Implements hook_civicrm_navigationMenu().
  *
  * Adds an "Export CiviRules to CSV" item under the Administer menu.
- *
- * Paste this into kinrules.php, REPLACING the previous nav snippet and all
- * its helpers entirely. Make sure
- *   use CRM_Kinrules_ExtensionUtil as E;
- * is present near the top of kinrules.php (civix adds it by default).
- *
+
  * This version manipulates the $menu array directly with no calls to any
  * CiviCRM core helper functions, so it cannot collide with another
  * extension's function and cannot fatal on a version-specific helper
