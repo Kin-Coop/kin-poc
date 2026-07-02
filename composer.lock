@@ -389,16 +389,16 @@
         },
         {
             "name": "civicrm/civicrm-core",
-            "version": "6.15.6",
+            "version": "6.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-core.git",
-                "reference": "c860d8de067b594610f8dcb82d1d55830ede1b3a"
+                "reference": "b547440c47328c03a0c147bf208ff3234b7867de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/civicrm/civicrm-core/zipball/c860d8de067b594610f8dcb82d1d55830ede1b3a",
-                "reference": "c860d8de067b594610f8dcb82d1d55830ede1b3a",
+                "url": "https://api.github.com/repos/civicrm/civicrm-core/zipball/b547440c47328c03a0c147bf208ff3234b7867de",
+                "reference": "b547440c47328c03a0c147bf208ff3234b7867de",
                 "shasum": ""
             },
             "require": {
@@ -440,7 +440,7 @@
                 "pear/validate_finance_creditcard": "0.7.0",
                 "phlib/xss-sanitizer": "^2.1",
                 "php": "^8.1.2",
-                "phpoffice/phpspreadsheet": "^1.18 || ^2",
+                "phpoffice/phpspreadsheet": "^5",
                 "phpoffice/phpword": "^1.4",
                 "phpseclib/phpseclib": "^3.0",
                 "phpseclib/phpseclib2_compat": "^1.0",
@@ -490,7 +490,8 @@
                     },
                     "zetacomponents/mail": {
                         "CiviCRM Custom Patches for ZetaCompoents mail": "https://download.civicrm.org/patches/6e4bd36dd432a1e62830b0c757a3bac9645ea1cfc551db39798a88c06d66aaf3/100-filename.patch",
-                        "CiviCRM Custom patch to fix a php8.1 issue found in CiviCRM unit tests": "https://download.civicrm.org/patches/d187bcd1100b99529705cdd61193efa683951f6cfbc97ecaa69bc6cd601d2e5f/200-php-81.patch"
+                        "CiviCRM Custom patch to fix a php8.1 issue found in CiviCRM unit tests": "https://download.civicrm.org/patches/d187bcd1100b99529705cdd61193efa683951f6cfbc97ecaa69bc6cd601d2e5f/200-php-81.patch",
+                        "CiviCRM Custom patch to fix a php8.5 notice issue found in CiviCRM unit tests": "https://download.civicrm.org/patches/f907a8be8c8ece783278f6d0de2d9fecd92f2a75631e9f959a3886ba6b610b64/300-php-85.patch"
                     },
                     "adrienrn/php-mimetyper": {
                         "Apply patch to fix php8.2 deprecation notice on dynamic property $filename": "https://download.civicrm.org/patches/011c5f09dc27b260937380f7a9ef5ad1fa713ae206b0b66ce03decc1932fc3f6/17.patch",
@@ -900,7 +901,7 @@
             ],
             "description": "Open source constituent relationship management for non-profits, NGOs and advocacy organizations.",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-core/tree/6.15.6"
+                "source": "https://github.com/civicrm/civicrm-core/tree/6.16.0"
             },
             "funding": [
                 {
@@ -908,20 +909,20 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-06-29T00:59:27+00:00"
+            "time": "2026-07-01T23:19:56+00:00"
         },
         {
             "name": "civicrm/civicrm-drupal-8",
-            "version": "6.15.6",
+            "version": "6.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-drupal-8.git",
-                "reference": "0922536730a627d1e03fc052368235e7f4d2ca76"
+                "reference": "bd2f633f95614fe3e1bfbe5d39e11656b29260b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/civicrm/civicrm-drupal-8/zipball/0922536730a627d1e03fc052368235e7f4d2ca76",
-                "reference": "0922536730a627d1e03fc052368235e7f4d2ca76",
+                "url": "https://api.github.com/repos/civicrm/civicrm-drupal-8/zipball/bd2f633f95614fe3e1bfbe5d39e11656b29260b8",
+                "reference": "bd2f633f95614fe3e1bfbe5d39e11656b29260b8",
                 "shasum": ""
             },
             "require": {
@@ -961,7 +962,7 @@
             ],
             "description": "Open source constituent relationship management for non-profits, NGOs and advocacy organizations.",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-drupal-8/tree/6.15.6"
+                "source": "https://github.com/civicrm/civicrm-drupal-8/tree/6.16.0"
             },
             "funding": [
                 {
@@ -969,29 +970,29 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-04-04T15:53:07+00:00"
+            "time": "2026-06-03T16:19:51+00:00"
         },
         {
             "name": "civicrm/civicrm-packages",
-            "version": "6.15.6",
+            "version": "6.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/civicrm/civicrm-packages.git",
-                "reference": "4d2bdff9aeb5aa7cf0c4a7a2697510e05c65c61e"
+                "reference": "a9f70f2f1212546d5bad2f87a35726423b2f478d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/civicrm/civicrm-packages/zipball/4d2bdff9aeb5aa7cf0c4a7a2697510e05c65c61e",
-                "reference": "4d2bdff9aeb5aa7cf0c4a7a2697510e05c65c61e",
+                "url": "https://api.github.com/repos/civicrm/civicrm-packages/zipball/a9f70f2f1212546d5bad2f87a35726423b2f478d",
+                "reference": "a9f70f2f1212546d5bad2f87a35726423b2f478d",
                 "shasum": ""
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "description": "Legacy third party dependencies for CiviCRM",
             "support": {
-                "source": "https://github.com/civicrm/civicrm-packages/tree/6.15.6"
+                "source": "https://github.com/civicrm/civicrm-packages/tree/6.16.0"
             },
-            "time": "2026-04-22T18:15:32+00:00"
+            "time": "2026-05-26T20:50:41+00:00"
         },
         {
             "name": "civicrm/cli-tools",
@@ -4012,16 +4013,16 @@
         },
         {
             "name": "drupal/core-project-message",
-            "version": "11.3.13",
+            "version": "11.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core-project-message.git",
-                "reference": "656efa00f296415ed6be2ff366ef67ae2725d7d6"
+                "reference": "f921f1c88502d559f77a9c86c87ce9bfd8082d07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core-project-message/zipball/656efa00f296415ed6be2ff366ef67ae2725d7d6",
-                "reference": "656efa00f296415ed6be2ff366ef67ae2725d7d6",
+                "url": "https://api.github.com/repos/drupal/core-project-message/zipball/f921f1c88502d559f77a9c86c87ce9bfd8082d07",
+                "reference": "f921f1c88502d559f77a9c86c87ce9bfd8082d07",
                 "shasum": ""
             },
             "require": {
@@ -4030,7 +4031,10 @@
             },
             "type": "composer-plugin",
             "extra": {
-                "class": "Drupal\\Composer\\Plugin\\ProjectMessage\\MessagePlugin"
+                "class": "Drupal\\Composer\\Plugin\\ProjectMessage\\MessagePlugin",
+                "branch-alias": {
+                    "dev-main": "11.x-dev"
+                }
             },
             "autoload": {
                 "psr-4": {
@@ -4047,9 +4051,9 @@
                 "drupal"
             ],
             "support": {
-                "source": "https://github.com/drupal/core-project-message/tree/11.3.13"
+                "source": "https://github.com/drupal/core-project-message/tree/11.4.0"
             },
-            "time": "2025-02-03T10:59:29+00:00"
+            "time": "2026-01-07T19:00:53+00:00"
         },
         {
             "name": "drupal/core-recommended",
@@ -12115,23 +12119,24 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "2.4.6",
+            "version": "5.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "0bbef382b7d9c1dbda10c8113d564ff9159a7e79"
+                "reference": "01964d92536edf1a3a874b9580a52824bebf6fbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/0bbef382b7d9c1dbda10c8113d564ff9159a7e79",
-                "reference": "0bbef382b7d9c1dbda10c8113d564ff9159a7e79",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/01964d92536edf1a3a874b9580a52824bebf6fbb",
+                "reference": "01964d92536edf1a3a874b9580a52824bebf6fbb",
                 "shasum": ""
             },
             "require": {
-                "composer/pcre": "^1 || ^2 || ^3",
+                "composer/pcre": "^1||^2||^3",
                 "ext-ctype": "*",
                 "ext-dom": "*",
                 "ext-fileinfo": "*",
+                "ext-filter": "*",
                 "ext-gd": "*",
                 "ext-iconv": "*",
                 "ext-libxml": "*",
@@ -12145,25 +12150,27 @@
                 "maennchen/zipstream-php": "^2.1 || ^3.0",
                 "markbaker/complex": "^3.0",
                 "markbaker/matrix": "^3.0",
-                "php": ">=8.1.0 <8.6.0",
+                "php": "^8.1",
                 "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
             },
             "require-dev": {
                 "dealerdirect/phpcodesniffer-composer-installer": "dev-main",
                 "dompdf/dompdf": "^2.0 || ^3.0",
+                "ext-intl": "*",
                 "friendsofphp/php-cs-fixer": "^3.2",
                 "mitoteam/jpgraph": "^10.5",
                 "mpdf/mpdf": "^8.1.1",
                 "phpcompatibility/php-compatibility": "^9.3",
-                "phpstan/phpstan": "^1.1",
-                "phpstan/phpstan-phpunit": "^1.0",
-                "phpunit/phpunit": "^9.6 || ^10.5",
+                "phpstan/phpstan": "^1.1 || ^2.0",
+                "phpstan/phpstan-deprecation-rules": "^1.0 || ^2.0",
+                "phpstan/phpstan-phpunit": "^1.0 || ^2.0",
+                "phpunit/phpunit": "^10.5",
                 "squizlabs/php_codesniffer": "^3.7",
                 "tecnickcom/tcpdf": "^6.5"
             },
             "suggest": {
                 "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
-                "ext-intl": "PHP Internationalization Functions, required for NumberFormatter Wizard",
+                "ext-intl": "PHP Internationalization Functions, required for NumberFormat Wizard and StringHelper::setLocale()",
                 "mitoteam/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers",
                 "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
                 "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer"
@@ -12215,9 +12222,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/2.4.6"
+                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/5.8.0"
             },
-            "time": "2026-06-07T02:31:12+00:00"
+            "time": "2026-06-07T03:51:10+00:00"
         },
         {
             "name": "phpoffice/phpword",
