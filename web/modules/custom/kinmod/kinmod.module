@@ -107,7 +107,7 @@ function kinmod_views_pre_render($view){
      data-bs-trigger="focus"
      class="question-mark"
      title="Info"
-     data-bs-content="The total amount is the sum of the rows displayed below. It does not include contributions that are not displayed below."><em><i class="fs-5 fw-bold bi bi-question-circle-fill text-secondary"></i></em></sup>';
+     data-bs-content="The total amount is the sum of the rows displayed below where the status is completed. It does not include contributions that are not displayed below or pending contributions."><em><i class="fs-5 fw-bold bi bi-question-circle-fill text-secondary"></i></em></sup>';
     $view->attachment_before = [
       '#markup' => '<table class="table cols-0"><tr><td><strong>Total Amount: £'.$total.'</strong> ' . $info . '</td></tr></table>',
       '#allowed_tags' => ['table','tr','td','strong','sup','em','i'],
