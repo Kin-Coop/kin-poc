@@ -179,4 +179,24 @@ final class CRM_Kinpayments_Upgrader extends \CRM_Extension_Upgrader_Base {
     return TRUE;
   }
 
+  public function upgrade_1003() {
+    $this->ctx->log->info('Applying update 1003 — swap customer_account_number for customer_reference in unique_bank_payment index');
+
+    // Drop the old index if it exists.
+    if (CRM_Core_BAO_SchemaHandler::checkIfIndexExists('civicrm_kinpayments_payment', 'unique_bank_payment')) {
+      CRM_Core_DAO::executeQuery("
+      ALTER TABLE civicrm_kinpayments_payment
+        DROP INDEX unique_bank_payment
+    ");
+    }
+
+    // Recreate with the new field set.
+    CRM_Core_DAO::executeQuery("
+    ALTER TABLE civicrm_kinpayments_payment
+      ADD UNIQUE INDEX unique_bank_payment (amount, datetime, customer_reference, bank_reference)
+  ");
+
+    return TRUE;
+  }
+
 }
