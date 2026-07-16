@@ -58,7 +58,7 @@ return [
       'fields' => [
         'amount' => TRUE,
         'datetime' => TRUE,
-        'customer_account_number' => TRUE,
+        'customer_reference' => TRUE,
         'bank_reference' => TRUE,
       ],
       'unique' => TRUE,
