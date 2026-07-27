@@ -85,6 +85,7 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params)
   }
 
   if ($objectName === 'Contribution' && $op === 'create') {
+
     // Check if custom override email field was submitted
 
     //Civi::log()->debug('New email: ' . $_POST['email-5']);
@@ -117,6 +118,27 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params)
           \Civi::log()->error("API error during email lookup: " . $e->getMessage());
         }
       }
+    }
+
+    // Check that this is not a duplicate contribution where the user has clicked more than once on the submit button
+    $contactId = $params['contact_id'] ?? NULL;
+    $amount    = $params['total_amount'] ?? NULL;
+    if (!$contactId || !$amount) {
+      return;
+    }
+
+    // Look for an identical contribution in the last 30 seconds.
+    $window = date('Y-m-d H:i:s', time() - 30);
+    $existing = \Civi\Api4\Contribution::get(FALSE)
+      ->addWhere('contact_id', '=', $contactId)
+      ->addWhere('total_amount', '=', $amount)
+      ->addWhere('receive_date', '>=', $window)
+      ->selectRowCount()
+      ->execute()
+      ->countMatched();
+
+    if ($existing > 0) {
+      throw new \CRM_Core_Exception('Duplicate contribution blocked (kincoop): identical contribution created moments ago.');
     }
   }
 }
@@ -468,6 +490,29 @@ function kincoop_civicrm_buildForm($formName, $form)
   //Civi::log()->debug('Contents of $formName: ' . print_r($formName, TRUE));
   //Civi::log()->debug('Contents of $formName: ' . print_r($form, TRUE));
   $groupid = CRM_Utils_Request::retrieve('groupid', 'Positive');
+
+  $targets = [
+    'CRM_Contribute_Form_Contribution_Main',
+    'CRM_Contribute_Form_Contribution_Confirm',
+  ];
+  if (in_array($formName, $targets)) {
+    CRM_Core_Resources::singleton()->addScript('
+      CRM.$(function($) {
+        $("form.CRM_Contribute_Form_Contribution_Main, form.CRM_Contribute_Form_Contribution_Confirm")
+          .on("submit", function() {
+            var $btns = $(this).find("button[type=submit], input[type=submit]");
+            if ($btns.data("kincoop-submitted")) { return false; }
+            $btns.data("kincoop-submitted", true).prop("disabled", true);
+            // Re-enable if client validation blocks submission.
+            setTimeout(function() {
+              if ($(".crm-error, .error").length) {
+                $btns.prop("disabled", false).removeData("kincoop-submitted");
+              }
+            }, 100);
+          });
+      });
+    ');
+  }
 
   if ($formName == 'CRM_Contribute_Form_Contribution_ThankYou') {
     $groupid = null;
