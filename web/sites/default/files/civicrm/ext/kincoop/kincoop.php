@@ -127,12 +127,35 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params)
       return;
     }
 
-    // Look for an identical contribution in the last 30 seconds.
-    $window = date('Y-m-d H:i:s', time() - 30);
+    // Look for an identical contribution in the last 20 seconds.
+    $window = date('Y-m-d H:i:s', time() - 20);
     $existing = \Civi\Api4\Contribution::get(FALSE)
       ->addWhere('contact_id', '=', $contactId)
       ->addWhere('total_amount', '=', $amount)
       ->addWhere('receive_date', '>=', $window)
+      ->selectRowCount()
+      ->execute()
+      ->countMatched();
+
+    if ($existing > 0) {
+      throw new \CRM_Core_Exception('Duplicate contribution blocked (kincoop): identical contribution created moments ago.');
+    }
+  }
+
+  if($objectName === 'ContributionRecur' && $op === 'create') {
+    // Check that this is not a duplicate contribution where the user has clicked more than once on the submit button
+    $contactId = $params['contact_id'] ?? NULL;
+    $amount    = $params['total_amount'] ?? NULL;
+    if (!$contactId || !$amount) {
+      return;
+    }
+
+    // Look for an identical contribution in the last 20 seconds.
+    $window = date('Y-m-d H:i:s', time() - 20);
+    $existing = \Civi\Api4\ContributionRecur::get(FALSE)
+      ->addWhere('contact_id', '=', $contactId)
+      ->addWhere('amount', '=', $amount)
+      ->addWhere('create_date', '>=', $window)
       ->selectRowCount()
       ->execute()
       ->countMatched();
