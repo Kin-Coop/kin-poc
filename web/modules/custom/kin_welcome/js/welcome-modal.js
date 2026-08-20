@@ -58,6 +58,12 @@
             //$('#kin-welcome-next').text(Drupal.t('Finish'));
             //$('#kin-welcome-next').text(Drupal.t('Set Up Kin Membership')).attr('href', slide.link_url);
 
+            // In preview mode, never follow the outbound link. Keep the Next
+            // button but relabel it so it simply closes the modal.
+            if (isPreview) {
+              $('#kin-welcome-next').text(Drupal.t('Finish'));
+              $('#kin-welcome-link').remove();
+            }
             // Add link if provided
             if (slide.link_text && slide.link_url) {
               if (!$('#kin-welcome-link').length) {
@@ -97,6 +103,11 @@
 
         // Mark modal as shown via AJAX
         function markModalShown() {
+          // In preview mode, nothing is persisted: just close.
+          if (isPreview) {
+            closeModal();
+            return;
+          }
           $.ajax({
             url: drupalSettings.kinWelcome.markShownUrl,
             type: 'POST',
