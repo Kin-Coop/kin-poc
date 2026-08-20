@@ -104,8 +104,6 @@ class CRM_Core_Payment_StripeIPN {
 
   /**
    * Redeclared here to tighten up the var type
-   * Can't define return because unit tests return PropertySpy
-   * Should be \Stripe\StripeObject|PropertySpy with PHP8.0+
    *
    * @return \Stripe\StripeObject
    */
@@ -192,6 +190,21 @@ class CRM_Core_Payment_StripeIPN {
       /** @var \Stripe\Event $event */
       $event = $this->getPaymentProcessor()->stripeClient->events->retrieve($this->eventID);
       $this->setData($event->data);
+
+      // Event data is rendered at the Stripe account's *default* API version at
+      // the time the event was created - not at the version pinned to our
+      // webhook endpoint, and Stripe ignores the Stripe-Version header on
+      // Events::retrieve() specifically, so this can come back in an
+      // unexpected (eg. newer/basil) shape, missing fields like `charge` or
+      // `subscription`. Ordinary object retrievals DO honour Stripe-Version,
+      // so re-fetch the actual object directly for a complete, correctly
+      // versioned copy to use for all further processing.
+      $freshObject = $this->retrieveFreshObject($event->data->object);
+      if ($freshObject) {
+        $data = $this->getData();
+        $data->object = $freshObject;
+        $this->setData($data);
+      }
     }
 
     // If we have a webhook signing secret data was already set on the class.
@@ -200,12 +213,14 @@ class CRM_Core_Payment_StripeIPN {
       $this->exception('Invalid input data (not an object)');
     }
 
-    // When we receive a charge.X webhook event and it has an invoice ID we expand the invoice object
-    //   so that we have the subscription ID.
+    // When we receive a charge.X webhook event (from a *trusted* raw payload -
+    // if we re-fetched a fresh object above it's already expanded) and it has
+    // an invoice ID we expand the invoice object so that we have the
+    // subscription ID.
     //   We'll receive both invoice.payment_succeeded/failed and charge.succeeded/failed at the same time
     //   and we need to make sure we don't process them at the same time or we can get deadlocks/race conditions
     //   that cause processing to fail.
-    if (($data->object instanceof \Stripe\Charge) && !empty($data->object->invoice)) {
+    if (!$this->getVerifyData() && ($data->object instanceof \Stripe\Charge) && !empty($data->object->invoice)) {
       $data->object = $this->getPaymentProcessor()->stripeClient->charges->retrieve(
         $this->getData()->object->id,
         ['expand' => ['invoice']]
@@ -213,6 +228,11 @@ class CRM_Core_Payment_StripeIPN {
       $this->setData($data);
       $this->subscription_id = CRM_Stripe_Api::getObjectParam('subscription_id', $this->getData()->object->invoice);
       $this->invoice_id = CRM_Stripe_Api::getObjectParam('invoice_id', $this->getData()->object->invoice);
+    }
+    elseif (($data->object instanceof \Stripe\Charge) && !empty($data->object->invoice)) {
+      // We're on the re-fetched (and already invoice-expanded) path.
+      $this->subscription_id = CRM_Stripe_Api::getObjectParam('subscription_id', $data->object->invoice);
+      $this->invoice_id = CRM_Stripe_Api::getObjectParam('invoice_id', $data->object->invoice);
     }
     else {
       $this->subscription_id = $this->retrieve('subscription_id', 'String', FALSE);
@@ -224,6 +244,46 @@ class CRM_Core_Payment_StripeIPN {
     $this->customer_id = $this->retrieve('customer_id', 'String', FALSE);
 
     $this->setInputParametersHasRun = TRUE;
+  }
+
+  /**
+   * Re-fetch the actual Stripe object referenced by an Event's data.object,
+   * using the resource-specific API (which honours our pinned Stripe-Version)
+   * rather than trusting the Event's frozen (possibly differently-versioned)
+   * snapshot - see setInputParameters().
+   *
+   * Returns NULL for object types we don't know how to re-fetch (or if the
+   * re-fetch itself fails), in which case the original Event snapshot is
+   * used as before.
+   *
+   * @param \Stripe\StripeObject $object
+   *
+   * @return \Stripe\StripeObject|null
+   */
+  private function retrieveFreshObject($object) {
+    $id = $object->id ?? NULL;
+    if (empty($id)) {
+      return NULL;
+    }
+    try {
+      switch ($object->object ?? '') {
+        case 'invoice':
+          return $this->getPaymentProcessor()->stripeClient->invoices->retrieve($id);
+
+        case 'charge':
+          return $this->getPaymentProcessor()->stripeClient->charges->retrieve($id, ['expand' => ['invoice']]);
+
+        case 'subscription':
+          return $this->getPaymentProcessor()->stripeClient->subscriptions->retrieve($id);
+
+        case 'checkout.session':
+          return $this->getPaymentProcessor()->stripeClient->checkout->sessions->retrieve($id);
+      }
+    }
+    catch (\Throwable $e) {
+      \Civi::log('stripe')->warning('Unable to re-fetch fresh ' . ($object->object ?? 'unknown') . ' object ' . $id . ': ' . $e->getMessage());
+    }
+    return NULL;
   }
 
   /**

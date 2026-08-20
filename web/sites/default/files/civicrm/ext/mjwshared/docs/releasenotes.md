@@ -9,6 +9,26 @@ Releases use the following numbering system:
 
 * **[BC]**: Items marked with [BC] indicate a breaking change that will require updates to your code if you are using that code in your extension.
 
+## Release 1.6.0 (2026-08-19)
+
+* [!77](https://lab.civicrm.org/extensions/mjwshared/-/merge_requests/77) Tidied up how payment processor webhooks are handled behind the scenes, introducing a proper `Civi\Mjwshared\PaymentProcessorWebhookInterface` so extensions like Stripe and AuthNet can rely on shared, consistent code instead of each doing their own thing. No action needed for normal use - existing sites keep working as before. See [docs/webhookqueue.md](https://lab.civicrm.org/extensions/mjwshared/-/blob/master/docs/webhookqueue.md) if you're implementing this in your own payment processor.
+* [!78](https://lab.civicrm.org/extensions/mjwshared/-/merge_requests/78) Fixed a display glitch: a duplicate webhook that gets rejected now correctly shows as fully processed in the Payment Processor Webhooks admin screen, instead of looking stuck.
+
+## Release 1.5.11 (2026-08-07)
+
+* Guard `refund_trxn_id` and `fee_amount` when refunding a manual / refund-unsupported payment (fixes an undefined-array-key warning on every such refund) plus a regression test.
+
+## Release 1.5.10 (2026-08-01)
+
+* [!70](https://lab.civicrm.org/extensions/mjwshared/-/merge_requests/70) Add CRM.payment.roundMoney() helper matching PHP round(), with tests and docs.
+* [!71](https://lab.civicrm.org/extensions/mjwshared/-/merge_requests/71) Fix fatal error on newer symfony/event-dispatcher by adding array return type to getSubscribedEvents().
+* [!72](https://lab.civicrm.org/extensions/mjwshared/-/merge_requests/72) Add CiviCARROT CI pipeline.
+* [!73](https://lab.civicrm.org/extensions/mjwshared/-/merge_requests/73) Code style fixes and PHP 8.5 compatibility ((boolean) cast alias is deprecated).
+
+## Release 1.5.9 (2026-07-19)
+
+* [!69](https://lab.civicrm.org/extensions/mjwshared/-/merge_requests/69) Check for API4 and respect checkPermissions for PaymentToken authorization.
+
 ## Release 1.5.8 (2026-06-23)
 
 * [!64](https://lab.civicrm.org/extensions/mjwshared/-/merge_requests/64) Add permission "Access all Payment Tokens" and by default restrict access to paymentTokens to the ones that belong to the logged in user. 

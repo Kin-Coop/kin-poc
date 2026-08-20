@@ -9,6 +9,17 @@ Releases use the following numbering system:
 
 * **[BC]**: Items marked with [BC] indicate a breaking change that will require updates to your code if you are using that code in your extension.
 
+## 6.17.0 (2026-08-06)
+
+* [!315](https://lab.civicrm.org/extensions/stripe/-/merge_requests/315) Record civicrm_stripe_paymentintent rows for Checkout Session payments (previously only the card-element/PaymentElement flow populated this table, leaving no troubleshooting record for the FormBuilder CheckoutOptions or classic StripeCheckout payment processor flows).
+* [!216](https://lab.civicrm.org/extensions/stripe/-/merge_requests/216) Fix #428: webform submit button non-responsive for zero-dollar contribution amount.
+* [!308](https://lab.civicrm.org/extensions/stripe/-/merge_requests/308) Only expose CheckoutOptions for active processors (a deactivated payment processor could still be selected/used as a CheckoutOption).
+* Reinstate getPaymentProcessorId() signature.
+* Add context to error log.
+* [!312](https://lab.civicrm.org/extensions/stripe/-/merge_requests/312) Fix webhook update only converging one payment processor at a time; automatically fix/update webhooks on extension upgrade instead of requiring a manual system-check fix.
+* [!311](https://lab.civicrm.org/extensions/stripe/-/merge_requests/311) Fix "Missing Stripe subscription_id" on invoice.paid/invoice.finalized webhooks - recovers subscription_id/charge_id when Stripe renders webhook data at an unexpected API version (eg. basil) by re-fetching the actual object directly.
+* [!310](https://lab.civicrm.org/extensions/stripe/-/merge_requests/310) Fix payment failure caused by a JS/PHP tax rounding mismatch (#510).
+
 ## 6.16.2 (2026-06-15)
 
 * [!303](https://lab.civicrm.org/extensions/stripe/-/merge_requests/303) Fix #496 StripeCheckout LineItems: Handle negative quantity/amount and non-integer quantity.

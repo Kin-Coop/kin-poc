@@ -84,14 +84,168 @@ class CRM_Core_Payment_StripeTest extends CRM_Stripe_TestBase {
   }
 
   /**
+   * Sets up a mocked PaymentIntent that is already in status
+   * "requires_capture" (ie. the browser already confirmed it) with the
+   * given $intentAmount, and configures paymentIntents->update() to
+   * mimic real Stripe behaviour: it throws payment_intent_unexpected_state
+   * if (and only if) the update tries to change the amount - other fields
+   * (eg. description) can still be updated on a requires_capture intent.
+   *
+   * @return \Stripe\PaymentIntent
+   *   The mock object that a successful (non-amount) update() call resolves to.
+   */
+  private function mockRequiresCaptureIntentForAmountMismatch(int $intentAmount) {
+    $stripeClient = $this->paymentObject->stripeClient;
+
+    // A real (not mocked) PaymentIntent object - doPayment()'s own
+    // amount-mismatch check only reads ->amount/->status via __get, so no
+    // method interception is needed here.
+    $mockRetrievedIntent = \Stripe\PaymentIntent::constructFrom([
+      'id' => 'pi_mock',
+      'status' => 'requires_capture',
+      'amount' => $intentAmount,
+      'latest_charge' => 'ch_mock',
+    ]);
+
+    // processPaymentIntent() additionally calls ->capture() and uses
+    // empty()/isset() (via StripeObject's real __isset) on the intent, so
+    // this needs to be a partial mock: only capture() is stubbed, the
+    // rest of StripeObject's real property magic methods are left intact
+    // (a full createMock() replaces __isset with an unconfigured stub
+    // that always reports properties as unset, which breaks those
+    // empty() checks).
+    $mockUpdatedIntent = $this->getMockBuilder(\Stripe\PaymentIntent::class)
+      ->onlyMethods(['capture'])
+      ->getMock();
+    $mockUpdatedIntent->refreshFrom([
+      'id' => 'pi_mock',
+      'status' => 'requires_capture',
+      'amount' => $intentAmount,
+      'latest_charge' => 'ch_mock',
+    ], NULL);
+    // Called (with its return value discarded) by processPaymentIntent().
+    $mockUpdatedIntent->method('capture')->willReturn($mockUpdatedIntent);
+
+    // This is what Stripe actually returns (see the reported issue) when
+    // an update tries to change the amount of a PaymentIntent that
+    // already requires_capture.
+    $exception = \Stripe\Exception\InvalidRequestException::factory(
+      "This PaymentIntent's amount could not be updated because it has a status of requires_capture. "
+      . 'You may only update the amount of a PaymentIntent with one of the following statuses: '
+      . 'requires_payment_method, requires_confirmation, requires_action.'
+    );
+    $exception->setStripeCode('payment_intent_unexpected_state');
+
+    $stripeClient->paymentIntents = $this->createMock('Stripe\\Service\\PaymentIntentService');
+    $stripeClient->paymentIntents
+      ->method('retrieve')
+      ->with($this->equalTo('pi_mock'))
+      ->willReturn($mockRetrievedIntent);
+    $stripeClient->paymentIntents
+      ->method('update')
+      ->with($this->equalTo('pi_mock'))
+      ->willReturnCallback(function ($id, $params) use ($exception, $mockUpdatedIntent) {
+        if (array_key_exists('amount', $params)) {
+          throw $exception;
+        }
+        return $mockUpdatedIntent;
+      });
+
+    return $mockUpdatedIntent;
+  }
+
+  /**
+   * Reproduces https://lab.civicrm.org/extensions/stripe/-/work_items/510
+   *
+   * The browser JS creates (and, because it confirms immediately, also
+   * moves to status "requires_capture") a PaymentIntent using a total
+   * that was rounded client-side. Due to a difference between how
+   * PHP's round() and Javascript's Number.toFixed() handle a value that
+   * lands exactly on a rounding boundary (eg. $20 with a 7.625% tax rate
+   * gives an exact total of $21.525), the amount PHP calculates when it
+   * later processes the payment can differ from the browser's amount by
+   * one minor unit (cent) - 2152 vs 2153 here.
+   *
+   * A genuine, larger mismatch (unrelated to rounding) must still be
+   * surfaced as an error rather than silently accepted - doPayment()
+   * should only tolerate a 1-minor-unit difference.
+   */
+  public function testDoPaymentSurfacesErrorForLargerAmountMismatchAfterIntentRequiresCapture() {
+    $this->getMocksForOneOffPayment();
+    $this->setupPendingContribution();
+
+    // Intent was confirmed client-side for $20.00 (2000 cents) but PHP
+    // calculates a total of $25.00 (2500 cents) - a genuine 500 cent
+    // discrepancy, not a 1-cent rounding artifact.
+    $this->mockRequiresCaptureIntentForAmountMismatch(2000);
+    $this->paymentObject->setHandleErrorThrowsException(TRUE);
+
+    $params = [
+      'payment_processor_id' => $this->paymentProcessorID,
+      'amount' => 25.00,
+      'paymentIntentID' => 'pi_mock',
+      'email' => $this->contact['email'],
+      'contactID' => $this->contact['id'],
+      'contributionID' => $this->contributionID,
+      'description' => 'Test from Stripe Test Code',
+      'currencyID' => 'USD',
+      'qfKey' => NULL,
+      'entryURL' => 'http://civicrm.localhost/civicrm/test?foo',
+      'query' => NULL,
+      'additional_participants' => [],
+    ];
+
+    $this->expectException(\Exception::class);
+    $this->expectExceptionMessageMatches('/An error occurred while processing the payment/');
+    $this->paymentObject->doPayment($params);
+  }
+
+  /**
+   * Reproduces https://lab.civicrm.org/extensions/stripe/-/work_items/510
+   *
+   * Same setup as testDoPaymentSurfacesErrorForLargerAmountMismatchAfterIntentRequiresCapture()
+   * but with only a 1 minor unit (cent) discrepancy between the
+   * PaymentIntent's existing amount and the PHP-recalculated amount for
+   * $20 + 7.625% tax (2152 vs 2153) - the exact scenario from the
+   * reported issue. This should no longer fail the transaction.
+   */
+  public function testDoPaymentToleratesOneCentAmountMismatchAfterIntentRequiresCapture() {
+    $this->getMocksForOneOffPayment();
+    $this->setupPendingContribution();
+
+    $this->mockRequiresCaptureIntentForAmountMismatch(2152);
+    $this->paymentObject->setHandleErrorThrowsException(TRUE);
+
+    $params = [
+      'payment_processor_id' => $this->paymentProcessorID,
+      // 20 + (7.625% of 20) = 21.525 exactly - a rounding-boundary value
+      // that PHP correctly rounds to 21.53 (2153 cents).
+      'amount' => 20 + (7.625 / 100) * 20,
+      'paymentIntentID' => 'pi_mock',
+      'email' => $this->contact['email'],
+      'contactID' => $this->contact['id'],
+      'contributionID' => $this->contributionID,
+      'description' => 'Test from Stripe Test Code',
+      'currencyID' => 'USD',
+      'qfKey' => NULL,
+      'entryURL' => 'http://civicrm.localhost/civicrm/test?foo',
+      'query' => NULL,
+      'additional_participants' => [],
+    ];
+
+    // Prior to the fix, this call would throw ("An error occurred while
+    // processing the payment") because doPayment() would attempt to
+    // update the PaymentIntent's amount despite its status
+    // (requires_capture) not allowing it.
+    $ret = $this->paymentObject->doPayment($params);
+    $this->assertEquals('ch_mock', $ret['trxn_id'] ?? NULL);
+    $this->assertEquals('Completed', $ret['payment_status'] ?? NULL);
+  }
+
+  /**
    * @return void
    */
   protected function getMocksForRecurringPayment($incPlan = TRUE) {
-    PropertySpy::$buffer = 'none';
-    // Set this to 'print' or 'log' maybe more helpful in debugging but for
-    // generally running tests 'exception' suits as we don't expect any output.
-    PropertySpy::$outputMode = 'exception';
-
     // Create a mock stripe client.
     $stripeClient = $this->createMock('CRM_Stripe_MockStripeClient');
     // Update our CRM_Core_Payment_Stripe object and ensure any others
@@ -119,13 +273,13 @@ class CRM_Core_Payment_StripeTest extends CRM_Stripe_TestBase {
     $stripeClient->customers
       ->method('create')
       ->willReturn(
-        new PropertySpy('customers.create', ['id' => 'cus_mock'])
+        \Stripe\Customer::constructFrom(['id' => 'cus_mock', 'object' => 'customer'])
       );
     $stripeClient->customers
       ->method('retrieve')
       ->with($this->equalTo('cus_mock'))
       ->willReturn(
-        new PropertySpy('customers.retrieve', ['id' => 'cus_mock'])
+        \Stripe\Customer::constructFrom(['id' => 'cus_mock', 'object' => 'customer'])
       );
 
     // Product
@@ -138,7 +292,7 @@ class CRM_Core_Payment_StripeTest extends CRM_Stripe_TestBase {
     $stripeClient->products
       ->method('search')
       ->willReturn(
-        new PropertySpy('products.search', [$mockProduct])
+        \Stripe\SearchResult::constructFrom(['object' => 'search_result', 'data' => [$mockProduct], 'has_more' => FALSE, 'url' => '/v1/products/search'])
       );
 
     // Price
@@ -152,7 +306,7 @@ class CRM_Core_Payment_StripeTest extends CRM_Stripe_TestBase {
     $stripeClient->prices
       ->method('all')
       ->willReturn(
-        new PropertySpy('prices.all', [$mockPrice])
+        \Stripe\Collection::constructFrom(['object' => 'list', 'data' => [$mockPrice], 'has_more' => FALSE, 'url' => '/v1/prices'])
       );
     $stripeClient->prices
       ->method('create')
@@ -262,7 +416,7 @@ class CRM_Core_Payment_StripeTest extends CRM_Stripe_TestBase {
     $stripeClient->balanceTransactions
       ->method('retrieve')
       ->with($this->equalTo('txn_mock'))
-      ->willReturn(new PropertySpy('balanceTransaction', [
+      ->willReturn(\Stripe\BalanceTransaction::constructFrom([
         'id' => 'txn_mock',
         'fee' => 1190, /* means $11.90 */
         'currency' => 'usd',

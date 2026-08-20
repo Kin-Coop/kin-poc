@@ -9,6 +9,7 @@ class CRM_Stripe_MockStripeClient extends \Stripe\StripeClient {
 
   public $balanceTransactions;
   public $charges;
+  public $checkout;
   public $customers;
   public $events;
   public $invoices;

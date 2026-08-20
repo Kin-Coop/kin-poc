@@ -782,8 +782,26 @@ class CRM_Core_Payment_Stripe extends CRM_Core_Payment {
         $paymentIntentID = $propertyBag->getCustomProperty('paymentIntentID');
       }
       $intent = $this->stripeClient->paymentIntents->retrieve($paymentIntentID);
-      if ($intent->amount != $this->getAmountFormattedForStripeAPI($propertyBag)) {
-        $intentParams['amount'] = $this->getAmountFormattedForStripeAPI($propertyBag);
+      $newAmount = $this->getAmountFormattedForStripeAPI($propertyBag);
+      if ($intent->amount != $newAmount) {
+        // Stripe only allows a PaymentIntent's amount to be changed while it is in
+        // one of these statuses. If the browser already confirmed the intent it
+        // will have moved on (typically to requires_capture) and an update attempt
+        // fails with a "payment_intent_unexpected_state" error, aborting the whole
+        // transaction. A single-minor-unit mismatch here is expected occasionally:
+        // the browser (JS) and CiviCRM (PHP) can round an exact tax-inclusive
+        // halfway value (eg. $21.525) to different cents. In that specific case,
+        // don't fail the transaction over the 1 unit difference - just proceed
+        // with the amount already authorized on the PaymentIntent.
+        // @see https://lab.civicrm.org/extensions/stripe/-/work_items/510
+        $amountUpdateableStatuses = ['requires_payment_method', 'requires_confirmation', 'requires_action'];
+        $amountDiff = abs(((int) $intent->amount) - ((int) $newAmount));
+        if (in_array($intent->status, $amountUpdateableStatuses, TRUE) || $amountDiff > 1) {
+          $intentParams['amount'] = $newAmount;
+        }
+        else {
+          \Civi::log('stripe')->warning($this->getLogPrefix() . "doPayment: PaymentIntent {$intent->id} amount ({$intent->amount}) differs from the calculated amount ({$newAmount}) by {$amountDiff} minor unit(s) but status ({$intent->status}) does not permit updating the amount. Proceeding with the PaymentIntent's existing amount.");
+        }
       }
       $intent = $this->stripeClient->paymentIntents->update($intent->id, $intentParams);
     }
@@ -809,7 +827,7 @@ class CRM_Core_Payment_Stripe extends CRM_Core_Payment {
   /**
    * @param \Civi\Payment\PropertyBag $propertyBag
    *
-   * @return \PropertySpy|\Stripe\Customer
+   * @return \Stripe\Customer
    * @throws \CRM_Core_Exception
    * @throws \Civi\API\Exception\UnauthorizedException
    * @throws \Civi\Payment\Exception\PaymentProcessorException
@@ -1768,7 +1786,7 @@ class CRM_Core_Payment_Stripe extends CRM_Core_Payment {
    * If the transaction is declined, there won't be a balance_transaction_id.
    * We also have to do currency conversion here in case Stripe has converted it internally.
    *
-   * @param \Stripe\BalanceTransaction|PropertySpy $balanceTransaction
+   * @param \Stripe\BalanceTransaction $balanceTransaction
    * @param
    *
    * @return float

@@ -85,7 +85,7 @@ class CRM_Stripe_Customer {
    * @param array $params
    * @param \CRM_Core_Payment_Stripe $stripe
    *
-   * @return \Stripe\Customer|\PropertySpy
+   * @return \Stripe\Customer
    * @throws \CRM_Core_Exception
    * @throws \Civi\Payment\Exception\PaymentProcessorException
    */

@@ -18,7 +18,7 @@ class DeclinedCard extends AutoSubscriber {
   /**
    * @return array
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     return [
       'civi.firewall.declinedcard' => [
         // Positive priority is higher (eg. 200 will run before 100)
