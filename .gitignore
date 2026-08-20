@@ -64,6 +64,8 @@ cron*.sh
 /web/sites/*/translations
 /web/sites/*/tmp
 /web/sites/*/cache
+/web/sites/default/files/css
+/web/sites/default/files/js
 
 # Ignore drupal core (if not versioning drupal sources)
 /web/vendor
