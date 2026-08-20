@@ -18,11 +18,11 @@
       <role>Maintainer</role>
     </author>
   </authors>
-  <releaseDate>2026-06-15</releaseDate>
-  <version>6.16.2</version>
+  <releaseDate>2026-08-06</releaseDate>
+  <version>6.17.0</version>
   <develStage>stable</develStage>
   <compatibility>
-    <ver>6.14</ver>
+    <ver>6.16</ver>
   </compatibility>
   <comments>Original Author: Joshua Walker (drastik) - Drastik by Design.
     Jamie Mcclelland (ProgressiveTech) did a lot of the 5.x compatibility work.

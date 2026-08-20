@@ -39,16 +39,28 @@ class CRM_Stripe_BAO_StripePaymentintent extends CRM_Stripe_DAO_StripePaymentint
    * @throws \CRM_Core_Exception
    */
   public static function writeRecord(array $record): CRM_Core_DAO {
-    if ($record['stripe_intent_id']) {
+    $existingRecord = NULL;
+    if (!empty($record['stripe_intent_id'])) {
       // This checks if we already recorded the intent_id. In that case we need to update it.
       $existingRecord = StripePaymentintent::get(FALSE)
         ->addSelect('id', 'flags', 'referrer')
         ->addWhere('stripe_intent_id', '=', $record['stripe_intent_id'])
         ->execute()
         ->first();
-      if (!empty($existingRecord['id'])) {
-        $record['id'] = $existingRecord['id'];
-      }
+    }
+    if (empty($existingRecord) && !empty($record['identifier'])) {
+      // We may not know the stripe_intent_id yet (eg. a Checkout Session in
+      // subscription mode doesn't have one until the first invoice is paid),
+      // so fall back to matching on the caller-supplied identifier
+      // (eg. the Checkout Session id) to update rather than duplicate.
+      $existingRecord = StripePaymentintent::get(FALSE)
+        ->addSelect('id', 'flags', 'referrer')
+        ->addWhere('identifier', '=', $record['identifier'])
+        ->execute()
+        ->first();
+    }
+    if (!empty($existingRecord['id'])) {
+      $record['id'] = $existingRecord['id'];
     }
 
     $flags = empty($existingRecord['flags']) ? [] : unserialize($existingRecord['flags']);

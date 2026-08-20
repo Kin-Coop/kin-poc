@@ -8,13 +8,15 @@
 
 use Civi\Api4\CiviRulesRule;
 use Civi\Api4\CiviRulesRuleCondition;
-use Civi\Api4\CiviRulesRuleTag;
 use Civi\Api4\CiviRulesTrigger;
+use Civi\Api4\EntityTag;
 use CRM_Civirules_ExtensionUtil as E;
 
 class CRM_Civirules_Form_Rule extends CRM_Core_Form {
 
   protected $ruleId = NULL;
+
+  protected bool $debugLoggingAvailable = FALSE;
 
   protected CRM_Civirules_BAO_CiviRulesRule $rule;
 
@@ -261,9 +263,15 @@ class CRM_Civirules_Form_Rule extends CRM_Core_Form {
       $this->add('text', 'rule_label', E::ts('Name'), ['size' => CRM_Utils_Type::HUGE], TRUE);
       $this->add('text', 'rule_description', E::ts('Description'), ['size' => 100, 'maxlength' => 256]);
       $this->add('wysiwyg', 'rule_help_text', E::ts('Help text with purpose of rule'), ['rows' => 6, 'cols' => 80]);
-      $this->add('select2', 'rule_tag_id', E::ts('Civirule Tag(s)'), Civi::entity('CiviRulesRuleTag')->getOptions('rule_tag_id'), FALSE,
+      $this->add('select2', 'rule_tag_id', E::ts('Civirule Tag(s)'), CRM_Core_BAO_Tag::getColorTags('civirule_rule'), FALSE,
         ['id' => 'rule_tag_id', 'multiple' => 'multiple', 'class' => 'huge']);
       $this->add('checkbox', 'rule_is_active', E::ts('Enabled'));
+      // Only offer debug mode when a hook implementation (e.g. civiruleslogger) is
+      // actually registered to receive it - otherwise there's no way to view it.
+      $this->debugLoggingAvailable = CRM_Civirules_Utils_LoggerFactory::hasDedicatedLogger();
+      if ($this->debugLoggingAvailable) {
+        $this->add('checkbox', 'rule_is_debug', E::ts('Enable Debug Logging'));
+      }
       $this->add('text', 'rule_created_date', E::ts('Created Date'));
       $this->add('text', 'rule_created_contact', E::ts('Created By'));
 
@@ -273,7 +281,9 @@ class CRM_Civirules_Form_Rule extends CRM_Core_Form {
           ->addOrderBy('label', 'ASC')
           ->addWhere('is_active', '=', TRUE)
           ->execute()
-          ->indexBy('id');
+          ->indexBy('id')
+          ->getArrayCopy();
+        CRM_Civirules_Utils_HookInvoker::singleton()->hook_civirules_alterTriggerList($triggerList);
         foreach ($triggerList as $id => $detail) {
           $description = '';
           if (!empty($detail['class_name'])) {
@@ -367,13 +377,11 @@ class CRM_Civirules_Form_Rule extends CRM_Core_Form {
     }
     $defaults['rule_label'] = $ruleData['label'];
     // get all tags for rule
-    $defaultRuleTags = [];
-    $ruleTags = \Civi\Api4\CiviRulesRuleTag::get(FALSE)
-      ->addWhere('rule_id', '=', $this->ruleId)
-      ->execute();
-    foreach ($ruleTags as $ruleTag) {
-      $defaultRuleTags[] = $ruleTag['rule_tag_id'];
-    }
+    $defaultRuleTags = EntityTag::get(FALSE)
+      ->addWhere('entity_table', '=', 'civirule_rule')
+      ->addWhere('entity_id', '=', $this->ruleId)
+      ->execute()
+      ->column('tag_id');
     if (!empty($defaultRuleTags)) {
       $defaults['rule_tag_id'] = $defaultRuleTags;
     }
@@ -384,6 +392,7 @@ class CRM_Civirules_Form_Rule extends CRM_Core_Form {
       $defaults['rule_help_text'] = $ruleData['help_text'];
     }
     $defaults['rule_is_active'] = $ruleData['is_active'];
+    $defaults['rule_is_debug'] = $ruleData['is_debug'] ?? 0;
     $defaults['rule_created_date'] = date('d-m-Y', strtotime($ruleData['created_date']));
     $defaults['rule_created_contact'] = CRM_Civirules_Utils::getContactName($ruleData['created_user_id']);
     if (!empty($ruleData['trigger_id'])) {
@@ -459,27 +468,30 @@ class CRM_Civirules_Form_Rule extends CRM_Core_Form {
     $ruleParams['help_text'] = $formValues['rule_help_text'] ?? '';
     $ruleParams['name'] = CRM_Civirules_Utils::buildNameFromLabel($formValues['rule_label']);
     $ruleParams['is_active'] = $formValues['rule_is_active'] ?? 0;
+    if (!empty($this->debugLoggingAvailable)) {
+      $ruleParams['is_debug'] = $formValues['rule_is_debug'] ?? 0;
+    }
     $this->ruleId = CiviRulesRule::save(FALSE)
       ->setRecords([$ruleParams])
       ->execute()
       ->first()['id'];
-    // first delete all tags for the rule if required then save new ones
-    CiviRulesRuleTag::delete(FALSE)
-      ->addWhere('rule_id', '=', $this->ruleId)
-      ->execute();
-    if (!empty($formValues['rule_tag_id'])) {
-      foreach (explode(',', $formValues['rule_tag_id']) as $ruleTagId) {
-        $ruleTag = [
-          'rule_id' => $this->ruleId,
-          'rule_tag_id' => $ruleTagId,
-        ];
-        $ruleTags[] = $ruleTag;
-      }
-      if (!empty($ruleTags)) {
-        CiviRulesRuleTag::save(FALSE)
-          ->setRecords($ruleTags)
-          ->execute();
-      }
+    // replace all tags for the rule with the ones submitted
+    $tagIds = !empty($formValues['rule_tag_id'])
+      ? array_unique(array_filter((array) explode(',', is_array($formValues['rule_tag_id']) ? implode(',', $formValues['rule_tag_id']) : $formValues['rule_tag_id'])))
+      : [];
+    if ($tagIds) {
+      EntityTag::replace(FALSE)
+        ->addWhere('entity_table', '=', 'civirule_rule')
+        ->addWhere('entity_id', '=', $this->ruleId)
+        ->setMatch(['entity_table', 'entity_id', 'tag_id'])
+        ->setRecords(array_map(fn($tagId) => ['tag_id' => $tagId], $tagIds))
+        ->execute();
+    }
+    else {
+      EntityTag::delete(FALSE)
+        ->addWhere('entity_table', '=', 'civirule_rule')
+        ->addWhere('entity_id', '=', $this->ruleId)
+        ->execute();
     }
   }
 

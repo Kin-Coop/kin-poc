@@ -331,6 +331,12 @@
     <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
   </item>
   <item>
+    <path>civicrm/civirule/form/trigger/monthlygroupmembership</path>
+    <page_callback>CRM_CivirulesCronTrigger_Form_MonthlyGroupMembership</page_callback>
+    <title>Group membership</title>
+    <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
+  </item>
+  <item>
     <path>civicrm/civirule/form/trigger/event</path>
     <page_callback>CRM_CivirulesPostTrigger_Form_Event</page_callback>
     <title>Event</title>
@@ -354,6 +360,12 @@
     <title>Activity date reached</title>
     <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
   </item>
+  <item>
+    <path>civicrm/civirule/form/trigger/relationshipenddate</path>
+    <page_callback>CRM_CivirulesCronTrigger_Form_RelationshipEndDate</page_callback>
+    <title>Relationship end date reached</title>
+    <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
+  </item>  
   <item>
     <path>civicrm/civirule/form/action/tag</path>
     <page_callback>CRM_CivirulesActions_Tag_Form_TagId</page_callback>
@@ -395,6 +407,18 @@
     <path>civicrm/civirule/form/action/generic/updatedatevalue</path>
     <page_callback>CRM_CivirulesActions_Generic_Form_UpdateDateValue</page_callback>
     <title>Advanced Update Date Value</title>
+    <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/civirule/form/action/generic/sumvalues</path>
+    <page_callback>CRM_CivirulesActions_Generic_Form_SumValues</page_callback>
+    <title>Sum Values</title>
+    <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/civirule/form/action/generic/subtractvalues</path>
+    <page_callback>CRM_CivirulesActions_Generic_Form_SubtractValues</page_callback>
+    <title>Subtract Values</title>
     <access_arguments>administer CiviCRM; administer CiviRules</access_arguments>
   </item>
   <item>

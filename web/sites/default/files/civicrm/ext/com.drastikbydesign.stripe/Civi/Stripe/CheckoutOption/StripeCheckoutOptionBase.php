@@ -73,9 +73,8 @@ abstract class StripeCheckoutOptionBase implements CheckoutOptionInterface {
     return 'Stripe';
   }
 
-  public function getPaymentProcessorId(): ?int {
-    // DO NOT USE: Inconsistent signature and unable to select test processor.
-    return NULL;
+  public function getPaymentProcessorId(bool $testMode = FALSE): ?int {
+    return $testMode ? $this->testConnection['id'] : $this->liveConnection['id'];
   }
 
   protected function getQuickformProcessor(bool $testMode = FALSE): \CRM_Core_Payment_Stripe {
@@ -148,8 +147,27 @@ abstract class StripeCheckoutOptionBase implements CheckoutOptionInterface {
     }
     catch (\Exception $e) {
       $parsedError = $this->parseStripeException('createCheckout', $e);
+      \CRM_Stripe_BAO_StripePaymentintent::writeRecord([
+        'stripe_intent_id' => NULL,
+        'contribution_id' => $contributionId,
+        'payment_processor_id' => $this->getPaymentProcessorId($testMode),
+        'status' => 'failed',
+        'description' => $e->getMessage(),
+      ]);
       throw new PaymentProcessorException($parsedError['message']);
     }
+
+    // Record the Checkout Session for troubleshooting. We may not have a
+    // stripe_intent_id yet (subscription-mode sessions only get one once the
+    // first invoice is paid), so also record the session id as 'identifier'
+    // so continueCheckout()/webhooks can find and update this same record.
+    \CRM_Stripe_BAO_StripePaymentintent::writeRecord([
+      'identifier' => $checkoutSession->id,
+      'stripe_intent_id' => $checkoutSession->payment_intent ?: NULL,
+      'contribution_id' => $contributionId,
+      'payment_processor_id' => $this->getPaymentProcessorId($testMode),
+      'status' => $checkoutSession->status,
+    ]);
 
     \CRM_Stripe_BAO_StripeCustomer::updateMetadata(['contact_id' => $contribution['contact_id']], $this->getQuickformProcessor($testMode), $checkoutSession['customer']);
 

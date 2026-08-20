@@ -29,6 +29,16 @@ class Update extends BasicCreateAction {
   protected int $paymentProcessorID;
 
   /**
+   * Optional pre-fetched list of this processor's webhook endpoints (eg. as
+   * already retrieved by CRM_Stripe_Webhook::check()), to avoid an extra
+   * round-trip to Stripe when the caller already has it. If not provided,
+   * it will be fetched.
+   *
+   * @var \Stripe\WebhookEndpoint[]|null
+   */
+  protected ?array $webhooks = NULL;
+
+  /**
    * @param \Civi\Api4\Generic\Result $result
    *
    * @return void
@@ -47,28 +57,20 @@ class Update extends BasicCreateAction {
       throw new \CRM_Core_Exception('Payment Processor is not configured.');
     }
 
-    $webhooks = StripeWebhook::getFromStripe(FALSE)
-      ->setPaymentProcessorID($this->paymentProcessorID)
-      ->execute();
+    $webhooks = $this->webhooks ?? iterator_to_array(
+      StripeWebhook::getFromStripe(FALSE)
+        ->setPaymentProcessorID($this->paymentProcessorID)
+        ->execute()
+    );
 
-    foreach ($webhooks as $webhook) {
-      if (str_starts_with($webhook->url, \CRM_Mjwshared_Webhook::getWebhookPath($this->paymentProcessorID))) {
-        // This webhook is for this payment processor
-        if (($webhook->api_version === \Civi\Stripe\Check::API_VERSION)
-          && ($webhook->status === 'enabled')
-          && \CRM_Stripe_Webhook::checkEnabledWebhookEvents($webhook)) {
-          // This is a valid, enabled webhook with the current API version and the correct set of enabled events
-          $webhooksWithCurrentAPIVersion[] = $webhook;
-        }
-        elseif ($webhook->status !== 'disabled') {
-          // This is an enabled webhook for our paymentprocessor, but API version does not match current version
-          //   so we need to disable it.
-          $webhooksToDisable[] = $webhook;
-        }
-      }
-    }
+    $webhookPath = \CRM_Mjwshared_Webhook::getWebhookPath($this->paymentProcessorID);
+    $processorWebhooks = array_filter(
+      $webhooks,
+      fn ($webhook) => str_starts_with($webhook->url, $webhookPath)
+    );
+    $classified = \CRM_Stripe_Webhook::classifyWebhooksForProcessor($processorWebhooks);
 
-    if (empty($webhooksWithCurrentAPIVersion)) {
+    if ($classified['keep'] === NULL) {
       // Need to create a new webhook
       $currentWebhook = StripeWebhook::create(FALSE)
         ->setPaymentProcessorID($this->paymentProcessorID)
@@ -76,17 +78,13 @@ class Update extends BasicCreateAction {
         ->execute();
     }
     else {
-      $currentWebhook = array_pop($webhooksWithCurrentAPIVersion);
-      if (!empty($webhooksWithCurrentAPIVersion)) {
-        \Civi::log('stripe')->warning('You have more than one Stripe webhook enabled for PaymentProcessorID: ' . $this->paymentProcessorID . '. All except the last one will be disabled.');
-        $webhooksToDisable = array_merge($webhooksToDisable ?? [], $webhooksWithCurrentAPIVersion);
-      }
-      $currentWebhook = $currentWebhook->toArray();
+      $currentWebhook = $classified['keep']->toArray();
     }
-    if (!empty($webhooksToDisable)) {
-      foreach ($webhooksToDisable as $webhook) {
-        $processor->stripeClient->webhookEndpoints->update($webhook->id, ['disabled' => TRUE]);
-      }
+    if (($classified['disable'] !== NULL) && ($classified['disable']->status !== 'disabled')) {
+      $processor->stripeClient->webhookEndpoints->update($classified['disable']->id, ['disabled' => TRUE]);
+    }
+    foreach ($classified['delete'] as $webhook) {
+      $processor->stripeClient->webhookEndpoints->delete($webhook->id);
     }
 
     if ($currentWebhook['status'] === 'disabled') {

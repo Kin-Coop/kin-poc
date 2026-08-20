@@ -150,7 +150,7 @@
         // cards
         var totalAmount = CRM.payment.getTotalAmount();
         if (totalAmount) {
-          totalAmount = totalAmount.toFixed(2);
+          totalAmount = CRM.payment.roundMoney(totalAmount);
         }
         if (CRM.payment.getIsRecur() || (totalAmount === null)) {
           try {
@@ -234,7 +234,7 @@
             let processParams = {
               // payment_method_id: createPaymentMethodResult.paymentMethod.id,
               paymentMethodID: createPaymentMethodResult.paymentMethod.id,
-              amount: CRM.payment.getTotalAmount().toFixed(2),
+              amount: CRM.payment.roundMoney(CRM.payment.getTotalAmount()),
               currency: CRM.payment.getCurrency(CRM.vars[script.name].currency),
               paymentProcessorID: CRM.vars[script.name].id,
               description: document.title,
@@ -486,7 +486,16 @@
     },
 
     submit: function(submitEvent) {
-      submitEvent.preventDefault();
+      // Fix stripe#428: Don't preventDefault for Webforms with zero-dollar total amount.
+      if (
+        CRM.payment.getIsDrupalWebform()
+        && $('#billing-payment-block').is(':hidden')
+      ) {
+        // Do nothing.
+      }
+      else {
+        submitEvent.preventDefault();
+      }
       script.debugging('submit handler');
 
       if (CRM.payment.form.dataset.submitted === 'true') {

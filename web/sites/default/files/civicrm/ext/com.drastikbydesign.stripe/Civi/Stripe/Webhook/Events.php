@@ -50,7 +50,7 @@ class Events {
   }
 
   /**
-   * @param \Stripe\StripeObject|\PropertySpy $data
+   * @param \Stripe\StripeObject $data
    *
    * @return void
    */
@@ -608,6 +608,18 @@ class Events {
       $return->message = $this->formatResultMessage(__FUNCTION__, 'Missing invoiceID or paymentIntentID');
       return $return;
     }
+
+    // Update the paymentintent tracking record (created when the Checkout
+    // Session was started) as a safety net in case the browser never
+    // returned to continueCheckout() (eg. closed tab, network drop).
+    $checkoutSessionID = $this->api->getValueFromStripeObject('checkout_session_id', 'String', $this->getData()->object);
+    \CRM_Stripe_BAO_StripePaymentintent::writeRecord([
+      'identifier' => $checkoutSessionID,
+      'stripe_intent_id' => $paymentIntentID ?: NULL,
+      'contribution_id' => $contribution['id'],
+      'payment_processor_id' => $this->_paymentProcessor->getID(),
+      'status' => 'complete',
+    ]);
 
     $paymentMethodOptionValueID = $this->getPaymentMethodForContribution($paymentIntentID);
 

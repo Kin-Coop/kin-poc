@@ -459,4 +459,14 @@ class CRM_Stripe_Upgrader extends CRM_Extension_Upgrader_Base {
     return TRUE;
   }
 
+  public function upgrade_6904() {
+    $this->ctx->log->info('Check and update Stripe webhooks to match the current API version');
+    $messages = [];
+    (new CRM_Stripe_Webhook())->check($messages, TRUE);
+    foreach ($messages as $message) {
+      $this->ctx->log->warning($message->getMessage());
+    }
+    return TRUE;
+  }
+
 }

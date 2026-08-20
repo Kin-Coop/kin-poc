@@ -120,7 +120,19 @@ class CRM_Stripe_Api {
             return self::formatDate($stripeObject->created);
 
           case 'subscription_id':
-            return (string) $stripeObject->subscription;
+            if (!empty($stripeObject->subscription)) {
+              return (string) $stripeObject->subscription;
+            }
+            // Invoice.subscription is only set when the invoice was prepared for
+            // exactly one subscription. If Stripe consolidated multiple subscriptions
+            // (or non-subscription items) onto this invoice, fall back to the first
+            // line item that has one - the field is still present there.
+            foreach (($stripeObject->lines?->data ?? []) as $lineItem) {
+              if (!empty($lineItem->subscription)) {
+                return (string) $lineItem->subscription;
+              }
+            }
+            return '';
 
           case 'amount':
             return (float) $stripeObject->amount_due / 100;

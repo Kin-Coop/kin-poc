@@ -25,7 +25,7 @@ class Api {
   /**
    * @param string $name The key of the required value
    * @param string $dataType The datatype of the required value (eg. String)
-   * @param \Stripe\StripeObject|\PropertySpy $stripeObject
+   * @param \Stripe\StripeObject $stripeObject
    *
    * @return int|mixed|null
    * @throws \CRM_Core_Exception
@@ -74,6 +74,9 @@ class Api {
    * @throws \Stripe\Exception\ApiErrorException
    */
   public function getDetailsFromBalanceTransactionByChargeID(string $chargeID): array {
+    if (empty($chargeID)) {
+      return [];
+    }
     $chargeObject = $this->getPaymentProcessor()->stripeClient->charges->retrieve($chargeID);
     if ($this->getValueFromStripeObject('status', 'String', $chargeObject) !== 'succeeded') {
       // Only successful charges have a balanceTransaction

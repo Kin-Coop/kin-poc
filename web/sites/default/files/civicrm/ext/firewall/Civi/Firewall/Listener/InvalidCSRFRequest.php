@@ -19,7 +19,7 @@ class InvalidCSRFRequest extends AutoSubscriber {
   /**
    * @return array
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     return [
       'civi.firewall.invalidcsrfrequest' => [
         // Positive priority is higher (eg. 200 will run before 100)
