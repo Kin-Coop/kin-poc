@@ -6,6 +6,7 @@
         var slides = drupalSettings.kinWelcome.slides;
         var currentSlide = 0;
         var totalSlides = slides.length;
+        var isPreview = drupalSettings.kinWelcome.preview === true;
 
         // Create and inject modal HTML
         var $modal = $('\
@@ -65,7 +66,7 @@
               $('#kin-welcome-link').remove();
             }
             // Add link if provided
-            if (slide.link_text && slide.link_url) {
+            else if (slide.link_text && slide.link_url) {
               if (!$('#kin-welcome-link').length) {
                 var $link = $('<a id="kin-welcome-link" class="btn btn-primary"></a>');
                 var $href = slide.link_url + '&me=' + slide.currentContactId;
