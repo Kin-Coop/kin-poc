@@ -9,6 +9,10 @@ Releases use the following numbering system:
 
 * **[BC]**: Items marked with [BC] indicate a breaking change that will require updates to your code if you are using that code in your extension.
 
+## 1.7.2 (2026-08-03)
+
+* [!29](https://lab.civicrm.org/extensions/firewall/-/merge_requests/29) Fix fatal error: add missing `: array` return type to `getSubscribedEvents()` in all Listener classes.
+
 ## 1.7.1 (2026-06-22)
 
 * [!28](https://lab.civicrm.org/extensions/firewall/-/merge_requests/28) Fix implicitly nullable $source parameter (PHP 8.4).

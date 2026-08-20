@@ -42,6 +42,7 @@ class PaymentMatcher {
   const STATUS_PENDING     = 1;
   const STATUS_UNMATCHED   = 2;
   const STATUS_MATCHED     = 3;
+  const STATUS_MATCHED_PENDING  = 4;
 
   // ── Thresholds ────────────────────────────────────────────────────────────
   const SCORE_AUTO_MATCH   = 60;
@@ -77,6 +78,27 @@ class PaymentMatcher {
     $statuses = [self::STATUS_PENDING];
     if ($this->options['include_unmatched']) {
       $statuses[] = self::STATUS_UNMATCHED;
+    }
+
+    $matched_pending_payments = \Civi\Api4\KinpaymentsPayment::get(FALSE)
+      ->addWhere('payment_status_id', '=', self::STATUS_MATCHED_PENDING)
+      ->execute();
+
+    foreach ($matched_pending_payments as $matched_pending_payment) {
+      if ($this->is_member($matched_pending_payment['contact_id'])) {
+
+        \Civi\Api4\KinpaymentsPayment::update(FALSE)
+          ->addWhere('id', '=', $matched_pending_payment['id'])
+          ->addValue('payment_status_id',  self::STATUS_MATCHED)
+          ->execute();
+
+        // Update Contribution to Completed if it is still Pending (status 2 = Pending in CiviCRM)
+          \Civi\Api4\Contribution::update(FALSE)
+            ->addWhere('id', '=', $matched_pending_payment['contribution_id'])
+            ->addWhere('contribution_status_id', '=', 2)
+            ->addValue('contribution_status_id', 1) // 1 = Completed
+            ->execute();
+      }
     }
 
     $payments = \Civi\Api4\KinpaymentsPayment::get(FALSE)
@@ -564,22 +586,35 @@ class PaymentMatcher {
       return 'matched';
     }
 
-    // Update KinpaymentsPayment
-    \Civi\Api4\KinpaymentsPayment::update(FALSE)
-      ->addWhere('id', '=', $payment['id'])
-      ->addValue('contribution_id',    $contribution['id'])
-      ->addValue('contact_id',         $contactId)
-      ->addValue('payment_status_id',  self::STATUS_MATCHED)
-      ->addValue('match_score',        $score)
-      ->execute();
+    // Are they a member? If they are fine, if not do not complete contribution and set custom match status
+    if($this->is_member($contactId)) {
+      // Update KinpaymentsPayment
+      \Civi\Api4\KinpaymentsPayment::update(FALSE)
+        ->addWhere('id', '=', $payment['id'])
+        ->addValue('contribution_id',    $contribution['id'])
+        ->addValue('contact_id',         $contactId)
+        ->addValue('payment_status_id',  self::STATUS_MATCHED)
+        ->addValue('match_score',        $score)
+        ->execute();
 
-    // Update Contribution to Completed if it is still Pending (status 2 = Pending in CiviCRM)
-    if ((int) $contribution['contribution_status_id'] === 2) {
-      \Civi\Api4\Contribution::update(FALSE)
-        ->addWhere('id', '=', $contribution['id'])
-        ->addValue('contribution_status_id', 1) // 1 = Completed
+      // Update Contribution to Completed if it is still Pending (status 2 = Pending in CiviCRM)
+      if ((int) $contribution['contribution_status_id'] === 2) {
+        \Civi\Api4\Contribution::update(FALSE)
+          ->addWhere('id', '=', $contribution['id'])
+          ->addValue('contribution_status_id', 1) // 1 = Completed
+          ->execute();
+      }
+    } else {
+      // Update KinpaymentsPayment
+      \Civi\Api4\KinpaymentsPayment::update(FALSE)
+        ->addWhere('id', '=', $payment['id'])
+        ->addValue('contribution_id',    $contribution['id'])
+        ->addValue('contact_id',         $contactId)
+        ->addValue('payment_status_id',  self::STATUS_MATCHED_PENDING)
+        ->addValue('match_score',        $score)
         ->execute();
     }
+
 
     // Populate Bank_Number on contact if not already set
     $accountNumber = trim($payment['customer_account_number'] ?? '');
@@ -662,5 +697,20 @@ class PaymentMatcher {
     } else {
       return false;
     }
+  }
+
+  private function is_member(int $contactId): bool {
+    //At the moment we are just checking if they are pending. We could later include if they are lapsed
+      $entityTags = \Civi\Api4\EntityTag::get(TRUE)
+      ->addWhere('entity_id', '=', $contactId)
+      ->addWhere('tag_id', '=', 8) // pending
+      ->execute()
+      ->count();
+
+      if ($entityTags) {
+        return false;
+      } else {
+        return true;
+      }
   }
 }

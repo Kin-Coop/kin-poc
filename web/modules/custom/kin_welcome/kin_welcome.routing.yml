@@ -5,3 +5,11 @@ kin_welcome.slide_settings:
     _title: 'Welcome Modal Slide Settings'
   requirements:
     _permission: 'administer welcome modal'
+
+kin_welcome.preview:
+  path: '/kin-welcome/preview'
+  defaults:
+    _controller: '\Drupal\kin_welcome\Controller\PreviewController::preview'
+    _title: 'Welcome Modal Preview'
+  requirements:
+    _permission: 'administer welcome modal'

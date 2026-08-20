@@ -9,7 +9,12 @@
       {
         "php-versions": "8.1",
         "drupal": "10.6.*",
-        "civicrm": "6.14.*"
+        "civicrm": "6.16.*"
+      },
+      {
+        "civicrm": "dev-master",
+        "php-versions": "CIVICARROT_PHP_SENSIBLE",
+        "cms": "standalone"
       }
     ]
   }

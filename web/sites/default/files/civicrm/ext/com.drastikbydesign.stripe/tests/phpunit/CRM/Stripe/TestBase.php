@@ -242,11 +242,6 @@ abstract class CRM_Stripe_TestBase extends CiviUnitTestCase implements HeadlessI
   }
 
   protected function getMocksForOneOffPayment() {
-    PropertySpy::$buffer = 'none';
-    // Set this to 'print' or 'log' maybe more helpful in debugging but for
-    // generally running tests 'exception' suits as we don't expect any output.
-    PropertySpy::$outputMode = 'exception';
-
     // Create a mock stripe client.
     $stripeClient = $this->createMock('CRM_Stripe_MockStripeClient');
     // Update our CRM_Core_Payment_Stripe object and ensure any others
@@ -273,13 +268,13 @@ abstract class CRM_Stripe_TestBase extends CiviUnitTestCase implements HeadlessI
     $stripeClient->customers
       ->method('create')
       ->willReturn(
-        new PropertySpy('customers.create', ['id' => 'cus_mock'])
+        \Stripe\Customer::constructFrom(['id' => 'cus_mock', 'object' => 'customer'])
       );
     $stripeClient->customers
       ->method('retrieve')
       ->with($this->equalTo('cus_mock'))
       ->willReturn(
-        new PropertySpy('customers.retrieve', ['id' => 'cus_mock'])
+        \Stripe\Customer::constructFrom(['id' => 'cus_mock', 'object' => 'customer'])
       );
 
     // Need a mock intent with id and status
@@ -296,7 +291,7 @@ abstract class CRM_Stripe_TestBase extends CiviUnitTestCase implements HeadlessI
     $mockChargesCollection = new \Stripe\Collection();
     $mockChargesCollection->data = [$mockCharge];
 
-    $mockCharge = new PropertySpy('Charge', [
+    $mockCharge = \Stripe\Charge::constructFrom([
       'id' => 'ch_mock',
       'object' => 'charge',
       'captured' => TRUE,
@@ -310,8 +305,9 @@ abstract class CRM_Stripe_TestBase extends CiviUnitTestCase implements HeadlessI
       ->with($this->equalTo('ch_mock'))
       ->willReturn($mockCharge);
 
-    $mockPaymentIntent = new PropertySpy('PaymentIntent', [
+    $mockPaymentIntent = \Stripe\PaymentIntent::constructFrom([
       'id' => 'pi_mock',
+      'object' => 'payment_intent',
       'status' => 'succeeded',
       'latest_charge' => 'ch_mock'
     ]);
@@ -322,8 +318,9 @@ abstract class CRM_Stripe_TestBase extends CiviUnitTestCase implements HeadlessI
       ->with($this->equalTo('pi_mock'))
       ->willReturn($mockPaymentIntent);
 
-    $mockPaymentIntentWithAmount = new PropertySpy('PaymentIntent', [
+    $mockPaymentIntentWithAmount = \Stripe\PaymentIntent::constructFrom([
       'id' => 'pi_mock',
+      'object' => 'payment_intent',
       'status' => 'succeeded',
       'latest_charge' => 'ch_mock',
       'amount' => '40000',
@@ -337,7 +334,7 @@ abstract class CRM_Stripe_TestBase extends CiviUnitTestCase implements HeadlessI
     $stripeClient->balanceTransactions
       ->method('retrieve')
       ->with($this->equalTo('txn_mock'))
-      ->willReturn(new PropertySpy('balanceTransaction', [
+      ->willReturn(\Stripe\BalanceTransaction::constructFrom([
         'id' => 'txn_mock',
         'fee' => 1190, /* means $11.90 */
         'currency' => 'usd',
@@ -346,7 +343,7 @@ abstract class CRM_Stripe_TestBase extends CiviUnitTestCase implements HeadlessI
         'available_on'  => '1686427505' // 2023-06-10 21:05:05
       ]));
 
-    $mockRefund = new PropertySpy('Refund', [
+    $mockRefund = \Stripe\Refund::constructFrom([
       'amount' => $this->total*100,
       'charge_id' => 'ch_mock', //xxx
       'created' => time(),
@@ -357,7 +354,45 @@ abstract class CRM_Stripe_TestBase extends CiviUnitTestCase implements HeadlessI
     $stripeClient->refunds = $this->createMock('Stripe\\Service\\RefundService');
     $stripeClient->refunds
       ->method('all')
-      ->willReturn(new PropertySpy('refunds.all', [ 'data' => [ $mockRefund ] ]));
+      ->willReturn(\Stripe\Collection::constructFrom(['object' => 'list', 'data' => [$mockRefund], 'has_more' => FALSE, 'url' => '/v1/refunds']));
+  }
+
+  /**
+   * Mock the Checkout Session service (checkout->sessions->create/retrieve) on
+   * the stripe client already mocked by getMocksForOneOffPayment(). Both
+   * create() and retrieve() return the same mock Session, since our tests
+   * only need one Checkout Session at a time.
+   *
+   * @param array $sessionValues Override/add properties on the mock Session
+   *
+   * @return \Stripe\Checkout\Session
+   */
+  protected function getMocksForCheckoutSession(array $sessionValues = []): \Stripe\Checkout\Session {
+    // constructFrom() is how the Stripe SDK itself builds these from an
+    // API response, and gives us a real Stripe\Checkout\Session matching
+    // what createCheckoutSession()'s `: Session` return type expects.
+    $mockCheckoutSession = \Stripe\Checkout\Session::constructFrom(array_merge([
+      'id' => 'cs_mock',
+      'object' => 'checkout.session',
+      'customer' => 'cus_mock',
+      'payment_intent' => 'pi_mock',
+      'status' => 'open',
+      'payment_status' => 'unpaid',
+      'client_secret' => 'cs_mock_secret',
+      'url' => 'https://checkout.stripe.com/c/pay/cs_mock',
+    ], $sessionValues));
+
+    $stripeClient = $this->paymentObject->stripeClient;
+    $stripeClient->checkout = new stdClass();
+    $stripeClient->checkout->sessions = $this->createMock('Stripe\\Service\\Checkout\\SessionService');
+    $stripeClient->checkout->sessions
+      ->method('create')
+      ->willReturn($mockCheckoutSession);
+    $stripeClient->checkout->sessions
+      ->method('retrieve')
+      ->willReturn($mockCheckoutSession);
+
+    return $mockCheckoutSession;
   }
 
   /**
@@ -656,217 +691,6 @@ abstract class CRM_Stripe_TestBase extends CiviUnitTestCase implements HeadlessI
       $this->assertArrayHasKey($field, $payment);
       $this->assertEquals($expect, $payment[$field], "Expected Payment.$field = " . json_encode($expect));
     }
-  }
-
-}
-
-/**
- * This class provides a data structure for mocked stripe responses, and will detect
- * if a property is requested that is not already mocked.
- *
- * This enables us to only need to mock the things we actually use, which
- * hopefully makes the code more readable/maintainable.
- *
- * It implements the same interfaces as StripeObject does.
- *
- *
- */
-class PropertySpy implements ArrayAccess, Iterator, Countable, JsonSerializable {
-
-  /**
-   * @var string $outputMode print|log|exception
-   *
-   * log means Civi::log()->debug()
-   * exception means throw a RuntimeException. Use this once your tests are passing,
-   * so that in future if the code starts relying on something we have not
-   * mocked we can figure it out quickly.
-   */
-  public static $outputMode = 'print';
-
-  /**
-   * @var string $buffer
-   *
-   * - 'none' output immediately.
-   * - 'global' tries to output things chronologically at end when all objects have been killed.
-   * - 'local' outputs everything that happened to this object on destruction
-   */
-  public static $buffer = 'none'; /* none|global|local */
-  protected $_name;
-  protected array $_props;
-  protected $localLog = [];
-  public static $globalLog = [];
-  public static $globalObjects = 0;
-
-  protected $iteratorIdx=0;
-  // Iterator
-  public function current(): mixed {
-    // $this->warning("Iterating " . array_keys($this->_props)[$this->key()]);
-    return current($this->_props);
-  }
-
-  /**
-   * Implements Countable
-   */
-  public function count(): int {
-    return \count($this->_props);
-  }
-
-  public function key(): mixed {
-    return key($this->_props);
-  }
-
-  public function next(): void {
-    next($this->_props);
-  }
-
-  public function rewind(): void {
-    reset($this->_props);
-  }
-
-  public function valid(): bool {
-    return array_key_exists(key($this->_props), $this->_props);
-  }
-
-  public function toArray() {
-    return $this->_props;
-  }
-
-  public function first() {
-    return reset($this->_props);
-  }
-
-  public function __construct($name, $props) {
-    $this->_name = $name;
-    foreach ($props as $k => $v) {
-      $this->$k = $v;
-    }
-    static::$globalObjects++;
-  }
-
-  /**
-   * Factory method
-   *
-   * @param array|PropertySpy
-   */
-  public static function fromMixed($name, $data) {
-    if ($data instanceof PropertySpy) {
-      return $data;
-    }
-    if (is_array($data)) {
-      return new static($name, $data);
-    }
-    throw new \Exception("PropertySpy::fromMixed requires array|PropertySpy, got "
-    . is_object($data) ? get_class($data) : gettype($data)
-    );
-  }
-
-  public function __destruct() {
-    static::$globalObjects--;
-    if (static::$buffer === 'local') {
-      $msg = "PropertySpy: $this->_name\n"
-        . json_encode($this->localLog, JSON_PRETTY_PRINT) . "\n";
-      if (static::$outputMode === 'print') {
-        print $msg;
-      }
-      elseif (static::$outputMode === 'log') {
-        \Civi::log()->debug($msg);
-      }
-      elseif (static::$outputMode === 'exception') {
-        throw new \RuntimeException($msg);
-      }
-    }
-    elseif (static::$buffer === 'global' && static::$globalObjects === 0) {
-      // End of run.
-      $msg = "PropertySpy:\n" . json_encode(static::$globalLog, JSON_PRETTY_PRINT) . "\n";
-      if (static::$outputMode === 'print') {
-        print $msg;
-      }
-      elseif (static::$outputMode === 'log') {
-        \Civi::log()->debug($msg);
-      }
-      elseif (static::$outputMode === 'exception') {
-        throw new \RuntimeException($msg);
-      }
-    }
-  }
-
-  protected function warning($msg): void {
-    if (static::$buffer === 'none') {
-      // Immediate output
-      if (static::$outputMode === 'print') {
-        print "$this->_name $msg\n";
-      }
-      elseif (static::$outputMode === 'log') {
-        Civi::log()->debug("$this->_name $msg\n");
-      }
-    }
-    elseif (static::$buffer === 'global') {
-      static::$globalLog[] = "$this->_name $msg";
-    }
-    elseif (static::$buffer === 'local') {
-      $this->localLog[] = $msg;
-    }
-  }
-
-  public function __get($prop) {
-    if ($prop === 'log') {
-      throw new \Exception("stop");
-    }
-    if (array_key_exists($prop, $this->_props)) {
-      return $this->_props[$prop];
-    }
-    $this->warning("->$prop requested but not defined");
-    return NULL;
-  }
-
-  public function __set($prop, $value) {
-    $this->_props[$prop] = $value;
-
-    if (is_array($value)) {
-      // Iterative spies.
-      $value = new static($this->_name . "{" . "$prop}", $value);
-    }
-    $this->_props[$prop] = $value;
-  }
-
-  public function offsetGet($prop): mixed {
-    if (array_key_exists($prop, $this->_props)) {
-      return $this->_props[$prop];
-    }
-    $this->warning("['$prop'] requested but not defined");
-    return NULL;
-  }
-
-  public function offsetExists($prop): bool {
-    if (!array_key_exists($prop, $this->_props)) {
-      $this->warning("['$prop'] offsetExists requested but not defined");
-      return FALSE;
-    }
-    return TRUE;
-  }
-
-  public function __isset($prop) {
-    if (!array_key_exists($prop, $this->_props)) {
-      $this->warning("isset(->$prop) but not defined");
-    }
-    return isset($this->_props[$prop]);
-  }
-
-  public function offsetSet($prop, $value): void {
-    $this->warning("['$prop'] offsetSet");
-    $this->_props[$prop] = $value;
-  }
-
-  public function offsetUnset($prop): void {
-    $this->warning("['$prop'] offsetUnset");
-    unset($this->_props[$prop]);
-  }
-
-  /**
-   * Implement JsonSerializable
-   */
-  public function jsonSerialize(): mixed {
-    return $this->_props;
   }
 
 }

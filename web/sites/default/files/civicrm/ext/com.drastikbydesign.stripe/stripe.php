@@ -168,7 +168,10 @@ function stripe_civicrm_shutdown_updatestripecustomer(int $contactID) {
     }
   }
   catch (Exception $e) {
-    \Civi::log('stripe')->error('Stripe Contact update failed: ' . $e->getMessage());
+    \Civi::log('stripe')->error(
+      'Stripe Contact update failed: ' . $e->getMessage(),
+      ['contact_id' => $contactID]
+    );
   }
 
 }

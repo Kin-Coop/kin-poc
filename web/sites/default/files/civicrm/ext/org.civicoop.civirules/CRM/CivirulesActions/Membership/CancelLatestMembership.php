@@ -61,11 +61,11 @@ class CRM_CivirulesActions_Membership_CancelLatestMembership extends CRM_Civirul
    * whether an action is possible in the current setup.
    *
    * @param CRM_Civirules_Trigger $trigger
-   * @param CRM_Civirules_BAO_Rule $rule
+   * @param CRM_Civirules_BAO_CiviRulesRule $rule
    * @return bool
    */
-  public function doesWorkWithTrigger(CRM_Civirules_Trigger $trigger, CRM_Civirules_BAO_Rule $rule): bool {
-    return $trigger->doesProvideEntity('GroupContact');
+  public function doesWorkWithTrigger(CRM_Civirules_Trigger $trigger, CRM_Civirules_BAO_CiviRulesRule $rule): bool {
+    return CRM_CivirulesConditions_Utils_Membership::checkMembershipEntities($trigger, $rule);
   }
 
   /**

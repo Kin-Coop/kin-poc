@@ -46,6 +46,11 @@ class StripeEmbeddedCheckout extends StripeCheckoutOptionBase {
 
   /**
    * Register details for afCheckout
+   *
+   * @param bool $testMode
+   *
+   * @return array
+   * @throws \CRM_Core_Exception
    */
   public function getAfformSettings(bool $testMode): array {
     return [
@@ -83,6 +88,16 @@ class StripeEmbeddedCheckout extends StripeCheckoutOptionBase {
     $sessionId = \CRM_Utils_Request::retrieve('session_id', 'String');
 
     $stripeSession = $this->getStripeClient($session->isTestMode())->checkout->sessions->retrieve($sessionId);
+
+    // update the paymentintent tracking record (created in createCheckoutSession)
+    // now that we know the outcome of the Checkout Session
+    \CRM_Stripe_BAO_StripePaymentintent::writeRecord([
+      'identifier' => $stripeSession->id,
+      'stripe_intent_id' => $stripeSession->payment_intent ?: NULL,
+      'contribution_id' => $session->getContributionId(),
+      'payment_processor_id' => $this->getPaymentProcessorId($session->isTestMode()),
+      'status' => $stripeSession->status,
+    ]);
 
     // save the payment intent to the contribution trxn_id
     // for webhook matching

@@ -37,6 +37,18 @@ class WelcomeSlideSettingsForm extends ConfigFormBase {
       '#markup' => '<p>' . $this->t('Edit the content for each slide in the welcome modal. The last slide should include a link to the next form.') . '</p>',
     ];
 
+    $form['preview_link'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Preview slides'),
+      '#url' => \Drupal\Core\Url::fromRoute('kin_welcome.preview'),
+      '#attributes' => [
+        'class' => ['button'],
+        'target' => '_blank',
+      ],
+      '#prefix' => '<p>',
+      '#suffix' => ' ' . $this->t('(opens in a new tab — save your changes first)') . '</p>',
+    ];
+
     // Build a fieldset for each slide
     $slide_keys = ['slide_1', 'slide_2', 'slide_3', 'slide_4'];
 
