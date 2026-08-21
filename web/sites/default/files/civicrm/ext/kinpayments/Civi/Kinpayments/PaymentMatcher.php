@@ -251,6 +251,7 @@ class PaymentMatcher {
         'contact_id.first_name',
         'contact_id.last_name',
         'contact_id.display_name',
+        'Kin_Contributions.Household',
         'contact_id.' . self::FIELD_BANK_NUMBER
       )
       ->addWhere(self::FIELD_UNIQUE_REF, '=', $bankRef)
@@ -321,6 +322,7 @@ class PaymentMatcher {
       'contact_id.first_name',
       'contact_id.last_name',
       'contact_id.display_name',
+      'Kin_Contributions.Household',
       'contact_id.' . self::FIELD_BANK_NUMBER,
     ];
 
@@ -424,6 +426,7 @@ class PaymentMatcher {
         'contact_id.first_name',
         'contact_id.last_name',
         'contact_id.display_name',
+        'Kin_Contributions.Household',
         'contact_id.' . self::FIELD_BANK_NUMBER
       )
       ->addWhere('contact_id', '=', $contactId)
@@ -587,7 +590,14 @@ class PaymentMatcher {
     }
 
     // Are they a member? If they are fine, if not do not complete contribution and set custom match status
-    if($this->is_member($contactId)) {
+    // 'Kin_Contributions.Household',
+    if($contribution['Kin_Contributions.Household'] && $contribution['Kin_Contributions.Household'] == 425) {
+      $is_membership_payment = TRUE;
+    } else {
+      $is_membership_payment = FALSE;
+    }
+
+    if($this->is_member($contactId) || $is_membership_payment) {
       // Update KinpaymentsPayment
       \Civi\Api4\KinpaymentsPayment::update(FALSE)
         ->addWhere('id', '=', $payment['id'])

@@ -168,6 +168,17 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params)
 
 function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$objectRef)
 {
+  // Debugging
+  /*
+  if ($objectName === 'Contribution' && $op === 'edit') {
+    \Civi::log()->debug('Contribution edit hook fired', [
+      'id' => $objectId,
+      'request' => \CRM_Utils_Request::id() ?? uniqid('req_', true),
+      'backtrace' => (new \Exception())->getTraceAsString(),
+    ]);
+  }
+  */
+
   // Update the recurring contribution custom fields with the reference and group
   if($objectName === 'ContributionRecur' && $op === 'create') {
     if(isset($_POST['custom_61']) && isset($_POST['custom_25'])) {
@@ -1095,3 +1106,4 @@ function kincoop_civicrm_alterContent(&$content, $context, $tplName, &$object) {
     $content = str_replace('<div class="header-dark">Contribution Reference </div>','',$content);
   }
 }
+
