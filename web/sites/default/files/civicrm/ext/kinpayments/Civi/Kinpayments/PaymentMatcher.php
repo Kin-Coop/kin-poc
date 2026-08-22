@@ -132,7 +132,7 @@ class PaymentMatcher {
     if($payment['bank_reference']) {
       $bankRef = trim(str_replace(' ', '', $payment['bank_reference']) ?? '');
     }
-    
+
     // ── Step 1: direct bank_reference → custom_61 lookup ─────────────────
     // This is the highest-confidence path. If bank_reference exactly matches
     // a contribution's Unique_Contribution_Reference, we accept it immediately
@@ -655,9 +655,21 @@ class PaymentMatcher {
             'contributionId' => $contribution['id'],
           ],
           'to_email' => $individual['email_primary.email'],
+          'create_activity' => 1,
+          'activity_type_id' => 'Email',   // optional; defaults to Email
         ];
 
         civicrm_api3('MessageTemplate', 'send', $params);
+
+        civicrm_api3('Activity', 'create', [
+          'activity_type_id'   => 'Email',
+          'source_contact_id'  => $contactId,
+          'target_contact_id'  => $contactId,
+          'subject'            => 'Matched Pending email sent',
+          'status_id'          => 'Completed',
+          'activity_date_time' => date('YmdHis'),
+          'details'            => "Matched pending email sent for contribution {$contribution['id']} to {$individual['email_primary.email']}.",
+        ]);
 
         \Civi::log()->info("PaymentMatcher: Email sent to contact {$contactId} ({$individual['email_primary.email']}).");
 
