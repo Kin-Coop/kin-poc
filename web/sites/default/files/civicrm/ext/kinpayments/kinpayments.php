@@ -81,6 +81,16 @@ function kinpayments_civicrm_import_post_import(string $objectName, array $impor
   }
 }
 
+function kinpayments_civicrm_post($op, $objectName, $objectId, &$objectRef) {
+  if (stripos($objectName, 'Kinpayment') !== FALSE) {
+    \Civi::log()->debug('KinPayment post hook', [
+      'op' => $op,
+      'objectName' => $objectName,
+      'objectId' => $objectId,
+    ]);
+  }
+}
+
 /**
  * Implements hook_civicrm_postProcess().
  *

@@ -105,7 +105,7 @@ class PaymentMatcher {
       ->addWhere('payment_status_id', 'IN', $statuses)
       ->execute();
 
-    $summary = ['matched' => 0, 'unmatched' => 0, 'pending' => 0, 'errors' => 0];
+    $summary = ['matched' => 0, 'unmatched' => 0, 'pending' => 0, 'matched pending' => 0, 'errors' => 0];
 
     foreach ($payments as $payment) {
       try {
@@ -132,8 +132,7 @@ class PaymentMatcher {
     if($payment['bank_reference']) {
       $bankRef = trim(str_replace(' ', '', $payment['bank_reference']) ?? '');
     }
-
-
+    
     // ── Step 1: direct bank_reference → custom_61 lookup ─────────────────
     // This is the highest-confidence path. If bank_reference exactly matches
     // a contribution's Unique_Contribution_Reference, we accept it immediately
@@ -247,6 +246,7 @@ class PaymentMatcher {
         'total_amount',
         'receive_date',
         'contribution_status_id',
+        'financial_type_id',
         self::FIELD_UNIQUE_REF,
         'contact_id.first_name',
         'contact_id.last_name',
@@ -318,6 +318,7 @@ class PaymentMatcher {
       'total_amount',
       'receive_date',
       'contribution_status_id',
+      'financial_type_id',
       self::FIELD_UNIQUE_REF,
       'contact_id.first_name',
       'contact_id.last_name',
@@ -422,6 +423,7 @@ class PaymentMatcher {
         'total_amount',
         'receive_date',
         'contribution_status_id',
+        'financial_type_id',
         self::FIELD_UNIQUE_REF,
         'contact_id.first_name',
         'contact_id.last_name',
@@ -597,7 +599,11 @@ class PaymentMatcher {
       $is_membership_payment = FALSE;
     }
 
-    if($this->is_member($contactId) || $is_membership_payment) {
+    $status = 'matched';
+
+    // Are they a bonafide member or is this a membership payment?
+    // Also run as usual if not a donation, ie a gift
+    if($this->is_member($contactId) || $is_membership_payment || $contribution['financial_type_id']!=1) {
       // Update KinpaymentsPayment
       \Civi\Api4\KinpaymentsPayment::update(FALSE)
         ->addWhere('id', '=', $payment['id'])
@@ -615,7 +621,8 @@ class PaymentMatcher {
           ->execute();
       }
     } else {
-      // Update KinpaymentsPayment
+      // They are not a member
+      // Update KinpaymentsPayment only
       \Civi\Api4\KinpaymentsPayment::update(FALSE)
         ->addWhere('id', '=', $payment['id'])
         ->addValue('contribution_id',    $contribution['id'])
@@ -623,8 +630,41 @@ class PaymentMatcher {
         ->addValue('payment_status_id',  self::STATUS_MATCHED_PENDING)
         ->addValue('match_score',        $score)
         ->execute();
-    }
 
+      $status = 'matched pending';
+
+      // Get email
+      $individual = \Civi\Api4\Individual::get(TRUE)
+        ->addSelect('email_primary.email')
+        ->addWhere('id', '=', 2)
+        ->execute()
+        ->first();
+
+      // Send email saying will remain pending
+      // Send the email using MessageTemplate API.
+      $messageTemplateId = 162; // Pending member group payment attempt
+
+      try {
+        $params = [
+          'id' => $messageTemplateId,
+          'contact_id' => $contactId,
+          'contribution_id' => $contribution['id'],
+          'from' => '"Kin Cooperative" <members@kin.coop>',
+          'tokenContext' => [
+            'contactId' => $contactId,
+            'contributionId' => $contribution['id'],
+          ],
+          'to_email' => $individual['email_primary.email'],
+        ];
+
+        civicrm_api3('MessageTemplate', 'send', $params);
+
+        \Civi::log()->info("PaymentMatcher: Email sent to contact {$contactId} ({$individual['email_primary.email']}).");
+
+      } catch (Exception $e) {
+        \Civi::log()->error("PaymentMatcher: Failed to send email to contact {$contactId}: " . $e->getMessage());
+      }
+    }
 
     // Populate Bank_Number on contact if not already set
     $accountNumber = trim($payment['customer_account_number'] ?? '');
@@ -641,7 +681,7 @@ class PaymentMatcher {
       $payment['id'], $contribution['id'], $contactId, $score
     ));
 
-    return 'matched';
+    return $status;
   }
 
   private function applyNoMatch(array $payment, int $score = 0): string {
