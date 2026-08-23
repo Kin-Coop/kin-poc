@@ -633,6 +633,16 @@ class PaymentMatcher {
 
       $status = 'matched pending';
 
+      // Update Contribution Matched Pending field to True if it is still Pending (status 2 = Pending in CiviCRM)
+      // This is so that we can use CiviRules and tell it this contribution has been matched and received but is
+      // still pending anyway as the contact is not a member.
+      if ((int) $contribution['contribution_status_id'] === 2) {
+        \Civi\Api4\Contribution::update(FALSE)
+                               ->addWhere('id', '=', $contribution['id'])
+                               ->addValue('Kin_Contributions.Matched_Pending', 1) // 1 = Completed
+                               ->execute();
+      }
+
       // Get email
       $individual = \Civi\Api4\Individual::get(TRUE)
         ->addSelect('email_primary.email')
