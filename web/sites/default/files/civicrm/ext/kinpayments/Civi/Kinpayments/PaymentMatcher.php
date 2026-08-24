@@ -97,6 +97,7 @@ class PaymentMatcher {
             ->addWhere('id', '=', $matched_pending_payment['contribution_id'])
             ->addWhere('contribution_status_id', '=', 2)
             ->addValue('contribution_status_id', 1) // 1 = Completed
+            ->addValue('Kin_Contributions.Matched_Pending', 0)
             ->execute();
       }
     }
@@ -638,9 +639,9 @@ class PaymentMatcher {
       // still pending anyway as the contact is not a member.
       if ((int) $contribution['contribution_status_id'] === 2) {
         \Civi\Api4\Contribution::update(FALSE)
-                               ->addWhere('id', '=', $contribution['id'])
-                               ->addValue('Kin_Contributions.Matched_Pending', 1) // 1 = Completed
-                               ->execute();
+           ->addWhere('id', '=', $contribution['id'])
+           ->addValue('Kin_Contributions.Matched_Pending', 1)
+           ->execute();
       }
 
       // Get email
@@ -651,7 +652,6 @@ class PaymentMatcher {
         ->first();
 
       // Send email saying will remain pending
-      // Send the email using MessageTemplate API.
       $messageTemplateId = 162; // Pending member group payment attempt
 
       try {
