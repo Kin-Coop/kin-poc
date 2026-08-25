@@ -739,7 +739,7 @@ class PaymentMatcher {
     //At the moment we are just checking if they are pending. We could later include if they are lapsed
       $entityTags = \Civi\Api4\EntityTag::get(TRUE)
       ->addWhere('entity_id', '=', $contactId)
-      ->addWhere('tag_id', '=', 8) // pending
+      ->addWhere('tag_id', 'IN', [15, 8]) // pending or lapsed recurring
       ->execute()
       ->count();
 
