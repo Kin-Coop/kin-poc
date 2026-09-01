@@ -120,6 +120,7 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params)
       }
     }
 
+    /*
     // Check that this is not a duplicate contribution where the user has clicked more than once on the submit button
     $contactId = $params['contact_id'] ?? NULL;
     $amount    = $params['total_amount'] ?? NULL;
@@ -140,6 +141,7 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params)
     if ($existing > 0) {
       throw new \CRM_Core_Exception('Duplicate contribution blocked (kincoop): identical contribution created moments ago.');
     }
+    */
   }
 
   if($objectName === 'ContributionRecur' && $op === 'create') {
