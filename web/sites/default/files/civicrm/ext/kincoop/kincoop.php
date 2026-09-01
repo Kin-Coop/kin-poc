@@ -120,6 +120,7 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params)
       }
     }
 
+    /*
     // Check that this is not a duplicate contribution where the user has clicked more than once on the submit button
     $contactId = $params['contact_id'] ?? NULL;
     $amount    = $params['total_amount'] ?? NULL;
@@ -140,6 +141,7 @@ function kincoop_civicrm_pre($op, $objectName, $id, &$params)
     if ($existing > 0) {
       throw new \CRM_Core_Exception('Duplicate contribution blocked (kincoop): identical contribution created moments ago.');
     }
+    */
   }
 
   if($objectName === 'ContributionRecur' && $op === 'create') {
@@ -893,6 +895,19 @@ function kincoop_civicrm_buildForm($formName, $form)
             }
           }
         }
+      }
+
+      if (!empty($form->_values['is_recur'])) {
+        $form->add('datepicker', 'kincoop_start_date', ts('Start Date'), [], FALSE, [
+          'time' => FALSE,
+          'minDate' => date('Y-m-d'),
+        ]);
+
+        // Render it into the page. Use a region so you don't need a full tpl override.
+        CRM_Core_Region::instance('contribution-main-recurring-block')->add([
+          //'template' => 'CRM/Kincoop/StartDate.tpl',
+          'template' => 'CRM/Contribute/Form/Contribution/StartDate.tpl',
+        ]);
       }
 
       $defaults = [];
