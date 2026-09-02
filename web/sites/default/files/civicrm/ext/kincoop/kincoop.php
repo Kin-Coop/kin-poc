@@ -898,13 +898,14 @@ function kincoop_civicrm_buildForm($formName, $form)
       }
 
       if (!empty($form->_values['is_recur'])) {
+        Civi::resources()->addStyleFile('civicrm', 'css/font-awesome.css');
         $form->add('datepicker', 'kincoop_start_date', ts('Start Date'), [], FALSE, [
           'time' => FALSE,
           'minDate' => date('Y-m-d'),
         ]);
 
         // Render it into the page. Use a region so you don't need a full tpl override.
-        CRM_Core_Region::instance('contribution-main-recurring-block')->add([
+        CRM_Core_Region::instance('page-body')->add([
           //'template' => 'CRM/Kincoop/StartDate.tpl',
           'template' => 'CRM/Contribute/Form/Contribution/StartDate.tpl',
         ]);
