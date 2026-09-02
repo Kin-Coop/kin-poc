@@ -898,7 +898,40 @@ function kincoop_civicrm_buildForm($formName, $form)
       }
 
       if (!empty($form->_values['is_recur'])) {
-        Civi::resources()->addStyleFile('civicrm', 'css/font-awesome.css');
+        Civi::resources()->addStyleFile('civicrm', 'bower_components/font-awesome/css/all.min.css');
+        Civi::resources()->addScript('
+          CRM.$(function($) {
+            $(".kincoop-date-wrap .crm-form-date").removeAttr("placeholder");
+          });
+        ');
+
+        Civi::resources()->addStyle('
+          /* icon on the wrapper, not the input */
+          .kincoop_start_date-section {
+            margin: 1rem 0;
+          }
+          .kincoop-date-wrap {
+            position: relative;
+          }
+          .kincoop-date-wrap::before {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            content: "\f073";
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #555;
+            pointer-events: none;
+          }
+          /* make room for the icon and force normal font on the field */
+          .kincoop-date-wrap .crm-form-date {
+            padding-left: 26px;
+            font-family: inherit !important;   /* undo the FA family on the input */
+
+          }
+        ');
+
         $form->add('datepicker', 'kincoop_start_date', ts('Start Date'), [], FALSE, [
           'time' => FALSE,
           'minDate' => date('Y-m-d'),
@@ -906,9 +939,20 @@ function kincoop_civicrm_buildForm($formName, $form)
 
         // Render it into the page. Use a region so you don't need a full tpl override.
         CRM_Core_Region::instance('page-body')->add([
-          //'template' => 'CRM/Kincoop/StartDate.tpl',
           'template' => 'CRM/Contribute/Form/Contribution/StartDate.tpl',
         ]);
+
+        Civi::resources()->addScript('
+          CRM.$(function($) {
+            // move the whole section to just before the amount/recurring area
+            var $field = $(".kincoop_start_date-section");
+            // pick a stable anchor already on the page:
+            var $anchor = $(".is_recur-section").first();
+            if ($field.length && $anchor.length) {
+              $field.insertAfter($anchor);
+            }
+          });
+        ');
       }
 
       $defaults = [];
