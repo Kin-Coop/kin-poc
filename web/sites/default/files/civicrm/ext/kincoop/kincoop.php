@@ -309,12 +309,12 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
 // and then implements the function isSendReceiptForPending and returns TRUE instead of FALSE
 // (see https://github.com/civicrm/civicrm-core/blob/6bdf4c122348e57b708ff31d76fc45dad21ae1f8/CRM/Core/Payment.php#L1955 and
 // https://chat.civicrm.org/civicrm/pl/yj64iwrh6fyrzgcdw8wziabm4a)
-function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
-{
+function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef) {
 
-  // We are using this method of sending emails as the contribution recur template
-  // is not properly picking up the total amount or reference
   if($objectName === 'ContributionRecur' && $op === 'create') {
+
+    // We are using this method of sending emails as the contribution recur template
+    // is not properly picking up the total amount or reference
     $period = $objectRef->frequency_unit;
     $amount = $objectRef->amount;
     $contactId = $objectRef->contact_id;
@@ -362,13 +362,48 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
     ];
 
     $result = civicrm_api3('MessageTemplate', 'send', $params);
+
+    // Next up: update contribution start date and recurring next scheduled date based on the date
+    // the user entered in the start date field on the recurring contribution form
+    $submitted = CRM_Utils_Request::retrieve('kincoop_start_date', 'String');
+
+    if ($submitted) {
+      $start = new DateTime($submitted);
+      $frequencyUnit = $objectRef->frequency_unit;      // day/week/month/year
+      $frequencyInterval = (int) $objectRef->frequency_interval;
+      $next = clone $start;
+      $next->modify("+{$frequencyInterval} {$frequencyUnit}");
+
+      // Stash the start date in the session so we can retrieve it on the contribution thank you form page (see buildForm below).
+      CRM_Core_Session::singleton()->set('kincoop_start_date', $start->format('Y-m-d'), 'kincoop');
+
+      \Civi\Api4\ContributionRecur::update(FALSE)
+        ->addWhere('id', '=', $objectId)
+        ->addValue('start_date', $start->format('Y-m-d H:i:s'))
+        ->addValue('next_sched_contribution_date', $next->format('Y-m-d H:i:s'))
+        ->execute();
+
+      $first = \Civi\Api4\Contribution::get(FALSE)
+        ->addSelect('id')
+        ->addWhere('contribution_recur_id', '=', $objectId)
+        ->addOrderBy('id', 'ASC')
+        ->setLimit(1)
+        ->execute()
+        ->first();
+
+      if ($first) {
+        \Civi\Api4\Contribution::update(FALSE)
+          ->addWhere('id', '=', $first['id'])
+          ->addValue('receive_date', $start->format('Y-m-d H:i:s'))
+          ->execute();
+      }
+    }
   }
 }
 
 // Re-direct all emails to me on dev sites
 function kincoop_civicrm_alterMailParams(&$params, $context)
 {
-
   if (str_contains($_SERVER['HTTP_HOST'], 'dev.kin')) {
     $params['toEmail'] = 'members@kin.coop';
     $params['cc'] = 'members@kin.coop';
@@ -571,6 +606,36 @@ function kincoop_civicrm_buildForm($formName, $form)
       }
 
       $investment ="";
+
+      if($form->_id == 8 || $form->_id == 7){
+        $session = CRM_Core_Session::singleton();
+        $startDate = $session->get('kincoop_start_date', 'kincoop');
+        if ($startDate) {
+          $display = (new DateTime($startDate))->format('jS F Y'); // 3rd September 2026
+          $form->assign('kincoopStartDate', $display);
+
+          CRM_Core_Region::instance('page-body')->add([
+            'markup' => '<div class="crm-section kincoop-thankyou-startdate">'
+              . '<label>' . ts('Start date:') . '</label> '
+              . '<strong>' . htmlspecialchars($display) . '</strong>'
+              . '</div>',
+          ]);
+
+          Civi::resources()->addScript('
+          CRM.$(function($) {
+            // move the whole section to just before the amount/recurring area
+            var $field = $(".kincoop-thankyou-startdate");
+            // pick a stable anchor already on the page:
+            var $anchor = $("#editrow-custom_61").first();
+            if ($field.length && $anchor.length) {
+              $field.insertAfter($anchor);
+            }
+          });
+        ');
+
+          $session->set('kincoop_start_date', NULL, 'kincoop'); // clear after use
+        }
+      }
 
       if($form->_id == 9) {
         $investment = "var contribution = $('.crm-group.amount_display-group .header-dark');
@@ -898,16 +963,64 @@ function kincoop_civicrm_buildForm($formName, $form)
       }
 
       if (!empty($form->_values['is_recur'])) {
+        Civi::resources()->addStyleFile('civicrm', 'bower_components/font-awesome/css/all.min.css');
+        Civi::resources()->addScript('
+          CRM.$(function($) {
+            $(".kincoop-date-wrap .crm-form-date").removeAttr("placeholder");
+          });
+        ');
+
+        Civi::resources()->addStyle('
+          /* icon on the wrapper, not the input */
+          form ~ .kincoop_start_date-section {
+            display: none;
+          }
+          .kincoop_start_date-section {
+            margin: 1rem 0;
+          }
+          .kincoop-date-wrap {
+            position: relative;
+          }
+          .kincoop-date-wrap::before {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            content: "\f073";
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #555;
+            pointer-events: none;
+          }
+          /* make room for the icon and force normal font on the field */
+          .kincoop-date-wrap .crm-form-date {
+            padding-left: 26px;
+            font-family: inherit !important;   /* undo the FA family on the input */
+
+          }
+        ');
+
         $form->add('datepicker', 'kincoop_start_date', ts('Start Date'), [], FALSE, [
           'time' => FALSE,
           'minDate' => date('Y-m-d'),
         ]);
 
         // Render it into the page. Use a region so you don't need a full tpl override.
-        CRM_Core_Region::instance('contribution-main-recurring-block')->add([
-          //'template' => 'CRM/Kincoop/StartDate.tpl',
+        CRM_Core_Region::instance('page-body')->add([
           'template' => 'CRM/Contribute/Form/Contribution/StartDate.tpl',
         ]);
+
+        Civi::resources()->addScript('
+          CRM.$(function($) {
+            // move the whole section to just before the amount/recurring area
+            var $field = $(".kincoop_start_date-section");
+            // pick a stable anchor already on the page:
+            var $anchor = $(".is_recur-section").first();
+            if ($field.length && $anchor.length) {
+              $field.insertAfter($anchor);
+            }
+          });
+        ');
       }
 
       $defaults = [];
@@ -917,6 +1030,7 @@ function kincoop_civicrm_buildForm($formName, $form)
         $defaults['custom_25'] = $_GET['groupid'];
         $defaults['custom_61'] = $ref;
         $defaults['frequency_unit'] = "month";
+        $defaults['kincoop_start_date'] = date('Y-m-d');
       }
 
       $defaults['custom_66'] = 1;
@@ -997,50 +1111,60 @@ function kincoop_civicrm_validateForm($formName, &$fields, &$files, &$form, &$er
         $errors['custom_25'] = ts('This field is required.');
       }
     } // on behalf of form
-    elseif ($form->_id === 8) {
-      //check contact exists from email
-
-      if (empty($fields['custom_25'])) {
-        $errors['custom_25'] = ts('This field is required.');
+    elseif ($form->_id === 7 || $form->_id === 8) {
+      if (!empty($fields['kincoop_start_date'])) {
+        $start = new DateTime($fields['kincoop_start_date']);
+        $today = new DateTime('today');
+        if ($start < $today) {
+          $errors['kincoop_start_date'] = ts('Start date cannot be in the past.');
+        }
       }
+      if ($form->_id === 8) {
+        //check contact exists from email
 
-      if (!empty($fields['email-5'])) {
-        $on_behalf_of = $fields['email-5'];
-
-        // Check contact exists
-        try {
-          $contacts = \Civi\Api4\Contact::get(FALSE)
-            ->addSelect('id')
-            ->addWhere('email_primary.email', '=', $on_behalf_of)
-            ->setLimit(1)
-            ->execute();
-
-          if (empty($contacts[0])) {
-            $errors['email-5'] = ts('No member found with this email address. Please check and try again.');
-          } else {
-            $contact_id = $contacts[0]["id"];
-          }
-        } catch (CiviCRM_API4_Exception $e) {
-          \Civi::log()->error("API error during email lookup: " . $e->getMessage());
+        if (empty($fields['custom_25'])) {
+          $errors['custom_25'] = ts('This field is required.');
         }
 
-        //check that the member is in the group selected
-        try {
-          $relationships = \Civi\Api4\Relationship::get(FALSE)
-            ->addSelect('*')
-            ->addWhere('contact_id_a', '=', $contact_id)
-            ->addWhere('contact_id_b', '=', $fields['custom_25'])
-            ->setLimit(1)
-            ->execute();
+        if (!empty($fields['email-5'])) {
+          $on_behalf_of = $fields['email-5'];
 
-          if (empty($relationships[0])) {
-            $errors['custom_25'] = ts('The email given does not match any members of this group. Please check and try again.');
+          // Check contact exists
+          try {
+            $contacts = \Civi\Api4\Contact::get(FALSE)
+              ->addSelect('id')
+              ->addWhere('email_primary.email', '=', $on_behalf_of)
+              ->setLimit(1)
+              ->execute();
+
+            if (empty($contacts[0])) {
+              $errors['email-5'] = ts('No member found with this email address. Please check and try again.');
+            } else {
+              $contact_id = $contacts[0]["id"];
+            }
+          } catch (CiviCRM_API4_Exception $e) {
+            \Civi::log()->error("API error during email lookup: " . $e->getMessage());
           }
-        } catch (CiviCRM_API4_Exception $e) {
-          \Civi::log()->error("API error during email lookup: " . $e->getMessage());
+
+          //check that the member is in the group selected
+          try {
+            $relationships = \Civi\Api4\Relationship::get(FALSE)
+              ->addSelect('*')
+              ->addWhere('contact_id_a', '=', $contact_id)
+              ->addWhere('contact_id_b', '=', $fields['custom_25'])
+              ->setLimit(1)
+              ->execute();
+
+            if (empty($relationships[0])) {
+              $errors['custom_25'] = ts('The email given does not match any members of this group. Please check and try again.');
+            }
+          } catch (CiviCRM_API4_Exception $e) {
+            \Civi::log()->error("API error during email lookup: " . $e->getMessage());
+          }
         }
       }
     }
+
   }
   return;
 }
