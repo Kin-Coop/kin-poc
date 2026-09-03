@@ -309,9 +309,7 @@ function kincoop_civicrm_post(string $op, string $objectName, int $objectId, &$o
 // and then implements the function isSendReceiptForPending and returns TRUE instead of FALSE
 // (see https://github.com/civicrm/civicrm-core/blob/6bdf4c122348e57b708ff31d76fc45dad21ae1f8/CRM/Core/Payment.php#L1955 and
 // https://chat.civicrm.org/civicrm/pl/yj64iwrh6fyrzgcdw8wziabm4a)
-function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
-{
-
+function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef) {
 
   if($objectName === 'ContributionRecur' && $op === 'create') {
 
@@ -365,40 +363,40 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
 
     $result = civicrm_api3('MessageTemplate', 'send', $params);
 
-    // Update contribution start date and recurring next scheduled date based on the date
-    // The user entered in the start date field on the recurring contribution form
+    // Next up: update contribution start date and recurring next scheduled date based on the date
+    // the user entered in the start date field on the recurring contribution form
     $submitted = CRM_Utils_Request::retrieve('kincoop_start_date', 'String');
-    if (!$submitted) {
-      return;
-    }
-    $start = new DateTime($submitted);
-    $frequencyUnit = $objectRef->frequency_unit;      // day/week/month/year
-    $frequencyInterval = (int) $objectRef->frequency_interval;
-    $next = clone $start;
-    $next->modify("+{$frequencyInterval} {$frequencyUnit}");
 
-    // Stash the start date in the session so we can retrieve it on the contribution thank you form page (see buildForm below).
-    CRM_Core_Session::singleton()->set('kincoop_start_date', $start->format('Y-m-d'), 'kincoop');
+    if ($submitted) {
+      $start = new DateTime($submitted);
+      $frequencyUnit = $objectRef->frequency_unit;      // day/week/month/year
+      $frequencyInterval = (int) $objectRef->frequency_interval;
+      $next = clone $start;
+      $next->modify("+{$frequencyInterval} {$frequencyUnit}");
 
-    \Civi\Api4\ContributionRecur::update(FALSE)
-      ->addWhere('id', '=', $objectId)
-      ->addValue('start_date', $start->format('Y-m-d H:i:s'))
-      ->addValue('next_sched_contribution_date', $next->format('Y-m-d H:i:s'))
-      ->execute();
+      // Stash the start date in the session so we can retrieve it on the contribution thank you form page (see buildForm below).
+      CRM_Core_Session::singleton()->set('kincoop_start_date', $start->format('Y-m-d'), 'kincoop');
 
-    $first = \Civi\Api4\Contribution::get(FALSE)
-      ->addSelect('id')
-      ->addWhere('contribution_recur_id', '=', $objectId)
-      ->addOrderBy('id', 'ASC')
-      ->setLimit(1)
-      ->execute()
-      ->first();
-
-    if ($first) {
-      \Civi\Api4\Contribution::update(FALSE)
-        ->addWhere('id', '=', $first['id'])
-        ->addValue('receive_date', $start->format('Y-m-d H:i:s'))
+      \Civi\Api4\ContributionRecur::update(FALSE)
+        ->addWhere('id', '=', $objectId)
+        ->addValue('start_date', $start->format('Y-m-d H:i:s'))
+        ->addValue('next_sched_contribution_date', $next->format('Y-m-d H:i:s'))
         ->execute();
+
+      $first = \Civi\Api4\Contribution::get(FALSE)
+        ->addSelect('id')
+        ->addWhere('contribution_recur_id', '=', $objectId)
+        ->addOrderBy('id', 'ASC')
+        ->setLimit(1)
+        ->execute()
+        ->first();
+
+      if ($first) {
+        \Civi\Api4\Contribution::update(FALSE)
+          ->addWhere('id', '=', $first['id'])
+          ->addValue('receive_date', $start->format('Y-m-d H:i:s'))
+          ->execute();
+      }
     }
   }
 }
@@ -406,7 +404,6 @@ function kincoop_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
 // Re-direct all emails to me on dev sites
 function kincoop_civicrm_alterMailParams(&$params, $context)
 {
-
   if (str_contains($_SERVER['HTTP_HOST'], 'dev.kin')) {
     $params['toEmail'] = 'members@kin.coop';
     $params['cc'] = 'members@kin.coop';
