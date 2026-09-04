@@ -964,11 +964,30 @@ function kincoop_civicrm_buildForm($formName, $form)
 
       if (!empty($form->_values['is_recur'])) {
         Civi::resources()->addStyleFile('civicrm', 'bower_components/font-awesome/css/all.min.css');
-        Civi::resources()->addScript('
+        Civi::resources()->addScript("
           CRM.$(function($) {
-            $(".kincoop-date-wrap .crm-form-date").removeAttr("placeholder");
+            $('.kincoop-date-wrap .crm-form-date').removeAttr('placeholder');
+
+            var helpText = '<sup data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" tabindex=\"0\" class=\"question-mark\" data-bs-html=\"true\"' +
+              'data-bs-content=\"If you are setting up a standing order with your bank, the start date will depend on how long ' +
+               'it takes them to set up the order. You can also change your regular payment on the homepage of Kin when you are logged in.\"' +
+              'data-bs-placement=\"top\" aria-label=\"Request Type\"> <em>' +
+              '<i class=\"fs-3 fw-bold text-primary bg-white rounded-circle d-inline-block bi bi-question-circle-fill\"></i></em></sup>';
+
+            $('.kincoop-date-wrap .crm-form-date-wrapper').append(helpText);
+
+            // Initialize Bootstrap popover
+            var popoverTriggerEl = document.querySelector('[data-bs-toggle=\"popover\"]');
+            if (popoverTriggerEl) {
+                var popover = new bootstrap.Popover(popoverTriggerEl, {
+                trigger: 'focus',
+                placement: 'top',
+                html: false
+            });
+          }
+
           });
-        ');
+        ");
 
         Civi::resources()->addStyle('
           /* icon on the wrapper, not the input */
@@ -986,7 +1005,7 @@ function kincoop_civicrm_buildForm($formName, $form)
             font-weight: 900;
             content: "\f073";
             position: absolute;
-            right: 20px;
+            right: 52px;
             top: 50%;
             transform: translateY(-50%);
             color: #555;
