@@ -1015,7 +1015,20 @@ function kincoop_civicrm_buildForm($formName, $form)
           .kincoop-date-wrap .crm-form-date {
             padding-left: 26px;
             font-family: inherit !important;   /* undo the FA family on the input */
-
+          }
+          /* Hide description for default starting date */
+          .is_recur-section {
+            > div.label {
+              display: none;
+            }
+            .content {
+              .description {
+                display: none;
+              }
+              label {
+                display: inline;
+              }
+            }
           }
         ');
 
