@@ -23,5 +23,10 @@
     "name": "cancel_membership_recurring_contribution",
     "label": "Cancel the recurring contribution for a membership payment",
     "class_name": "CRM_CivirulesActions_Contribution_CancelMembershipRC"
+  },
+  {
+    "name": "set_drupal_role",
+    "label": "Set Drupal user role to member",
+    "class_name": "CRM_Kincoop_CiviRulesAction_SetDrupalRole"
   }
 ]
