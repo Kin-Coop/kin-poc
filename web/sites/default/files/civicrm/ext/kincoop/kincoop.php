@@ -965,34 +965,37 @@ function kincoop_civicrm_buildForm($formName, $form)
       if (!empty($form->_values['is_recur'])) {
         Civi::resources()->addStyleFile('civicrm', 'bower_components/font-awesome/css/all.min.css');
         Civi::resources()->addScript("
-          CRM.$(function($) {
-            $('.kincoop-date-wrap .crm-form-date').removeAttr('placeholder');
-
-            var helpText = '<sup data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" tabindex=\"0\" class=\"question-mark\" data-bs-html=\"true\"' +
-              'data-bs-content=\"If you are setting up a standing order with your bank, the start date will depend on how long ' +
-               'it takes them to set up the order. You can also change your regular payment on the homepage of Kin when you are logged in.\"' +
-              'data-bs-placement=\"top\" aria-label=\"Request Type\"> <em>' +
-              '<i class=\"fs-3 fw-bold text-primary bg-white rounded-circle d-inline-block bi bi-question-circle-fill\"></i></em></sup>';
-
-            $('.kincoop-date-wrap .crm-form-date-wrapper').append(helpText);
-
-            // Initialize Bootstrap popover
-            var popoverTriggerEl = document.querySelector('[data-bs-toggle=\"popover\"]');
-            if (popoverTriggerEl) {
+          CRM.\$(function(\$) {
+            try {
+              \$('.kincoop-date-wrap .crm-form-date').removeAttr('placeholder');
+        
+              var helpText = '<sup data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" tabindex=\"0\" class=\"question-mark\" data-bs-html=\"true\"' +
+                'data-bs-content=\"If you are setting up a standing order with your bank, the start date will depend on how long ' +
+                'it takes them to set up the order. You can also change your regular payment on the homepage of Kin when you are logged in.\"' +
+                'data-bs-placement=\"top\" aria-label=\"Request Type\"> <em>' +
+                '<i class=\"fs-3 fw-bold text-primary bg-white rounded-circle d-inline-block bi bi-question-circle-fill\"></i></em></sup>';
+        
+              \$('.kincoop-date-wrap .crm-form-date-wrapper').append(helpText);
+        
+              // Initialize Bootstrap popover
+              var popoverTriggerEl = document.querySelector('[data-bs-toggle=\"popover\"]');
+              if (popoverTriggerEl) {
                 var popover = new bootstrap.Popover(popoverTriggerEl, {
-                trigger: 'focus',
-                placement: 'top',
-                html: false
-            });
-          }
-
+                  trigger: 'focus',
+                  placement: 'top',
+                  html: true
+                });
+              }
+            } catch (e) {
+              if (window.console) { console.warn('kincoop init:', e); }
+            }
           });
         ");
 
         Civi::resources()->addStyle('
           /* icon on the wrapper, not the input */
           form ~ .kincoop_start_date-section {
-            display: none;
+            //display: none;
           }
           .kincoop_start_date-section {
             margin: 1rem 0;
@@ -1049,7 +1052,7 @@ function kincoop_civicrm_buildForm($formName, $form)
             // pick a stable anchor already on the page:
             var $anchor = $(".is_recur-section").first();
             if ($field.length && $anchor.length) {
-              $field.insertAfter($anchor);
+              //$field.insertAfter($anchor);
             }
           });
         ');
