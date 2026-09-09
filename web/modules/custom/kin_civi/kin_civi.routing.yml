@@ -45,3 +45,11 @@ kin_civi.reward:
     _form: '\Drupal\kin_civi\Form\GroupRewardForm'
   requirements:
     _permission: 'access content'
+kin_civi.cancel_contribution:
+  path: '/member/cancel-contribution/{contribution_id}'
+  defaults:
+    _controller: '\Drupal\kin_civi\Controller\CancelContributionController::cancel'
+    _title: 'Cancel Contribution'
+  requirements:
+    _permission: 'post comments'
+    contribution_id: \d+
