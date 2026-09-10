@@ -449,6 +449,8 @@ elements: |-
       class:
         - my-0
     '#form_key': civicrm_2_contact_1_cg33_fieldset
+  captcha:
+    '#type': captcha
   actions:
     '#type': webform_actions
     '#title': 'Submit button(s)'

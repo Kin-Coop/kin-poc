@@ -32,6 +32,9 @@ config:
       cache_toolbar: cache_toolbar
       sessions: sessions
       watchdog: watchdog
+    exclude_patterns:
+      - 'cache_*'
+      - 'search_api_db_*'
   private_files_exclude:
     exclude_filepaths:
       - backup_migrate
@@ -44,7 +47,7 @@ config:
       - 'config_*'
       - .htaccess
   notify:
-    notify_success_enable: 0
+    notify_success_enable: false
     notify_success_email: admin@kin.coop
-    notify_failure_enable: 1
+    notify_failure_enable: true
     notify_failure_email: admin@kin.coop

@@ -1,4 +1,4 @@
-uuid: 165c1d46-abec-4214-ba40-ef319295ef8d
+uuid: c3454a57-063e-4724-8cbc-cc7e4fdeaf4e
 langcode: en-gb
 status: open
 dependencies:
@@ -10,8 +10,8 @@ close: null
 uid: 3
 template: false
 archive: false
-id: haringey
-title: Haringey
+id: haringeytest
+title: HaringeyTest
 description: ''
 categories: {  }
 elements: |-
@@ -22,11 +22,11 @@ elements: |-
     '#form_key': civicrm_1_contact_1_cg33_fieldset
     topbanner:
       '#type': webform_message
-      '#message_message': '<p>Hi! We are a group of Haringey residents organising food co-operatives with local people across the borough.</p><p>If you are interested in joining a food co-operative or getting involved, fill in the survey and we will be in touch.&nbsp;</p>'
+      '#message_message': "<p>We're knocking every door in your local area.&nbsp;</p><p>If you are interested in organising with other residents to make the borough better, fill in the survey and we will be in touch.&nbsp;</p>"
       '#message_close': true
     food_coops:
       '#type': processed_text
-      '#text': '<div style="background-color:#ffffff;border-radius:8px;color:#ffffff;padding:24px;"><h4><span style="color:#000000;">Introduction&nbsp;to food co-operatives.</span></h4><p>A food co-op is a group of neighbours who <strong style="color:#cc0000;">buy regular items in bulk</strong> to save money.&nbsp;</p><p>Buying direct from the wholesaler can create <strong style="color:#cc0000;">savings of up to 40%</strong> compared to the supermarket, especially on vegetables and loose staples like rice and cooking oil. It is not uncommon to spend just £5 and end up with a trolley full of food.&nbsp;</p><p dir="ltr">Food co-ops are also a great way to <strong style="color:#cc0000;">connect</strong> with other local people which can lead to more exciting forms of <strong style="color:#cc0000;">cooperation in Haringey.</strong></p></div>'
+      '#text': '<div style="background-color:#ffffff;border-radius:8px;color:#ffffff;padding:24px;"><h4><span style="color:#000000;">Introduction&nbsp;to food co-operatives.</span></h4><p>We are a group of Haringey residents whose aim is <strong style="color:#cc0000;">to work with local people across the borough to organise neighbourhood food co-operatives</strong>.</p><p>Food co-ops are groups who buy common food items in bulk to save money. Buying wholesale can create <strong style="color:#cc0000;">savings of up to 40%</strong> compared to the supermarket, especially on vegetables and loose staples like rice and oil. Some food co-ops report spending £5 per shop to end up with a trolley full of food.&nbsp;</p><p dir="ltr">Food co-ops are also a great way to <strong style="color:#cc0000;">connect</strong> with other local people which can lead to more exciting forms of <strong style="color:#cc0000;">cooperation in Haringey.</strong></p></div>'
       '#format': full_html
     civicrm_1_contact_1_fieldset_fieldset:
       '#type': fieldset
@@ -47,7 +47,7 @@ elements: |-
         '#title': 'Existing Contact'
       civicrm_1_contact_1_cg33_custom_94:
         '#type': civicrm_options
-        '#title': 'Are you interested in joining a food co-operative with your neighbours? '
+        '#title': 'Are you interested in joining a food cooperative with your neighbours? '
         '#options':
           2: 'Yes'
           4: Maybe
@@ -161,32 +161,14 @@ elements: |-
           rows: '4'
         '#form_key': civicrm_1_contact_1_cg33_custom_184
         '#parent': civicrm_1_contact_1_cg33_fieldset
-      civicrm_1_contact_1_cg33_custom_195:
-        '#type': textfield
-        '#title': 'Can you think of any local spaces (community, faith centres, warehouses, shops) within walking distance that might let local people receive food deliveries?'
-        '#counter_type': character
-        '#counter_maximum': 255
-        '#counter_maximum_message': ' '
-        '#data_type': String
-        '#civicrm_condition':
-          andor: or
-          action: visible
-          rules:
-            contact_contact_sub_type:
-              values:
-                - Canvass_Contact
-        '#form_key': civicrm_1_contact_1_cg33_custom_195
-        '#extra':
-          width: 20
-        '#parent': civicrm_1_contact_1_cg33_fieldset
+    cooperation_fund:
+      '#type': processed_text
+      '#text': '<div style="background-color:#ffffff;border-radius:8px;color:#ffffff;padding:24px;"><h4><span style="color:#000000;">More cooperation in Haringey&nbsp;</span></h4><p>Buying food together is a step towards all sorts of initiatives including mutual family support, tool libraries, community energy groups and new worker-owned businesses!</p><p>Most ambitious projects require money to get started. To make this possible, we are creating a residents’ <strong style="color:#cc0000;">Haringey Cooperation Fund</strong>.&nbsp;</p><p>Participation is voluntary and works like this:</p><ol><li data-list-item-id="e2e816b12fdf2c8bb50eacf23ebabd024">Members give <strong style="color:#cc0000;">£1 per week</strong></li><li data-list-item-id="e7faf7672955edfcf390f28d6fd8e81ff">Residents propose new cooperative projects that will benefit the borough</li><li data-list-item-id="eb7391dc9f754f5a814ea8bfde0db4768">Fund members meet to decide on the proposals: each fund contributor has one vote&nbsp;</li></ol></div>'
+      '#format': full_html
     cooperation_fund_details:
       '#type': fieldset
       '#title': 'Cooperation Fund details'
       '#title_display': invisible
-      cooperation_fund:
-        '#type': processed_text
-        '#text': '<div style="background-color:#ffffff;border-radius:8px;color:#ffffff;padding:24px;"><h4><span style="color:#000000;">More cooperation in Haringey&nbsp;</span></h4><p>Imagine hundreds of food co-ops across the borough. What then? There''s more we can do together, for example, mutual family support, tool libraries, community energy and more community-owned businesses.</p><p>Big projects need money to get started. That''s why we are creating a <strong style="color:#cc0000;">Haringey Co-operation Fund</strong>.&nbsp;</p><p>Participation is open to local residents and works like this:</p><ol><li data-list-item-id="e2e816b12fdf2c8bb50eacf23ebabd024">Contributors give <strong style="color:#cc0000;">£1 per week</strong></li><li data-list-item-id="e7faf7672955edfcf390f28d6fd8e81ff">Residents propose projects that will benefit the borough</li><li data-list-item-id="eb7391dc9f754f5a814ea8bfde0db4768">Contributors meet to decide on the proposals</li><li data-list-item-id="e8678c05a1b9710248da77e5251fe5199">The proposals with the most votes receive funds</li></ol></div>'
-        '#format': full_html
       civicrm_1_contact_1_cg33_custom_188:
         '#type': civicrm_options
         '#title': 'Would you be interested in joining a local cooperation fund?'
@@ -232,7 +214,7 @@ elements: |-
         '#parent': civicrm_1_contact_1_cg33_fieldset
     organising:
       '#type': processed_text
-      '#text': '<div style="background-color:#ffffff;border-radius:8px;color:#ffffff;padding:24px;"><h4><span style="color:#000000;">Working together</span></h4><p>Co-operatives are built and sustained by people <strong style="color:#cc0000;">working together.</strong> A little bit from a lot of local people can go a long way. &nbsp;</p><p>There are many ways you can get involved, including:</p><ul><li data-list-item-id="e7c59528542ef7fd3cb22232567891253">doorknocking in your local postcode</li><li data-list-item-id="e3da715d7da5f453c19d27fa4cff9f529">making phonecalls&nbsp;</li><li data-list-item-id="e7f5421a99f0cda0f80ff3a2ec00e8098">translating</li><li data-list-item-id="e18fa67daf1db26b94ce878be6d4f7df6">helping with events</li><li data-list-item-id="e4f2b4394d26ca86e54a1ffb72719c2b6">hosting events</li><li data-list-item-id="eea29549dea9b2535034a791a87b90421">driving</li><li data-list-item-id="eb38b07245fed370e53615198c8f69419">coordination / admin</li></ul></div>'
+      '#text': '<div style="background-color:#ffffff;border-radius:8px;color:#ffffff;padding:24px;"><h4><span style="color:#000000;">Working together</span></h4><p>Food co-operatives are built through the time, effort, care, and skill of their members <strong style="color:#cc0000;">working together.</strong> A little bit from a lot of local people goes a long way. &nbsp;</p><p>There are many ways to do your part, including:</p><ul><li data-list-item-id="e7c59528542ef7fd3cb22232567891253">doorknocking in your local postcode</li><li data-list-item-id="e3da715d7da5f453c19d27fa4cff9f529">making phonecalls&nbsp;</li><li data-list-item-id="e7f5421a99f0cda0f80ff3a2ec00e8098">translating</li><li data-list-item-id="e18fa67daf1db26b94ce878be6d4f7df6">helping with events</li><li data-list-item-id="e4f2b4394d26ca86e54a1ffb72719c2b6">hosting events</li><li data-list-item-id="eea29549dea9b2535034a791a87b90421">driving</li><li data-list-item-id="eb38b07245fed370e53615198c8f69419">coordination / admin</li></ul></div>'
       '#format': full_html
     civicrm_1_contact_1_cg33_custom_99:
       '#type': civicrm_options
@@ -318,9 +300,57 @@ elements: |-
           'input[name="civicrm_1_contact_1_cg33_custom_99"]':
             value:
               pattern: ^(2|3|4)$
+      civicrm_1_contact_1_cg33_custom_114:
+        '#type': civicrm_options
+        '#title': 'Are you part of any Community chats (eg, WhatsApp / Signal) groups?'
+        '#options':
+          1: 'Neighbours or street group'
+          2: 'Parents group'
+          3: 'Local social or activity group'
+          8: 'Faith group'
+          4: 'Issue or campaign group (e.g. environment, housing, cost of living)'
+          5: 'Mutual aid or volunteering group'
+          6: Other
+          7: 'No'
+        '#required': true
+        '#extra':
+          aslist: 0
+          multiple: 1
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg33_custom_114
+        '#parent': civicrm_1_contact_1_cg33_fieldset
+        '#default_option': ''
+        '#default_value': ''
+        '#civicrm_live_options': '1'
+      civicrm_1_contact_1_cg33_custom_195:
+        '#type': textfield
+        '#title': 'Can you think of any local spaces (community / faith centres, warehouses, shops) within walking distance that might let local people hold meetings?'
+        '#required': true
+        '#counter_type': character
+        '#counter_maximum': 255
+        '#counter_maximum_message': ' '
+        '#data_type': String
+        '#civicrm_condition':
+          andor: or
+          action: visible
+          rules:
+            contact_contact_sub_type:
+              values:
+                - Canvass_Contact
+        '#form_key': civicrm_1_contact_1_cg33_custom_195
+        '#extra':
+          width: 20
+        '#parent': civicrm_1_contact_1_cg33_fieldset
     comms:
       '#type': processed_text
-      '#text': '<div style="background-color:#ffffff;border-radius:8px;color:#ffffff;padding:24px;"><h4><span style="color:#000000;">Contact information</span></h4><p>We prefer WhatsApp or text for communication, since emails sometimes go to spam, but having both email and phone details for contacting people is even better!&nbsp;</p></div>'
+      '#text': '<div style="background-color:#ffffff;border-radius:8px;color:#ffffff;padding:24px;"><h4><span style="color:#000000;">Contact information</span></h4><p>We prefer phone calls for communication, since emails sometimes go to spam, but having both email and phone details for contacting people is even better!&nbsp;</p></div>'
       '#format': full_html
     civicrm_1_contact_1_cg33_custom_108:
       '#type': civicrm_options
@@ -660,7 +690,7 @@ settings:
   confirmation_type: url_message
   confirmation_url: 'https://kin.coop'
   confirmation_title: ''
-  confirmation_message: '<p><strong>Thank you for filling in the survey.&nbsp;</strong></p><p>Please&nbsp;share it with others by sending the link: <a href="https://kin.coop/form/haringey">https://kin.coop/form/haringey</a>&nbsp;</p><p>Don’t wait for us to contact you. If you are excited by this plan and want to support it or find out more, get in touch via whatsapp <a href="https://wa.me/447985022771?">here</a> of by email <a href="mailt:rob@kin.coop">here</a></p><p>For more information on savings clubs, have a read of the page below. Kin Co-operative is a local organisation that helps to start and support community-led savings clubs. For more information on food co-operatives, visit&nbsp;<a href="https://cooperation.town">Cooperation Town</a>, a local organisation that helps to start and support food co-ops.</p>'
+  confirmation_message: '<p><strong>Thank you for filling in the survey.&nbsp;</strong></p><p>Please&nbsp;share it with others by sending the link: <a href="https://kin.coop/form/haringey">https://kin.coop/form/haringey</a>&nbsp;</p><p>Don’t wait for us to contact you. If you are excited by this plan and want to support it or find out more, get in touch:</p><p>via whatsapp <a href="https://wa.me/447985022771?">here</a> of by email <a href="mailt:rob@kin.coop">here</a></p><p>For more information on savings clubs, have a read of the page you are now on. Kin Co-operative is a local organisation that helps to start and support community-led savings clubs. For more information on food co-operatives, visit&nbsp;<a href="https://cooperation.town">Cooperation Town</a>, a local organisation that helps to start and support food co-ops.</p>'
   confirmation_attributes: {  }
   confirmation_back: true
   confirmation_back_label: ''
@@ -763,7 +793,7 @@ handlers:
       civicrm_1_contact_1_cg33_custom_99: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_98: 0
       civicrm_1_contact_1_cg33_custom_104: 0
-      civicrm_1_contact_1_cg33_custom_114: 0
+      civicrm_1_contact_1_cg33_custom_114: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_107: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_108: create_civicrm_webform_element
       civicrm_1_contact_1_cg33_custom_118: 0
