@@ -995,7 +995,7 @@ function kincoop_civicrm_buildForm($formName, $form)
         Civi::resources()->addStyle('
           /* icon on the wrapper, not the input */
           form ~ .kincoop_start_date-section {
-            //display: none;
+            display: none;
           }
           .kincoop_start_date-section {
             margin: 1rem 0;
