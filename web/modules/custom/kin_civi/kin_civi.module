@@ -1,15 +1,15 @@
 <?php
-  
+
   /**
    * @file
    * Module file for Custom Contribution Form.
    */
-  
+
   use Drupal\Core\Form\FormStateInterface;
   use Civi\Api4\UFMatch;
-  
+
   //\Drupal::service('civicrm')->initialize();
-  
+
   /**
    * Implements hook_help().
    */
@@ -22,7 +22,7 @@
         return $output;
     }
   }
-  
+
   function kin_civi_get_contact_id($uid) {
     try {
       // Query CiviCRM APIv4 to get the contact ID for the Drupal user.
@@ -30,7 +30,7 @@
                        ->addWhere('uf_id', '=', $uid)
                        ->addSelect('contact_id')
                        ->execute();
-      
+
       if ($result) {
         return (int) $result->first()['contact_id'];
       } else {
@@ -78,4 +78,10 @@
     ];
 }
 
-
+function kin_civi_preprocess_views_view(&$variables) {
+  if ($variables['view']->id() === 'member_contributions') {
+    $variables['#attached']['library'][] = 'core/drupal.dialog.ajax';
+    $variables['#attached']['library'][] = 'core/jquery.ui.dialog';
+    $variables['#attached']['library'][] = 'kin_civi/cancel_dialog';
+  }
+}

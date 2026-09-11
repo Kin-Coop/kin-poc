@@ -1,0 +1,74 @@
+/* The dialog box itself */
+.ui-dialog.kin-cancel-dialog {
+  background: var(--bs-body-bg, #fff);
+  border: 1px solid var(--bs-border-color, #dee2e6);
+  border-radius: var(--bs-border-radius, 0.375rem);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  padding: 0;
+  overflow: hidden;
+
+  /* Titlebar — primary colour */
+  .ui-dialog-titlebar {
+    background: var(--bs-primary, #0d6efd);
+    color: #fff;
+    border: 0;
+    border-radius: 0;
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+
+    .ui-dialog-title {
+      font-size: 1.75rem;   /* Bootstrap h3 is 1.75rem */
+      font-weight: 500;
+      line-height: 1.2;
+    }
+  }
+  .ui-dialog-titlebar-close {
+     color: #fff;
+     opacity: 0.85;
+   }
+
+  .ui-dialog-titlebar-close:hover {
+    opacity: 1;
+  }
+
+  .ui-widget-content {
+    &.ui-dialog-content {
+      background: var(--bs-body-bg, #fff);
+      color: var(--bs-body-color, #212529);
+      padding: 1.25rem;
+    }
+
+    &.ui-dialog-buttonpane {
+      background: var(--bs-body-bg, #fff);
+
+      .form-actions {
+        padding: .1rem .25rem;
+        /* border-top: 1px solid var(--bs-border-color, #dee2e6); */
+        display: flex;
+        gap: 0.5rem;
+        justify-content: flex-end;
+
+        button {
+          padding: .1rem .75rem;
+
+          &:hover {
+            background: var(--bs-primary, #fff);
+            color: #fff;
+          }
+
+          &.dialog-cancel {
+            border: 1px solid #ccc;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+/* The dimmed backdrop */
+.ui-widget-overlay {
+  background: #000 !important;
+  opacity: 0.5 !important;
+}

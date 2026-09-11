@@ -422,13 +422,13 @@ display:
           field: nothing
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: 'Cancel button'
           plugin_id: custom
           label: ''
           exclude: false
           alter:
             alter_text: true
-            text: '<a href="/member/cancel-contribution/{{ id }}" class="btn btn-primary">Cancel</a>'
+            text: "<a href=\"/member/cancel-contribution/{{ id }}/confirm\" class=\"btn btn-primary use-ajax\"\r\n   data-dialog-type=\"modal\"\r\n   data-dialog-options='{\"width\":500,\"dialogClass\":\"kin-cancel-dialog\"}'>Cancel</a>"
             make_link: false
             path: ''
             absolute: false
