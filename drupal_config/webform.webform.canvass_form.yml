@@ -545,7 +545,7 @@ elements: |-
       2: 'Meeting others'
       3: 'Something else'
     '#parent': civicrm_1_contact_1_cg33_fieldset
-    '#title': 'What interests you most?'
+    '#title': 'What is more important to you?'
     '#civicrm_live_options': 1
     '#required': '0'
     '#default_value': ''
@@ -876,6 +876,29 @@ elements: |-
       description_above: null
     '#parent': civicrm_1_contact_1_cg33_fieldset
     '#title': 'Language preference'
+    '#required': '0'
+    '#default_value': ''
+  civicrm_1_contact_1_cg33_custom_195:
+    '#type': textfield
+    '#data_type': String
+    '#civicrm_condition':
+      andor: or
+      action: visible
+      rules:
+        contact_contact_sub_type:
+          values:
+            - Canvass_Contact
+    '#counter_type': character
+    '#counter_maximum': 255
+    '#counter_maximum_message': ' '
+    '#nid': canvass_form
+    '#form_key': civicrm_1_contact_1_cg33_custom_195
+    '#extra':
+      width: 20
+      description: ''
+      description_above: null
+    '#parent': civicrm_1_contact_1_cg33_fieldset
+    '#title': 'Are there any local spaces (community / faith centres, warehouses, shops) within walking distance that might let local people hold meetings?'
     '#required': '0'
     '#default_value': ''
 css: ''

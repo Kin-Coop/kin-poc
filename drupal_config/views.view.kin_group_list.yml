@@ -5,7 +5,11 @@ dependencies:
   config:
     - field.storage.user.user_picture
     - image.style.profile
+    - user.role.administrator
     - user.role.authenticated
+    - user.role.content_editor
+    - user.role.member
+    - user.role.pending_member
     - views.view.civi_admins
     - views.view.contributions
     - views.view.group_agreement
@@ -432,6 +436,13 @@ display:
                   is_secondary: false
                   hide_label: false
                   field_classes: ''
+      access:
+        type: role
+        options:
+          role:
+            member: member
+            content_editor: content_editor
+            administrator: administrator
       empty:
         area:
           id: area
@@ -579,6 +590,7 @@ display:
           1: AND
       defaults:
         empty: false
+        access: false
         css_class: false
         use_ajax: false
         exposed_form: false
@@ -4430,6 +4442,14 @@ display:
         options:
           offset: 0
           items_per_page: 1
+      access:
+        type: role
+        options:
+          role:
+            pending_member: pending_member
+            member: member
+            content_editor: content_editor
+            administrator: administrator
       filters:
         uid_current:
           id: uid_current
@@ -4521,6 +4541,7 @@ display:
         groups:
           1: AND
       defaults:
+        access: false
         title: false
         css_class: false
         pager: false
@@ -7042,7 +7063,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Membership Donations\r\n    </h2>\r\n    <p>\r\n       Set up a regular membership donation or make a one-off donation to Kin Cooperative.\r\n    <p>\r\n        <a class=\"btn btn-primary mb-3 me-3 ms-0\" href=\"/civicrm/contribute/transact?reset=1&id=4&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Donation</a>\r\n        \r\n       <a class=\"btn btn-primary mb-3 me-3 ms-0\" href=\"/civicrm/contribute/transact?reset=1&id=8&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up A Regular Donation</a>\r\n   \r\n        <a class=\"btn btn-primary mb-3 ms-0\" href=\"/contribute-onbehalfof/{{ id }}\">Donate On Behalf Of</a>\r\n   </p>\r\n</div>"
+            value: "<div class=\"member-block col-sm-6\">\r\n    <h2>\r\n        Membership Donations\r\n    </h2>\r\n    <p>\r\n       Set up a regular membership donation or make a one-off donation to Kin Cooperative.\r\n    <p>\r\n        <a class=\"btn btn-primary mb-3 me-3 ms-0\" href=\"/civicrm/contribute/transact?reset=1&id=4&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">One Off Donation</a>\r\n        \r\n       <a class=\"btn btn-primary mb-3 me-3 ms-0\" href=\"/civicrm/contribute/transact?reset=1&id=8&groupid={{ id }}&me={{ id_1 }}&destination=/member/group/{{ id }}\">Set Up A Regular Donation</a>\r\n   </p>\r\n</div>"
             format: full_html
           tokenize: true
       display_extenders:

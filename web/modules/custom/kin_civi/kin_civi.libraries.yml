@@ -1,0 +1,4 @@
+cancel_dialog:
+  css:
+    theme:
+      css/cancel-dialog.css: {}

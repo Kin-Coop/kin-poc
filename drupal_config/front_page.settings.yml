@@ -24,7 +24,7 @@ roles:
   pending_member:
     enabled: true
     weight: 0
-    path: /member/pending
+    path: /member/home
   civicrm:
     enabled: null
     weight: 0

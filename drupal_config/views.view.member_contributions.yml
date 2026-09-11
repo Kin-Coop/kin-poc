@@ -155,70 +155,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        contribution_status_id:
-          id: contribution_status_id
-          table: civicrm_contribution
-          field: contribution_status_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: civicrm_contribution
-          entity_field: contribution_status_id
-          plugin_id: field
-          label: Status
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: list_default
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         total_amount:
           id: total_amount
           table: civicrm_contribution
@@ -351,15 +287,81 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: 0
-        unique_contribution_reference_62:
-          id: unique_contribution_reference_62
-          table: civicrm_value_kin_contribut_9
-          field: unique_contribution_reference_62
+        id:
+          id: id
+          table: civicrm_contribution
+          field: id
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: civicrm_contribution
-          entity_field: unique_contribution_reference_62
+          entity_field: id
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        unique_contribution_reference_61:
+          id: unique_contribution_reference_61
+          table: civicrm_value_unique_contri_24
+          field: unique_contribution_reference_61
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_contribution
+          entity_field: unique_contribution_reference_61
           plugin_id: civicrm_entity_custom_field
           label: Reference
           exclude: false
@@ -414,6 +416,55 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: 0
+        nothing:
+          id: nothing
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: 'Cancel button'
+          plugin_id: custom
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: "<a href=\"/member/cancel-contribution/{{ id }}/confirm\" class=\"btn btn-primary use-ajax\"\r\n   data-dialog-type=\"modal\"\r\n   data-dialog-options='{\"width\":500,\"dialogClass\":\"kin-cancel-dialog\"}'>Cancel</a>"
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
       pager:
         type: full
         options:
@@ -552,53 +603,6 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-        receive_date:
-          id: receive_date
-          table: civicrm_contribution
-          field: receive_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: civicrm_contribution
-          entity_field: receive_date
-          plugin_id: datetime
-          operator: '<'
-          value:
-            min: ''
-            max: ''
-            value: '-36 hours'
-            type: offset
-          group: 1
-          exposed: false
-          expose:
-            operator_id: receive_date_op
-            label: 'Contribution Date'
-            description: ''
-            use_operator: false
-            operator: receive_date_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: receive_date
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         financial_type_id:
           id: financial_type_id
           table: civicrm_contribution
@@ -757,7 +761,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<p class="m-0">We have not yet received the contributions listed. Please check you have made the bank transfers to Kin.</p>'
+            value: '<p class="m-0">We have not yet received the contributions listed.</p>'
             format: full_html
           tokenize: false
       display_extenders: {  }
