@@ -1,0 +1,7 @@
+[
+  {
+    "name": "kincoop_membership_valid_until_passed",
+    "label": "Membership valid-until date has passed",
+    "class_name": "CRM_Kincoop_CivirulesCondition_MembershipValidUntilPassed"
+  }
+]
