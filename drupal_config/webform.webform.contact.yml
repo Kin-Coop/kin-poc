@@ -47,6 +47,10 @@ elements: |-
     '#test': 'Please ignore this email.'
   captcha:
     '#type': captcha
+  whatsapp:
+    '#type': processed_text
+    '#text': '<p>You can also WhatsApp the team on<strong> 07985 022 771</strong></p>'
+    '#format': basic_html
   actions:
     '#type': webform_actions
     '#title': 'Submit button(s)'

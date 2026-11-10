@@ -29,6 +29,7 @@ module:
   contextual: 0
   cookies: 0
   crop: 0
+  date_filter: 0
   datetime: 0
   dblog: 0
   devel: 0

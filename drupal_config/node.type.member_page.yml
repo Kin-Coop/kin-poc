@@ -8,6 +8,7 @@ third_party_settings:
   menu_ui:
     available_menus:
       - main
+      - account
     parent: 'main:'
 name: 'Member Page'
 type: member_page
