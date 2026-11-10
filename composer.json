@@ -36,6 +36,8 @@
         "drupal/core-composer-scaffold": "^11.0",
         "drupal/core-project-message": "^11.0",
         "drupal/core-recommended": "^11.0",
+        "drupal/date_filter": "^1.0",
+        "drupal/date_popup": "^2.0",
         "drupal/devel": "^5.3",
         "drupal/devel_php": "^2.0",
         "drupal/ds": "^3.0",
