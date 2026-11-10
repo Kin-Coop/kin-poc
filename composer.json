@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "civicrm/civicrm-core": "^6.00",
+        "civicrm/civicrm-core": "^6.20",
         "civicrm/civicrm-drupal-8": "^6.00",
         "civicrm/civicrm-packages": "^6.00",
         "civicrm/cli-tools": "^2026.03",
@@ -131,6 +131,13 @@
             "cweagans/composer-patches": true,
             "civicrm/composer-downloads-plugin": true,
             "civicrm/composer-compile-plugin": true
+        },
+        "policy": {
+            "advisories": {
+                "ignore": [
+                    "phpoffice/phpspreadsheet"
+                ]
+            }
         },
         "sort-packages": true
     },
