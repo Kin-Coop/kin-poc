@@ -1,0 +1,6 @@
+name: 'Kin Bank Import'
+type: module
+description: 'Admin page that cleans a Co-operative Bank transaction CSV and returns it as a download. Uploaded files are not stored.'
+package: Kin
+core_version_requirement: ^10.3 || ^11
+configure: kin_bank_import.page

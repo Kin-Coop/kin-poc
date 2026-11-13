@@ -1,0 +1,22 @@
+{
+    "name": "kin/kin-bank-import-standalone-tests",
+    "description": "Dev-only harness to run the CSV cleaner's unit tests without Drupal.",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5 || ^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Drupal\\kin_bank_import\\Cleaner\\": "../../src/Cleaner/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Drupal\\Tests\\kin_bank_import\\Unit\\": "../src/Unit/"
+        }
+    }
+}

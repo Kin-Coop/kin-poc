@@ -1,0 +1,10 @@
+kin_bank_import.page:
+  path: '/admin/config/services/kin-bank-import'
+  defaults:
+    _form: '\Drupal\kin_bank_import\Form\BankCsvCleanForm'
+    _title: 'Clean Co-operative Bank CSV'
+  requirements:
+    _permission: 'use kin bank import'
+  options:
+    _admin_route: true
+    no_cache: true

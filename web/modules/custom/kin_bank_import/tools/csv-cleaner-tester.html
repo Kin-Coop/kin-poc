@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bank CSV Tester</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --surface: #ffffff; --text: #1d1d1b; --muted: #5f5f5a;
+    --border: #dcdcd6; --accent: #1f5fbf; --accent-text: #ffffff;
+    --noref: #fff1c2; --dup: #ffe0d6; --error-bg: #fde8e8; --error: #9b1c1c;
+    --ok-bg: #e6f4ea; --ok: #1e6b34;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161615; --surface: #20201e; --text: #ececea; --muted: #a3a39c;
+      --border: #3a3a36; --accent: #6ea2f0; --accent-text: #0b1526;
+      --noref: #4d4116; --dup: #552a1f; --error-bg: #4a1d1d; --error: #ffb4b4;
+      --ok-bg: #173a22; --ok: #9fe0b2;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1100px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  .lede { color: var(--muted); margin: 0 0 24px; }
+  .drop { display: block; border: 2px dashed var(--border); border-radius: 10px;
+    background: var(--surface); padding: 32px 16px; text-align: center; cursor: pointer; }
+  .drop.over { border-color: var(--accent); }
+  .drop strong { color: var(--accent); }
+  .drop input { display: none; }
+  .msg { margin: 20px 0 0; padding: 12px 14px; border-radius: 8px; }
+  .msg.error { background: var(--error-bg); color: var(--error); }
+  .msg.ok { background: var(--ok-bg); color: var(--ok); }
+  .bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 20px 0 12px; }
+  .stats { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); }
+  .stats b { color: var(--text); }
+  button { font: inherit; border: 0; border-radius: 6px; padding: 8px 16px; cursor: pointer;
+    background: var(--accent); color: var(--accent-text); margin-left: auto; }
+  .legend { display: flex; gap: 16px; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  .swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 4px; }
+  .scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+  table { border-collapse: collapse; font-size: 13px; width: 100%; }
+  th, td { padding: 6px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; text-align: left; }
+  th { position: sticky; top: 0; background: var(--surface); }
+  td.num { color: var(--muted); }
+  td.noref { background: var(--noref); }
+  td.dup { background: var(--dup); }
+  details { margin-top: 20px; }
+  pre { background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px; overflow-x: auto; font-size: 12px; }
+  .note { color: var(--muted); font-size: 13px; margin-top: 32px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Co-operative Bank CSV cleaner: tester</h1>
+  <p class="lede">Applies the kin_bank_import cleaning rules to a CSV. Everything runs in this browser tab; the file is not uploaded anywhere.</p>
+
+  <label class="drop" id="drop">
+    <input type="file" id="file" accept=".csv,text/csv">
+    <strong>Choose a CSV</strong> or drop it here
+  </label>
+
+  <div id="message" class="msg" hidden></div>
+
+  <section id="result" hidden>
+    <div class="bar">
+      <div class="stats" id="stats"></div>
+      <button type="button" id="download">Download cleaned CSV</button>
+    </div>
+    <div class="legend">
+      <span><span class="swatch" style="background:var(--noref)"></span>NOREF added (stage 2)</span>
+      <span><span class="swatch" style="background:var(--dup)"></span>Duplicate suffix added (stage 3)</span>
+    </div>
+    <div class="scroll"><table id="table"></table></div>
+    <details>
+      <summary>Raw cleaned CSV</summary>
+      <pre id="raw"></pre>
+    </details>
+  </section>
+
+  <p class="note">JavaScript port of <code>src/Cleaner/CoopBankCsvCleaner.php</code>, checked against the same fixtures. The PHP class is the source of truth if the two ever disagree.</p>
+</main>
+
+<script id="cleaner">
+// ---- Cleaner: mirrors CoopBankCsvCleaner.php ----
+const CoopBankCsvCleaner = (() => {
+  const COL_DATE = 'Transaction date', COL_BANK_REF = 'Bank reference',
+    COL_CUSTOMER_REF = 'Customer reference', COL_AMOUNT = 'Amount (GBP)';
+  const NO_REFERENCE = 'NOREF';
+  const REQUIRED = [COL_DATE, 'Account Number', COL_BANK_REF, 'Type of payment', COL_CUSTOMER_REF, COL_AMOUNT, 'Additional Info'];
+  const FOOTER_PREFIX = 'Date and Time:';
+  const TITLE_LINES = ['List of transactions', 'Transactions List:'];
+
+  class InvalidBankCsvError extends Error {}
+
+  function parse(csv) {
+    if (csv.charCodeAt(0) === 0xFEFF) csv = csv.slice(1);
+    if (csv.trim() === '') throw new InvalidBankCsvError('The file is empty.');
+    const rows = []; let row = [], field = '', inQuotes = false, i = 0;
+    while (i < csv.length) {
+      const c = csv[i];
+      if (inQuotes) {
+        if (c === '"') { if (csv[i + 1] === '"') { field += '"'; i += 2; continue; } inQuotes = false; i++; continue; }
+        field += c; i++; continue;
+      }
+      if (c === '"') { inQuotes = true; i++; continue; }
+      if (c === ',') { row.push(field); field = ''; i++; continue; }
+      if (c === '\r' || c === '\n') {
+        row.push(field); rows.push(row); row = []; field = '';
+        i += (c === '\r' && csv[i + 1] === '\n') ? 2 : 1; continue;
+      }
+      field += c; i++;
+    }
+    if (field !== '' || row.length) { row.push(field); rows.push(row); }
+    return rows;
+  }
+
+  const trimmed = row => row.map(c => c.trim());
+  const isHeader = row => { const t = trimmed(row); return REQUIRED.every(c => t.includes(c)); };
+  const isBlank = row => row.join('').trim() === '';
+  const isFooter = row => (row[0] ?? '').trim().startsWith(FOOTER_PREFIX);
+  const isTitle = row => TITLE_LINES.includes((row[0] ?? '').trim());
+  const colIndex = (header, name) => {
+    const i = trimmed(header).indexOf(name);
+    if (i < 0) throw new InvalidBankCsvError(`Missing column "${name}".`);
+    return i;
+  };
+
+  function stripReportLines(rows) {
+    const h = rows.findIndex(isHeader);
+    if (h < 0) throw new InvalidBankCsvError(`This does not look like a Co-operative Bank transaction export: no header row with the columns ${REQUIRED.join(', ')} was found.`);
+    const header = rows[h], width = header.length, data = [];
+    for (let i = h + 1; i < rows.length; i++) {
+      const row = rows[i];
+      if (isBlank(row) || isFooter(row)) continue;
+      if (isHeader(row) || isTitle(row)) throw new InvalidBankCsvError(`Line ${i + 1} repeats the report title or column headings. Exports that span several pages are not supported yet.`);
+      if (row.length !== width) throw new InvalidBankCsvError(`Line ${i + 1} has ${row.length} columns but the header has ${width}. The file may not be a standard export, or may span several pages.`);
+      data.push(row);
+    }
+    return { header, rows: data };
+  }
+
+  function fillMissingReferences(table) {
+    const ref = colIndex(table.header, COL_BANK_REF);
+    const rows = table.rows.map(r => { r = r.slice(); if (r[ref].trim() === '') r[ref] = NO_REFERENCE; return r; });
+    return { header: table.header, rows };
+  }
+
+  function markDuplicates(table) {
+    const h = table.header;
+    const d = colIndex(h, COL_DATE), ref = colIndex(h, COL_BANK_REF), cu = colIndex(h, COL_CUSTOMER_REF), am = colIndex(h, COL_AMOUNT);
+    const seen = new Map();
+    const rows = table.rows.map(r => {
+      r = r.slice();
+      const key = JSON.stringify([r[d], r[ref], r[cu], r[am]]);
+      if (seen.has(key)) { const n = seen.get(key); r[ref] += '-D' + n; seen.set(key, n + 1); }
+      else seen.set(key, 1);
+      return r;
+    });
+    return { header: h, rows };
+  }
+
+  const encodeField = v => /[,"\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+  const toCsv = table => [table.header, ...table.rows].map(r => r.map(encodeField).join(',') + '\n').join('');
+
+  function clean(csv) {
+    return toCsv(markDuplicates(fillMissingReferences(stripReportLines(parse(csv)))));
+  }
+
+  return { parse, stripReportLines, fillMissingReferences, markDuplicates, toCsv, clean, InvalidBankCsvError, COL_BANK_REF };
+})();
+if (typeof module !== 'undefined') module.exports = CoopBankCsvCleaner;
+</script>
+
+<script>
+(() => {
+  const C = CoopBankCsvCleaner;
+  const $ = id => document.getElementById(id);
+  const drop = $('drop'), input = $('file'), msg = $('message'), result = $('result');
+  let output = null, outName = 'cleaned.csv';
+
+  function show(text, kind) { msg.textContent = text; msg.className = 'msg ' + kind; msg.hidden = false; }
+
+  function run(file) {
+    result.hidden = true; msg.hidden = true; output = null;
+    if (!/\.csv$/i.test(file.name)) { show('Choose a .csv file.', 'error'); return; }
+    file.text().then(text => {
+      let stage1, stage2, final;
+      try {
+        stage1 = C.stripReportLines(C.parse(text));
+        stage2 = C.fillMissingReferences(stage1);
+        final = C.markDuplicates(stage2);
+      } catch (e) {
+        show('The file could not be cleaned: ' + e.message, 'error');
+        return;
+      }
+      output = C.toCsv(final);
+      outName = (file.name.replace(/\.[^.]*$/, '').replace(/[^A-Za-z0-9._-]+/g, '_') || 'bank-export') + '-cleaned.csv';
+      render(stage1, final);
+      show(`Cleaned ${file.name}.`, 'ok');
+    }, () => show('The file could not be read.', 'error'));
+  }
+
+  function render(stage1, final) {
+    const ref = final.header.map(c => c.trim()).indexOf(C.COL_BANK_REF);
+    let noref = 0, dups = 0;
+    const table = $('table');
+    table.replaceChildren();
+    const thead = table.createTHead().insertRow();
+    ['#', ...final.header].forEach(h => { const th = document.createElement('th'); th.textContent = h; thead.appendChild(th); });
+    const tbody = table.createTBody();
+    final.rows.forEach((row, i) => {
+      const tr = tbody.insertRow();
+      const n = tr.insertCell(); n.textContent = i + 1; n.className = 'num';
+      row.forEach((v, j) => {
+        const td = tr.insertCell(); td.textContent = v;
+        if (j === ref) {
+          if (/-D\d+$/.test(v)) { td.className = 'dup'; dups++; }
+          else if (stage1.rows[i][j].trim() === '') { td.className = 'noref'; }
+          if (stage1.rows[i][j].trim() === '') noref++;
+        }
+      });
+    });
+    $('stats').innerHTML = '';
+    [['Transactions', final.rows.length], ['NOREF added', noref], ['Duplicates marked', dups]].forEach(([k, v]) => {
+      const s = document.createElement('span'); s.append(k + ': '); const b = document.createElement('b'); b.textContent = v; s.append(b); $('stats').append(s);
+    });
+    $('raw').textContent = output;
+    result.hidden = false;
+  }
+
+  input.addEventListener('change', () => { if (input.files[0]) run(input.files[0]); input.value = ''; });
+  ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', e => { const f = e.dataTransfer.files[0]; if (f) run(f); });
+  $('download').addEventListener('click', () => {
+    if (output === null) return;
+    const url = URL.createObjectURL(new Blob([output], { type: 'text/csv;charset=utf-8' }));
+    const a = document.createElement('a'); a.href = url; a.download = outName; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+})();
+</script>
+</body>
+</html>

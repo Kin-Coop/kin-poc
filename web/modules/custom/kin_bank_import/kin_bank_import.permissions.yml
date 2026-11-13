@@ -1,0 +1,4 @@
+use kin bank import:
+  title: 'Use the bank CSV import cleaner'
+  description: 'Upload a Co-operative Bank CSV export and download a cleaned copy. Uploaded files contain bank transaction data.'
+  restrict access: true

@@ -1,0 +1,5 @@
+kin_bank_import.page:
+  title: 'Clean Co-operative Bank CSV'
+  description: 'Upload a bank export and download a cleaned copy.'
+  route_name: kin_bank_import.page
+  parent: system.admin_config_services

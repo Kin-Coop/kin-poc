@@ -1,0 +1,16 @@
+# The three "next steps" buttons shown on the import page.
+# url: an internal path starting with "/" or a full https:// URL.
+# PLACEHOLDERS: replace with the real labels, links and instructions.
+next_steps:
+  -
+    label: 'Step 1 (placeholder)'
+    url: '/admin'
+    instructions: 'Placeholder: describe what to do first with the cleaned file.'
+  -
+    label: 'Step 2 (placeholder)'
+    url: '/admin'
+    instructions: 'Placeholder: describe the second step.'
+  -
+    label: 'Step 3 (placeholder)'
+    url: '/admin'
+    instructions: 'Placeholder: describe the final step.'

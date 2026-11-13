@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Runs the cleaner's unit tests without a Drupal install:
+    composer install -d tests/standalone   (once)
+    tests/standalone/vendor/bin/phpunit -c phpunit.standalone.xml
+  Inside a full Drupal site (e.g. DDEV) use core's PHPUnit setup instead:
+    vendor/bin/phpunit -c web/core web/modules/custom/kin_bank_import
+-->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="tests/standalone/vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/standalone/vendor/autoload.php"
+         colors="true"
+         failOnWarning="true"
+         failOnRisky="true">
+  <testsuites>
+    <testsuite name="kin_bank_import">
+      <directory>tests/src/Unit</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory>src/Cleaner</directory>
+    </include>
+  </source>
+</phpunit>
