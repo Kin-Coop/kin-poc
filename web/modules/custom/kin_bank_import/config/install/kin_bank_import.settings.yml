@@ -7,10 +7,10 @@ next_steps:
     url: '/civicrm/csvimporter/import'
     instructions: 'Import the cleaned csv file into CiviCRM to get the payments.'
   -
-    label: 'Execute the Offline Payments Recurring Contributions Generation task'
+    label: 'Execute Recurring Offline Payments and Match Payments'
     url: '/civicrm/admin/job?reset=1'
-    instructions: 'Execute the Offline Payments Recurring Contributions Generation scheduled job'
+    instructions: 'Execute the Offline Payments Recurring Contributions Generation job, and then the Match Payments job'
   -
-    label: 'Execute the match payments task'
-    url: '/civicrm/admin/job?reset=1'
-    instructions: 'Execute the match payments scheduled job'
+    label: 'Check unmatched payments'
+    url: '/civicrm/kin-payments'
+    instructions: 'In the status filter, select Not Found and Matched Pending to get a list of all the payments that either have not been matched against contributions or which have been matched but the member is pending. It is then important to go through each of these to find out why they have not been matched by looking for the contributions for those individuals.'
