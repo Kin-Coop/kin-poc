@@ -3,14 +3,14 @@
 # PLACEHOLDERS: replace with the real labels, links and instructions.
 next_steps:
   -
-    label: 'Step 1 (placeholder)'
-    url: '/admin'
-    instructions: 'Placeholder: describe what to do first with the cleaned file.'
+    label: 'Import cleaned csv file'
+    url: '/civicrm/csvimporter/import'
+    instructions: 'Import the cleaned csv file into CiviCRM to get the payments.'
   -
-    label: 'Step 2 (placeholder)'
-    url: '/admin'
-    instructions: 'Placeholder: describe the second step.'
+    label: 'Execute the Offline Payments Recurring Contributions Generation task'
+    url: '/civicrm/admin/job?reset=1'
+    instructions: 'Execute the Offline Payments Recurring Contributions Generation scheduled job'
   -
-    label: 'Step 3 (placeholder)'
-    url: '/admin'
-    instructions: 'Placeholder: describe the final step.'
+    label: 'Execute the match payments task'
+    url: '/civicrm/admin/job?reset=1'
+    instructions: 'Execute the match payments scheduled job'
