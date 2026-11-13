@@ -1,0 +1,16 @@
+_core:
+  default_config_hash: HWM6mPVMUVNh37eGwhOZI18d8eGKCQc3h7T421lFcz8
+langcode: en-gb
+next_steps:
+  -
+    label: 'Step 1 (placeholder)'
+    url: /admin
+    instructions: 'Placeholder: describe what to do first with the cleaned file.'
+  -
+    label: 'Step 2 (placeholder)'
+    url: /admin
+    instructions: 'Placeholder: describe the second step.'
+  -
+    label: 'Step 3 (placeholder)'
+    url: /admin
+    instructions: 'Placeholder: describe the final step.'

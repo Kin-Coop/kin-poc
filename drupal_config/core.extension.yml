@@ -61,6 +61,7 @@ module:
   image_widget_crop: 0
   imce: 0
   js_cookie: 0
+  kin_bank_import: 0
   kin_civi: 0
   kin_forum: 0
   kin_forum_notify: 0
