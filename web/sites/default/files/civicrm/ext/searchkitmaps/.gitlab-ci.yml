@@ -1,0 +1,49 @@
+# Pipeline for this extension.
+#
+#   lint.yml      coding standards (civilint) and PHP version compatibility
+#   composer.yml  publishes a tag to the Composer Packages registry
+#
+# Both live in infra/extension-ci and are extension-agnostic, so there is
+# nothing to configure here beyond the exclude below. See
+# https://lab.civicrm.org/infra/gitlab/-/issues/50
+#
+# PHPUnit is not run from here: it runs in CiviCARROT, dispatched from the merge
+# request. These scans need no CiviCRM, CMS or database, so they run natively on
+# lab.civicrm.org's runners in well under a minute and give a merge request real
+# red/green status rather than only the CARROT bot comment.
+variables:
+  # js/ and css/ are vendored Leaflet, MarkerCluster and ExtraMarkers, plus the
+  # concatenated bundles Civi\Searchkitmaps\Bundle builds from them. None of it
+  # is written here, so it is not held to the CiviCRM standard.
+  LINT_EXCLUDE: '^(vendor|node_modules|js|css)/'
+
+include:
+  - project: 'infra/extension-ci'
+    ref: main
+    file:
+      - '/lint.yml'
+      - '/composer.yml'
+
+# css/searchkitmaps.css is a static copy of what Civi\Searchkitmaps\Bundle::buildAssetCss()
+# concatenates, because ang/crmSearchDisplayMapLeaflet.ang.php takes file paths and cannot
+# point at an assetbuilder URL. Nothing else would notice the two drifting: css/ is in
+# LINT_EXCLUDE above, and the copy is only ever served to angular. It had already missed a
+# vendored bump once, so this holds it to the bundle.
+#
+# Not from infra/extension-ci: the file list is this extension's own.
+css-bundle:
+  stage: test
+  image: php:8.3-cli
+  interruptible: true
+  variables:
+    GIT_DEPTH: "1"
+  rules:
+    # Mirrors the shared lint jobs: manual runs, merge requests, and branches
+    # while no merge request is open, so a commit is never built twice.
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH
+  script:
+    - php tools/check-css-bundle.php

@@ -1,0 +1,78 @@
+<div ng-include="'~/crmSearchAdmin/crmSearchAdminDisplayHeader.html'"></div>
+
+<fieldset>
+  <details class="crm-accordion-bold">
+    <summary>{{:: ts('Map Settings') }}</summary>
+
+  <fieldset class="crm-search-admin-edit-columns">
+    <div class="form-inline">
+      <label for="crm-search-admin-map-cluster"
+      >{{:: ts('Enable Map Cluster?') }}</label>
+      <input type="checkbox" id="crm-search-admin-map-cluster" ng-model="$ctrl.display.settings.cluster"/>
+    </div>
+    <div class="form-inline">
+      <label>{{:: ts('Height') }}</label>
+      <input type="number" class="form-control" ng-model="$ctrl.display.settings.format.height">
+      <label>{{:: ts('Max Width') }}</label>
+      <input type="number" class="form-control" ng-model="$ctrl.display.settings.format.max_width">
+    </div>
+    <div class="form-inline">
+      <label for="crm-search-admin-map-custom-marker"
+      >{{:: ts('Enable Custom Markers?') }}</label>
+      <input type="checkbox" id="crm-search-admin-map-custom-marker" ng-model="$ctrl.display.settings.markers.custom"/>
+      <select ng-if="$ctrl.display.settings.markers.custom" class="form-control" ng-model="$ctrl.display.settings.markers.shape">
+        <option value="circle">{{:: ts('Circle') }}</option>
+        <option value="square">{{:: ts('Square') }}</option>
+        <option value="star">{{:: ts('Star') }}</option>
+        <option value="penta">{{:: ts('Pentagon') }}</option>
+      </select>
+    </div>
+  </fieldset>
+  </details>
+</fieldset>
+<fieldset class="crm-search-admin-edit-columns-wrapper">
+  <legend>
+    {{:: ts('Fields') }}
+  </legend>
+  <fieldset class="crm-search-admin-edit-columns">
+    <fieldset ng-repeat="col in $ctrl.display.settings.columns" class="crm-draggable">
+      <legend>{{:: $ctrl.getLabelForFields(col.mapTo) }}</legend>
+      <div class="form-inline">
+        <label for="sk-map-field-{{:: col.mapTo }}">
+          {{:: ts('Field') }} <span class="crm-marker" ng-if="col.required">*</span>
+        </label>
+        <div class="help" ng-if="col.mapTo === 'customMarkerColor'">
+          {{:: ts("Map to: 'red', 'orange-dark', 'orange', 'yellow', 'blue-dark', 'cyan', 'purple', 'violet', 'pink', 'green-dark', 'green', 'green-light', 'black', 'white', or color hex code") }}
+        </div>
+        <div class="help" ng-if="col.mapTo === 'customMarkerIcon'">
+          {{:: ts("Map to a fontawesome icon name. Eg. 'fa-coffee'") }}
+        </div>
+        <select ng-required="col-required" crm-ui-select class="form-control huge" ng-model="col.key" id="sk-map-field-{{:: col.mapTo }}">
+          <option ng-if="!col.required" value=""></option> <!-- Allows clearing -->
+          <option value="{{:: select.key }}" ng-repeat="select in $ctrl.getColumnOptionsForFields(col.mapTo)">
+            {{:: select.label }}
+          </option>
+        </select>
+      </div>
+      <div class="form-inline crm-search-admin-flex-row" ng-if="col.mapTo === 'popupHtml'">
+        <label title="{{:: ts('Change the contents of this field, or combine multiple field values.') }}">
+          <input type="checkbox" ng-checked="col.rewrite" ng-click="$ctrl.parent.toggleRewrite(col)" >
+          {{:: ts('Rewrite Text') }}
+        </label>
+        <a crm-ui-help="hs({id: 'rewrite', title: ts('Rewrite Text')})"></a>
+        <textarea rows="2" class="form-control crm-flex-1" ng-if="col.rewrite" ng-model="col.rewrite" ng-model-options="{updateOn: 'blur'}"></textarea>
+        <crm-search-admin-token-select ng-if="col.rewrite" model="col" field="rewrite" suffix=":label"></crm-search-admin-token-select>
+        <search-admin-icons item="col"></search-admin-icons>
+      </div>
+      <div class="form-inline crm-search-admin-flex-row" ng-if="col.mapTo === 'customMarkerColor' || col.mapTo === 'customMarkerIcon'">
+        <label title="{{:: ts('Change the contents of this field, or combine multiple field values.') }}">
+          <input type="checkbox" ng-checked="col.rewrite" ng-click="$ctrl.parent.toggleRewrite(col)" >
+          {{:: ts('Rewrite Text') }}
+        </label>
+        <a crm-ui-help="hs({id: 'rewrite', title: ts('Rewrite Text')})"></a>
+        <textarea rows="2" class="form-control crm-flex-1" ng-if="col.rewrite" ng-model="col.rewrite" ng-model-options="{updateOn: 'blur'}"></textarea>
+        <crm-search-admin-token-select ng-if="col.rewrite" model="col" field="rewrite" suffix=":label"></crm-search-admin-token-select>
+      </div>
+    </fieldset>
+  </fieldset>
+</fieldset>
