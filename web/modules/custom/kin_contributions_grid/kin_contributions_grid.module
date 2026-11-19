@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Kin contributions by date: member-by-period grid of a group's transactions.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function kin_contributions_grid_theme() {
+  return [
+    'kin_contributions_grid' => [
+      'variables' => [
+        'household_id' => NULL,
+        'periods' => [],
+        'rows' => [],
+        'column_totals' => [],
+        'grand_total' => '',
+        'range_label' => '',
+        'earlier_query' => [],
+        'later_query' => NULL,
+        'filters' => [],
+        'request_types' => [],
+      ],
+    ],
+  ];
+}

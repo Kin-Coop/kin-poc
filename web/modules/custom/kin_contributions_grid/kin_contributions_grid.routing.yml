@@ -1,0 +1,10 @@
+kin_contributions_grid.page:
+  path: '/member/group/{household_id}/contributionsbydate'
+  defaults:
+    _controller: '\Drupal\kin_contributions_grid\Controller\ContributionsGridController::page'
+    _title: 'Contributions by date'
+  requirements:
+    household_id: '\d+'
+    _custom_access: '\Drupal\kin_contributions_grid\Controller\ContributionsGridController::access'
+  options:
+    no_cache: TRUE

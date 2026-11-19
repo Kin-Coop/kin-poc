@@ -1,0 +1,118 @@
+{#
+/**
+ * @file
+ * Member-by-period grid of a group's contributions and gifts.
+ *
+ * Styled to match the existing Contributions history page (Bootstrap 5).
+ */
+#}
+<div class="member-block w-100 kin-cgrid">
+
+  <div class="bg-primary d-flex justify-content-between p-2 no-margin align-items-center">
+    <h2>By date</h2>
+    <div class="d-flex gap-2">
+      <a class="btn btn-secondary" href="/member/group/{{ household_id }}/contributions">List view</a>
+      <a class="btn btn-secondary" href="/member/group/{{ household_id }}"><i class="bi bi-arrow-left"></i> Back to group page</a>
+    </div>
+  </div>
+
+  <form method="get" class="kin-cgrid__filters d-flex flex-wrap gap-2 align-items-end my-3">
+    <div>
+      <label class="visually-hidden" for="kin-cgrid-contributor">Contributor</label>
+      <input class="form-control" type="text" id="kin-cgrid-contributor" name="contributor" placeholder="Contributor" value="{{ filters.contributor }}">
+    </div>
+    <div>
+      <label class="visually-hidden" for="kin-cgrid-type">Request type</label>
+      <select class="form-select" id="kin-cgrid-type" name="request_type">
+        <option value="">Select request type</option>
+        {% for value, label in request_types %}
+          <option value="{{ value }}"{{ filters.request_type == value ? ' selected' }}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label class="form-label mb-0" for="kin-cgrid-period">Show by</label>
+      <select class="form-select" id="kin-cgrid-period" name="period">
+        <option value="week"{{ filters.period == 'week' ? ' selected' }}>Week</option>
+        <option value="month"{{ filters.period == 'month' ? ' selected' }}>Month</option>
+      </select>
+    </div>
+    <div>
+      <label class="form-label mb-0" for="kin-cgrid-to">Up to</label>
+      <input class="form-control" type="date" id="kin-cgrid-to" name="to" value="{{ filters.to }}">
+    </div>
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-primary">Search</button>
+      <a class="btn btn-outline-secondary" href="/member/group/{{ household_id }}/contributionsbydate">Reset</a>
+    </div>
+  </form>
+
+  {% set unit = filters.period == 'month' ? 'months' : 'weeks' %}
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+    <p class="kin-cgrid__range mb-0">Showing {{ range_label }}. Group total to date: {{ grand_total }}</p>
+    <div class="d-flex gap-2">
+      <a class="btn btn-outline-secondary btn-sm" href="?{{ earlier_query|url_encode }}">‹ Earlier 6 {{ unit }}</a>
+      {% if later_query is not null %}
+        <a class="btn btn-outline-secondary btn-sm" href="?{{ later_query|url_encode }}">Later 6 {{ unit }} ›</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="kin-cgrid__scroll">
+    <table class="table kin-cgrid__table mb-0">
+      <thead>
+        <tr>
+          <th scope="col" class="kin-cgrid__name">Name</th>
+          {% for p in periods %}
+            <th scope="col" class="{{ p.current ? 'is-current' }}">{{ p.label }}</th>
+          {% endfor %}
+          <th scope="col" class="kin-cgrid__total">Total to date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+          <tr>
+            <th scope="row" class="kin-cgrid__name">
+              {{ row.name }}{% if row.left %} <span class="text-muted">(left)</span>{% endif %}
+            </th>
+            {% for p in periods %}
+              {% set items = row.cells[p.key]|default([]) %}
+              <td class="{{ p.current ? 'is-current' }}">
+                {% if items is empty %}
+                  <span class="kin-cgrid__empty">–</span>
+                {% else %}
+                  {% for t in items %}
+                    <div class="kin-cgrid__tx{{ t.gift ? ' is-gift' }}">
+                      <span class="kin-cgrid__amount">{{ t.amount }}</span>
+                      <span class="kin-cgrid__meta">{{ t.date }}{% if t.type %} · {{ t.type }}{% endif %}</span>
+                      {% if t.note %}
+                        <a tabindex="0" role="button" data-bs-toggle="popover" data-bs-trigger="focus" class="question-mark" title="Note:" data-bs-content="{{ t.note }}">View</a>
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              </td>
+            {% endfor %}
+            <td class="kin-cgrid__total">{{ row.total }}</td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="{{ periods|length + 2 }}">No members match these filters.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="row" class="kin-cgrid__name">Group total</th>
+          {% for p in periods %}
+            <td class="{{ p.current ? 'is-current' }}">
+              {% if column_totals[p.key] %}{{ column_totals[p.key] }}{% else %}<span class="kin-cgrid__empty">–</span>{% endif %}
+            </td>
+          {% endfor %}
+          <td class="kin-cgrid__total">{{ grand_total }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+</div>

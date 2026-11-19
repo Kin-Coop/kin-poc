@@ -1,0 +1,7 @@
+name: 'Kin contributions by date'
+type: module
+description: 'Shows a group''s contributions and gifts as a member-by-week (or month) grid at /member/group/{group}/contributionsbydate.'
+core_version_requirement: ^10 || ^11
+package: Kin
+dependencies:
+  - civicrm:civicrm

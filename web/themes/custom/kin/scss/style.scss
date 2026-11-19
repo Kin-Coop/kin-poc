@@ -1773,7 +1773,7 @@ div.block.vertical {
 }
 
 .bg-primary {
-  > .btn-secondary {
+  > .btn-secondary, > div > .btn-secondary {
     background: $secondary;
     &:hover {
       background: $yellow;
