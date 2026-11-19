@@ -30,7 +30,8 @@
         "drupal/block_visibility_groups": "^2.0",
         "drupal/bootstrap5": "^4.0",
         "drupal/captcha": "^2.0",
-        "drupal/civicrm_entity": "^4.0@beta",
+        "drupal/civicrm_entity": "^4.0",
+        "drupal/civicrm_form_builder_blocks": "^1.1",
         "drupal/ckeditor_font": "^2.0@beta",
         "drupal/cookies": "^2.0@RC",
         "drupal/core-composer-scaffold": "^11.0",
@@ -105,10 +106,9 @@
         "drupal/views_display_union": "^1.1",
         "drupal/views_field_view": "^1.0@beta",
         "drupal/views_fieldsets": "^4.0",
-        "drupal/views_infinite_scroll": "^2.0",
         "drupal/webform": "^6.3@beta",
         "drush/drush": "*",
-        "justinrainbow/json-schema": "^5.2",
+        "justinrainbow/json-schema": "^6.0",
         "kint-php/kint": "*",
         "twbs/bootstrap-icons": "^1.13"
     },
@@ -122,16 +122,17 @@
     "prefer-stable": true,
     "config": {
         "allow-plugins": {
+            "civicrm/civicrm-asset-plugin": true,
+            "civicrm/composer-compile-plugin": true,
+            "civicrm/composer-downloads-plugin": true,
             "composer/installers": true,
+            "cweagans/composer-patches": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
-            "phpstan/extension-installer": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true,
             "php-http/discovery": true,
-            "civicrm/civicrm-asset-plugin": true,
-            "cweagans/composer-patches": true,
-            "civicrm/composer-downloads-plugin": true,
-            "civicrm/composer-compile-plugin": true
+            "phpstan/extension-installer": true,
+            "symfony/runtime": true
         },
         "policy": {
             "advisories": {
