@@ -1,0 +1,44 @@
+
+<crm-search-display-map-leaflet search-name="Skmaps_Address_Search_Demo" display-name="Skmaps_Address_Search_Demo_Map_1"></crm-search-display-map-leaflet>
+<div af-fieldset="">
+  <div class="af-container">
+    <af-field name="geo_code_1" defn="{input_type: 'Number', input_attrs: {step: 1.0e-20}, search_range: true}"></af-field>
+    <af-field name="geo_code_2" defn="{input_type: 'Number', input_attrs: {step: 1.0e-20}, search_range: true}"></af-field>
+    <crm-search-display-table search-name="Skmaps_Address_Search_Demo" display-name="Skmaps_Address_Search_Demo_Table_1"></crm-search-display-table>
+  </div>
+</div>
+
+<script>
+  CRM.searchkitmaps.addSearchDisplayLoadListener(
+    'crm-search-display-table',
+    'Skmaps_Address_Search_Demo_Table_1',
+    CRM.searchkitmaps.addSearchDisplayTableClickToHighlightOnMap
+  );
+
+  function waitForMapToLoad() {
+    return new Promise((resolve, reject) => {
+      const intervalId = setInterval(() => {
+        if (CRM.searchkitmaps.map) {
+          clearInterval(intervalId);
+          resolve(CRM.searchkitmaps.map);
+        }
+      }, 200);
+    });
+  }
+
+  waitForMapToLoad().then(function() {
+    // tableClicked is to debounce, so we don't trigger map move followed by table refresh
+      CRM.searchkitmaps.map.on('zoomend', function () {
+        if (!CRM.searchkitmaps.tableClicked) {
+          CRM.searchkitmaps.filterByBounds();
+        }
+      });
+      CRM.searchkitmaps.map.on('moveend', function () {
+        if (!CRM.searchkitmaps.tableClicked) {
+          CRM.searchkitmaps.filterByBounds();
+        }
+      });
+    }
+  )
+
+</script>
