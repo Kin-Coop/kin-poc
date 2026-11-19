@@ -1,0 +1,9 @@
+grid:
+  css:
+    theme:
+      css/contributions-grid.css: {}
+  js:
+    js/contributions-grid.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
