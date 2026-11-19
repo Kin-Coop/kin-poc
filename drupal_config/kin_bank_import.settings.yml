@@ -1,16 +1,16 @@
 _core:
-  default_config_hash: HWM6mPVMUVNh37eGwhOZI18d8eGKCQc3h7T421lFcz8
+  default_config_hash: 7IKFfIHzrNlqamIi_KxDTz6KwS8hv5UuzW1UjFckFtI
 langcode: en-gb
 next_steps:
   -
-    label: 'Step 1 (placeholder)'
-    url: /admin
-    instructions: 'Placeholder: describe what to do first with the cleaned file.'
+    label: 'Import cleaned csv file'
+    url: /civicrm/csvimporter/import
+    instructions: 'Import the cleaned csv file into CiviCRM to get the payments.'
   -
-    label: 'Step 2 (placeholder)'
-    url: /admin
-    instructions: 'Placeholder: describe the second step.'
+    label: 'Execute Recurring Offline Payments and Match Payments'
+    url: '/civicrm/admin/job?reset=1'
+    instructions: 'Execute the Offline Payments Recurring Contributions Generation job, and then the Match Payments job'
   -
-    label: 'Step 3 (placeholder)'
-    url: /admin
-    instructions: 'Placeholder: describe the final step.'
+    label: 'Check unmatched payments'
+    url: /civicrm/kin-payments
+    instructions: 'In the status filter, select Not Found and Matched Pending to get a list of all the payments that either have not been matched against contributions or which have been matched but the member is pending. It is then important to go through each of these to find out why they have not been matched by looking for the contributions for those individuals.'

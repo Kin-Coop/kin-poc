@@ -23,12 +23,14 @@ elements: |-
     civicrm_1_contact_1_contact_existing:
       '#type': civicrm_contact
       '#title': 'Existing Contact'
+      '#title_display': invisible
       '#prepopulate': true
       '#widget': hidden
       '#none_prompt': '+ Create new +'
       '#show_hidden_contact': 1
       '#results_display':
         display_name: display_name
+      '#required': true
       '#no_autofill':
         '': ''
       '#default': user
@@ -69,6 +71,10 @@ elements: |-
       '#extra':
         width: 20
       '#parent': civicrm_1_contact_1_fieldset_fieldset
+  request_description:
+    '#type': processed_text
+    '#text': '<p><strong>is requesting money be sent to a non-member on behalf of&nbsp;</strong></p>'
+    '#format': basic_html
   civicrm_2_contact_1_fieldset_fieldset:
     '#type': fieldset
     '#title': Group
@@ -77,6 +83,7 @@ elements: |-
     civicrm_2_contact_1_contact_existing:
       '#type': civicrm_contact
       '#title': 'Existing Contact'
+      '#title_display': invisible
       '#prepopulate': true
       '#widget': hidden
       '#none_prompt': '+ Create new +'
@@ -87,30 +94,110 @@ elements: |-
       '#default_relationship':
         '': ''
       '#filter_relationship_contact': ''
+      '#filter_relationship_types':
+        8_b: 8_b
+        11_b: 11_b
       '#allow_create': 1
       '#contact_type': household
       '#form_key': civicrm_2_contact_1_contact_existing
       '#parent': civicrm_2_contact_1_fieldset_fieldset
       '#extra': {  }
-  payee_type:
-    '#type': radios
-    '#title': 'Payee type'
-    '#options':
-      'An organisation': 'An organisation'
-      'An individual': 'An individual'
-      'Another Kin group': 'Another Kin group'
+  payee_select:
+    '#type': fieldset
+    '#title': 'Payee select'
+    '#title_display': invisible
+    civicrm_1_activity_1_cg45_custom_202:
+      '#type': civicrm_options
+      '#title': 'Payee type'
+      '#options':
+        1: 'Non-member individual'
+        2: 'Non-member organisation'
+        3: 'Another Kin group'
+      '#required': true
+      '#extra':
+        aslist: 1
+        multiple: 0
+      '#data_type': String
+      '#form_key': civicrm_1_activity_1_cg45_custom_202
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+      '#default_option': ''
+      '#default_value': ''
+      '#civicrm_live_options': '1'
+    civicrm_1_activity_1_cg45_custom_203:
+      '#type': civicrm_options
+      '#title': 'Have they been paid before?'
+      '#options':
+        1: 'No'
+        2: 'Yes, and their bank details are the same'
+        3: 'Yes, but their bank details have changed'
+      '#required': true
+      '#states':
+        invisible:
+          ':input[name="civicrm_1_activity_1_cg45_custom_202"]':
+            value: '3'
+        visible:
+          - ':input[name="civicrm_1_activity_1_cg45_custom_202"]':
+              value: '2'
+          - or
+          - ':input[name="civicrm_1_activity_1_cg45_custom_202"]':
+              value: '1'
+      '#extra':
+        aslist: 1
+        multiple: 0
+      '#data_type': String
+      '#form_key': civicrm_1_activity_1_cg45_custom_203
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+      '#default_option': ''
+      '#default_value': ''
+      '#civicrm_live_options': '1'
+  horizontal_rule:
+    '#type': webform_horizontal_rule
+  payee_details:
+    '#type': processed_text
+    '#states':
+      visible:
+        - ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+            value: '1'
+        - or
+        - ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+            value: '2'
+        - or
+        - ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+            value: '3'
+    '#text': '<h4><strong>Payee details</strong></h4>'
+    '#format': full_html
+  civicrm_1_activity_1_cg45_custom_219:
+    '#type': textarea
+    '#title': 'Payee description:'
+    '#description': '<p>Describe the activity of this individual or organisation and their relation to your group:</p>'
+    '#description_display': before
     '#required': true
-  have_you_paid_them_before:
-    '#type': radios
-    '#title': 'Have you paid them before?'
-    '#options':
-      'No': 'No'
-      'Yes, and their details are the same': 'Yes, and their details are the same'
-      'Yes, but their bank details have changed': 'Yes, but their bank details have changed'
-    '#required': true
+    '#states':
+      visible:
+        - ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+            value: '3'
+        - or
+        - ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+            value: '1'
+    '#data_type': Memo
+    '#extra':
+      cols: '60'
+      rows: '4'
+      description: ''
+      description_above: null
+    '#nid': non_member_payment
+    '#form_key': civicrm_1_activity_1_cg45_custom_219
+    '#parent': civicrm_1_activity_1_fieldset_fieldset
   civicrm_3_contact_1_fieldset_fieldset:
     '#type': fieldset
     '#title': 'Non-member payee (organisation)'
+    '#title_display': invisible
+    '#states':
+      visible:
+        ':input[name="civicrm_1_activity_1_cg45_custom_202"]':
+          value: '2'
+        ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+          filled: true
     '#form_key': civicrm_3_contact_1_fieldset_fieldset
     civicrm_3_contact_1_contact_organization_name:
       '#type': textfield
@@ -123,6 +210,7 @@ elements: |-
         width: 20
       '#parent': civicrm_3_contact_1_fieldset_fieldset
       '#title': 'Organization Name'
+      '#required': true
     civicrm_3_contact_1_email_email:
       '#type': email
       '#form_key': civicrm_3_contact_1_email_email
@@ -130,20 +218,123 @@ elements: |-
         width: 20
       '#parent': civicrm_3_contact_1_fieldset_fieldset
       '#title': Email
-    civicrm_3_contact_1_website_url:
-      '#type': textfield
-      '#counter_type': character
-      '#counter_maximum': 2048
-      '#counter_maximum_message': ' '
-      '#data_type': Link
-      '#form_key': civicrm_3_contact_1_website_url
-      '#extra':
-        width: 20
-      '#parent': civicrm_3_contact_1_fieldset_fieldset
-      '#title': Website
+      '#required': true
+    about_this_payee:
+      '#type': fieldset
+      '#title': 'About this payee'
+      '#title_display': invisible
+      '#states':
+        visible:
+          - ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+              value: '1'
+          - or
+          - ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+              value: '3'
+      civicrm_3_contact_1_website_url:
+        '#type': textfield
+        '#title': Website
+        '#description': '<p>if they do not have a website, put N/A</p>'
+        '#description_display': after
+        '#required': true
+        '#counter_type': character
+        '#counter_maximum': 2048
+        '#counter_maximum_message': ' '
+        '#data_type': Link
+        '#form_key': civicrm_3_contact_1_website_url
+        '#extra':
+          width: 20
+        '#parent': civicrm_3_contact_1_fieldset_fieldset
+      civicrm_3_contact_1_address_street_address:
+        '#type': textfield
+        '#counter_type': character
+        '#counter_maximum': 96
+        '#counter_maximum_message': ' '
+        '#extra':
+          width: 60
+        '#form_key': civicrm_3_contact_1_address_street_address
+        '#parent': civicrm_3_contact_1_fieldset_fieldset
+        '#title': 'Street Address'
+        '#required': true
+      civicrm_3_contact_1_address_city:
+        '#type': textfield
+        '#counter_type': character
+        '#counter_maximum': 64
+        '#counter_maximum_message': ' '
+        '#extra':
+          width: 20
+        '#form_key': civicrm_3_contact_1_address_city
+        '#parent': civicrm_3_contact_1_fieldset_fieldset
+        '#title': City
+        '#required': true
+      civicrm_3_contact_1_address_postal_code:
+        '#type': textfield
+        '#counter_type': character
+        '#counter_maximum': 64
+        '#counter_maximum_message': ' '
+        '#extra':
+          width: 7
+        '#form_key': civicrm_3_contact_1_address_postal_code
+        '#parent': civicrm_3_contact_1_fieldset_fieldset
+        '#title': 'Postal Code'
+        '#required': true
+    civicrm_3_contact_1_cg43_fieldset:
+      '#type': fieldset
+      '#title': 'Non-member payee'
+      '#title_display': invisible
+      '#states':
+        visible:
+          - ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+              value: '3'
+          - or
+          - ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+              value: '1'
+      '#form_key': civicrm_3_contact_1_cg43_fieldset
+      civicrm_3_contact_1_cg43_custom_199:
+        '#type': textfield
+        '#data_type': String
+        '#counter_type': character
+        '#counter_maximum': 255
+        '#counter_maximum_message': ' '
+        '#form_key': civicrm_3_contact_1_cg43_custom_199
+        '#extra':
+          width: 20
+        '#parent': civicrm_3_contact_1_cg43_fieldset
+        '#title': 'Account name'
+        '#required': true
+      civicrm_3_contact_1_cg43_custom_200:
+        '#type': textfield
+        '#data_type': String
+        '#counter_type': character
+        '#counter_maximum': 255
+        '#counter_maximum_message': ' '
+        '#form_key': civicrm_3_contact_1_cg43_custom_200
+        '#extra':
+          width: 20
+        '#parent': civicrm_3_contact_1_cg43_fieldset
+        '#title': 'Sort code'
+        '#required': true
+      civicrm_3_contact_1_cg43_custom_201:
+        '#type': textfield
+        '#data_type': String
+        '#counter_type': character
+        '#counter_maximum': 255
+        '#counter_maximum_message': ' '
+        '#form_key': civicrm_3_contact_1_cg43_custom_201
+        '#extra':
+          width: 20
+        '#parent': civicrm_3_contact_1_cg43_fieldset
+        '#title': 'Account number'
+        '#required': true
   civicrm_4_contact_1_fieldset_fieldset:
     '#type': fieldset
     '#title': 'Non-member payee (individual)'
+    '#title_display': invisible
+    '#states':
+      visible:
+        ':input[name="civicrm_1_activity_1_cg45_custom_202"]':
+          value: '1'
+        ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+          filled: true
     '#form_key': civicrm_4_contact_1_fieldset_fieldset
     civicrm_4_contact_1_contact_first_name:
       '#type': textfield
@@ -156,6 +347,7 @@ elements: |-
         width: 20
       '#parent': civicrm_4_contact_1_fieldset_fieldset
       '#title': 'First Name'
+      '#required': true
     civicrm_4_contact_1_contact_last_name:
       '#type': textfield
       '#counter_type': character
@@ -167,61 +359,341 @@ elements: |-
         width: 20
       '#parent': civicrm_4_contact_1_fieldset_fieldset
       '#title': 'Last Name'
-  civicrm_4_contact_1_cg3_fieldset:
-    '#type': fieldset
-    '#title': 'Individual General'
-    '#form_key': civicrm_4_contact_1_cg3_fieldset
-    civicrm_4_contact_1_cg3_custom_56:
-      '#type': textfield
-      '#data_type': String
-      '#extra':
-        description: 'What is the name on the account'
-        description_above: 0
-        width: 20
-      '#has_help': true
-      '#counter_type': character
-      '#counter_maximum': 255
-      '#counter_maximum_message': ' '
-      '#form_key': civicrm_4_contact_1_cg3_custom_56
-      '#parent': civicrm_4_contact_1_cg3_fieldset
-      '#title': 'Account Name'
-    civicrm_4_contact_1_cg3_custom_58:
-      '#type': textfield
-      '#data_type': String
-      '#counter_type': character
-      '#counter_maximum': 255
-      '#counter_maximum_message': ' '
-      '#form_key': civicrm_4_contact_1_cg3_custom_58
+      '#required': true
+    civicrm_4_contact_1_email_email:
+      '#type': email
+      '#form_key': civicrm_4_contact_1_email_email
       '#extra':
         width: 20
-      '#parent': civicrm_4_contact_1_cg3_fieldset
-      '#title': 'Account Number'
-    civicrm_4_contact_1_cg3_custom_59:
-      '#type': textfield
-      '#data_type': String
-      '#counter_type': character
-      '#counter_maximum': 255
-      '#counter_maximum_message': ' '
-      '#form_key': civicrm_4_contact_1_cg3_custom_59
-      '#extra':
-        width: 20
-      '#parent': civicrm_4_contact_1_cg3_fieldset
-      '#title': 'Sort Code'
+      '#parent': civicrm_4_contact_1_fieldset_fieldset
+      '#title': Email
+      '#required': true
+    civicrm_4_contact_1_cg43_fieldset:
+      '#type': fieldset
+      '#title': 'Non-member payee'
+      '#title_display': invisible
+      '#states':
+        visible:
+          - ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+              value: '3'
+          - or
+          - ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+              value: '1'
+      '#form_key': civicrm_4_contact_1_cg43_fieldset
+      civicrm_4_contact_1_phone_phone:
+        '#type': textfield
+        '#title': 'Phone Number'
+        '#description': '<p>if you do not have their phone number, please provide the number of someone who can be contacted regarding this person.</p>'
+        '#description_display': after
+        '#required': true
+        '#counter_type': character
+        '#counter_maximum': 32
+        '#counter_maximum_message': ' '
+        '#form_key': civicrm_4_contact_1_phone_phone
+        '#extra':
+          width: 20
+        '#parent': civicrm_4_contact_1_fieldset_fieldset
+      civicrm_4_contact_1_cg43_custom_199:
+        '#type': textfield
+        '#data_type': String
+        '#counter_type': character
+        '#counter_maximum': 255
+        '#counter_maximum_message': ' '
+        '#form_key': civicrm_4_contact_1_cg43_custom_199
+        '#extra':
+          width: 20
+        '#parent': civicrm_4_contact_1_cg43_fieldset
+        '#title': 'Account name'
+        '#required': true
+      civicrm_4_contact_1_cg43_custom_200:
+        '#type': textfield
+        '#data_type': String
+        '#counter_type': character
+        '#counter_maximum': 255
+        '#counter_maximum_message': ' '
+        '#form_key': civicrm_4_contact_1_cg43_custom_200
+        '#extra':
+          width: 20
+        '#parent': civicrm_4_contact_1_cg43_fieldset
+        '#title': 'Sort code'
+        '#required': true
+      civicrm_4_contact_1_cg43_custom_201:
+        '#type': textfield
+        '#data_type': String
+        '#counter_type': character
+        '#counter_maximum': 255
+        '#counter_maximum_message': ' '
+        '#form_key': civicrm_4_contact_1_cg43_custom_201
+        '#extra':
+          width: 20
+        '#parent': civicrm_4_contact_1_cg43_fieldset
+        '#title': 'Account number'
+        '#required': true
   civicrm_5_contact_1_fieldset_fieldset:
     '#type': fieldset
-    '#title': 'Non-member payee (household)'
+    '#title': 'Another Kin group'
+    '#title_display': invisible
+    '#states':
+      visible:
+        ':input[name="civicrm_1_activity_1_cg45_custom_202"]':
+          value: '3'
     '#form_key': civicrm_5_contact_1_fieldset_fieldset
-    civicrm_5_contact_1_contact_household_name:
-      '#type': textfield
-      '#counter_type': character
-      '#counter_maximum': 128
-      '#counter_maximum_message': ' '
+    civicrm_5_contact_1_contact_existing:
+      '#type': civicrm_contact
+      '#title': 'Payee group:'
+      '#widget': autocomplete
+      '#none_prompt': '- None Found -'
+      '#show_hidden_contact': 1
+      '#results_display':
+        display_name: display_name
+      '#required': true
+      '#default_relationship_to': '1'
+      '#default_relationship':
+        '': ''
+      '#allow_url_autofill': false
+      '#group':
+        '': ''
+      '#filter_relationship_contact': ''
       '#contact_type': household
-      '#form_key': civicrm_5_contact_1_contact_household_name
+      '#form_key': civicrm_5_contact_1_contact_existing
+      '#parent': civicrm_5_contact_1_fieldset_fieldset
+      '#extra': {  }
+    civicrm_1_activity_1_cg45_custom_216:
+      '#type': civicrm_options
+      '#extra':
+        multiple: 1
+        aslist: 0
+        items: 'yes|I confirm'
+      '#data_type': String
+      '#form_key': civicrm_1_activity_1_cg45_custom_216
+      '#options':
+        'yes': 'I confirm'
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+      '#title': 'Declaration: the other Kin group has agreed to receive this payment'
+      '#civicrm_live_options': 1
+      '#required': true
+  civicrm_1_activity_1_fieldset_fieldset:
+    '#type': fieldset
+    '#title': Activity
+    '#title_display': invisible
+    '#states':
+      visible:
+        - ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+            value: '1'
+        - or
+        - ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+            value: '2'
+        - or
+        - ':input[name="civicrm_1_activity_1_cg45_custom_203"]':
+            value: '3'
+        - or
+        - ':input[name="civicrm_1_activity_1_cg45_custom_202"]':
+            value: '3'
+    '#form_key': civicrm_1_activity_1_fieldset_fieldset
+    horizontal_rule_01:
+      '#type': webform_horizontal_rule
+    payment_details:
+      '#type': processed_text
+      '#text': '<h4><strong>Payment details</strong></h4>'
+      '#format': full_html
+    flexbox_01:
+      '#type': webform_flexbox
+      civicrm_1_activity_1_cg45_custom_206:
+        '#type': civicrm_number
+        '#data_type': Money
+        '#extra':
+          field_prefix: £
+          point: .
+          separator: ','
+          decimals: 2
+          min: 0
+        '#form_key': civicrm_1_activity_1_cg45_custom_206
+        '#parent': civicrm_1_activity_1_fieldset_fieldset
+        '#title': Amount
+        '#required': true
+      civicrm_1_activity_1_cg45_custom_205:
+        '#type': textfield
+        '#title': 'Invoice number'
+        '#description': '<p>This will be the unique bank reference</p>'
+        '#description_display': after
+        '#required': true
+        '#counter_type': character
+        '#counter_maximum': 255
+        '#counter_maximum_message': ' '
+        '#data_type': String
+        '#form_key': civicrm_1_activity_1_cg45_custom_205
+        '#extra':
+          width: 20
+        '#parent': civicrm_1_activity_1_fieldset_fieldset
+    civicrm_1_activity_1_cg45_custom_207:
+      '#type': date
+      '#title': 'Due date'
+      '#description': '<p><em>if specified</em></p>'
+      '#description_display': after
+      '#date_date_min': '-50 years'
+      '#date_date_max': '+50 years'
+      '#data_type': Date
+      '#form_key': civicrm_1_activity_1_cg45_custom_207
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+      '#extra': {  }
+    civicrm_1_activity_1_cg45_custom_208:
+      '#type': civicrm_options
+      '#title': 'What is this payment for'
+      '#options':
+        bulk: 'Food or bulk stock'
+        hire: 'Venue or equipment hire'
+        supplies: 'Equipment or supplies purchase'
+        printing: 'Printing or publicity'
+        transport: Transport
+        catering: Catering
+        services: 'Professional services (e.g. translation, accounting or legal advice)'
+        subs: 'Website, software or group subscriptions'
+        solidarity: 'Bill or expense paid on behalf of a member (solidarity)'
+        other: Other
+      '#required': true
+      '#extra':
+        aslist: 1
+        multiple: 0
+      '#data_type': String
+      '#form_key': civicrm_1_activity_1_cg45_custom_208
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+      '#default_option': ''
+      '#default_value': ''
+      '#civicrm_live_options': '1'
+    civicrm_1_activity_1_cg45_custom_209:
+      '#type': textfield
+      '#title': 'Please describe it:'
+      '#required': true
+      '#counter_type': character
+      '#counter_maximum': 255
+      '#counter_maximum_message': ' '
+      '#states':
+        visible:
+          ':input[name="civicrm_1_activity_1_cg45_custom_208"]':
+            value: other
+      '#data_type': String
+      '#form_key': civicrm_1_activity_1_cg45_custom_209
       '#extra':
         width: 20
-      '#parent': civicrm_5_contact_1_fieldset_fieldset
-      '#title': 'Household Name'
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+    civicrm_1_activity_1_activityupload_file_1:
+      '#type': managed_file
+      '#title': Invoice
+      '#data_type': File
+      '#form_key': civicrm_1_activity_1_activityupload_file_1
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+      '#extra': {  }
+    civicrm_1_activity_1_activityupload_file_2:
+      '#type': managed_file
+      '#title': 'Other attachment (optional)'
+      '#data_type': File
+      '#form_key': civicrm_1_activity_1_activityupload_file_2
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+      '#extra': {  }
+    civicrm_1_activity_1_cg45_custom_220:
+      '#type': textarea
+      '#data_type': Memo
+      '#extra':
+        cols: '60'
+        rows: '4'
+        description: ''
+        description_above: null
+      '#nid': non_member_payment
+      '#form_key': civicrm_1_activity_1_cg45_custom_220
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+      '#title': 'Note:'
+      '#default_value': ''
+    civicrm_1_activity_1_cg45_custom_210:
+      '#type': civicrm_options
+      '#extra':
+        aslist: 0
+        items: |-
+          1|Yes
+          2|No
+      '#data_type': String
+      '#form_key': civicrm_1_activity_1_cg45_custom_210
+      '#options':
+        1: 'Yes'
+        2: 'No'
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+      '#title': 'Is the payee, or anyone who owns, runs or works for them, a member of your group or related to a member?'
+      '#civicrm_live_options': 1
+      '#required': true
+    civicrm_1_activity_1_cg45_custom_211:
+      '#type': textfield
+      '#title': 'Describe their connection to the group:'
+      '#required': true
+      '#counter_type': character
+      '#counter_maximum': 255
+      '#counter_maximum_message': ' '
+      '#states':
+        visible:
+          ':input[name="civicrm_1_activity_1_cg45_custom_210"]':
+            value: '1'
+      '#data_type': String
+      '#form_key': civicrm_1_activity_1_cg45_custom_211
+      '#extra':
+        width: 20
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+    civicrm_1_activity_1_cg45_custom_212:
+      '#type': civicrm_options
+      '#title': 'Did they take part in the decision to make this payment?'
+      '#options':
+        1: 'Yes'
+        2: 'No'
+      '#required': true
+      '#states':
+        visible:
+          ':input[name="civicrm_1_activity_1_cg45_custom_210"]':
+            value: '1'
+      '#data_type': String
+      '#form_key': civicrm_1_activity_1_cg45_custom_212
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+      '#default_option': ''
+      '#default_value': ''
+      '#civicrm_live_options': '1'
+    civicrm_1_activity_1_cg45_custom_213:
+      '#type': civicrm_options
+      '#extra':
+        multiple: 1
+        aslist: 0
+        items: 'yes|I confirm'
+      '#data_type': String
+      '#form_key': civicrm_1_activity_1_cg45_custom_213
+      '#options':
+        'yes': 'I confirm'
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+      '#title': 'Declaration: this payment is for this invoice only. It is not part of the group running a business for profit, and it is not wages or regular paid work for any individual'
+      '#civicrm_live_options': 1
+      '#required': true
+    civicrm_1_activity_1_cg45_custom_214:
+      '#type': civicrm_options
+      '#extra':
+        multiple: 1
+        aslist: 0
+        items: 'yes|I confirm'
+      '#data_type': String
+      '#form_key': civicrm_1_activity_1_cg45_custom_214
+      '#options':
+        'yes': 'I confirm'
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+      '#title': 'Declaration: I have checked the invoice is genuine and the amount is correct'
+      '#civicrm_live_options': 1
+      '#required': true
+    civicrm_1_activity_1_cg45_custom_215:
+      '#type': civicrm_options
+      '#extra':
+        multiple: 1
+        aslist: 0
+        items: 'yes|I confirm'
+      '#data_type': String
+      '#form_key': civicrm_1_activity_1_cg45_custom_215
+      '#options':
+        'yes': 'I confirm'
+      '#parent': civicrm_1_activity_1_fieldset_fieldset
+      '#title': 'Declaration: the group has agreed to pay this invoice in line with how we have agreed to make decisions'
+      '#civicrm_live_options': 1
+      '#required': true
 css: ''
 javascript: ''
 settings:
@@ -327,12 +799,12 @@ settings:
   draft_loaded_message: ''
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
-  confirmation_type: page
-  confirmation_url: ''
+  confirmation_type: url_message
+  confirmation_url: '/member/group/[webform_submission:values:civicrm_2_contact_1_contact_existing:raw]'
   confirmation_title: ''
-  confirmation_message: ''
+  confirmation_message: '<h4>Non-member payment request submitted!</h4><p>Now the Kin team will check the details and create the request for your group admin to review.&nbsp;</p><p>Once they have approved the request, the Kin team will make the payment to the payee on behalf of your group.&nbsp;</p><p>If you have any issues or have made a mistake, please get in touch with us immediately.&nbsp;</p>'
   confirmation_attributes: {  }
-  confirmation_back: true
+  confirmation_back: false
   confirmation_back_label: ''
   confirmation_back_attributes: {  }
   confirmation_exclude_query: false
@@ -362,20 +834,22 @@ settings:
 access:
   create:
     roles:
-      - anonymous
       - authenticated
     users: {  }
     permissions: {  }
   view_any:
-    roles: {  }
+    roles:
+      - administrator
     users: {  }
     permissions: {  }
   update_any:
-    roles: {  }
+    roles:
+      - administrator
     users: {  }
     permissions: {  }
   delete_any:
-    roles: {  }
+    roles:
+      - administrator
     users: {  }
     permissions: {  }
   purge_any:
@@ -460,6 +934,7 @@ handlers:
       contact_1_number_of_im: '0'
       contact_1_number_of_cg1: '0'
       contact_1_number_of_cg18: '0'
+      contact_1_number_of_cg43: '0'
       2_contact_type: household
       2_webform_label: Group
       civicrm_2_contact_1_contact_contact_sub_type:
@@ -478,6 +953,7 @@ handlers:
       civicrm_2_contact_1_contact_source: 0
       civicrm_2_contact_1_contact_cs: 0
       contact_2_settings_matching_rule: Unsupervised
+      contact_2_number_of_cg42: '0'
       contact_2_number_of_other: '0'
       contact_2_number_of_address: '0'
       contact_2_number_of_phone: '0'
@@ -487,6 +963,7 @@ handlers:
       contact_2_number_of_relationship: '0'
       contact_2_number_of_cg1: '0'
       contact_2_number_of_cg18: '0'
+      contact_2_number_of_cg43: '0'
       3_contact_type: organization
       3_webform_label: 'Non-member payee (organisation)'
       civicrm_3_contact_1_contact_contact_sub_type: {  }
@@ -505,9 +982,26 @@ handlers:
       civicrm_3_contact_1_contact_external_identifier: 0
       civicrm_3_contact_1_contact_source: 0
       civicrm_3_contact_1_contact_cs: 0
-      contact_3_settings_matching_rule: Unsupervised
+      contact_3_settings_matching_rule: '2'
       contact_3_number_of_other: '0'
-      contact_3_number_of_address: '0'
+      contact_3_number_of_address: '1'
+      civicrm_3_contact_1_address_street_address: create_civicrm_webform_element
+      civicrm_3_contact_1_address_street_name: 0
+      civicrm_3_contact_1_address_street_number: 0
+      civicrm_3_contact_1_address_street_unit: 0
+      civicrm_3_contact_1_address_name: 0
+      civicrm_3_contact_1_address_supplemental_address_1: 0
+      civicrm_3_contact_1_address_supplemental_address_2: 0
+      civicrm_3_contact_1_address_supplemental_address_3: 0
+      civicrm_3_contact_1_address_city: create_civicrm_webform_element
+      civicrm_3_contact_1_address_postal_code: create_civicrm_webform_element
+      civicrm_3_contact_1_address_postal_code_suffix: 0
+      civicrm_3_contact_1_address_country_id: 0
+      civicrm_3_contact_1_address_state_province_id: 0
+      civicrm_3_contact_1_address_county_id: 0
+      civicrm_3_contact_1_address_master_id: 0
+      civicrm_3_contact_1_address_location_type_id: '1'
+      civicrm_3_contact_1_address_is_primary: '1'
       contact_3_number_of_phone: '0'
       contact_3_number_of_email: '1'
       civicrm_3_contact_1_email_email: create_civicrm_webform_element
@@ -520,6 +1014,11 @@ handlers:
       contact_3_number_of_relationship: '0'
       contact_3_number_of_cg1: '0'
       contact_3_number_of_cg18: '0'
+      contact_3_number_of_cg43: '1'
+      contact_3_settings_dynamic_custom_cg43: 1
+      civicrm_3_contact_1_cg43_custom_199: create_civicrm_webform_element
+      civicrm_3_contact_1_cg43_custom_200: create_civicrm_webform_element
+      civicrm_3_contact_1_cg43_custom_201: create_civicrm_webform_element
       4_contact_type: individual
       4_webform_label: 'Non-member payee (individual)'
       civicrm_4_contact_1_contact_contact_sub_type:
@@ -547,35 +1046,38 @@ handlers:
       civicrm_4_contact_1_contact_employer_id: 0
       civicrm_4_contact_1_contact_is_deceased: 0
       civicrm_4_contact_1_contact_deceased_date: 0
-      contact_4_settings_matching_rule: Unsupervised
-      contact_4_number_of_cg3: '1'
-      contact_4_settings_dynamic_custom_cg3: 0
-      civicrm_4_contact_1_cg3_custom_6: 0
-      civicrm_4_contact_1_cg3_custom_4: 0
-      civicrm_4_contact_1_cg3_custom_5: 0
-      civicrm_4_contact_1_cg3_custom_56: create_civicrm_webform_element
-      civicrm_4_contact_1_cg3_custom_57: 0
-      civicrm_4_contact_1_cg3_custom_58: create_civicrm_webform_element
-      civicrm_4_contact_1_cg3_custom_59: create_civicrm_webform_element
-      civicrm_4_contact_1_cg3_custom_154: 0
-      civicrm_4_contact_1_cg3_custom_75: 0
+      contact_4_settings_matching_rule: '1'
+      contact_4_number_of_cg3: '0'
       contact_4_number_of_cg27: '0'
       contact_4_number_of_cg28: '0'
       contact_4_number_of_other: '0'
       contact_4_number_of_address: '0'
-      contact_4_number_of_phone: '0'
-      contact_4_number_of_email: '0'
+      contact_4_number_of_phone: '1'
+      civicrm_4_contact_1_phone_phone: create_civicrm_webform_element
+      civicrm_4_contact_1_phone_phone_ext: 0
+      civicrm_4_contact_1_phone_phone_type_id: '1'
+      civicrm_4_contact_1_phone_location_type_id: '1'
+      civicrm_4_contact_1_phone_is_primary: '1'
+      contact_4_number_of_email: '1'
+      civicrm_4_contact_1_email_email: create_civicrm_webform_element
+      civicrm_4_contact_1_email_location_type_id: '1'
+      civicrm_4_contact_1_email_is_primary: '1'
       contact_4_number_of_website: '0'
       contact_4_number_of_im: '0'
       contact_4_number_of_relationship: '0'
       contact_4_number_of_cg1: '0'
       contact_4_number_of_cg18: '0'
+      contact_4_number_of_cg43: '1'
+      contact_4_settings_dynamic_custom_cg43: 1
+      civicrm_4_contact_1_cg43_custom_199: create_civicrm_webform_element
+      civicrm_4_contact_1_cg43_custom_200: create_civicrm_webform_element
+      civicrm_4_contact_1_cg43_custom_201: create_civicrm_webform_element
       5_contact_type: household
-      5_webform_label: 'Non-member payee (household)'
+      5_webform_label: 'Another Kin group'
       civicrm_5_contact_1_contact_contact_sub_type:
         '': ''
-      civicrm_5_contact_1_contact_existing: 0
-      civicrm_5_contact_1_contact_household_name: create_civicrm_webform_element
+      civicrm_5_contact_1_contact_existing: create_civicrm_webform_element
+      civicrm_5_contact_1_contact_household_name: 0
       civicrm_5_contact_1_contact_nick_name: 0
       civicrm_5_contact_1_contact_preferred_communication_method: 0
       civicrm_5_contact_1_contact_privacy: 0
@@ -588,6 +1090,7 @@ handlers:
       civicrm_5_contact_1_contact_source: 0
       civicrm_5_contact_1_contact_cs: 0
       contact_5_settings_matching_rule: Unsupervised
+      contact_5_number_of_cg42: '0'
       contact_5_number_of_other: '0'
       contact_5_number_of_address: '0'
       contact_5_number_of_phone: '0'
@@ -597,11 +1100,60 @@ handlers:
       contact_5_number_of_relationship: '0'
       contact_5_number_of_cg1: '0'
       contact_5_number_of_cg18: '0'
+      contact_5_number_of_cg43: '0'
       prefix_known: ''
       prefix_unknown: ''
       toggle_message: 0
       message: ''
-      activity_number_of_activity: '0'
+      activity_number_of_activity: '1'
+      activity_1_settings_existing_activity_status:
+        '': ''
+      activity_1_settings_details:
+        view_link: view_link
+        entire_result: 0
+        edit_link: 0
+        view_link_secure: 0
+        update_existing: 0
+      civicrm_1_activity_1_activity_activity_type_id: '73'
+      civicrm_1_activity_1_activity_target_contact_id:
+        2: '2'
+        3: '3'
+        4: '4'
+        5: '5'
+      civicrm_1_activity_1_activity_source_contact_id: '1'
+      civicrm_1_activity_1_activity_subject: 0
+      civicrm_1_activity_1_activity_details: 0
+      civicrm_1_activity_1_activity_status_id: '0'
+      civicrm_1_activity_1_activity_priority_id: '0'
+      civicrm_1_activity_1_activity_assignee_contact_id:
+        '': ''
+      civicrm_1_activity_1_activity_location: 0
+      civicrm_1_activity_1_activity_activity_date_time: 0
+      civicrm_1_activity_1_activity_duration: 0
+      civicrm_1_activity_1_activity_tag:
+        '': ''
+      civicrm_1_activity_1_activityupload_file_1: create_civicrm_webform_element
+      civicrm_1_activity_1_activityupload_file_2: create_civicrm_webform_element
+      civicrm_1_activity_1_activityupload_file_3: 0
+      activity_1_settings_dynamic_custom_cg30: 0
+      civicrm_1_activity_1_cg30_custom_82: 0
+      activity_1_settings_dynamic_custom_cg45: 1
+      civicrm_1_activity_1_cg45_custom_202: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_203: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_204: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_205: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_206: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_207: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_208: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_209: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_210: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_211: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_212: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_217: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_216: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_213: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_214: create_civicrm_webform_element
+      civicrm_1_activity_1_cg45_custom_215: create_civicrm_webform_element
       participant_reg_type: '0'
       reg_options:
         event_type:
@@ -651,6 +1203,7 @@ handlers:
             number_of_im: '0'
             number_of_cg1: '0'
             number_of_cg18: '0'
+            number_of_cg43: '0'
             email:
               1:
                 location_type_id: '1'
@@ -662,6 +1215,7 @@ handlers:
                 contact_sub_type: {  }
                 webform_label: Group
             matching_rule: Unsupervised
+            number_of_cg42: '0'
             number_of_other: '0'
             number_of_address: '0'
             number_of_phone: '0'
@@ -671,15 +1225,16 @@ handlers:
             number_of_relationship: '0'
             number_of_cg1: '0'
             number_of_cg18: '0'
+            number_of_cg43: '0'
           3:
             contact:
               1:
                 contact_type: organization
                 contact_sub_type: {  }
                 webform_label: 'Non-member payee (organisation)'
-            matching_rule: Unsupervised
+            matching_rule: '2'
             number_of_other: '0'
-            number_of_address: '0'
+            number_of_address: '1'
             number_of_phone: '0'
             number_of_email: '1'
             number_of_website: '1'
@@ -687,6 +1242,12 @@ handlers:
             number_of_relationship: '0'
             number_of_cg1: '0'
             number_of_cg18: '0'
+            number_of_cg43: '1'
+            dynamic_custom_cg43: 1
+            address:
+              1:
+                location_type_id: '1'
+                is_primary: '1'
             email:
               1:
                 location_type_id: '1'
@@ -700,27 +1261,38 @@ handlers:
                 contact_type: individual
                 contact_sub_type: {  }
                 webform_label: 'Non-member payee (individual)'
-            matching_rule: Unsupervised
-            number_of_cg3: '1'
-            dynamic_custom_cg3: 0
+            matching_rule: '1'
+            number_of_cg3: '0'
             number_of_cg27: '0'
             number_of_cg28: '0'
             number_of_other: '0'
             number_of_address: '0'
-            number_of_phone: '0'
-            number_of_email: '0'
+            number_of_phone: '1'
+            number_of_email: '1'
             number_of_website: '0'
             number_of_im: '0'
             number_of_relationship: '0'
             number_of_cg1: '0'
             number_of_cg18: '0'
+            number_of_cg43: '1'
+            dynamic_custom_cg43: 1
+            phone:
+              1:
+                phone_type_id: '1'
+                location_type_id: '1'
+                is_primary: '1'
+            email:
+              1:
+                location_type_id: '1'
+                is_primary: '1'
           5:
             contact:
               1:
                 contact_type: household
                 contact_sub_type: {  }
-                webform_label: 'Non-member payee (household)'
+                webform_label: 'Another Kin group'
             matching_rule: Unsupervised
+            number_of_cg42: '0'
             number_of_other: '0'
             number_of_address: '0'
             number_of_phone: '0'
@@ -730,8 +1302,24 @@ handlers:
             number_of_relationship: '0'
             number_of_cg1: '0'
             number_of_cg18: '0'
+            number_of_cg43: '0'
         activity:
-          number_of_activity: '0'
+          number_of_activity: '1'
+          1:
+            existing_activity_status: {  }
+            details:
+              view_link: view_link
+            dynamic_custom_cg30: 0
+            dynamic_custom_cg45: 1
+            activity:
+              1:
+                activity_type_id: '73'
+                target_contact_id:
+                  2: '2'
+                  3: '3'
+                  4: '4'
+                  5: '5'
+                source_contact_id: '1'
         membership:
           1:
             number_of_membership: '0'
@@ -759,4 +1347,42 @@ handlers:
           disable_unregister: 0
           allow_url_load: 0
           disable_primary_participant: 0
+  email:
+    id: email
+    handler_id: email
+    label: 'Kin team email'
+    notes: ''
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      states:
+        - completed
+      to_mail: _default
+      to_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      cc_mail: rob@kin.coop
+      cc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      subject: _default
+      body: '<p>A non-member payment request has been made by:&nbsp;</p><p>[webform_submission:user]<br><br>See below:</p><p>[webform_submission:values]</p>'
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: true
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      langcode: ''
+      parameters: {  }
+      debug: false
 variants: {  }

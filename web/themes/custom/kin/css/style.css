@@ -14298,10 +14298,10 @@ div.block.vertical .field--name-body p .btn, div.block.vertical .field--name-bod
   content: "\f229";
 }
 
-.bg-primary > .btn-secondary {
+.bg-primary > .btn-secondary, .bg-primary > div > .btn-secondary {
   background: #5CBEB5;
 }
-.bg-primary > .btn-secondary:hover {
+.bg-primary > .btn-secondary:hover, .bg-primary > div > .btn-secondary:hover {
   background: #FDC652;
 }
 
