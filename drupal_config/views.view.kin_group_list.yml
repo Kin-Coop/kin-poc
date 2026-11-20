@@ -434,9 +434,9 @@ display:
                   collapsible_disable_automatic_open: false
                   open_by_default: false
                   is_secondary: false
+                  no_reset: false
                   hide_label: false
                   field_classes: ''
-                  no_reset: false
       access:
         type: role
         options:
@@ -1351,7 +1351,7 @@ display:
           relationship_type:
             8: '8'
             11: '11'
-          relationship_state: 1
+          relationship_state: true
         contact_id_a:
           id: contact_id_a
           table: civicrm_relationship
@@ -2330,7 +2330,7 @@ display:
           relationship_type:
             8: '8'
             11: '11'
-          relationship_state: 1
+          relationship_state: true
         contact_id_a:
           id: contact_id_a
           table: civicrm_relationship
@@ -3267,7 +3267,7 @@ display:
           relationship_type:
             8: '8'
             11: '11'
-          relationship_state: 1
+          relationship_state: true
         contact_id_a:
           id: contact_id_a
           table: civicrm_relationship
@@ -4249,7 +4249,7 @@ display:
           relationship_type:
             8: '8'
             11: '11'
-          relationship_state: 1
+          relationship_state: true
         contact_id_a:
           id: contact_id_a
           table: civicrm_relationship
@@ -6337,7 +6337,7 @@ display:
           relationship_type:
             8: '8'
             11: '11'
-          relationship_state: 0
+          relationship_state: false
         contact_id_a:
           id: contact_id_a
           table: civicrm_relationship
@@ -6376,6 +6376,17 @@ display:
           empty: false
           view_to_insert: 'public_join_group:block_2'
           inherit_arguments: true
+        view_8:
+          id: view_8
+          table: views
+          field: view
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: view
+          empty: true
+          view_to_insert: 'civi_admins:block_2'
+          inherit_arguments: false
         view_3:
           id: view_3
           table: views
@@ -7026,7 +7037,7 @@ display:
           relationship_type:
             8: '8'
             11: '11'
-          relationship_state: 0
+          relationship_state: false
         contact_id_a:
           id: contact_id_a
           table: civicrm_relationship
@@ -7628,7 +7639,7 @@ display:
           required: true
           relationship_type:
             11: '11'
-          relationship_state: 1
+          relationship_state: true
         contact_id_b:
           id: contact_id_b
           table: civicrm_relationship
@@ -7653,7 +7664,7 @@ display:
           relationship_type:
             8: '8'
             11: '11'
-          relationship_state: 1
+          relationship_state: true
         contact_id_a:
           id: contact_id_a
           table: civicrm_relationship
@@ -8228,7 +8239,7 @@ display:
           relationship_type:
             8: '8'
             11: '11'
-          relationship_state: 0
+          relationship_state: false
         contact_id_a:
           id: contact_id_a
           table: civicrm_relationship

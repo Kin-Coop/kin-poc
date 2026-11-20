@@ -2,8 +2,11 @@ uuid: 274b222d-bbb3-48fb-99ec-05312d0f3bed
 langcode: en-gb
 status: true
 dependencies:
+  config:
+    - user.role.administrator
   module:
     - civicrm_entity
+    - user
 id: public_join_group
 label: 'Public Join Group'
 module: views
@@ -500,4 +503,170 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
+      tags: {  }
+  block_3:
+    id: block_3
+    display_title: 'Group Public View'
+    display_plugin: block
+    position: 3
+    display_options:
+      title: 'Public View'
+      fields:
+        display_name:
+          id: display_name
+          table: civicrm_contact
+          field: display_name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: null
+          entity_field: display_name
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: "<h2>Join {{ display_name }}</h2>\r\n<p>To join {{ display_name }} please fill in your details.  If you are already a member of Kin please <a href=\"/user/login?current=/member/join-kin-group?cid2=477\" class=\"btn btn-primary\">Login</a></p>"
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+            link_rel: canonical
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        display_on_map_221:
+          id: display_on_map_221
+          table: civicrm_value_households_42
+          field: display_on_map_221
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: civicrm_contact
+          entity_field: display_on_map_221
+          plugin_id: civicrm_entity_custom_field
+          label: 'Public View'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          type: boolean
+          settings:
+            format: default
+            format_custom_true: ''
+            format_custom_false: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: 0
+      access:
+        type: role
+        options:
+          role:
+            administrator: administrator
+      defaults:
+        access: false
+        title: false
+        css_class: false
+        fields: false
+      css_class: 'member-block col-md-3'
+      display_description: ''
+      display_extenders:
+        attributes: {  }
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
+      block_description: 'Group Public View'
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - user.roles
       tags: {  }

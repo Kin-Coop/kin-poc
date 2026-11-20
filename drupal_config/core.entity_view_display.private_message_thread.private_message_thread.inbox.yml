@@ -1,5 +1,5 @@
 uuid: 3027a39c-bc72-4a16-ba3e-00b3c1d2042b
-langcode: en
+langcode: en-gb
 status: true
 dependencies:
   config:
@@ -14,24 +14,24 @@ bundle: private_message_thread
 mode: inbox
 content:
   clear_history_link:
-    weight: -100
     settings: {  }
     third_party_settings: {  }
+    weight: -100
     region: content
   last_message:
-    weight: 1
-    region: content
     settings: {  }
     third_party_settings: {  }
-  members:
-    label: hidden
-    type: private_message_thread_member_formatter
-    weight: 0
+    weight: 1
     region: content
+  members:
+    type: private_message_thread_member_formatter
+    label: hidden
     settings:
       display_type: label
       entity_display_mode: private_message_author
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   delete_link: true
   no_active_users: true

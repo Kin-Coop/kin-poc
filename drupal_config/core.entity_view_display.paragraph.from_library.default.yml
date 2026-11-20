@@ -1,5 +1,5 @@
 uuid: 7a3fe0c2-49d6-4794-86a3-a5e911805480
-langcode: en
+langcode: en-gb
 status: true
 dependencies:
   config:
@@ -13,12 +13,12 @@ bundle: from_library
 mode: default
 content:
   field_reusable_paragraph:
-    weight: 0
+    type: entity_reference_entity_view
     label: above
     settings:
-      link: true
       view_mode: default
+      link: true
     third_party_settings: {  }
-    type: entity_reference_entity_view
+    weight: 0
     region: content
 hidden: {  }

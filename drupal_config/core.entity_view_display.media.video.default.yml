@@ -1,5 +1,5 @@
 uuid: 8cd2bc88-a091-4b64-b641-12ad15082dde
-langcode: en
+langcode: en-gb
 status: true
 dependencies:
   config:
@@ -23,9 +23,9 @@ content:
       loop: false
       multiple_file_display_type: tags
       muted: false
+      playsinline: false
       width: 640
       height: 480
-      playsinline: false
     third_party_settings: {  }
     weight: 0
     region: content
